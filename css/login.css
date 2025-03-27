@@ -1,0 +1,35 @@
+.background {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #F6F7F8;
+}
+
+
+.logo {
+    width: 120px;
+    height: 100px;
+    position: absolute;
+    top: 80px;
+    left: 77px;
+}
+
+
+.login-content {
+    height: max-content;
+    padding: 20px 10px;
+    height: max-content;
+    padding: 20px 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 550px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    position: absolute;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
