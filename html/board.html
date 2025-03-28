@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body onload="init()">
+
+
+    
+</body>
+<nav id="navbar-section" class="navbar-section"></nav>
+
+<main>
+    <header id="header-placeholder"></header>
+    <div class="content">Content</div>
+</main>
+
+<script>
+  function init() {
+        loadHTML("header.html", "header-placeholder");
+        loadHTML("navbar.html", "navbar-section");
+        activePageHiglight("board_page");
+    };
+
+    function loadHTML(file, ID)  {
+        fetch(file)
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById(ID).innerHTML = data;
+            });
+    };
+
+    function activePageHiglight(page) {
+        document.getElementById(page).classList.add("active-menu");
+    }
+
+
+
+</script>
+</html>
