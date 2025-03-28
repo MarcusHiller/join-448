@@ -1,43 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board</title>
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/board.css">
 </head>
-<body onload="init()">
+<body">
 
 
-    
-</body>
-<nav id="navbar-section" class="navbar-section"></nav>
+    <nav id="navbar-section" class="navbar-section"></nav>
 
-<main>
-    <header id="header-placeholder"></header>
-    <div class="content">Content</div>
-</main>
+    <main>
+        <header id="header-placeholder"></header>
 
-<script>
-  function init() {
-        loadHTML("header.html", "header-placeholder");
-        loadHTML("navbar.html", "navbar-section");
-        activePageHiglight("board_page");
-    };
+        <div class="content">
+            <div class="board-headline">
+                <h1>Board</h1>
+                <div class="add-task-section">
+                    <div class="search-task">
+                        <input type="text" placeholder="Find Task">
+                        <div class="search-button-container">
+                            <img src="/assets/img/icon/search.svg" alt="search">
+                        </div>
 
-    function loadHTML(file, ID)  {
-        fetch(file)
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById(ID).innerHTML = data;
-            });
-    };
+                    </div>
+                    <div class="add-task-button">
+                        <span>Add task</span>
+                        <img src="/assets/img/icon/add.svg" alt="plus">
+                    </div>
+                </div>
+            </div>
+            <div class="board-distribution">
+                <div class="row">
+                    <div class="column">
+                        <div class="column-headline">
+                            <h3>To do</h3>
+                            <img src="/assets/img/icon/plus_button.svg" alt="">
+                        </div>
+                        <div class="column-container">
+                            <div class="task">
+                                <div class="task-cat"><p>User Story</p></div>
+                                <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
+                                <div class="task-description"><span >Build start page with recipe rec...dasdasdasdasdasd</span></div>
+                                <div class="progress">
+                                    <progress max="2" value="1"></progress>
+                                    <span>1/2 Subtasks</span>
+                                </div>
+                                <div class="task-users">
+                                    <div class="user">BC</div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    function activePageHiglight(page) {
-        document.getElementById(page).classList.add("active-menu");
-    }
 
 
 
-</script>
+
+
+        </div>
+    </main>
+
+
+
+    </body>
+
+
+    <script>
+        function init() {
+            loadHTML("header.html", "header-placeholder");
+            loadHTML("navbar.html", "navbar-section");
+            activePageHiglight("board_page");
+        };
+
+        function loadHTML(file, ID) {
+            fetch(file)
+                .then(res => res.text())
+                .then(data => {
+                    document.getElementById(ID).innerHTML = data;
+                });
+        };
+
+        function activePageHiglight(page) {
+            document.getElementById(page).classList.add("active-menu");
+        }
+
+
+
+    </script>
+
 </html>
