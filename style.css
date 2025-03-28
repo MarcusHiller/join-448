@@ -1,0 +1,138 @@
+body {
+    margin: 0;
+    display: flex;
+}
+
+main {
+    display: flex;
+    width: calc(100% - 232px);
+    flex-direction: column;
+}
+
+/* Header */
+
+header {
+    background-color: #ffffff;
+    padding-left: 80px;
+    padding-right: 48px;
+    height: 96px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 1px 5px #80808069;
+    z-index: 1;
+
+}
+
+.header-right-side {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-right-side img {
+    width: 32px;
+    object-fit: contain;
+}
+
+.user-logo-text {
+    font-weight: bold;
+    color: #29ABE2;
+    font-size: 24px;
+   
+}
+
+.user_circle {
+    width: 56px;
+    height: 56px;
+    border: 3px solid #2A3647;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.navbar-section {
+    background-color: #2A3647;
+    width: 232px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.navbar-logo {
+    width: 120px;
+    margin-top: 64px;
+    margin-bottom: 160px;
+}
+
+.navbar-link a {
+    text-decoration: none;
+    color: white;
+}
+
+.navbar-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    width: 100%;
+    padding: 8px 0;
+    margin: 8px 0;
+    opacity: 0.5;
+}
+
+.navbar-link img {
+    width: 24px;
+    object-fit: contain;
+    margin-right: 16px;
+    margin-left: 56px;
+}
+
+.active-menu {
+    background-color: #091931;
+    opacity: 1 !important;
+}
+
+.policy-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 100px;
+    width: 100%;
+}
+
+.policy-section a {
+    color: white;
+    text-decoration: none;
+    margin: 8px 0;
+    padding: 8px 0;
+    opacity: 0.5;
+    text-align: center;
+}
+
+.content {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: #F6F7F8;
+
+}

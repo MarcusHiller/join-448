@@ -1,21 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Navbar</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
-    <header>
-        <span>Kanban Project Management Tool</span>
-    
-        <div class="header-left-side">
-          <img src="" alt="help-icon">
-          <div class="user-logo">
-            <span class="user-logo-text">BC</span>
-          </div>
+    <nav class="navbar-section">
+        <div class="navbar">
+            <img class="navbar-logo" src="/assets/img/logo/join_logo.svg" alt="">
+            <div class="navbar-links">
+                <div class="navbar-link active-menu"><img src="/assets/img/icon/summary_icon.svg" alt=""><a
+                        href="/html/summary.html">Summary</a></div>
+                <div class="navbar-link"><img src="/assets/img/icon/add_task_icon.svg" alt=""><a
+                        href="/html/add_task.html">Add Task</a></div>
+                <div class="navbar-link"><img src="/assets/img/icon/board_icon.svg" alt=""><a href="">Board</a></div>
+                <div class="navbar-link"><img src="/assets/img/icon/contacts_icon.svg" alt=""><a href="">Contacts</a>
+                </div>
+            </div>
         </div>
-      </header>
-    
+        <div class="policy-section">
+            <a class="" href="">Privacy Policy</a>
+            <a href="">Legal notice</a>
+        </div>
+    </nav>
+
+    <main>
+        <header>
+            <span>Kanban Project Management Tool</span>
+
+            <div class="header-right-side">
+                <img src="/assets/img/icon/help.svg" alt="help-icon">
+                <div class="user-logo">
+                    <div class="user_circle"><span class="user-logo-text">G</span></div>
+
+                </div>
+            </div>
+        </header>
+        <div class="content">Content</div>
+    </main>
 </body>
+
 </html>
