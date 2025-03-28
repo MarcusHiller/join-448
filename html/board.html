@@ -1,247 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board</title>
     <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/css/board.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
-    <script src="/script.js"></script>
 </head>
-
-<body onload="init('board_page')">
-
-
-    <nav id="navbar-section" class="navbar-section"></nav>
-
-    <main>
-        <header id="header-placeholder"></header>
-        <div class="content">
-            <div class="board-headline">
-                <div class="board-text-responsive">
-                    <h1>Board</h1>
-                    <div class="add-task-button-mobile">
-                        <img src="/assets/img/icon/add_mobile.svg" alt="plus">
-                    </div>
-                </div>
-                <div class="add-task-section">
-                    <div class="search-task">
-                        <input class="input-task" type="text" placeholder="Find Task">
-                        <div class="search-button-container">
-                            <img src="/assets/img/icon/search.svg" alt="search">
-                        </div>
-
-                    </div>
-                    <div class="add-task-button">
-                        <span class="add-task-text">Add task</span>
-                        <img src="/assets/img/icon/add.svg" alt="plus">
-                    </div>
-                </div>
-            </div>
-            <div class="board-distribution">
-                <div class="row">
-                    <div class="column">
-                        <div class="column-headline">
-                            <h3>To do</h3>
-                            <img src="/assets/img/icon/plus_button.svg" alt="">
-                        </div>
-                        <div class="column-container">
-                            <div class="task">
-                                <div class="task-cat">
-                                    <p>User Story</p>
-                                </div>
-                                <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
-                                <div class="task-description"><span>Lorem ipsum dolor sit amet consectetur adipisicing
-                                        elit. Eos suscipit quos repellat ut cum numquam at! Ullam, repellat, fugit
-                                        pariatur vel dignissimos repellendus quisquam debitis corporis nesciunt velit
-                                        commodi quidem.Build start page withasdasdasdasdasd recipe
-                                        rec...dasdasdasdasdasd</span></div>
-                                <div class="progress">
-                                    <progress max="2" value="1"></progress>
-                                    <span>1/2 Subtasks</span>
-                                </div>
-                                <div class="task-footer">
-                                    <div class="task-users">
-                                        <div class="user">BC</div>
-                                        <div class="user">PB</div>
-                                        <div class="user">MH</div>
-                                    </div>
-                                    <div class="priority">
-                                        <img src="/assets/img/icon/prio_medium.svg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="task">
-                                <div class="task-cat">
-                                    <p>User Story</p>
-                                </div>
-                                <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
-                                <div class="task-description"><span>e withasdasdasdasdasd recipe
-                                        rec...dasdasdasdasdasd</span></div>
-                                <div class="progress">
-                                    <progress max="2" value="1"></progress>
-                                    <span>1/2 Subtasks</span>
-                                </div>
-                                <div class="task-footer">
-                                    <div class="task-users">
-                                        <div class="user">BC</div>
-                                        <div class="user">PB</div>
-                                        <div class="user">MH</div>
-                                    </div>
-                                    <div class="priority">
-                                        <img src="/assets/img/icon/prio_medium.svg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="column-headline">
-                            <h3>In progress</h3>
-                            <img src="/assets/img/icon/plus_button.svg" alt="">
-                        </div>
-                        <div class="column-container">
-                            <div class="task">
-                                <div class="task-cat">
-                                    <p>User Story</p>
-                                </div>
-                                <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
-                                <div class="task-description"><span>Build start page with recipe
-                                        rec...dasdasdasdasdasd</span></div>
-                                <div class="progress">
-                                    <progress max="2" value="1"></progress>
-                                    <span>1/2 Subtasks</span>
-                                </div>
-                                <div class="task-footer">
-                                    <div class="task-users">
-                                        <div class="user">BC</div>
-                                        <div class="user">PB</div>
-                                        <div class="user">MH</div>
-                                    </div>
-                                    <div class="priority">
-                                        <img src="/assets/img/icon/prio_medium.svg" alt="">
-                                    </div>
-                                </div>
+<body onload="init()">
 
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="column-headline">
-                            <h3>Await feedback</h3>
-                            <img src="/assets/img/icon/plus_button.svg" alt="">
-                        </div>
-                        <div class="column-container">
-                            <div class="task">
-                                <div class="task-cat">
-                                    <p>User Story</p>
-                                </div>
-                                <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
-                                <div class="task-description"><span>Build start page with recipe
-                                        rec...dasdasdasdasdasd</span></div>
-                                <div class="progress">
-                                    <progress max="2" value="1"></progress>
-                                    <span>1/2 Subtasks</span>
-                                </div>
-                                <div class="task-footer">
-                                    <div class="task-users">
-                                        <div class="user">BC</div>
-                                        <div class="user">PB</div>
-                                        <div class="user">MH</div>
-                                    </div>
-                                    <div class="priority">
-                                        <img src="/assets/img/icon/prio_medium.svg" alt="">
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="column">
-                        <div class="column-headline">
-                            <h3>Done</h3>
-                        </div>
-                        <div class="column-container">
-                            <div class="task">
-                                <div class="task-cat">
-                                    <p>User Story</p>
-                                </div>
-                                <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
-                                <div class="task-description"><span>Build start page with recipe
-                                        rec...dasdasdasdasdasd</span></div>
-                                <div class="progress">
-                                    <progress max="2" value="1"></progress>
-                                    <span>1/2 Subtasks</span>
-                                </div>
-                                <div class="task-footer">
-                                    <div class="task-users">
-                                        <div class="user">BC</div>
-                                        <div class="user">PB</div>
-                                        <div class="user">MH</div>
-                                    </div>
-                                    <div class="priority">
-                                        <img src="/assets/img/icon/prio_medium.svg" alt="">
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="task">
-                                <div class="task-cat">
-                                    <p>User Story</p>
-                                </div>
-                                <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
-                                <div class="task-description"><span>Lorem ipsum dolor sit amet consectetur adipisicing
-                                        elit. Eos suscipit quos repellat ut cum numquam at! Ullam, repellat, fugit
-                                        pariatur vel dignissimos repellendus quisquam debitis corporis nesciunt velit
-                                        commodi quidem.Build start page withasdasdasdasdasd recipe
-                                        rec...dasdasdasdasdasd</span></div>
-                                <div class="progress">
-                                    <progress max="2" value="1"></progress>
-                                    <span>1/2 Subtasks</span>
-                                </div>
-                                <div class="task-footer">
-                                    <div class="task-users">
-                                        <div class="user">BC</div>
-                                        <div class="user">PB</div>
-                                        <div class="user">MH</div>
-                                    </div>
-                                    <div class="priority">
-                                        <img src="/assets/img/icon/prio_medium.svg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
-
-        </div>
-    </main>
-
-
-
+    
 </body>
+<nav id="navbar-section" class="navbar-section"></nav>
 
+<main>
+    <header id="header-placeholder"></header>
+    <div class="content">Content</div>
+</main>
 
 <script>
+  function init() {
+        loadHTML("header.html", "header-placeholder");
+        loadHTML("navbar.html", "navbar-section");
+        activePageHiglight("board_page");
+    };
+
+    function loadHTML(file, ID)  {
+        fetch(file)
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById(ID).innerHTML = data;
+            });
+    };
+
+    function activePageHiglight(page) {
+        document.getElementById(page).classList.add("active-menu");
+    }
+
+
 
 </script>
-
 </html>
