@@ -1,0 +1,42 @@
+.img-back {
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    height: 32px;
+    width: 32px;
+}
+
+
+.signup-content {
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    gap: 32px;
+    padding: 48px 88px;
+    position: relative;
+}
+
+
+.input-container-sgup {
+    gap: 16px;
+}
+
+
+.input-chebox {
+    display: flex;
+    align-self: center;
+    gap: 20px;
+    width: 231px;
+}
+
+
+.input-chebox span {
+    color: #29ABE2;
+}
+
+
+.submit-container button:hover {
+    border-color: #29ABE2;
+    transform: scale(1.05);
+}
