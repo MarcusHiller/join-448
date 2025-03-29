@@ -9,28 +9,30 @@
 </head>
 
 <body>
-    <div class="background">
+    <div class="dpl-fl-colu background">
         <img class="logo" src="../assets/img/icon_join.svg" alt="">
-        <div>
+        <div class="sign-up-container">
             <p>Not a Join user?</p>
             <button>Sign up</button>
         </div>
-        <form class="login-content">
+        <form class="dpl-fl-colu login-content">
             <h2>Log in</h2>
-            <div class="input-field">
-                <input type="email" placeholder="E-mail" required>
-                <img src="../assets/img/mail.svg" alt="">
+            <div class="dpl-fl-colu input-container">
+                <div class="input-field">
+                    <input type="email" placeholder="E-mail" required>
+                    <img src="../assets/img/mail.svg" alt="">
+                </div>
+                <div class="input-field">
+                    <input type="password" placeholder="Password" required>
+                    <img src="../assets/img/lock.svg" alt="">
+                </div>
             </div>
-            <div class="input-field">
-                <input type="password" placeholder="Password" required>
-                <img src="../assets/img/lock.svg" alt="">
-            </div>
-            <div>
-                <button>Log In</button>
-                <button>Gust Log In</button>
+            <div class="submit-container">
+                <button id="logIn">Log In</button>
+                <button id="guestLogIn">Guest Log In</button>
             </div>
         </form>
-        <div>
+        <div class="info-pri-pol-container">
             <a href="#Privacy Policy">Privacy Policy</a><a href="Legal Notice">Legal Notice</a>
         </div>
     </div>
