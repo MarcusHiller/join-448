@@ -91,7 +91,13 @@ a {
 
 
 input {
-    border: 0;
+    border: unset;
+    outline: none;
+}
+
+
+.input-field:focus-within {
+    border-color: #29ABE2;
 }
 
 
