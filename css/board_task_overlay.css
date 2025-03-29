@@ -1,0 +1,112 @@
+.board-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: 10;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay-container {
+    width: 525px;
+    height: fit-content;
+    background-color: white;
+    border-radius: 20px;
+    padding: 32px;
+
+}
+
+.overlay-headline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.overlay-titel h2 {
+    font-size: 64px;
+    margin: 24px 0;
+
+}
+
+.margin-0 {
+    margin:0 !important;
+}
+
+.close-icon {
+    cursor: pointer;
+    padding: 8px 8px;
+}
+
+.close-icon:hover {
+    filter: brightness(0) saturate(100%) invert(57%) sepia(96%) saturate(1284%) hue-rotate(165deg) brightness(93%) contrast(89%);
+}
+
+.overlay-task-description {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    margin-bottom: 24px;
+
+}
+
+
+.overlay-table td {
+    padding: 0;
+    padding-bottom: 24px;
+}
+
+.overlay-table td:first-child {
+    padding-right: 30px;
+}
+
+.overlay-table table {
+    border-collapse: collapse;
+}
+
+.overlay-user {
+    margin:0;
+}
+
+.assigned-section td:first-child {
+    padding: 8px;
+}
+
+.subtasks td:first-child {
+    padding: 8px;
+}
+
+.subtasks {
+    margin-bottom: 24px;
+}
+
+.edit-task-section {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+}
+
+.delete-task, .edit-task {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.delete-task:hover, .edit-task:hover {
+    filter: brightness(0) saturate(100%) invert(57%) sepia(96%) saturate(1284%) hue-rotate(165deg) brightness(93%) contrast(89%);
+}
+
+.edit-task-section img{
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+}
+
