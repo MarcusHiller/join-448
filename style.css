@@ -9,6 +9,10 @@ main {
     flex-direction: column;
 }
 
+.d_none {
+    display: none !important;
+}
+
 /* Header */
 
 header {

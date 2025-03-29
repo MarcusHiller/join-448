@@ -13,7 +13,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
+        <link rel="stylesheet" href="/css/board_task_overlay.css">
     <script src="/script.js"></script>
+    <script src="/script/board.js"></script>
 </head>
 
 <body onload="init('board_page')">
@@ -24,6 +26,81 @@
     <main>
         <header id="header-placeholder"></header>
         <div class="content">
+            <div id="board_overlay" class="board-overlay d_none">
+                <div class="overlay-container">
+                    <div class="overlay-headline">
+                        <div class="task-cat margin-0">
+                            <p>User Story</p>
+                        </div>
+                        <img onclick="closeOverlayTask()" class="close-icon" src="/assets/img/icon/close.svg" alt="">
+                    </div>
+                    <div class="overlay-titel">
+                        <h2>Kochwelt Page & Recipe Recommender</h2>
+                    </div>
+                    <div class="overlay-task-details">
+                        <div class="overlay-task-description"><span >Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus fuga debitis vero quam tempore alias iste ratione, quis asperiores aspernatur quo delectus quod, rerum modi. Enim autem nesciunt tempore necessitatibus.</span>
+                        </div>
+                        <div class="overlay-table">
+                            <table>
+                                <tr>
+                                    <td>Due Date:</td>
+                                    <td><time datetime="2025-05-10">10/05/2025</time></td>
+                                </tr>
+                                <tr>
+                                    <td>Priority:</td>
+                                    <td>Medium <img src="/assets/img/icon/prio_medium.svg" alt=""></td>
+                                </tr>
+                            </table>
+                            
+                        </div>
+                        <div class="assigned-section">
+                            <span>Assigned to:</span>
+                            <table>
+                                <tr>
+                                    <td><div class="user overlay-user">BC</div></td>
+                                    <td>Max Musterman</td>
+                                </tr>
+                                <tr>
+                                    <td><div class="user overlay-user">MM</div></td>
+                                    <td>Max Musterman</td>
+                                </tr>
+                                <tr>
+                                    <td><div class="user overlay-user">BC</div></td>
+                                    <td>Max Musterman</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="subtasks">
+                            <span>Subtasks</span>
+                            <table>
+                                <tr>
+                                    <td><img src="" alt="checkbox"></td>
+                                    <td>Implement Recipe</td>
+                                </tr>
+                                <tr>
+                                    <td><img src="" alt="checkbox"></td>
+                                    <td>Implement Recipe</td>
+                                </tr>
+                                
+                            </table>
+
+                        </div>
+                        <div class="edit-task-section">
+                            <div class="delete-task">
+                                <img src="/assets/img/icon/delete.svg" alt="">
+                                <span>Delete</span>
+                            </div>
+                            <div class="edit-task">
+                                <img src="/assets/img/icon/edit.svg" alt="">
+                                <span>Edit</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
             <div class="board-headline">
                 <div class="board-text-responsive">
                     <h1>Board</h1>
@@ -78,7 +155,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="task">
+                            <div class="task" onclick="openOverlayTask()">
                                 <div class="task-cat">
                                     <p>User Story</p>
                                 </div>
