@@ -35,7 +35,7 @@ a {
 
 .background {
     height: 100vh;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     background-color: #F6F7F8;
     padding: 0px max(0px, calc(50% - 720px));
@@ -132,11 +132,12 @@ h2::after {
 
 .sign-up-container {
     display: flex;
-    align-self: end;
     align-items: center;
     gap: 36px;
-    margin-right: 5px;
     width: 279px;
+    top: 67px;
+    position: absolute;
+    right: max(122px, calc(50% - 598px));
 }
 
 
@@ -177,6 +178,8 @@ h2::after {
     gap: 10px;
     width: 246px;
     height: 35px;
+    bottom: 35px;
+    position: absolute;
 }
 
 
