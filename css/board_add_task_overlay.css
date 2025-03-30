@@ -1,0 +1,226 @@
+.add-container {
+    width: 1116px;
+    background-color: white;
+    border-radius: 30px;
+    box-sizing: border-box;
+    padding: 56px;
+    min-height: 870px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition-duration: 0.1s;
+
+
+
+
+}
+
+.addTask-headline {
+    margin-bottom: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0;
+}
+
+.addTask-headline h2 {
+    font-size: 61px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.addTask-form {
+    display: flex;
+    justify-content: center;
+}
+
+.addTask-left-side {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+}
+
+.addTask-right-side {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    box-sizing: border-box;
+
+}
+
+.placeholder-addTask {
+    width: 1px;
+    height: 424px;
+    background-color: #D1D1D1;
+    margin: 0 24px;
+}
+
+.addTask-label {
+    color: #2A3647;
+    font-size: 20px;
+    margin-bottom: 8px;
+
+}
+
+.addTask-input {
+    font-size: 20px;
+    padding: 12px 21px;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    margin-bottom: 16px;
+}
+
+.addTask-input:focus {
+    outline: 1px solid #29ABE2; 
+}
+
+.addTask-input::placeholder {
+    color: #D1D1D1;
+}
+
+.addTask-textarea {
+    font-size: 20px;
+    padding: 12px 21px;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    margin-bottom: 16px;
+    height: 120px;
+    resize: vertical;
+}
+
+.addTask-textarea:focus {
+    outline: 1px solid #29ABE2; 
+}
+
+.addTask-textarea::placeholder {
+    color: #D1D1D1;
+}
+
+.addTask-prio {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+
+.prio-label {
+    padding: 16px 10px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    font-size: 20px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    width: 136px;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.prio-label img {
+    margin-left: 8px;
+}
+
+.prio-label:hover {
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.prio-urgent[type="radio"]:checked + .prio-urgent-label div {
+    background-color: #FF3D00;
+    color: white;
+}
+
+.prio-urgent[type="radio"]:checked + .prio-urgent-label div:hover {
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.prio-urgent[type="radio"]:checked + .prio-urgent-label img{
+    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7476%) hue-rotate(119deg) brightness(110%) contrast(101%);;
+}
+
+.prio-medium[type="radio"]:checked + .prio-medium-label div {
+    background-color: #FFA800;
+    color: white;
+}
+
+.prio-medium[type="radio"]:checked + .prio-medium-label div:hover {
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.prio-medium[type="radio"]:checked + .prio-medium-label img{
+    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7476%) hue-rotate(119deg) brightness(110%) contrast(101%);;
+}
+
+.prio-low[type="radio"]:checked + .prio-low-label div {
+    background-color: #7AE229;
+    color: white;
+}
+
+.prio-low[type="radio"]:checked + .prio-low-label div:hover {
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.prio-low[type="radio"]:checked + .prio-low-label img{
+    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7476%) hue-rotate(119deg) brightness(110%) contrast(101%);;
+}
+
+.assigned-select {
+    border: 1px solid #D1D1D1;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 20px;
+    margin-bottom: 24px
+}
+
+.category-select {
+    border: 1px solid #D1D1D1;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 20px;
+    margin-bottom: 24px
+}
+
+.addTask-footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.addTask-footer span {
+    font-size: 16px;
+}
+
+.required-star {
+    color: #FF8190;
+    font-size: 20px !important;
+}
+
+.cancel-task-button {
+    color: #2A3647;
+    padding: 7px 15px;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    height: 24px;
+    gap: 8px;
+    font-weight: bold; 
+    cursor: pointer;
+    border: 1px solid #2A3647;
+}
+
+.cancel-task-button img {
+    width: 12px;
+    object-fit: contain;
+}
+
+.cancel-task-button:hover {
+    filter: brightness(0) saturate(100%) invert(71%) sepia(34%) saturate(5546%) hue-rotate(165deg) brightness(94%) contrast(89%);
+}
+
+
+
+.addTask-footer-buttons {
+    display: flex;
+    gap: 16px;
+}

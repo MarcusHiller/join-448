@@ -52,9 +52,6 @@ h1 {
     height: 24px; 
 }
 
-.search-task:focus {
-    border-color: green;
-}
 
 .search-task img {
     width: 18px;
