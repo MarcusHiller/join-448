@@ -135,7 +135,7 @@ h2 {
 
 
 h2::after {
-    content: url('../assets/img/login_underline.svg');
+    content: url('../assets/img/icon/login_underline.svg');
     position: absolute;
     bottom: 0;
     left: 50%;
