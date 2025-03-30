@@ -5,15 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board</title>
+    <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/css/board.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
-        <link rel="stylesheet" href="/css/board_task_overlay.css">
+    <link rel="stylesheet" href="/css/board_task_overlay.css">
     <script src="/script.js"></script>
     <script src="/script/board.js"></script>
 </head>
@@ -26,10 +21,10 @@
     <main>
         <header id="header-placeholder"></header>
         <div class="content">
-            <div id="board_overlay" class="board-overlay d_none">
-                <div class="overlay-container">
+            <div id="board_overlay" class="board-overlay d_none" onclick="closeOverlayTask()">
+                <div id="overlay_container" class="overlay-container overlay-container-sliding" onclick="event.stopPropagation()">
                     <div class="overlay-headline">
-                        <div class="task-cat margin-0">
+                        <div class="task-cat task-cat-custom">
                             <p>User Story</p>
                         </div>
                         <img onclick="closeOverlayTask()" class="close-icon" src="/assets/img/icon/close.svg" alt="">
@@ -74,11 +69,11 @@
                             <span>Subtasks</span>
                             <table>
                                 <tr>
-                                    <td><img src="" alt="checkbox"></td>
+                                    <td><input type="checkbox" class="checkbox" checked="checkbox_1"><label for="checkbox_1"><img src="/assets/img/icon/checkbox.svg" alt=""></label></td>
                                     <td>Implement Recipe</td>
                                 </tr>
                                 <tr>
-                                    <td><img src="" alt="checkbox"></td>
+                                    <td><input type="checkbox" class="checkbox" id="checkbox_2"><label for="checkbox_2"><img src="/assets/img/icon/checkbox.svg" alt=""></label></td>
                                     <td>Implement Recipe</td>
                                 </tr>
                                 
@@ -90,6 +85,7 @@
                                 <img src="/assets/img/icon/delete.svg" alt="">
                                 <span>Delete</span>
                             </div>
+                            <div class="spaceholder"></div>
                             <div class="edit-task">
                                 <img src="/assets/img/icon/edit.svg" alt="">
                                 <span>Edit</span>
@@ -130,52 +126,8 @@
                             <img src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
                         <div class="column-container">
-                            <div class="task">
-                                <div class="task-cat">
-                                    <p>User Story</p>
-                                </div>
-                                <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
-                                <div class="task-description"><span>Lorem ipsum dolor sit amet consectetur adipisicing
-                                        elit. Eos suscipit quos repellat ut cum numquam at! Ullam, repellat, fugit
-                                        pariatur vel dignissimos repellendus quisquam debitis corporis nesciunt velit
-                                        commodi quidem.Build start page withasdasdasdasdasd recipe
-                                        rec...dasdasdasdasdasd</span></div>
-                                <div class="progress">
-                                    <progress max="2" value="1"></progress>
-                                    <span>1/2 Subtasks</span>
-                                </div>
-                                <div class="task-footer">
-                                    <div class="task-users">
-                                        <div class="user">BC</div>
-                                        <div class="user">PB</div>
-                                        <div class="user">MH</div>
-                                    </div>
-                                    <div class="priority">
-                                        <img src="/assets/img/icon/prio_medium.svg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="task" onclick="openOverlayTask()">
-                                <div class="task-cat">
-                                    <p>User Story</p>
-                                </div>
-                                <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
-                                <div class="task-description"><span>e withasdasdasdasdasd recipe
-                                        rec...dasdasdasdasdasd</span></div>
-                                <div class="progress">
-                                    <progress max="2" value="1"></progress>
-                                    <span>1/2 Subtasks</span>
-                                </div>
-                                <div class="task-footer">
-                                    <div class="task-users">
-                                        <div class="user">BC</div>
-                                        <div class="user">PB</div>
-                                        <div class="user">MH</div>
-                                    </div>
-                                    <div class="priority">
-                                        <img src="/assets/img/icon/prio_medium.svg" alt="">
-                                    </div>
-                                </div>
+                            <div class="empty-column">
+                                <p>No task To do</p>
                             </div>
                         </div>
                     </div>
@@ -185,9 +137,9 @@
                             <img src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
                         <div class="column-container">
-                            <div class="task">
-                                <div class="task-cat">
-                                    <p>User Story</p>
+                            <div class="task" onclick="openOverlayTask()">
+                                <div class="task-cat-technical">
+                                    <p>Technical Task</p>
                                 </div>
                                 <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
                                 <div class="task-description"><span>Build start page with recipe
@@ -218,7 +170,7 @@
                         </div>
                         <div class="column-container">
                             <div class="task">
-                                <div class="task-cat">
+                                <div class="task-cat-user">
                                     <p>User Story</p>
                                 </div>
                                 <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
@@ -250,8 +202,8 @@
                         </div>
                         <div class="column-container">
                             <div class="task">
-                                <div class="task-cat">
-                                    <p>User Story</p>
+                                <div class="task-cat-technical">
+                                    <p>Technical Task</p>
                                 </div>
                                 <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
                                 <div class="task-description"><span>Build start page with recipe
@@ -274,7 +226,7 @@
 
                             </div>
                             <div class="task">
-                                <div class="task-cat">
+                                <div class="task-cat-user">
                                     <p>User Story</p>
                                 </div>
                                 <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
