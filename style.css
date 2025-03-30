@@ -26,6 +26,9 @@ header {
     box-shadow: 0px 1px 5px #80808069;
     z-index: 1;
     overflow-x: hidden;
+    max-width: 1920px;
+    box-sizing: border-box;
+    font-family: Inter;
 
 }
 
@@ -137,6 +140,7 @@ header {
 .navbar-link a {
     text-decoration: none;
     color: white;
+    font-family: Inter;
 }
 
 .navbar-link {
@@ -147,7 +151,7 @@ header {
     width: 100%;
     padding: 8px 0;
     margin: 8px 0;
-    opacity: 0.5;
+    opacity: 0.8;
 }
 
 .navbar-link img {
@@ -155,6 +159,7 @@ header {
     object-fit: contain;
     margin-right: 16px;
     margin-left: 56px;
+    filter: brightness(0) saturate(100%) invert(99%) sepia(1%) saturate(2%) hue-rotate(94deg) brightness(106%) contrast(100%);
 }
 
 .active-menu {
@@ -176,10 +181,13 @@ header {
     padding: 8px 0;
     opacity: 0.5;
     text-align: center;
+    font-family: Inter;
 }
 
 .content {
     flex: 1;
+    box-sizing: border-box;
+    max-width: 1920px;
 }
 
 

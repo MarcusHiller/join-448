@@ -13,19 +13,37 @@
     align-items: center;
 }
 
+
 .overlay-container {
-    width: 525px;
+    width: 445px;
     height: fit-content;
     background-color: white;
     border-radius: 20px;
-    padding: 32px;
+    padding: 48px 40px;
+    transition-duration: 0.1s;
 
+}
+
+.overlay-container-sliding {
+    transform: translateX(100vh);
+    transition-duration: 0.1s;
+}
+
+.empty-column {
+    background-color: #E7E7E7;
+    border: 1px dashed #A8A8A8;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #A8A8A8;
 }
 
 .overlay-headline {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 48px;
 }
 
 .overlay-titel h2 {
@@ -34,8 +52,14 @@
 
 }
 
-.margin-0 {
+.overlay-table img {
+    margin-left: 8px;
+}
+
+.task-cat-custom {
     margin:0 !important;
+    height: 36px;
+    font-size: 23px;
 }
 
 .close-icon {
@@ -64,6 +88,7 @@
 
 .overlay-table td:first-child {
     padding-right: 30px;
+    color: #2A3647;
 }
 
 .overlay-table table {
@@ -71,33 +96,59 @@
 }
 
 .overlay-user {
-    margin:0;
+    margin-left: 8px;
+}
+
+.assigned-section {
+    margin-bottom: 24px;
+}
+
+.assigned-section table {
+    font-size: 19px;
+    margin-top: 8px;
 }
 
 .assigned-section td:first-child {
     padding: 8px;
 }
 
+.assigned-section span {
+    color: #2A3647
+}
+
 .subtasks td:first-child {
     padding: 8px;
+    width: 18px;
+    height: 18px;
 }
 
 .subtasks {
     margin-bottom: 24px;
 }
 
+.subtasks span {
+    color: #2A3647;
+    margin-bottom: 8px;
+}
+
+.subtasks tr {
+    display: flex;
+   align-items: center;
+   margin-left: 8px;
+}
+
 .edit-task-section {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 16px;
 }
 
 .delete-task, .edit-task {
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: 8px;
+    padding: 8px 16px;
+    color: #2A3647;
 }
 
 .delete-task:hover, .edit-task:hover {
@@ -110,3 +161,16 @@
     margin-right: 8px;
 }
 
+.checkbox[type="checkbox"] {
+   display: none;
+}
+
+.checkbox[type="checkbox"]:checked + label img  {
+    content: url(/assets/img/icon/checkbox_checked.svg);
+}
+
+.spaceholder {
+    width: 1px;
+    background-color: #D1D1D1;
+    height: 24px;
+}
