@@ -4,6 +4,10 @@
 }
 
 
+.d-none {
+    display: none;
+}
+
 .dpl-fl-colu {
     display: flex;
     flex-direction: column;

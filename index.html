@@ -1,12 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
-  </head>
-  <body>
-    <h1>Überschrift</h1>
-    <p>Hier kannst du starten</p>
-  </body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join-Login</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/animation.css">
+    <link rel="icon" type="image/x-icon" href="../assets/img/icon/logo_favicon.svg">
+    <script src="../script/register.js"></script>
+</head>
+
+<body>
+    <div class="cover-container">
+        <img class="cover" src="../assets/img/logo/cover_join.svg" alt="">
+    </div>
+    <div class="dpl-fl-colu background">
+        <img class="logo" src="../assets/img/logo/cover_join.svg" alt="">
+        <div class="sign-up-container">
+            <p>Not a Join user?</p>
+            <form action="html/sign_up.html">
+                <button>Sign up</button>
+            </form>
+        </div>
+        <form class="dpl-fl-colu login-content">
+            <h2>Log in</h2>
+            <div class="dpl-fl-colu input-container">
+                <label class="input-field">
+                    <div class="input-content">
+                        <input type="email" placeholder="E-mail" required>
+                        <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
+                    </div>
+                </label>
+                <div class="dpl-fl-colu gap-small">
+                    <label id="pswd" class="input-field">
+                        <div class="input-content">
+                            <input type="password" placeholder="Password" required>
+                            <img class="input-icon" src="../assets/img/icon/lock.svg" alt="">
+                        </div>
+                    </label>
+                    <p id="poppin" class="poppins d-none">Check your e-mail and password. Please try again.</p>
+                </div>
+            </div>
+            <div class="submit-container">
+                <button id="logIn">Log In</button>
+                <button id="guestLogIn">Guest Log In</button>
+            </div>
+        </form>
+        <div class="info-pri-pol-container">
+            <a href="#Privacy Policy">Privacy Policy</a><a href="Legal Notice">Legal Notice</a>
+        </div>
+    </div>
+</body>
+
 </html>
