@@ -96,6 +96,16 @@ input {
 }
 
 
+input:hover {
+    cursor: pointer;
+}
+
+
+label:hover {
+    cursor: pointer;
+}
+
+
 .input-field:focus-within {
     border-color: #29ABE2;
 }
