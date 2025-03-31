@@ -11,15 +11,7 @@
      max-width: 1920px;
  }
 
- .mainSection {
-    display: flex;
-    flex-direction: row-reverse;
- }
-
  .dashboardContainer {
-     max-width: 1050px;
-     margin: 40px auto;
-     padding: 0 20px;
      display: flex;
      flex-direction: column;
  }
@@ -27,113 +19,156 @@
 .dashboardHeader {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
+    padding-top: 206px;
+    padding-left: 330px;
 }
 
 .titleGroup {
     display: flex;
     align-items: center;
+    gap: 30px;
+    height: 73px;
 }
 
 .titleGroup h1 {
-    font-size: 36px;
+    font-size: 61px;
     font-weight: 700;
-    margin: 0;
 }
 
 .titleDivider {
-    width: 2px;
-    height: 28px;
-    background-color: #3B82F6;
+    width: 3px;
+    border: 3px;
+    height: 60px;
+    background-color: #29ABE2;
     margin: 0 12px;
 }
 
 .titleGroup span {
-    font-size: 18px;
-    color: #6B7280;
+    font-size: 27px;
+    color: #2A3647;
+    font-weight: 400;
 }
 
-
-.metricsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 20px;
+.contentMetric{
+    position: absolute;
+    left: 330px;
+    top: 335px;
 }
 
-.greeting {
-    font-size: 24px;
-    padding-left: 50px;
+.devideContent{
     display: flex;
-    align-items: center;
+    flex-direction: row-reverse;
+}
+
+.greeting{
+    gap: 3px;
+    width: 385px;
+    height: 136px;
 }
 
 .greetingName{
-    color: #3B82F6;
-    font-weight: bold;
+    color: #29ABE2;
+    font-weight: 700;
+    font-size: 64px;
 }
 
- .metricCard {
-     background-color: white;
-     border-radius: 16px;
-     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-     padding: 20px;
-     text-align: center;
- }
+.greetingText{
+    font-size: 47px;
+    font-weight: 500;
+    color: #2A3647;
+}
 
- .metricIcon {
-     background-color: #1F2937;
-     color: white;
-     border-radius: 50%;
-     width: 40px;
-     height: 40px;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     margin: 0 auto 10px;
-     font-size: 18px;
- }
+.metricsGrid {
+    width: 560px;
+    height: 562px;
+}
 
- .urgentIcon {
-     background-color: #F97316;
- }
+.metricCardsUp{
+    width: 264px;
+    height: 168px;
+    background-color: white;
+    border-radius: 30px;
+}
 
- .metricNumber {
-     font-size: 24px;
-     font-weight: bold;
- }
+.firstMetric{
+   height: 168px;
+   display: flex;
+   flex-direction: row;
+   gap: 18px;
+}
 
- .metricLabel {
-     font-size: 14px;
-     color: #6B7280;
- }
+.cardUpLeft{
+    padding: 38px 19px;
+}
 
- .urgentCard {
-     grid-column: span 2;
-     display: flex;
-     align-items: center;
-     justify-content: space-between;
- }
+.cardUpRight{
+padding: 38px 58px;
+}
 
- .urgentCard .left,
- .urgentCard .right {
-     display: flex;
-     align-items: center;
- }
+.middleMetric{
+    height: 168px;
+    border-radius: 30px;
+    gap: 61px;
+    background-color: white;
+    padding: 28px 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
- .urgentCard .right {
-     flex-direction: column;
-     align-items: flex-end;
- }
+.middleCardLeft{
+    display: flex;
+    width: 130px;
+    height: 96px;
+    gap: 18px;
+    align-items: center;
+}
 
- .gap{
-    margin: 10px;
- }
+.urgentLogo{
+    height: 60px;
+    width: 60px;
+}
 
- .devider{
-    width: 2px;
-        height: 40px;
-        background-color: #3B82F6;
-        margin: 0 12px;
- }
+.urgentContent{
+    width: 52px;
+    height: 96px;
+}
+
+.metricNumber {
+    font-size: 64px;
+    font-weight: 600;
+    color: black;
+    width: 50px;
+    height: 77px;
+}
+
+.metricLabel {
+    font-size: 16px;
+    font-weight: 400;
+    color: #2A3647;
+    width: 52px;
+    height: 19px;
+}
+
+.devider{
+    border:  2px;
+    width: 3px;
+    height: 102px;
+    background-color: #D1D1D1;
+}
+
+.middleCardright{
+    display: flex;
+    width: 178px;
+    height: 57px;
+    gap: 13px;
+    flex-direction: column;
+}
+
+.metricDate{
+    width: 178px;
+    height: 25px;
+    font-size: 21px;
+    font-weight: 700;
+    color: #2A3647;
+}
