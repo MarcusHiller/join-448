@@ -7,13 +7,15 @@
     <title>Sign up</title>
     <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="../css/signup.css">
+    <link rel="icon" type="image/x-icon" href="../assets/img/icon/logo_favicon.svg">
     <script src="../script/register.js"></script>
+    <script src="../script/signup.js" defer></script>
 </head>
 
 <body>
     <div class="dpl-fl-colu background">
         <a href="../index.html"><img class="logo" src="../assets/img/logo/cover_join.svg" alt=""></a>
-        <form onsubmit="addUser(); return false;" class="dpl-fl-colu signup-content">
+        <form id="signup" onsubmit="addUser(); return false;" class="dpl-fl-colu signup-content">
             <a href="../index.html"><img class="img-back" src="../assets/img/icon/arrow-left-line.svg" alt=""></a>
             <h2>Sign up</h2>
             <div class="dpl-fl-colu input-container-sgup">
@@ -44,13 +46,15 @@
                     </label>
                     <p id="errorPoppin" class="poppins d-none">Ups! your password don't match.</p>
                 </div>
-                <label class="input-chebox">
-                    <input type="checkbox" required>
+                <label class="input-chebox" onclick="toggleCheckbox(event)" onmouseover="hoverImage(true, event)" onmouseout="hoverImage(false, event)">
+                    
+                    <img src="../assets/img/icon/rectangle.svg" alt="Unchecked" id="checkboxImg">
+                    <input type="checkbox" id="checkbox" required>
                     <p>I accept the <span>Privacy policy</span></p>
                 </label>
             </div>
             <div class="submit-container" disabled="true">
-                <button id="signUp">Sign Up</button>
+                <button>Sign Up</button>
             </div>
         </form>
         <div class="info-pri-pol-container">

@@ -14,9 +14,6 @@
 
 
 .cover {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 234px;
     width: 274px;
     position: relative;
