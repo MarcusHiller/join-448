@@ -49,9 +49,9 @@
 }
 
 .contentMetric{
-    position: absolute;
-    left: 330px;
-    top: 335px;
+    padding-bottom: 80px;
+    padding-left: 330px;
+    margin-top: 35px;
 }
 
 .devideContent{
@@ -81,8 +81,10 @@
 
 .metricsGrid {
     width: 560px;
-    height: 562px;
-}
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;}
 
 .metricCardsUp{
     width: 264px;
@@ -98,6 +100,7 @@
    flex-direction: row;
    gap: 18px;
    margin-bottom: 25px;
+   width: 100%;
 }
 
 
@@ -142,6 +145,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .middleCardLeft{
@@ -202,7 +206,7 @@
 .downMetric{
     display: flex;
     height: 170px;
-    width: 560px;
+    width: 100%;
     align-items: center;
     justify-content: space-between;
     margin: 25px 0px;
