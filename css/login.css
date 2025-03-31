@@ -5,8 +5,9 @@
 
 
 .d-none {
-    display: none;
+    opacity: 0;
 }
+
 
 .dpl-fl-colu {
     display: flex;
@@ -84,6 +85,7 @@ a {
     padding: 12px 21px;
     border: 1px solid grey;
     border-radius: 10px;
+    background-color: white;
 }
 
 
@@ -97,6 +99,13 @@ a {
 input {
     border: unset;
     outline: none;
+    background-color: transparent !important;
+    inline-size: -webkit-fill-available;
+}
+
+
+input:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px white inset !important;
 }
 
 
@@ -112,6 +121,11 @@ label:hover {
 
 .input-field:focus-within {
     border-color: #29ABE2;
+}
+
+
+.input-field-error {
+    border-color: red;
 }
 
 
