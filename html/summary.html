@@ -6,6 +6,9 @@
     <title>Summary</title>
     <link rel="stylesheet" href="../css/summary.css">
     <script src="../script/summary.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     
@@ -27,15 +30,19 @@
             <div class="metricsGrid">
                 <div class="firstMetric">
                     <div class="metricCardsUp cardUpLeft">
-                        <img src="../assets/img/icon/Icon_summary/Frame pencil.svg">     
-                            <div class="metricNumber">1</div>
-                            <div class="metricLabel">To-do</div>
+                        <img class="frameLogo" src="../assets/img/icon/Icon_summary/Frame pencil.svg">  
+                            <div class="ContentCardUp">
+                                <p class="metricNumber">1</p>
+                                <p class="textLabel">To-do</p>
+                            </div>
                     </div>
                 
                     <div class="metricCardsUp cardUpRight">
-                        <img src="../assets/img/icon/Icon_summary/Frame check.svg">
-                        <div class="metricNumber">1</div>
-                        <div class="metricLabel">Done</div>
+                        <img class="frameLogo" src="../assets/img/icon/Icon_summary/Frame check.svg">
+                          <div class="ContentCardUp">
+                                <p class="metricNumber">1</p>
+                                <p class="textLabel">Done</p>
+                          </div>
                      </div>
                 </div>
                 <div class="middleMetric">
@@ -52,22 +59,20 @@
                         <p class="metricLabel">Upcoming Deadline</p>
                     </div>
                 </div>
-                
-                <div class="metricCard">
-                    <div class="metricNumber">5</div>
-                    <div class="metricLabel">Tasks in Board</div>
+                <div class="downMetric">
+                    <div class="metricCardDown cardDownleft">
+                        <p class="metricNumber">5</p>
+                        <p class="textLabel">Tasks in Board</p>
+                    </div>
+                    <div class="metricCardDown cardDownMiddle">
+                        <p class="metricNumber">2</p>
+                        <p class="textLabel">Tasks In Progress</p>
+                    </div>
+                    <div class="metricCardDown cardDownRight">
+                        <p class="metricNumber">2</p>
+                        <p class="textLabel">Awaiting Feedback</p>
+                    </div>
                 </div>
-                
-                <div class="metricCard">
-                    <div class="metricNumber">2</div>
-                    <div class="metricLabel">Tasks In Progress</div>
-                </div>
-                
-                <div class="metricCard">
-                    <div class="metricNumber">2</div>
-                    <div class="metricLabel">Awaiting Feedback</div>
-                </div>
-            
         </div>
     </div>
 </div>
