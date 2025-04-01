@@ -13,14 +13,17 @@
  .dashboardContainer {
      display: flex;
      flex-direction: column;
+     padding-left: 330px;
+     max-width: 1920px;
  }
 
 .dashboardHeader {
     display: flex;
     align-items: center;
     padding-top: 206px;
-    padding-left: 330px;
+    margin-bottom: 25px;
 }
+
 
 .titleGroup {
     display: flex;
@@ -50,13 +53,11 @@
 
 .contentMetric{
     padding-bottom: 80px;
-    padding-left: 330px;
     margin-top: 35px;
 }
 
 .devideContent{
     display: flex;
-    flex-direction: row-reverse;
     gap: 25px;
     align-items: center;
 }
@@ -82,9 +83,7 @@
 .metricsGrid {
     width: 560px;
     max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;}
+   }
 
 .metricCardsUp{
     width: 264px;
