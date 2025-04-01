@@ -4,8 +4,8 @@
  }
 
  body,html {
-    font-family: "Inter", sans-serif;     background-color: #F8F9FB;
-     color: #1F2937;
+    font-family: "Inter", sans-serif;     
+    background-color: #F6F7F8;
      width: 100%;
      max-width: 1920px;
  }
@@ -13,7 +13,7 @@
  .dashboardContainer {
      display: flex;
      flex-direction: column;
-     padding-left: 330px;
+     padding-left: 328px;
      max-width: 1920px;
  }
 
@@ -21,7 +21,6 @@
     display: flex;
     align-items: center;
     padding-top: 206px;
-    margin-bottom: 25px;
 }
 
 
@@ -30,6 +29,8 @@
     align-items: center;
     gap: 30px;
     height: 73px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
 }
 
 .titleGroup h1 {
@@ -243,4 +244,44 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+/* responsive */
+@media (max-width: 768px) {
+    .devideContent {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;   
+ }
+
+    .metricsGrid {
+        display: none;
+    }
+
+    .greeting {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 274px;
+        height: 102px;
+    }
+
+    .greetingText {
+        font-size: 36px;
+        font-weight: 400;
+    }
+
+    .greetingName {
+        font-size: 47px;
+    }
+
+    .dashboardContainer {
+        padding-left: 0;
+        align-items: center;
+    }
+
+    .dashboardHeader {
+        display: none;
+    }
 }
