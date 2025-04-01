@@ -29,6 +29,7 @@ h1 {
     align-content: center;
 
 }
+
 .add-task-button-mobile img {
     width: 20px;
     height: 20px;
@@ -41,49 +42,57 @@ h1 {
     gap: 24px;
 }
 
-.search-task {
-    position: relative;
-    border: 1px solid #A8A8A8;
-    border-radius: 8px;
+.input-task {
+    width: 245px;
+    font-size: 16px;
+    background-color: transparent;
+    cursor: pointer;
+
+    
     padding: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 24px; 
+    height: 24px;
+    cursor: pointer;
+    outline: #29ABE2;
+    border: none;
 }
 
+.form-for-input {
+    position: relative;
+    width: 317px;
+}
 
-.search-task img {
+.search-task-input-field {
+    border: 1px solid #A8A8A8;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.form-for-input img {
     width: 18px;
     height: 18px;
-    padding: 4px 16px;
+    padding: 12px 12px;
 }
 
-.search-task img:hover {
+.search-task-input-field img:hover {
     filter: brightness(0) saturate(100%) invert(57%) sepia(96%) saturate(1284%) hue-rotate(165deg) brightness(93%) contrast(89%);
 }
 
-.search-task input {
-    width: 100%;
-    font-size: 16px;
-    border: unset; 
-    outline: none;
-    color: #A8A8A8;
-    background-color: transparent;
-    
+.search-task-input-field:focus-within {
+    border-color: #29ABE2;
 }
-
-.search-task:focus-within {
-  border-color: #29ABE2;
-}
-
 
 .search-button-container {
-    border-left: 1px solid #A8A8A8;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    background: transparent;
+
 }
 
 .add-task-button {
@@ -95,7 +104,7 @@ h1 {
     border-radius: 8px;
     height: 24px;
     gap: 8px;
-    font-weight: bold; 
+    font-weight: bold;
     cursor: pointer;
 
 }
@@ -139,13 +148,13 @@ h1 {
 
 .column-headline img:hover {
     filter: brightness(0) saturate(100%) invert(57%) sepia(96%) saturate(1284%) hue-rotate(165deg) brightness(93%) contrast(89%);
-    
+
 }
 
 .column-container {
- display: flex;
- flex-direction: column;
- gap: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .task {
@@ -158,15 +167,15 @@ h1 {
     flex-direction: column;
     cursor: pointer;
     user-select: none;
-    
+
 }
 
 .task-cat-user {
     margin-bottom: 24px;
 }
 
-.task-cat-user p{
-    background-color:#0038FF;
+.task-cat-user p {
+    background-color: #0038FF;
     padding: 4px 16px;
     border-radius: 8px;
     color: white;
@@ -179,7 +188,7 @@ h1 {
 }
 
 .task-cat-technical p {
-    background-color:#1FD7C1;
+    background-color: #1FD7C1;
     padding: 4px 16px;
     border-radius: 8px;
     color: white;
@@ -194,7 +203,7 @@ h1 {
 
 .task-title span {
     font-weight: bold;
-    
+
 }
 
 .task-description {
@@ -230,7 +239,7 @@ h1 {
     margin-bottom: 24px;
     -webkit-appearance: none;
     height: 8px;
-    
+
 }
 
 .task-footer {
@@ -255,7 +264,7 @@ h1 {
     border-radius: 50%;
     margin-left: -8px;
     font-size: 12px;
-} 
+}
 
 @media(max-width: 1400px) {
     .row {
@@ -272,10 +281,11 @@ h1 {
 }
 
 @media(max-width: 640px) {
-    
+
     .add-task-button {
         display: none;
     }
+
     .add-task-button-mobile {
         display: flex !important;
         justify-content: center;
@@ -293,7 +303,7 @@ h1 {
         width: 100%;
         justify-content: center !important;
     }
-    
+
     .row {
         justify-content: flex-start;
     }
@@ -302,6 +312,7 @@ h1 {
         width: 100%;
         flex-direction: row !important;
     }
+
     .column-headline {
         width: 100%;
     }
@@ -331,13 +342,3 @@ h1 {
 
 
 }
-
-
-
-
-
-
-
-
-
-

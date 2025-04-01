@@ -35,3 +35,9 @@ function closeAddTask() {
         }, 100);
 
 }
+
+// function searchTask() {
+//     const input = document.getElementById("search_task");
+//     input.value = "";
+//     input.blur();
+// }
