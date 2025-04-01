@@ -39,10 +39,17 @@
 }
 
 .titleDivider {
-    width: 3px;
-    border: 3px;
-    height: 60px;
     background-color: #29ABE2;
+}
+
+.desktop-divider {
+    display: block;
+    width: 3px;
+    height: 60px;
+}
+
+.mobile-divider {
+    display: none;
 }
 
 .titleGroup span {
@@ -310,15 +317,38 @@
     .metricsGrid{
         display: none;
     }
-    .dashboardHeader{
+    .dashboardHeader {
         display: none;
-    }
+          }
     .devideContent {
         height: calc(100vh - 176px);
         justify-content: center;
         align-items: center;
         display: flex;
     }
+          .titleGroup {
+              flex-direction: column;
+              align-items: center;
+              gap: 12px;
+              height: 104px;
+              width: 223px;
+          }
+          .desktop-divider {
+              display: none;
+          }
+          .mobile-divider {
+            display: block;
+            width: 60px;
+            height: 3px;
+             margin: 0 auto;
+          }
+          .titleGroup h1 {
+              font-size: 36px;
+          }
+          .titleGroup span {
+              font-size: 18px;
+          }
+
     .greeting {
         display: flex;
         justify-content: center;
@@ -335,4 +365,7 @@
     .greetingName {
         font-size: 47px;
     }
+
+                           
 }
+
