@@ -169,6 +169,10 @@
     content: url(/assets/img/icon/checkbox_checked.svg);
 }
 
+.subtasks img {
+    cursor: pointer;
+}
+
 .spaceholder {
     width: 1px;
     background-color: #D1D1D1;
