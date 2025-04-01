@@ -313,6 +313,12 @@
     .dashboardHeader{
         display: none;
     }
+    .devideContent {
+        height: calc(100vh - 176px);
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
     .greeting {
         display: flex;
         justify-content: center;
@@ -320,7 +326,7 @@
         text-align: center;
         flex-direction: column;
         width: 100%;
-        height: auto;
+        height: 100%;
     }
     .greetingText {
         font-size: 36px;
