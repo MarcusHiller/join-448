@@ -1,7 +1,9 @@
 let users = [
     { 'username': 'Harald', 'email': 'test@email.de', 'password': 'test' }
 ];
-
+setTimeout(() => {
+    document.getElementById('logoImg').classList.remove('d-none');
+}, 1060);
 
 function addUser() {
     let username = document.getElementById('username');
@@ -19,10 +21,10 @@ function checkSamePasswd(a, b) {
     let labelPassw = document.getElementById('labelPasswdConf');
     let poppinError = document.getElementById('errorPoppin');
     labelPassw.classList.remove('input-field-error');
-    poppinError.classList.add('d-none');
+    poppinError.classList.add('opacity');
     if (a !== b) {
         labelPassw.classList.add('input-field-error');
-        poppinError.classList.remove('d-none');
+        poppinError.classList.remove('opacity');
         poppinError.innerHTML = "Ups! your password don't match.";
         return false;
     }
@@ -34,11 +36,11 @@ function checkUserExists(params) {
     let labelEmailSignUp = document.getElementById('labelEmailSignUp');
     let poppinError = document.getElementById('errorPoppin');
     labelEmailSignUp.classList.remove('input-field-error');
-    poppinError.classList.add('d-none');
+    poppinError.classList.add('opacity');
     let result = users.find(obj => obj.email === params);
     if (result) {
         labelEmailSignUp.classList.add('input-field-error');
-        poppinError.classList.remove('d-none');
+        poppinError.classList.remove('opacity');
         poppinError.innerHTML = "The e-mail already exists. Please select another e-mail.";
         return false;
     }
