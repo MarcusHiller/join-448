@@ -5,15 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board</title>
+    <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/css/board.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
+    <link rel="stylesheet" href="/css/board_task_overlay.css">
+    <link rel="stylesheet" href="/css/board_add_task_overlay.css">
     <script src="/script.js"></script>
+    <script src="/script/board.js"></script>
+    
 </head>
 
 <body onload="init('board_page')">
@@ -24,22 +23,203 @@
     <main>
         <header id="header-placeholder"></header>
         <div class="content">
+            <div id="board_overlay" class="board-overlay d_none" onclick="closeOverlayTask(); closeAddTask()">
+
+                <!-- Add Overlay -->
+                <div id="add_container" class="add-container overlay-container-sliding d_none"
+                    onclick="event.stopPropagation()">
+
+                    <div class="addTask-headline">
+                        <h2>Add Task</h2>
+                        <img onclick="closeAddTask()" class="close-icon" src="/assets/img/icon/close.svg" alt="">
+                    </div>
+                    <form class="addTask-form" onsubmit="addTask()">
+                        <div  class="addTask-form-container">
+                            <div class="addTask-left-side">
+                                <label for="" class="addTask-label">Title<span class="required-star">&#42</span></label>
+                                <input class="addTask-input" placeholder="Enter a title" required>
+                                <p class="error-message">This field is required</p>
+                                <label for="" class="addTask-label">Description</label>
+                                <textarea class="addTask-textarea" placeholder="Enter a Description"
+                                    required></textarea>
+                                <label for="" class="addTask-label">Due date<span
+                                        class="required-star">&#42</span></label>
+                                <input class="addTask-input" type="date" required placeholder="dd/mm/yyyy">
+                                <p class="error-message">This field is required</p>
+                                
+                            </div>
+                            <div class="placeholder-addTask"></div>
+                            <div class="addTask-right-side">
+                                <label for="" class="addTask-label">Priority</label>
+                                <div class="addTask-prio">
+
+                                    <input name="prio" class="prio-urgent d_none" id="prio_urgent" type="radio">
+                                    <label class="prio-urgent-label" for="prio_urgent">
+                                        <div class="prio-label">Urgent<img src="/assets/img/icon/prio_urgent.svg">
+                                        </div>
+                                    </label>
+
+                                    <input name="prio" class="prio-medium d_none" id="prio_medium" type="radio" checked>
+                                    <label class="prio-medium-label" for="prio_medium">
+                                        <div class="prio-label">Medium<img src="/assets/img/icon/prio_medium.svg">
+                                        </div>
+                                    </label>
+
+                                    <input name="prio" class="prio-low d_none" id="prio_low" type="radio">
+                                    <label class="prio-low-label" for="prio_low">
+                                        <div class="prio-label">Low<img src="/assets/img/icon/prio_low.svg"></div>
+
+                                    </label>
+                                </div>
+
+                                <label for="" class="addTask-label">Assigned to</label>
+                                <select id="assigned_select" class="assigned-select">
+                                    <option value="">Select contacts to assign</option>
+                                    <option value="0">Max Musterman</option>
+                                </select>
+                                <label for="" class="addTask-label">Category<span
+                                        class="required-star">&#42</span></label>
+                                <select class="category-select" required>
+                                    <option value="" hidden selected>Select task category</option>
+                                    <option value="1">User Story</option>
+                                    <option value="2">Technical Task</option>
+                                </select>
+                                <p class="error-message">This field is required</p>
+                                <label for="" class="addTask-label">Subtasks</label>
+                                <input class="addTask-input" type="text">
+                            </div>
+                        </div>
+                        <div class="addTask-footer">
+                            <span><span class="required-star">&#42</span>This field is required</span>
+                            <div class="addTask-footer-buttons">
+                                <div class="cancel-task-button" onclick="openAddTask()">
+                                    <span class="add-task-text">Cancel</span>
+                                    <img src="/assets/img/icon/close.svg" alt="plus">
+                                </div>
+                                <button type="submit" class="create-task-button">
+                                    <span  class="add-task-text">Create task</span>
+                                    <img src="/assets/img/icon/check.svg" alt="plus">
+                                </button>
+
+
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+
+                <!-- Task Overlay -->
+                <div id="overlay_container" class="overlay-container overlay-container-sliding d_none"
+                    onclick="event.stopPropagation()">
+                    <div class="overlay-headline">
+                        <div class="task-cat-user task-cat-custom">
+                            <p>User Story</p>
+                        </div>
+                        <img onclick="closeOverlayTask()" class="close-icon" src="/assets/img/icon/close.svg" alt="">
+                    </div>
+                    <div class="overlay-titel">
+                        <h2>Kochwelt Page & Recipe Recommender</h2>
+                    </div>
+                    <div class="overlay-task-details">
+                        <div class="overlay-task-description"><span>Lorem ipsum dolor sit amet consectetur adipisicing
+                                elit. Ducimus fuga debitis vero quam tempore alias iste ratione, quis asperiores
+                                aspernatur quo delectus quod, rerum modi. Enim autem nesciunt tempore
+                                necessitatibus.</span>
+                        </div>
+                        <div class="overlay-table">
+                            <table>
+                                <tr>
+                                    <td>Due Date:</td>
+                                    <td><time datetime="2025-05-10">10/05/2025</time></td>
+                                </tr>
+                                <tr>
+                                    <td>Priority:</td>
+                                    <td>Medium <img src="/assets/img/icon/prio_medium.svg" alt=""></td>
+                                </tr>
+                            </table>
+
+                        </div>
+                        <div class="assigned-section">
+                            <span>Assigned to:</span>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="user overlay-user">BC</div>
+                                    </td>
+                                    <td>Max Musterman</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user overlay-user">MM</div>
+                                    </td>
+                                    <td>Max Musterman</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user overlay-user">BC</div>
+                                    </td>
+                                    <td>Max Musterman</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="subtasks">
+                            <span>Subtasks</span>
+                            <table>
+                                <tr>
+                                    <td><input type="checkbox" class="checkbox" checked id="checkbox_1"><label
+                                            for="checkbox_1"><img src="/assets/img/icon/checkbox.svg" alt=""></label>
+                                    </td>
+                                    <td>Implement Recipe</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="checkbox" id="checkbox_2"><label
+                                            for="checkbox_2"><img src="/assets/img/icon/checkbox.svg" alt=""></label>
+                                    </td>
+                                    <td>Implement Recipe</td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+                        <div class="edit-task-section">
+                            <div class="delete-task">
+                                <img src="/assets/img/icon/delete.svg" alt="">
+                                <span>Delete</span>
+                            </div>
+                            <div class="spaceholder"></div>
+                            <div class="edit-task">
+                                <img src="/assets/img/icon/edit.svg" alt="">
+                                <span>Edit</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <!-- Board -->
             <div class="board-headline">
                 <div class="board-text-responsive">
                     <h1>Board</h1>
-                    <div class="add-task-button-mobile">
+                    <div class="add-task-button-mobile" onmousedown="openAddTask()">
                         <img src="/assets/img/icon/add_mobile.svg" alt="plus">
                     </div>
                 </div>
                 <div class="add-task-section">
-                    <div class="search-task">
-                        <input class="input-task" type="text" placeholder="Find Task">
-                        <div class="search-button-container">
-                            <img src="/assets/img/icon/search.svg" alt="search">
+                    <form class="form-for-input" action="" onsubmit="return false">
+                        <div class="search-task-input-field">
+                            <input id="search_task" type="text" class="input-task" placeholder="Find task...">
+                            <div class="spaceholder"></div>
+                            <button type="button" class="search-button-container">
+                                <img src="/assets/img/icon/search.svg" alt="search" onclick="searchTask()">
+                            </button>
                         </div>
+                    </form>
 
-                    </div>
-                    <div class="add-task-button">
+                    <div class="add-task-button" onclick="openAddTask()">
                         <span class="add-task-text">Add task</span>
                         <img src="/assets/img/icon/add.svg" alt="plus">
                     </div>
@@ -53,52 +233,8 @@
                             <img src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
                         <div class="column-container">
-                            <div class="task">
-                                <div class="task-cat">
-                                    <p>User Story</p>
-                                </div>
-                                <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
-                                <div class="task-description"><span>Lorem ipsum dolor sit amet consectetur adipisicing
-                                        elit. Eos suscipit quos repellat ut cum numquam at! Ullam, repellat, fugit
-                                        pariatur vel dignissimos repellendus quisquam debitis corporis nesciunt velit
-                                        commodi quidem.Build start page withasdasdasdasdasd recipe
-                                        rec...dasdasdasdasdasd</span></div>
-                                <div class="progress">
-                                    <progress max="2" value="1"></progress>
-                                    <span>1/2 Subtasks</span>
-                                </div>
-                                <div class="task-footer">
-                                    <div class="task-users">
-                                        <div class="user">BC</div>
-                                        <div class="user">PB</div>
-                                        <div class="user">MH</div>
-                                    </div>
-                                    <div class="priority">
-                                        <img src="/assets/img/icon/prio_medium.svg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="task">
-                                <div class="task-cat">
-                                    <p>User Story</p>
-                                </div>
-                                <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
-                                <div class="task-description"><span>e withasdasdasdasdasd recipe
-                                        rec...dasdasdasdasdasd</span></div>
-                                <div class="progress">
-                                    <progress max="2" value="1"></progress>
-                                    <span>1/2 Subtasks</span>
-                                </div>
-                                <div class="task-footer">
-                                    <div class="task-users">
-                                        <div class="user">BC</div>
-                                        <div class="user">PB</div>
-                                        <div class="user">MH</div>
-                                    </div>
-                                    <div class="priority">
-                                        <img src="/assets/img/icon/prio_medium.svg" alt="">
-                                    </div>
-                                </div>
+                            <div class="empty-column">
+                                <p>No task To do</p>
                             </div>
                         </div>
                     </div>
@@ -108,9 +244,9 @@
                             <img src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
                         <div class="column-container">
-                            <div class="task">
-                                <div class="task-cat">
-                                    <p>User Story</p>
+                            <div class="task" onclick="openOverlayTask()">
+                                <div class="task-cat-technical">
+                                    <p>Technical Task</p>
                                 </div>
                                 <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
                                 <div class="task-description"><span>Build start page with recipe
@@ -141,7 +277,7 @@
                         </div>
                         <div class="column-container">
                             <div class="task">
-                                <div class="task-cat">
+                                <div class="task-cat-user">
                                     <p>User Story</p>
                                 </div>
                                 <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
@@ -173,8 +309,8 @@
                         </div>
                         <div class="column-container">
                             <div class="task">
-                                <div class="task-cat">
-                                    <p>User Story</p>
+                                <div class="task-cat-technical">
+                                    <p>Technical Task</p>
                                 </div>
                                 <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
                                 <div class="task-description"><span>Build start page with recipe
@@ -197,7 +333,7 @@
 
                             </div>
                             <div class="task">
-                                <div class="task-cat">
+                                <div class="task-cat-user">
                                     <p>User Story</p>
                                 </div>
                                 <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
@@ -239,7 +375,7 @@
 
 </body>
 
-
+<script src="/script/add_task.js"></script>
 <script>
 
 </script>
