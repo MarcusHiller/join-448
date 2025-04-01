@@ -10,16 +10,6 @@ function openAddTask() {
     setTimeout(() => {document.getElementById("add_container").classList.remove("overlay-container-sliding")}, 1)   
 }
 
-    
-
-// function closeAddTask() {
-//     document.getElementById("add_container").classList.add("overlay-container-sliding")
-//     setTimeout(() => {document.getElementById("board_overlay").classList.add("d_none")}, 50);
-//     document.getElementById("add_container").classList.add("d_none")
-
-// }
-
-
 function closeOverlayTask() {
     document.getElementById("overlay_container").classList.add("overlay-container-sliding");
     setTimeout(() => {document.getElementById("board_overlay").classList.add("d_none"),
@@ -36,8 +26,9 @@ function closeAddTask() {
 
 }
 
-// function searchTask() {
-//     const input = document.getElementById("search_task");
-//     input.value = "";
-//     input.blur();
-// }
+function searchTask() {
+    const input = document.getElementById("search_task");
+    input.blur();
+    input.value = "";
+    document.activeElement.blur();
+  }

@@ -5,8 +5,8 @@ document.querySelectorAll("select").forEach(select => {
   });
 
 
-  function searchTask() {
-    const input = document.getElementById("search_task");
-    input.value = "";
-    input.blur();
-}
+   function AddTask() {
+    alert("Yes");
+  }
+
+
