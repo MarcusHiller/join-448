@@ -6,23 +6,23 @@
  body,html {
     font-family: "Inter", sans-serif;     
     background-color: #F6F7F8;
-     width: 100%;
-     max-width: 1920px;
+    width: 100%;
+    max-width: 1920px;
+    overflow: hidden;
  }
 
  .dashboardContainer {
      display: flex;
      flex-direction: column;
-     padding-left: 328px;
+     margin-left: 128px;
      max-width: 1920px;
  }
 
 .dashboardHeader {
     display: flex;
-    align-items: center;
-    padding-top: 206px;
+    margin-top: 50px;
+    text-align: center;
 }
-
 
 .titleGroup {
     display: flex;
@@ -43,7 +43,6 @@
     border: 3px;
     height: 60px;
     background-color: #29ABE2;
-    margin: 0 12px;
 }
 
 .titleGroup span {
@@ -53,14 +52,14 @@
 }
 
 .contentMetric{
-    padding-bottom: 80px;
     margin-top: 35px;
+    display: flex;
 }
 
 .devideContent{
-    display: flex;
     gap: 25px;
     align-items: center;
+    display: flex;
 }
 
 .greeting{
@@ -84,6 +83,7 @@
 .metricsGrid {
     width: 560px;
     max-width: 100%;
+    margin: 0 auto;
    }
 
 .metricCardsUp{
@@ -92,6 +92,14 @@
     background-color: white;
     border-radius: 30px;
     display: flex;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.metricCardsUp:hover {
+    cursor: pointer;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.08s ease-out, box-shadow 0.08s ease-out;
 }
 
 .firstMetric{
@@ -103,13 +111,17 @@
    width: 100%;
 }
 
-
 .cardUpLeft{
     padding: 38px 19px;
     display: flex;
     gap: 10px;
     align-items: center;
     justify-content: center;
+}
+
+.metricCardsUp.clicked{
+    transform: scale(0.97);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .ContentCardUp{
@@ -146,6 +158,14 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.middleMetric:hover{
+    cursor: pointer;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
 .middleCardLeft{
@@ -219,6 +239,14 @@
     border-radius: 30px;
     padding: 25px;
     gap: 13px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.metricCardDown:hover {
+    cursor: pointer;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
 .cardDownleft{
@@ -246,42 +274,59 @@
     text-align: center;
 }
 /* responsive */
-@media (max-width: 768px) {
-    .devideContent {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;   
- }
 
-    .metricsGrid {
+@media (max-width: 1300px) {
+    .greeting {
+        width: 200px;
+    }
+}
+
+@media (max-width: 1135px) {
+    .greeting {
         display: none;
     }
+}
 
+@media (max-width: 990px) {
+    .titleGroup h1{
+     font-size: 48px;   
+    }
+        .titleGroup span {
+            font-size: 23px;
+        }
+}
+
+@media (max-width: 900px) {
+    .dashboardContainer {
+        margin-left: 0;
+        align-items: center;
+    }
+    .contentMetric {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 570px) {
+    .metricsGrid{
+        display: none;
+    }
+    .dashboardHeader{
+        display: none;
+    }
     .greeting {
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
-        width: 274px;
-        height: 102px;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
     }
-
     .greetingText {
         font-size: 36px;
         font-weight: 400;
     }
-
     .greetingName {
         font-size: 47px;
-    }
-
-    .dashboardContainer {
-        padding-left: 0;
-        align-items: center;
-    }
-
-    .dashboardHeader {
-        display: none;
     }
 }
