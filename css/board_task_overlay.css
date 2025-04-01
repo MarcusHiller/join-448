@@ -68,7 +68,8 @@
 }
 
 .close-icon:hover {
-    filter: brightness(0) saturate(100%) invert(57%) sepia(96%) saturate(1284%) hue-rotate(165deg) brightness(93%) contrast(89%);
+    background-color: #D1D1D1;
+    border-radius: 50%;
 }
 
 .overlay-task-description {

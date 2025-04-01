@@ -33,17 +33,20 @@
                         <h2>Add Task</h2>
                         <img onclick="closeAddTask()" class="close-icon" src="/assets/img/icon/close.svg" alt="">
                     </div>
-                    <form class="addTask-form">
+                    <form class="addTask-form" onsubmit="addTask()">
                         <div  class="addTask-form-container">
                             <div class="addTask-left-side">
                                 <label for="" class="addTask-label">Title<span class="required-star">&#42</span></label>
                                 <input class="addTask-input" placeholder="Enter a title" required>
+                                <p class="error-message">This field is required</p>
                                 <label for="" class="addTask-label">Description</label>
                                 <textarea class="addTask-textarea" placeholder="Enter a Description"
                                     required></textarea>
                                 <label for="" class="addTask-label">Due date<span
                                         class="required-star">&#42</span></label>
                                 <input class="addTask-input" type="date" required placeholder="dd/mm/yyyy">
+                                <p class="error-message">This field is required</p>
+                                
                             </div>
                             <div class="placeholder-addTask"></div>
                             <div class="addTask-right-side">
@@ -81,21 +84,22 @@
                                     <option value="1">User Story</option>
                                     <option value="2">Technical Task</option>
                                 </select>
+                                <p class="error-message">This field is required</p>
                                 <label for="" class="addTask-label">Subtasks</label>
                                 <input class="addTask-input" type="text">
                             </div>
                         </div>
                         <div class="addTask-footer">
-                            <span> <span class="required-star">&#42</span>This field is required</span>
+                            <span><span class="required-star">&#42</span>This field is required</span>
                             <div class="addTask-footer-buttons">
                                 <div class="cancel-task-button" onclick="openAddTask()">
                                     <span class="add-task-text">Cancel</span>
                                     <img src="/assets/img/icon/close.svg" alt="plus">
                                 </div>
-                                <div class="add-task-button" onsubmit="" onclick="openAddTask()">
-                                    <span class="add-task-text">Create task</span>
+                                <button type="submit" class="create-task-button">
+                                    <span  class="add-task-text">Create task</span>
                                     <img src="/assets/img/icon/check.svg" alt="plus">
-                                </div>
+                                </button>
 
 
                             </div>
@@ -200,7 +204,7 @@
             <div class="board-headline">
                 <div class="board-text-responsive">
                     <h1>Board</h1>
-                    <div class="add-task-button-mobile" onclick="openAddTask()">
+                    <div class="add-task-button-mobile" onmousedown="openAddTask()">
                         <img src="/assets/img/icon/add_mobile.svg" alt="plus">
                     </div>
                 </div>
