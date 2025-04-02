@@ -1,4 +1,6 @@
- function openOverlayTask() {
+ function openOverlayTask(taskIndex) {
+    creatOverlayFromTask(taskIndex);
+
     document.getElementById("board_overlay").classList.remove("d_none")
     document.getElementById("overlay_container").classList.remove("d_none")
     setTimeout(() => {document.getElementById("overlay_container").classList.remove("overlay-container-sliding")}, 1)   
