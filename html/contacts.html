@@ -11,7 +11,7 @@
     <script src="../script/contacts.js"></script>
 </head>
 
-<body>
+<body onload="renderContacts()">
     <nav id="navbar-section" class="navbar-section"></nav>
     <main>
         <header id="header-placeholder"></header>
@@ -22,9 +22,7 @@
                     <img src="../assets/img/icon/person_add.svg" alt="">
                 </div>
             </div>
-            <div id="contactList"></div>
-
-
+            <div id="contactList" class="user-list"></div>
         </section>
     </main>
 </body>
