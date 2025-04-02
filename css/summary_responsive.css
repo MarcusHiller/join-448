@@ -1,0 +1,273 @@
+@media (max-width: 1300px) {
+    .greeting {
+        width: 200px;
+    }
+}
+
+@media (max-width: 1135px) {
+    .greeting {
+        display: none;
+    }
+}
+
+@media (max-width: 990px) {
+    .titleGroup h1 {
+        font-size: 48px;
+    }
+
+    .titleGroup span {
+        font-size: 23px;
+    }
+
+    .dashboardContainer {
+        margin-left: 0;
+        align-items: center;
+    }
+
+    .dashboardHeader{
+        padding-top: 15px;
+    }
+
+    .contentMetric {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 570px) {
+    .metricsGrid {
+        display: none;
+        width: 100%;
+        max-width: 396px;
+    }
+
+    .metricsGrid.show-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        margin-top: 32px;
+    }
+
+    .contentMetric {
+        margin-top: 0px;
+    }
+
+    .devideContent {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+  .dashboardHeader {
+      display: none;
+  }
+    .metricCardsUp {
+        width: 186px;
+        height: 110px;
+        border-radius: 20px;
+    }
+
+    .frameLogo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .middleMetric {
+        width: 396px;
+        height: 110px;
+        border-radius: 20px;
+        gap: 20px;
+    }
+
+    .urgentLogo {
+        height: 40px;
+        width: 40px;
+    }
+
+    .urgentContent {
+        width: 50px;
+        height: 73px;
+    }
+
+    .devider {
+        height: 68px;
+    }
+
+    .textLabel {
+        font-size: 14px;
+    }
+
+    .metricNumber {
+        font-size: 47px;
+    }
+
+    .middleCardright {
+        width: 135px;
+        height: 44px;
+        gap: 8px;
+        text-align: center;
+    }
+
+    .metricDate {
+        font-size: 16px;
+    }
+
+    .downMetric {
+        height: 116px;
+        width: 396px;
+        gap: 12px;
+        justify-content: center;
+    }
+
+    .metricCardDown {
+        width: 126px;
+        height: 126px;
+        border-radius: 20px;
+    }
+
+    .titleGroup {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        height: 104px;
+        width: 223px;
+    }
+
+    .desktop-divider {
+        display: none;
+    }
+
+    .mobile-divider {
+        display: block;
+        width: 60px;
+        height: 3px;
+    }
+
+    .titleGroup h1 {
+        font-size: 36px;
+    }
+
+    .titleGroup span {
+        font-size: 18px;
+    }
+
+    .greeting {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+
+    .greetingText {
+        font-size: 36px;
+        font-weight: 400;
+    }
+
+    .greetingName {
+        font-size: 47px;
+    }
+}
+
+ @media (max-width: 400px) {
+     .metricsGrid.show-mobile {
+         width: 100%;
+         max-width: 300px;
+         gap: 12px;
+         margin-top: 24px;
+     }
+
+     .dashboardHeader,
+     .titleGroup {
+         display: none;
+     }
+
+     .metricCardsUp {
+         width: 140px;
+         height: 100px;
+         border-radius: 20px;
+     }
+
+     .frameLogo {
+         width: 32px;
+         height: 32px;
+     }
+
+     .contentCardUp {
+         width: 36px;
+         height: 65px;
+         white-space: nowrap;
+     }
+
+     .textLabel {
+         font-size: 13px;
+     }
+
+     .metricNumber {
+         font-size: 40px;
+     }
+
+     .middleMetric {
+         width: 300px;
+         height: 90px;
+         gap: 14px;
+         padding: 16px;
+         border-radius: 20px;
+     }
+
+     .urgentLogo {
+         width: 36px;
+         height: 36px;
+     }
+
+     .urgentContent {
+         width: 42px;
+         height: 60px;
+     }
+
+     .devider {
+         height: 50px;
+     }
+
+     .middleCardright {
+         width: 110px;
+         height: 38px;
+         gap: 4px;
+         text-align: center;
+     }
+
+     .metricDate {
+         font-size: 14px;
+     }
+
+     .metricLabel {
+         font-size: 12px;
+     }
+
+     .downMetric {
+         width: 300px;
+         height: 95px;
+         gap: 8px;
+         justify-content: center;
+     }
+
+     .metricCardDown {
+         width: 100px;
+         height: 100px;
+         border-radius: 20px;
+     }
+
+     .mobile-divider {
+         width: 50px;
+         height: 3px;
+     }
+
+     .greetingText {
+         font-size: 32px;
+     }
+
+     .greetingName {
+         font-size: 42px;
+     }
+ }

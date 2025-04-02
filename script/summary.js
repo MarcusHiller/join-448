@@ -12,9 +12,9 @@ function showMetricsGrid(event) {
         let grid = document.querySelector('.metricsGrid');
         let devideContent = document.querySelector('.devideContent');
         let header = document.querySelector('.dashboardHeader');
-        if (greeting && grid) {
+        if (greeting && grid && devideContent) {
             greeting.style.display = 'none';
-            grid.style.display = 'block';
+            grid.classList.add('show-mobile');
             devideContent.style.height = 'auto';
         }
         if (header) {
