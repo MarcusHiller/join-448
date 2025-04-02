@@ -12,7 +12,7 @@ function addUser() {
     let passwordConfirm = document.getElementById('passwordConf');
     if (checkSamePasswd(passwordRegister.value, passwordConfirm.value) && checkUserExists(email.value)) {
         users.push({username: username.value, email: email.value, password: passwordRegister.value });
-        window.location.href = '../index.html?msg=Du hast dich erfolgreich registriert.'
+        showOverlaySuccessful();
     }
 }
 
@@ -45,4 +45,12 @@ function checkUserExists(params) {
         return false;
     }
     return true;
+}
+
+
+function showOverlaySuccessful() {
+    let overlay = document.getElementById('success');
+    overlay.classList.remove('d-none');
+    overlay.classList.add('overlay-successful');
+    setTimeout(() => {window.location.href = '../index.html?msg=Du hast dich erfolgreich registriert.'}, 1500);
 }

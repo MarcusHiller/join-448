@@ -5,11 +5,7 @@
     z-index: 10;
     height: 100vh;
     width: 100%;
-    animation-name: contrasts;
-    animation-duration: 0.7s;
-    animation-delay: 1s;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;
+    animation: contrasts 0.7s ease-out 1s forwards;
 }
 
 
@@ -20,22 +16,13 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    animation-name: cover;
-    animation-duration: 0.6s;
-    animation-delay: 0.5s;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;
+    animation: cover 0.6s ease-out 0.5s forwards;
 }
 
 
 .cover-white {
     transform: translate(-50%, -50%);
-    animation-name: cover-white;
-    animation-duration: 0.6s;
-    animation-delay: 0.5s;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;
-    animation-duration: 4s;
+    animation: cover-white 0.6s ease-out 0.5s forwards;
     display: none;
 }
 
@@ -118,10 +105,6 @@
     .cover-white {
         display: block;
         transform: translate(-50%, -50%);
-        animation-name: cover-white;
-        animation-duration: 0.6s;
-        animation-delay: 0.5s;
-        animation-timing-function: ease-out;
-        animation-fill-mode: forwards;
+        animation: cover-white 0.6s ease-out 0.5s forwards;
     }
 }
