@@ -256,7 +256,7 @@ h2::after {
 
 @media (max-width: 720px) {
     .sign-up-container {
-        /* width: 240px; */
+        width: 240px;
     }
 
     h2 {

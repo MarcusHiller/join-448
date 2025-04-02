@@ -46,3 +46,32 @@
     border-color: #29ABE2;
     transform: scale(1.05);
 }
+
+
+@media (max-width: 1200px) {
+    .signup-content {
+        padding: 32px 60px;
+    }
+}
+
+
+@media (max-width: 940px) {
+    .logo {
+        width: 64px;
+        height: 78px;
+        top: 37px;
+        left: 38px;
+    }
+    .submit-container button {
+        font-size: 16px;
+        width: 180px;
+        height: 51px;
+    }
+}
+
+
+@media (max-width: 500px) {
+    .signup-content {
+        padding: 32px 15px;
+    }
+}
