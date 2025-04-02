@@ -24,10 +24,21 @@ function login() {
     let user = users.find(user => user.email == email.value && user.password == passwd.value)
     console.log(user);
     if (user) {
-        window.location.href = "html/summary.html";
+        console.log(user);
+        
+        window.location.href = `html/summary.html?name=${encodeURIComponent(user.username)}&email=${encodeURIComponent(email)}`;
     } else {
+        document.getElementById('labelPasswd').classList.add('input-field-error');
         info.classList.remove('opacity');
         info.innerHTML = "";
         info.innerHTML = "Check your e-mail and password. Please try again.";
     }
+}
+
+
+function guestLogin(event) {
+    event.preventDefault();
+    document.getElementById('email').removeAttribute('required');
+    document.getElementById('passwd').removeAttribute('required');
+    window.location.href = "html/summary.html?name=Guest";
 }
