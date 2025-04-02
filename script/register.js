@@ -1,9 +1,12 @@
 let users = [
     { 'username': 'Harald', 'email': 'test@email.de', 'password': 'test' }
 ];
-setTimeout(() => {
-    document.getElementById('logoImg').classList.remove('d-none');
-}, 1060);
+
+
+let textPasswdError = "Ups! your password don't match.";
+let textEmailError = "The e-mail already exists. Please select another e-mail."
+
+/* Sign UP */
 
 function addUser() {
     let username = document.getElementById('username');
@@ -25,7 +28,7 @@ function checkSamePasswd(a, b) {
     if (a !== b) {
         labelPassw.classList.add('input-field-error');
         poppinError.classList.remove('opacity');
-        poppinError.innerHTML = "Ups! your password don't match.";
+        poppinError.innerHTML = textPasswdError;
         return false;
     }
     return true;
@@ -41,7 +44,7 @@ function checkUserExists(params) {
     if (result) {
         labelEmailSignUp.classList.add('input-field-error');
         poppinError.classList.remove('opacity');
-        poppinError.innerHTML = "The e-mail already exists. Please select another e-mail.";
+        poppinError.innerHTML = textEmailError;
         return false;
     }
     return true;
@@ -54,3 +57,7 @@ function showOverlaySuccessful() {
     overlay.classList.add('overlay-successful');
     setTimeout(() => {window.location.href = '../index.html?msg=Du hast dich erfolgreich registriert.'}, 1500);
 }
+
+
+
+
