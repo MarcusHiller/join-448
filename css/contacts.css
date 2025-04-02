@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box;
+}
+
+
+.user-container {
+    width: 456px;
+}
+
+
+.flex-box-center-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.list-header {
+    width: 456px;
+    height: 101px;
+}
+
+
+.add-contact-container {
+    width: 352px;
+    background-color: #2A3647;
+    border-radius: 10px;
+    padding-block: 12px;
+    gap: 16px;
+    border: 1px;
+}
+
+
+.add-contact-container button {
+    all: unset;
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 120%;
+    color: white;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+
+.add-contact-container img {
+    width: 32px;
+    height: 32px;
+}
