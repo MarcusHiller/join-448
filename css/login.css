@@ -147,6 +147,11 @@ label:hover {
 }
 
 
+.poppins-success {
+    color: #2A3647;
+}
+
+
 h2 {
     width: 315px;
     height: 89px;
