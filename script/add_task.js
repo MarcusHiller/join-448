@@ -102,26 +102,26 @@ document.querySelectorAll("select").forEach(select => {
     alert("Yes");
   }
 
-  function renderTaskInToColumn() {
-      let toDoColumnRef = document.getElementById("toDo_column");
-      let inProgColumnRef = document.getElementById("inProg_column");
-      let feedbackColumnRef = document.getElementById("feedback_column");
-      let doneColumnRef = document.getElementById("done_column");
+  // function renderTaskInToColumn() {
+  //     let toDoColumnRef = document.getElementById("toDo_column");
+  //     let inProgColumnRef = document.getElementById("inProg_column");
+  //     let feedbackColumnRef = document.getElementById("feedback_column");
+  //     let doneColumnRef = document.getElementById("done_column");
 
-      for (let taskIndex = 0; taskIndex < tasks.length; taskIndex++) {
-        let taskCondition = tasks[taskIndex].condition;
+  //     for (let taskIndex = 0; taskIndex < tasks.length; taskIndex++) {
+  //       let taskCondition = tasks[taskIndex].condition;
 
-        if(taskCondition == "ToDo") {
-          toDoColumnRef.innerHTML += getTaskTemplate(taskIndex);
-        } else if (taskCondition == "inProgress") {
-          inProgColumnRef.innerHTML += getTaskTemplate(taskIndex);
-        } else if (taskCondition == "feedback") {
-          feedbackColumnRef.innerHTML += getTaskTemplate(taskIndex);
-        } else if (taskCondition == "done") {
-          doneColumnRef.innerHTML += getTaskTemplate(taskIndex);
-        }
-      }
-  }
+  //       if(taskCondition == "ToDo") {
+  //         toDoColumnRef.innerHTML += getTaskTemplate(taskIndex);
+  //       } else if (taskCondition == "inProgress") {
+  //         inProgColumnRef.innerHTML += getTaskTemplate(taskIndex);
+  //       } else if (taskCondition == "feedback") {
+  //         feedbackColumnRef.innerHTML += getTaskTemplate(taskIndex);
+  //       } else if (taskCondition == "done") {
+  //         doneColumnRef.innerHTML += getTaskTemplate(taskIndex);
+  //       }
+  //     }
+  // }
 
 
   function creatOverlayFromTask(taskIndex) {
