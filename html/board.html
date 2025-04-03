@@ -83,6 +83,7 @@
                                         class="required-star">&#42</span></label>
                                 <select class="category-select" required>
                                     <option value="" hidden selected >Select task category</option>
+                                    <option value="" hidden selected >Select task category</option>
                                     <option value="1">User Story</option>
                                     <option value="2">Technical Task</option>
                                 </select>
@@ -245,8 +246,8 @@
                             <h3>In progress</h3>
                             <img src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
-                        <div id="inProg_column" ondragover="dragoverHandler(event); event.stopPropagation()" ondrop="moveTo('inProgress')" class="column-container">
-                            <!-- <div class="task" onclick="openOverlayTask()">
+                        <div id="inProg_column" class="column-container">
+                            <div class="task" onclick="openOverlayTask()">
                                 <div class="task-cat-technical">
                                     <p>Technical Task</p>
                                 </div>
@@ -269,9 +270,7 @@
                                 </div>
 
 
-                            </div> -->
-
-                            
+                            </div>
                         </div>
                     </div>
                     <div class="column">
