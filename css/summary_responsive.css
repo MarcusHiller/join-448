@@ -6,16 +6,12 @@
 @media (max-width: 1135px) {
     .greeting {
         display: none;
+        width: 200px;
     }
 } 
 
 @media (max-width: 990px) {
-    /* .titleGroup h1 {
-        font-size: 48px;
-    } */
-  .greeting {
-      display: none;
-  }
+
     .titleGroup span {
         font-size: 23px;
     }
@@ -26,11 +22,7 @@
     }
 
     .dashboardHeader{
-        padding-top: 15px;
-    }
-
-    .contentMetric {
-        justify-content: center;
+        padding-top: 25px;
     }
 }
 
@@ -40,11 +32,14 @@
         max-width: 396px;
         align-self: center;
     }
+    .content{
+        display: flex;
+        padding: 0px 16px;
+    }
   .dashboardHeader {
     display: flex;
-      justify-content: flex-start;
-      padding-left: 16px;
-      width: 100%;
+    justify-content: flex-start;
+    width: 100%;
   }
     .metricsGrid.show-mobile {
         display: flex;
@@ -52,16 +47,6 @@
         align-items: center;
         gap: 16px;
         margin-top: 32px;
-    }
-
-    .contentMetric {
-        margin-top: 0px;
-    }
-
-    .devideContent {
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
     }
 
     .metricCardsUp {
@@ -76,10 +61,10 @@
     }
 
     .middleMetric {
-        width: 396px;
         height: 110px;
         border-radius: 20px;
         gap: 20px;
+        width: 100%;
     }
 
     .urgentLogo {
@@ -117,14 +102,13 @@
 
     .downMetric {
         height: 116px;
-        width: 396px;
+        width: 100%;
         gap: 12px;
-        justify-content: center;
     }
 
     .metricCardDown {
-        width: 126px;
-        height: 126px;
+        width: 116px;
+        height: 116px;
         border-radius: 20px;
     }
 
@@ -183,11 +167,6 @@
          margin-top: 24px;
      }
 
-     /* .dashboardHeader,
-     .titleGroup {
-         display: none;
-     } */
-
      .metricCardsUp {
          width: 140px;
          height: 100px;
@@ -199,10 +178,10 @@
          height: 32px;
      }
 
-     .contentCardUp {
+     .contentCard {
          width: 36px;
          height: 65px;
-         white-space: nowrap;
+        
      }
 
      .textLabel {
@@ -210,7 +189,7 @@
      }
 
      .metricNumber {
-         font-size: 40px;
+         font-size: 36px;
      }
 
      .middleMetric {
@@ -251,17 +230,13 @@
      }
 
      .downMetric {
-         width: 300px;
-         height: 95px;
-         gap: 8px;
-         justify-content: center;
+         max-width: 300px;
+         width: 100%;
      }
-
-     .metricCardDown {
-         width: 100px;
-         height: 100px;
-         border-radius: 20px;
-     }
+          .metricCardDown {
+              width: 96px;
+              height: 96px;
+          }
 
      .mobile-divider {
          width: 50px;
