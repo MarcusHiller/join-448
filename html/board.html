@@ -76,13 +76,13 @@
 
                                 <label for="" class="addTask-label">Assigned to</label>
                                 <select id="assigned_select" class="assigned-select">
-                                    <option value="">Select contacts to assign</option>
+                                    <option value="" disabled selected>Select contacts to assign</option>
                                     <option value="0">Max Musterman</option>
                                 </select>
                                 <label for="" class="addTask-label">Category<span
                                         class="required-star">&#42</span></label>
                                 <select class="category-select" required>
-                                    <option value="" hidden selected>Select task category</option>
+                                    <option value="" hidden selected >Select task category</option>
                                     <option value="1">User Story</option>
                                     <option value="2">Technical Task</option>
                                 </select>
@@ -213,7 +213,7 @@
                 <div class="add-task-section">
                     <form class="form-for-input" action="" onsubmit="return false">
                         <div class="search-task-input-field">
-                            <input id="search_task" type="text" class="input-task" placeholder="Find task...">
+                            <input id="search_task" type="text" class="input-task" placeholder="Find task..." required>
                             <div class="spaceholder"></div>
                             <button type="button" class="search-button-container">
                                 <img src="/assets/img/icon/search.svg" alt="search" onclick="searchTask()">
@@ -234,7 +234,7 @@
                             <h3>To do</h3>
                             <img src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
-                        <div id="toDo_column" class="column-container">
+                        <div ondragover="dragoverHandler(event)" ondrop=" moveTo('ToDo')" id="toDo_column" class="column-container">
                             <div class="empty-column">
                                 <p>No task To do</p>
                             </div>
@@ -245,8 +245,8 @@
                             <h3>In progress</h3>
                             <img src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
-                        <div id="inProg_column" class="column-container">
-                            <div class="task" onclick="openOverlayTask()">
+                        <div id="inProg_column"  ondragover="dragoverHandler(event)" ondrop=" moveTo('inProgress')" class="column-container">
+                            <!-- <div class="task" onclick="openOverlayTask()">
                                 <div class="task-cat-technical">
                                     <p>Technical Task</p>
                                 </div>
@@ -269,7 +269,7 @@
                                 </div>
 
 
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="column">
@@ -277,7 +277,7 @@
                             <h3>Await feedback</h3>
                             <img src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
-                        <div id="feedback_column" class="column-container">
+                        <div ondragover="dragoverHandler(event)" ondrop=" moveTo('feedback')" id="feedback_column" class="column-container">
                             <div class="task">
                                 <div class="task-cat-user">
                                     <p>User Story</p>
@@ -309,7 +309,7 @@
                         <div class="column-headline">
                             <h3>Done</h3>
                         </div>
-                        <div id="done_column"  class="column-container">
+                        <div ondragover="dragoverHandler(event)" ondrop=" moveTo('done')" id="done_column"  class="column-container">
                             <div class="task">
                                 <div class="task-cat-technical">
                                     <p>Technical Task</p>
