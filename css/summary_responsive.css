@@ -2,19 +2,20 @@
     .greeting {
         width: 200px;
     }
-}
-
+} 
 @media (max-width: 1135px) {
     .greeting {
         display: none;
     }
-}
+} 
 
 @media (max-width: 990px) {
     .titleGroup h1 {
         font-size: 48px;
     }
-
+  .greeting {
+      display: none;
+  }
     .titleGroup span {
         font-size: 23px;
     }
@@ -35,7 +36,7 @@
 
 @media (max-width: 570px) {
     .metricsGrid {
-        display: none;
+        /* display: none; */
         width: 100%;
         max-width: 396px;
     }
@@ -57,9 +58,9 @@
         align-items: center;
         justify-content: flex-start;
     }
-  .dashboardHeader {
+  /* .dashboardHeader {
       display: none;
-  }
+  } */
     .metricCardsUp {
         width: 186px;
         height: 110px;
@@ -127,7 +128,7 @@
     .titleGroup {
         flex-direction: column;
         align-items: center;
-        gap: 16px;
+        gap: 8px;
         height: 104px;
         width: 223px;
     }
@@ -143,15 +144,15 @@
     }
 
     .titleGroup h1 {
-        font-size: 36px;
+        font-size: 33px;
     }
 
     .titleGroup span {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .greeting {
-        display: flex;
+        display: none;
         justify-content: center;
         align-items: center;
         text-align: center;
@@ -178,10 +179,10 @@
          margin-top: 24px;
      }
 
-     .dashboardHeader,
+     /* .dashboardHeader,
      .titleGroup {
          display: none;
-     }
+     } */
 
      .metricCardsUp {
          width: 140px;
