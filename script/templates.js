@@ -1,5 +1,5 @@
 function getTaskTemplate(taskIndex) {
-    return `<div draggable="true" id="task_index_${taskIndex}" class="task" ondragstart="startDragging(${taskIndex})" onclick="openOverlayTask(${taskIndex})">
+    return `<div draggable="true" id="task_index_${taskIndex}" class="task" ondragstart="startDragging(${taskIndex}); addHighlight()" ondragend="removeHighlight()" onclick="openOverlayTask(${taskIndex})">
                 <div class="task-cat-technical">
                     <p>${tasks[taskIndex].category}</p>
                 </div>
