@@ -16,10 +16,9 @@
         font-size: 23px;
     }
 
-    .dashboardContainer {
-        margin-left: 0;
-        align-items: center;
-    }
+  .dashboardContainer {
+      padding-inline: 56px;
+  }
 
     .dashboardHeader{
         padding-top: 25px;
@@ -229,13 +228,13 @@
          font-size: 12px;
      }
 
-     .downMetric {
+    .downMetric {
          max-width: 300px;
          width: 100%;
      }
-          .metricCardDown {
-              width: 96px;
-              height: 96px;
+    .metricCardDown {
+        width: 96px;
+        height: 96px;
           }
 
      .mobile-divider {
