@@ -137,6 +137,17 @@ h1 {
 
 .column {
     width: 256px;
+
+}
+
+.empty-task {
+    border: 1px dashed #A8A8A8;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #A8A8A8;
+    height: 256px;
 }
 
 .column-headline {
@@ -265,6 +276,7 @@ h1 {
     margin-left: -8px;
     font-size: 12px;
 }
+
 
 @media(max-width: 1400px) {
     .row {
