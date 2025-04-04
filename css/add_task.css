@@ -1,5 +1,5 @@
 .content {
-    padding: 100px 80px;
+    padding: 40px 80px;
     font-family: Inter;
     background-color: #F6F7F8;
 }
@@ -7,4 +7,15 @@
 .addTask-container {
     max-width: 1440px;
     box-sizing: border-box;
+}
+
+
+.footer-desktop {
+    position: inherit;
+}
+
+.addTask-form {
+    min-height: fit-content;
+    padding-bottom: 80px;
+    gap: 48px;
 }

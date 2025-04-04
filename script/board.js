@@ -71,6 +71,7 @@ function searchTask() {
       }
     }
 
+   
 
     if(toDoColumnRef.innerHTML == "") {
         toDoColumnRef.innerHTML = "<div class='empty-column'><p>No task To do</p></div>"
@@ -86,7 +87,12 @@ function searchTask() {
 
     if(doneColumnRef.innerHTML == "") {
         doneColumnRef.innerHTML = "<div class='empty-column'><p>No task is done</p></div>"
-    }
+    };
+
+    toDoColumnRef.innerHTML += "<div id='empty_task_toDo' class='empty-task d_none'></div>";
+    inProgColumnRef.innerHTML += "<div id='empty_task_inProg' class='empty-task d_none'></div>";
+    feedbackColumnRef.innerHTML += "<div id='empty_task_feedback' class='empty-task d_none'></div>";
+    doneColumnRef.innerHTML += "<div id='empty_task_done' class='empty-task d_none'></div>";
 }
 
 
@@ -104,7 +110,31 @@ function dragoverHandler(ev) {
 
 
 
-  function moveTo(conditon) {
-    tasks[currentDraggableTask].condition = conditon;
+  function moveTo(condition) {
+    tasks[currentDraggableTask].condition = condition;
     renderTaskInToColumn();
+  }
+
+
+  function addHighlight() {
+
+    if (tasks[currentDraggableTask].condition == "ToDo") {
+      document.getElementById("empty_task_inProg").classList.remove("d_none");
+    } else if (tasks[currentDraggableTask].condition == "inProgress") {
+      document.getElementById("empty_task_toDo").classList.remove("d_none");
+    document.getElementById("empty_task_feedback").classList.remove("d_none");
+    } else if (tasks[currentDraggableTask].condition == "feedback") {
+      document.getElementById("empty_task_inProg").classList.remove("d_none");
+      document.getElementById("empty_task_done").classList.remove("d_none");
+    } else if (tasks[currentDraggableTask].condition == "done") {
+      document.getElementById("empty_task_feedback").classList.remove("d_none");
+    }
+  }
+  
+
+  function removeHighlight() {
+    document.getElementById("empty_task_toDo").classList.add("d_none");
+    document.getElementById("empty_task_inProg").classList.add("d_none");
+    document.getElementById("empty_task_feedback").classList.add("d_none");
+    document.getElementById("empty_task_done").classList.add("d_none");
   }
