@@ -5,68 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summary</title>
     <link rel="stylesheet" href="../css/summary.css">
-    <script src="../script/summary.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/fonts.css">
+        <link rel="stylesheet" href="../css/summary_responsive.css">
+    <script src="../script/summary.js" defer></script>
+    <script src="../script.js" defer></script>
 </head>
-<body>
-<div class="dashboardContainer">
-    <div class="dashboardHeader">
-        <div class="titleGroup">
-            <h1>Join 360</h1>
-            <div class="titleDivider"></div>
-            <span>Key Metrics at a Glance</span>
-        </div>
-    </div>
-    <div class="mainSection">
-    <div class="greeting">
-       <div>
-        Good morning, <span class="greetingName">Sofia Müller</span>
-       </div> 
-    </div>
-
-    <div class="metricsGrid">
-        <div class="metricCard">
-            <div class="metricIcon">✏️</div>
-            <div class="metricNumber">1</div>
-            <div class="metricLabel">To-do</div>
-        </div>
-
-        <div class="metricCard">
-            <div class="metricIcon">✔️</div>
-            <div class="metricNumber">1</div>
-            <div class="metricLabel">Done</div>
-        </div>
-
-        <div class="metricCard urgentCard">
-            <div class="left">
-                <div class="metricIcon urgentIcon">⏫</div>
-                <div class="gap">
-                    <div class="metricNumber">1</div>
-                    <div class="metricLabel">Urgent</div>
+<body onload="init('summary_page')">
+    <nav id="navbar-section" class="navbar-section"></nav>
+    <main>
+        <header id="header-placeholder"></header>
+        <div class="content">
+            <div class="dashboardContainer">
+                <div class="dashboardHeader">
+                    <div class="titleGroup">
+                        <h1>Join 360</h1>
+                        <div class="titleDivider desktop-divider"></div>
+                        <span>Key Metrics at a Glance</span>
+                        <div class="titleDivider mobile-divider"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="devider"></div>
-            <div class="right">
-                <strong>October 16, 2022</strong>
-                <div class="metricLabel">Upcoming Deadline</div>
-            </div>
-        </div>
-
-        <div class="metricCard">
-            <div class="metricNumber">5</div>
-            <div class="metricLabel">Tasks in Board</div>
-        </div>
-
-        <div class="metricCard">
-            <div class="metricNumber">2</div>
-            <div class="metricLabel">Tasks In Progress</div>
-        </div>
-
-        <div class="metricCard">
-            <div class="metricNumber">2</div>
-            <div class="metricLabel">Awaiting Feedback</div>
-        </div>
-    </div>
-    </div>
-</div>
+                <div class="contentMetric">
+                    <div class="devideContent">
+                        <div class="metricsGrid">
+                            <div class="firstMetric">
+                                <div class="metricCardsUp cardUp" onclick="navigateTo('board.html', this)"> 
+                                    <img class="frameLogo" src="../assets/img/icon/Icon_summary/Frame pencil.svg">
+                                    <div class="contentCard">
+                                        <p class="metricNumber">1</p>
+                                        <p class="textLabel">To-do</p>
+                                    </div>
+                                </div>
+                                <div class="metricCardsUp cardUp" onclick="navigateTo('board.html', this)">                                      <img class="frameLogo" src="../assets/img/icon/Icon_summary/Frame check.svg">
+                                    <div class="contentCard">
+                                        <p class="metricNumber">1</p>
+                                        <p class="textLabel">Done</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="middleMetric" onclick="navigateTo('board.html', this)">                                <div class="middleCardLeft">
+                                    <img class="urgentLogo" src="../assets/img/icon/Icon_summary/Frame urgent.svg">
+                                    <div class="urgentContent">
+                                        <span class="metricNumber">1</span>
+                                        <span class="metricLabel">Urgent</span>
+                                    </div>
+                                </div>
+                                <div class="devider"></div>
+                                <div class="middleCardright">
+                                    <p class="metricDate">October 16, 2022</p>
+                                    <p class="metricLabel">Upcoming Deadline</p>
+                                </div>
+                            </div>
+                            <div class="downMetric">
+                                <div class="metricCardDown cardDown" onclick="navigateTo('board.html', this)">
+                                    <div class="contentCard">
+                                         <p class="metricNumber">5</p>
+                                        <p class="textLabel">Tasks in <br> Board<br></p>
+                                    </div>
+                                </div>
+                                <div class="metricCardDown cardDown" onclick="navigateTo('board.html', this)">
+                                    <div class="contentCard">
+                                        <p class="metricNumber">2</p>
+                                        <p class="textLabel">Tasks in Progress</p>
+                                    </div>
+                                </div>
+                                <div class="metricCardDown cardDown" onclick="navigateTo('board.html', this)">
+                                    <div class="contentCard">
+                                        <p class="metricNumber">2</p>
+                                        <p class="textLabel">Awaiting Feedback</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="greeting">
+                            <div class="greetingText">
+                                Good morning, <span class="greetingName">Sofia Müller</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </main>
 </body>
 </html>

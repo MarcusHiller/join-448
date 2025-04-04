@@ -4,136 +4,258 @@
  }
 
  body,html {
-     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-     background-color: #F8F9FB;
-     color: #1F2937;
-     width: 100%;
-     max-width: 1920px;
- }
-
- .mainSection {
-    display: flex;
-    flex-direction: row-reverse;
+    font-family: Inter;     
+    background-color: #F6F7F8;
+    width: 100%;
+    max-width: 1920px;
+    /* overflow: hidden; */
  }
 
  .dashboardContainer {
-     max-width: 1050px;
-     margin: 40px auto;
-     padding: 0 20px;
      display: flex;
      flex-direction: column;
+    padding-inline: 132px;
+    max-width: 1920px;
+    margin: 0 auto;
  }
 
 .dashboardHeader {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
+    text-align: center;
+    padding-top: 30px;
+    width: 100%;
+    justify-content: flex-start;
 }
 
 .titleGroup {
     display: flex;
     align-items: center;
+    gap: 30px;
+    height: 73px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
 }
 
 .titleGroup h1 {
-    font-size: 36px;
+    font-size: 61px;
     font-weight: 700;
-    margin: 0;
 }
 
 .titleDivider {
-    width: 2px;
-    height: 28px;
-    background-color: #3B82F6;
-    margin: 0 12px;
+    background-color: #29ABE2;
+}
+
+.desktop-divider {
+    display: block;
+    width: 3px;
+    height: 60px;
+}
+
+.mobile-divider {
+    display: none;
 }
 
 .titleGroup span {
-    font-size: 18px;
-    color: #6B7280;
+    font-size: 27px;
+    color: #2A3647;
+    font-weight: 400;
 }
 
-
-.metricsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 20px;
-}
-
-.greeting {
-    font-size: 24px;
-    padding-left: 50px;
+.contentMetric{
+    margin-top: 35px;
     display: flex;
+}
+
+.devideContent{
+    gap: 25px;
     align-items: center;
+    display: flex;
+}
+
+.greeting{
+    gap: 3px;
+    width: 385px;
+    height: 136px;
 }
 
 .greetingName{
-    color: #3B82F6;
-    font-weight: bold;
+    color: #29ABE2;
+    font-weight: 700;
+    font-size: 64px;
 }
 
- .metricCard {
-     background-color: white;
-     border-radius: 16px;
-     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-     padding: 20px;
-     text-align: center;
- }
+.greetingText{
+    font-size: 47px;
+    font-weight: 500;
+    color: #2A3647;
+}
 
- .metricIcon {
-     background-color: #1F2937;
-     color: white;
-     border-radius: 50%;
-     width: 40px;
-     height: 40px;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     margin: 0 auto 10px;
-     font-size: 18px;
- }
+.metricsGrid {
+    width: 560px;
+    max-width: 100%;
+    margin: 0 auto;
+   }
 
- .urgentIcon {
-     background-color: #F97316;
- }
+.metricCardsUp{
+    width: 264px;
+    height: 168px;
+    background-color: white;
+    border-radius: 30px;
+    display: flex;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
 
- .metricNumber {
-     font-size: 24px;
-     font-weight: bold;
- }
+.metricCardsUp:hover {
+    cursor: pointer;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.08s ease-out, box-shadow 0.08s ease-out;
+}
 
- .metricLabel {
-     font-size: 14px;
-     color: #6B7280;
- }
+.firstMetric{
+   display: flex;
+   gap: 18px;
+   padding-bottom: 25px;
+}
 
- .urgentCard {
-     grid-column: span 2;
-     display: flex;
-     align-items: center;
-     justify-content: space-between;
- }
+.metricCardsUp.clicked{
+    transform: scale(0.97);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
 
- .urgentCard .left,
- .urgentCard .right {
-     display: flex;
-     align-items: center;
- }
+.contentCard{
+    width: 63px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
 
- .urgentCard .right {
-     flex-direction: column;
-     align-items: flex-end;
- }
+.frameLogo{
+    width: 69px;
+    height: 69px;
+}
 
- .gap{
-    margin: 10px;
- }
+.textLabel{
+    font-size: 20px;
+    font-weight: 400;
+}
 
- .devider{
-    width: 2px;
-        height: 40px;
-        background-color: #3B82F6;
-        margin: 0 12px;
- }
+.cardUp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.middleMetric{
+    height: 168px;
+    border-radius: 30px;
+    gap: 61px;
+    background-color: white;
+    padding: 28px 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.middleMetric:hover{
+    cursor: pointer;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.middleCardLeft{
+    display: flex;
+    width: 130px;
+    height: 96px;
+    gap: 18px;
+    align-items: center;
+}
+
+.urgentLogo{
+    height: 60px;
+    width: 60px;
+}
+
+.urgentContent{
+    width: 52px;
+    height: 96px;
+    text-align: center;
+}
+
+.metricNumber {
+    font-size: 64px;
+    font-weight: 600;
+    color: black;
+}
+
+.metricLabel {
+    font-size: 16px;
+    font-weight: 400;
+    color: #2A3647;
+}
+
+.devider{
+    border:  2px;
+    width: 3px;
+    height: 102px;
+    background-color: #D1D1D1;
+}
+
+.middleCardright{
+    display: flex;
+    width: 178px;
+    height: 57px;
+    gap: 13px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.metricDate{
+    font-size: 21px;
+    font-weight: 700;
+    color: #2A3647;
+}
+
+.downMetric{
+    display: flex;
+    height: 170px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 25px;
+    flex-wrap: nowrap;
+    }
+
+.metricCardDown{
+    width: 168px;
+    height: 168px;
+    background-color: white;
+    border-radius: 30px;
+    padding: 25px;
+    gap: 13px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.metricCardDown:hover {
+    cursor: pointer;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.cardDown{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+}
