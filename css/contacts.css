@@ -137,6 +137,17 @@ h2 {
     gap: 35px;
     padding: 15px 24px;
     cursor: pointer;
+    border-radius: 10px;
+}
+
+
+.contact:hover {
+    background: linear-gradient(180deg, #F9F9F9 0%, #F0F0F0 100%);
+}
+
+
+.choose-contact {
+    background: #2A3647;
 }
 
 
@@ -145,6 +156,7 @@ h2 {
     height: 42px;
     border-radius: 50%;
     color: white;
+    border: 3px solid white;
 }
 
 strong {
@@ -247,6 +259,7 @@ h4 {
 .container-editing-tools {
     display: flex;
     gap: 13px;
+    cursor: pointer;
 }
 
 
