@@ -7,23 +7,57 @@
     <title>Contacts</title>
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="../css/contacts.css">
+    <link rel="stylesheet" href="/css/board_task_overlay.css">
+    <link rel="stylesheet" href="/css/board_add_task_overlay.css">
     <script src="/script.js"></script>
     <script src="../script/contacts.js"></script>
 </head>
 
-<body onload="renderContacts()">
+<body class="resp-over-screen" onload="renderContacts(); init('contact_page')">
     <nav id="navbar-section" class="navbar-section"></nav>
     <main>
         <header id="header-placeholder"></header>
-        <section id="" class="user-container">
-            <div class="list-header flex-box-center-center">
-                <div id="add-contact-btn" class="add-contact-container flex-box-center-center">
-                    <button class="add-contact-btn">Add new contact</button>
-                    <img src="../assets/img/icon/person_add.svg" alt="">
+        <div class="contact-background">
+            <section id="" class="user-container">
+                <div class="list-header flex-box-center-center">
+                    <div id="add-contact-btn" class="add-contact-container flex-box-center-center">
+                        <button class="add-contact-btn">Add new contact</button>
+                        <img src="../assets/img/icon/person_add.svg" alt="">
+                    </div>
                 </div>
-            </div>
-            <div id="contactList" class="user-list"></div>
-        </section>
+                <div id="contactList" class="user-list"></div>
+            </section>
+            <section class="content-contact">
+                <div class="headline">
+                    <h2>Contacts</h2>
+                    <hr>
+                    <p>Better with a Team</p>
+                </div>
+                <div class="user-info-container">
+                    <div class="user-info-header">
+                        <div class="info-initial flex-box-center-center">ID</div>
+                        <div class="info-name">
+                            <h4>Max Musternann</h4>
+                            <div class="container-editing-tools">
+                                <div class="dpl-fl-al-cetr"><img class="icon" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
+                                <div class="dpl-fl-al-cetr"><img class="icon" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div >
+                        <div>
+                            <p class="user-contact-info">Contact Information</p>
+                        </div>
+                        <div>
+                            <p class="accessibility-description">Email</p>
+                            <a class="accessibility" href="mailto:email@sonatigen">email@sonatigen</a>
+                            <p class="accessibility-description">Phone</p>
+                            <a class="accessibility" href="tel:01254852">01254852</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div> 
     </main>
 </body>
 
