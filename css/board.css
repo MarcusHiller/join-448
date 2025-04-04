@@ -11,6 +11,10 @@ h1 {
     font-size: 64px;
 }
 
+body {
+    min-height: 100vh;
+}
+
 .board-headline {
     display: flex;
     justify-content: space-between;
@@ -292,7 +296,9 @@ h1 {
     }
 }
 
-@media(max-width: 640px) {
+
+
+@media(max-width: 900px) {
 
     .add-task-button {
         display: none;

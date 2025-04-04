@@ -114,6 +114,7 @@ header {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    z-index: 10;
 }
 
 .navbar {
@@ -131,13 +132,17 @@ header {
     width: 100%;
 }
 
+.navbar-links a:hover {
+    background-color: #2A3D59;
+}
+
 .navbar-logo {
     width: 120px;
     margin-top: 64px;
     margin-bottom: 160px;
 }
 
-.navbar-link a {
+.navbar-link span {
     text-decoration: none;
     color: white;
     font-family: Inter;
@@ -152,6 +157,7 @@ header {
     padding: 8px 0;
     margin: 8px 0;
     opacity: 0.8;
+    text-decoration: none;
 }
 
 .navbar-link img {

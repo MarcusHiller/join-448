@@ -297,18 +297,56 @@
 }
 
 @media(max-width: 1180px) {
-    .addTask-form-container {
-        flex-direction: column;
-    }
-
-    .placeholder-addTask {
-        display: none;
-    }
-
     .add-container {
         margin: 40px;
         min-height: 0;
         height: 90%;
         width: 90%;
+    }
+
+    .content {
+        padding: 24px !important;
+    }
+
+    .addTask-prio {
+        flex-wrap: wrap;
+    }
+
+    .addTask-headline h2{
+        font-size: 48px;
+    }
+
+    .assigned-select {
+        font-size: 16px;
+    }
+
+    .addTask-label {
+        font-size: 16px;
+    }
+
+    .addTask-input {
+        font-size: 16px;
+    }
+
+    .addTask-textarea {
+        font-size: 16px;
+    }
+
+    .category-select {
+        font-size: 16px;
+    }
+
+    .prio-label {
+        font-size: 16px;
+    }
+
+    .placeholder-addTask {
+        margin: 0 12px;
+    }
+}
+
+@media(max-width: 900px) {
+    .add-container {
+        display: none;
     }
 }
