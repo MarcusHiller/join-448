@@ -40,6 +40,20 @@ function searchTask() {
     document.activeElement.blur();
   }
 
+
+
+  async function getAddTaskHTML() {
+    await Promise.all([
+        loadHTML("add_task_overlay.html", "add_container"),
+    ]);
+}
+
+async function loadAddTask(file, ID) {
+        const res = await fetch(file);
+        const data = await res.text();
+        document.getElementById(ID).innerHTML = data;
+}
+
   // Render //
 
 

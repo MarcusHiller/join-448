@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/css/board_task_overlay.css">
-    <link rel="stylesheet" href="/css/board_add_task_overlay.css">
     <link rel="stylesheet" href="/css/add_task.css">
     <link rel="stylesheet" href="/css/add_task_mobile.css">
     <script src="/script.js"></script>
     <script src="/script/board.js"></script>
+    <script src="/script/add_task.js"></script>
     <title>Add Task</title>
 </head>
 
@@ -64,10 +64,18 @@
                             </div>
 
                             <label for="" class="addTask-label">Assigned to</label>
-                            <select id="assigned_select" class="assigned-select">
-                                <option value="">Select contacts to assign</option>
-                                <option value="0">Max Musterman</option>
-                            </select>
+                            <div class="assigned-select-dropdown-menu">
+                            <div id="assigned_select" class="assigned-select" onclick="addUserDropMenu()">
+                                <span>Select contacts to assign</span><img id="dropdown_menu_arrow" src="/assets/img/icon/arrow_drop_down.svg" alt="">
+                            </div>
+                            <div id="add_user_list" class="add-user-list d_none">
+                                <div class="user"><div class="user-logo-container"><div class="user-logo-small">AM</div><span>Alex Marathon</span></div><input type="checkbox"></div>
+                                <div class="user"><div class="user-logo-container"><div class="user-logo-small">AM</div><span>Alex Marathon</span></div><input type="checkbox"></div>
+                                <div class="user"><div class="user-logo-container"><div class="user-logo-small">AM</div><span>Alex Marathon</span></div><input type="checkbox"></div>
+                            </div>
+                        </div>
+
+
                             <label for="" class="addTask-label">Category<span class="required-star">&#42</span></label>
                             <select class="category-select" required>
                                 <option value="" hidden selected>Select task category</option>

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/css/board.css">
     <link rel="stylesheet" href="/css/board_task_overlay.css">
-    <link rel="stylesheet" href="/css/board_add_task_overlay.css">
+    <link rel="stylesheet" href="/css/add_task.css">
     <script src="/script.js"></script>
     <script src="/script/board.js"></script>
     <script src="/script/templates.js"></script>
@@ -30,85 +30,6 @@
                 <!-- Add Overlay -->
                 <div id="add_container" class="add-container overlay-container-sliding d_none"
                     onclick="event.stopPropagation()">
-
-                    <div class="addTask-headline">
-                        <h2>Add Task</h2>
-                        <img onclick="closeAddTask()" class="close-icon" src="/assets/img/icon/close.svg" alt="">
-                    </div>
-                    <form class="addTask-form" onsubmit="addTask()">
-                        <div class="addTask-form-container">
-                            <div class="addTask-left-side">
-                                <label for="" class="addTask-label">Title<span class="required-star">&#42</span></label>
-                                <input class="addTask-input" placeholder="Enter a title" required>
-                                <p class="error-message">This field is required</p>
-                                <label for="" class="addTask-label">Description</label>
-                                <textarea class="addTask-textarea" placeholder="Enter a Description"
-                                    required></textarea>
-                                <label for="" class="addTask-label">Due date<span
-                                        class="required-star">&#42</span></label>
-                                <input class="addTask-input" type="date" required placeholder="dd/mm/yyyy">
-                                <p class="error-message">This field is required</p>
-
-                            </div>
-                            <div class="placeholder-addTask"></div>
-                            <div class="addTask-right-side">
-                                <label for="" class="addTask-label">Priority</label>
-                                <div class="addTask-prio">
-
-                                    <input name="prio" class="prio-urgent d_none" id="prio_urgent" type="radio">
-                                    <label class="prio-urgent-label" for="prio_urgent">
-                                        <div class="prio-label">Urgent<img src="/assets/img/icon/prio_urgent.svg">
-                                        </div>
-                                    </label>
-
-                                    <input name="prio" class="prio-medium d_none" id="prio_medium" type="radio" checked>
-                                    <label class="prio-medium-label" for="prio_medium">
-                                        <div class="prio-label">Medium<img src="/assets/img/icon/prio_medium.svg">
-                                        </div>
-                                    </label>
-
-                                    <input name="prio" class="prio-low d_none" id="prio_low" type="radio">
-                                    <label class="prio-low-label" for="prio_low">
-                                        <div class="prio-label">Low<img src="/assets/img/icon/prio_low.svg"></div>
-
-                                    </label>
-                                </div>
-
-                                <label for="" class="addTask-label">Assigned to</label>
-                                <select id="assigned_select" class="assigned-select">
-                                    <option value="" disabled selected>Select contacts to assign</option>
-                                    <option value="0">Max Musterman</option>
-                                </select>
-                                <label for="" class="addTask-label">Category<span
-                                        class="required-star">&#42</span></label>
-                                <select class="category-select" required>
-                                    <option value="" hidden selected>Select task category</option>
-                                    <option value="1">User Story</option>
-                                    <option value="2">Technical Task</option>
-                                </select>
-                                <p class="error-message">This field is required</p>
-                                <label for="" class="addTask-label">Subtasks</label>
-                                <input class="addTask-input" type="text">
-                            </div>
-                        </div>
-                        <div class="addTask-footer">
-                            <span><span class="required-star">&#42</span>This field is required</span>
-                            <div class="addTask-footer-buttons">
-                                <div class="cancel-task-button" onclick="openAddTask()">
-                                    <span class="add-task-text">Cancel</span>
-                                    <img src="/assets/img/icon/close.svg" alt="plus">
-                                </div>
-                                <button type="submit" class="create-task-button">
-                                    <span class="add-task-text">Create task</span>
-                                    <img src="/assets/img/icon/check.svg" alt="plus">
-                                </button>
-
-
-                            </div>
-                        </div>
-                    </form>
-
-
                 </div>
 
                 <!-- Task Overlay -->
@@ -124,6 +45,7 @@
                         <h2 id="overlay_titel">Kochwelt Page & Recipe Recommender</h2>
                     </div>
                     <div class="overlay-task-details">
+                        <div class="details-content-complete">
                         <div class="overlay-task-description"><span id="overlay_description">Lorem ipsum dolor sit amet
                                 consectetur adipisicing
                                 elit. Ducimus fuga debitis vero quam tempore alias iste ratione, quis asperiores
@@ -185,6 +107,9 @@
                             </table>
 
                         </div>
+                    </div>
+
+
                         <div class="edit-task-section">
                             <div class="delete-task">
                                 <img src="/assets/img/icon/delete.svg" alt="">
@@ -224,7 +149,7 @@
                         </div>
                     </form>
 
-                    <div class="add-task-button" onclick="openAddTask()">
+                    <div class="add-task-button" onclick="getAddTaskHTML(); openAddTask()">
                         <span class="add-task-text">Add task</span>
                         <img src="/assets/img/icon/add.svg" alt="plus">
                     </div>

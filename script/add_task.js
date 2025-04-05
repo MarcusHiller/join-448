@@ -131,6 +131,17 @@ document.querySelectorAll("select").forEach(select => {
     document.getElementById("overlay_date").innerHTML = tasks[taskIndex].date;
   }
 
+
+  function addUserDropMenu() {
+    document.getElementById("add_user_list").classList.toggle("d_none");
+    document.getElementById("dropdown_menu_arrow").classList.toggle("rotate-img");
+
+
+   
+
+  
+  }
+
   
 
 
