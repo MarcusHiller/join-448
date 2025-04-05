@@ -137,7 +137,7 @@ header {
     margin-bottom: 160px;
 }
 
-.navbar-link a {
+.navbar-link span{
     text-decoration: none;
     color: white;
     font-family: Inter;
