@@ -269,7 +269,18 @@
         width: 200px;
     }
 }
+@media (min-width: 991px) {
+    .devideContent {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
 
+    .greeting {
+        height: auto;
+        justify-content: center;
+    }
+}
 @media (max-width: 990px) {
     .titleGroup span {
         font-size: 23px;

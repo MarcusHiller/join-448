@@ -40,5 +40,6 @@ function guestLogin(event) {
     event.preventDefault();
     document.getElementById('email').removeAttribute('required');
     document.getElementById('passwd').removeAttribute('required');
-    window.location.href = "html/summary.html?name=Guest";
+    window.location.href = "html/summary.html?name=Guest&login=true";
+
 }

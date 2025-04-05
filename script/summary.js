@@ -97,16 +97,10 @@ function initGreeting() {
         grid.style.display = 'none';
         header.style.display = 'none';
 
-        // Greeting nach 2 Sekunden wieder ausblenden
-        setTimeout(() => {
-            greetingContainer.style.display = 'none';
-            grid.style.display = 'block';
-            header.style.display = 'flex';
-
             // URL aufräumen (login=true entfernen)
             urlParams.delete('login');
             window.history.replaceState({}, document.title, `?${urlParams}`);
-        }, 2000);
+        
     } else {
         greetingContainer.style.display = 'none';
         grid.style.display = 'block';
