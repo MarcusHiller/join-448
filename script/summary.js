@@ -92,8 +92,7 @@ function initGreeting() {
     }
 
     // Anzeige je nach Login
-    if (isLogin) {
-        greetingContainer.style.display = 'flex';
+    if (isLogin && window.innerWidth <= 990) {        greetingContainer.style.display = 'flex';
         grid.style.display = 'none';
         header.style.display = 'none';
 
