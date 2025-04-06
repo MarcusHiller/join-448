@@ -1,0 +1,66 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #F6F7F8;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.helpContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 32px 64px;
+    box-sizing: border-box;
+}
+
+.helpHeader {
+    margin-bottom: 24px;
+}
+
+.helpHeader h1 {
+    font-size: 48px;
+    font-weight: 700;
+    color: #2A3647;
+    margin: 0;
+}
+
+.helpHeader p {
+    font-size: 18px;
+    color: #647188;
+    margin: 4px 0 0 0;
+}
+
+.helpContent {
+    background-color: white;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    overflow-y: auto;
+}
+
+.helpContent h2 {
+    font-size: 28px;
+    margin-top: 24px;
+    color: #2A3647;
+}
+
+.helpContent p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.helpContent ol {
+    padding-left: 18px;
+    line-height: 1.8;
+}
+
+.helpContent ol li {
+    margin-bottom: 16px;
+    color: #2A3647;
+}
