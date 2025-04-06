@@ -35,6 +35,7 @@
 
 let tasks = [
   {
+    id: 1,
     title: "Kochwelt Page Testing",
     descripton: "Lorem ipsum dolor sit amet consectetur adipisicin",
     date: "2025-03-14",
@@ -48,6 +49,7 @@ let tasks = [
     condition: "ToDo"
   },
   {
+    id: 2,
     title: "Dashboard UI Fixes",
     descripton: "Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.",
     date: "2025-03-15",
@@ -61,6 +63,7 @@ let tasks = [
     condition: "feedback"
   },
   {
+    id: 3,
     title: "Backend API Update",
     descripton: "Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.",
     date: "2025-03-16",
@@ -74,6 +77,7 @@ let tasks = [
     condition: "inProgress"
   },
   {
+    id: 4,
     title: "Mobile App Testing",
     descripton: "Pellentesque in ipsum id orci porta dapibus.",
     date: "2025-03-17",
@@ -87,6 +91,11 @@ let tasks = [
     condition: "done"
   }
 ];
+
+let nextTaskId = 5;
+
+let subtasks = [];
+let subtaskIndex = 0;
 
 
 
@@ -132,15 +141,121 @@ document.querySelectorAll("select").forEach(select => {
   }
 
 
-  function addUserDropMenu() {
+  function openUserDropMenu() {
     document.getElementById("add_user_list").classList.toggle("d_none");
     document.getElementById("dropdown_menu_arrow").classList.toggle("rotate-img");
-
-
+    document.getElementById("assigned_select").classList.toggle("blue-border");
+  
    
 
   
   }
+
+
+
+
+  
+
+
+  function addTask() {
+    let newTask = {}
+    let titel = document.getElementById("titel_input");
+    let descripton = document.getElementById("description_input");
+    let date = document.getElementById("date_input");
+    let category = document.getElementById("category_input");
+    let priority = "medium";
+
+    let urgent = document.getElementById("prio_urgent");
+    let medium = document.getElementById("prio_medium");
+    let low = document.getElementById("prio_low");
+    let prio = [urgent, medium, low];
+    
+    for (i = 0; i < prio.length; i++) {
+      if (prio[i].checked) {
+        priority = prio[i].value;
+    }
+  }
+
+
+    
+
+    newTask = {
+      titel: titel.value,
+      descripton: descripton.value,
+      date: date.value,
+      category: category.value,
+      priority: priority
+    }
+
+    console.log(newTask);
+
+  }
+
+  function showAddSubtaskButton() {
+    let subtask = document.getElementById("subtask_input");
+
+    if(subtask.value) {
+      document.getElementById("delete_and_add_icon").classList.remove("d_none");
+      document.getElementById("subtask_plus_icon").classList.add("d_none")
+    } else {
+      document.getElementById("delete_and_add_icon").classList.add("d_none");
+      document.getElementById("subtask_plus_icon").classList.remove("d_none")
+
+    }
+  }
+
+
+  
+
+  function clearSubtaskInput() {
+    document.getElementById("subtask_input").innerHTML = "";
+  }
+
+
+  function addSubtask() {
+    let subtask = document.getElementById("subtask_input");
+    let listRef = document.getElementById("sub_list");
+    let subtaskValue = subtask.value;
+
+    if(subtask.value) {
+    subtaskIndex++;
+
+    
+    listRef.innerHTML += getSubtaskTemplate(subtaskIndex, subtaskValue);
+      
+    
+      subtask.value = "";
+    }
+   
+
+
+    
+  }
+
+
+    
+    // let list = document.getElementById("add_user_list");
+    // let arrow = document.getElementById("dropdown_menu_arrow");
+
+    // document.addEventListener('click', e => {
+    //   console.log(e.target.)
+
+    //     if(e.target == "add_user_list") {
+    //       console.log("asd")
+    //     document.getElementById("add_user_list").classList.remove("d_none");
+    //   document.getElementById("dropdown_menu_arrow").classList.remove("rotate-img");
+    //     }
+        
+
+      
+      
+    // }
+    // )
+
+
+   
+  
+
 
   
 

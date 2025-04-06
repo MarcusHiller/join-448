@@ -20,3 +20,8 @@ function getTaskTemplate(taskIndex) {
                 </div>
             </div>`
 }
+
+function getSubtaskTemplate(indexSubTask, subtaskValue) {
+    return `<li id="subtask_${indexSubTask}"><div class="list-subtask-element"><div>${subtaskValue}</div ><div class="delete-and-add-icon"><img src="/assets/img/icon/edit.svg" alt="">
+    <div class="placholder-for-icons"></div><img src="/assets/img/icon/delete.svg" oncilck="deleteSubtask(${indexSubTask})" alt=""></div></div></li>`
+}
