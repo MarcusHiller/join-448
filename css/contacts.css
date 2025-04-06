@@ -16,6 +16,12 @@
 }
 
 
+.dpl-fl-colu {
+    display: flex;
+    flex-direction: column;
+}
+
+
 .dpl-fl-al-cetr {
     display: flex;
     align-items: center;
@@ -230,6 +236,7 @@ h3 {
 
 }
 
+
 .info-name {
     display: flex;
     flex-direction: column;
@@ -244,10 +251,12 @@ h4 {
     line-height: 120%;
 }
 
+
 .icon {
     width: 24px;
     height: 24px;
 }
+
 
 .icon-description {
     font-weight: 400;

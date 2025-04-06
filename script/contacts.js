@@ -121,8 +121,6 @@ function addContact() {
 
 
 function showContact(individualUser) {
-    console.log(individualUser);
-    
     return `
         <div class="user-info-header">
             <div class="info-initial flex-box-center-center" style="background-color: ${individualUser.color}">ID</div>
@@ -144,6 +142,73 @@ function showContact(individualUser) {
                     <p class="accessibility-description">Phone</p>
                     <a class="accessibility" href="tel:${individualUser.phone}">${individualUser.phone}</a>
                 </div>
+            </div>
+        </div>`;
+}
+
+
+function openOverlay() {
+    document.getElementById('overlayContact').classList.remove('d-none');
+    document.getElementById('overlay').classList.remove('d-none');
+    setTimeout(() => {
+        document.getElementById('overlay').classList.add('slide');
+    }, 10);
+}
+
+
+function closeOverlay() {
+    document.getElementById('overlay').classList.remove('slide');
+    
+    setTimeout(() => {
+        document.getElementById('overlay').classList.add('d-none');
+        
+    }, 200);
+    setTimeout(() => {
+        
+        document.getElementById('overlayContact').classList.add('d-none');
+    }, 200);
+}
+
+
+function overlayAddContact() {
+    return  `
+        <div class="overlay-contact flex-box-center-center">
+            <div class="close-container"><img class="close-btn" src="../assets/img/icon/close.svg" alt=""></div>
+            <div class="overlay-cover">
+                <img class="logo-img" src="../assets/img/logo/cover_join_white.svg" alt="">
+                <div class="card-title">
+                    <h5>Add contact</h5>
+                    <p class="motivation-text">Tasks are better with a Team!</p>
+                </div>
+            </div>
+            <div class="overlay-main-container flex-box-center-center">
+                <div class="profil-img-container flex-box-center-center"><img class="profil-img" src="../assets/img/icon/person.svg" alt=""></div>
+                <form onsubmit="return false">
+                    <div class="dpl-fl-colu input-container">
+                        <label class="input-field">
+                            <div class="input-content">
+                                <input id="username" type="text" placeholder="Name" required>
+                                <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
+                            </div>
+                        </label>
+                        <label class="input-field">
+                            <div class="input-content">
+                                <input id="email" type="email" placeholder="E-mail">
+                                <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
+                            </div>
+                        </label>
+                        <label class="input-field">
+                            <div class="input-content">
+                                <input id="phone" type="tel" pattern="[0-9]{11}" placeholder="Phone">
+                                <img class="input-icon" src="../assets/img/icon/" alt="">
+                            </div>
+                        </label>
+                    </div>
+                    <div class="submit-container">
+                        <button class="blue-white-btn">Cancel</button>
+                        <button class="white-blue-btn">Create contact</button>
+                    </div>
+                </form>
             </div>
         </div>`;
 }
