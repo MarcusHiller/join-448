@@ -7,6 +7,7 @@ async function init(page) {
     activePageHiglight(page);
     if (page === 'summary_page') {
         initGreeting();
+        initGreetingRepeat();
     }
 
 }

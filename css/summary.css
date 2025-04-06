@@ -80,6 +80,13 @@
     margin-top: 164px;
 }
 
+.greetingRepeat{
+        display: flex;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+}
+
 
 .greetingName{
     color: #29ABE2;
@@ -92,6 +99,11 @@
     font-weight: 500;
     color: #2A3647;
     
+}
+.greetingTextRepeat{
+        font-size: 47px;
+            font-weight: 500;
+            color: #2A3647;
 }
 
 .metricsGrid {
@@ -291,6 +303,9 @@
     .dashboardHeader {
         padding-top: 25px;
     }
+  }
+  .greetingRepeat {
+    display: none;
   }
 
 @media (max-width: 570px) {
