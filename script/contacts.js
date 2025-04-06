@@ -22,7 +22,7 @@ const users = [
 ];
 
 
-let individualUser;
+
 
 function renderContacts() {
     cleanContactsList();
@@ -82,9 +82,8 @@ function showUserInformation(user, initials) {
 function chooseContact(id) {
     resetClassChooseContact();
     setClassChoooseContact(id);
-    findContact(id);
     clearMainContact();
-    addContact();
+    userInfo(id);
 }
 
 
@@ -104,7 +103,7 @@ function resetClassChooseContact() {
 
 function findContact(id) {
     let user = users.find(u => u.id == id);
-    individualUser = user;
+    return user;
 }
 
 
@@ -114,21 +113,31 @@ function clearMainContact() {
 }
 
 
-function addContact() {
+function userInfo(id) {
+    let individualUser = findContact(id);
     let contactInformation = document.getElementById('userInformation');
     contactInformation.innerHTML += showContact(individualUser);
+    slideIn();
+}
+
+
+function slideIn() {
+    setTimeout(() => {
+        document.getElementById('slide').classList.add('active');
+    }, 10);
 }
 
 
 function showContact(individualUser) {
     return `
+    <div id="slide" class="user-slide-in">
         <div class="user-info-header">
-            <div class="info-initial flex-box-center-center" style="background-color: ${individualUser.color}">ID</div>
+            <div class="info-initial flex-box-center-center" style="background-color: ${individualUser.color}">${individualUser.username.split(" ").map(n => n[0]).join("")}</div>
                 <div class="info-name">
                     <h4>${individualUser.username}</h4>
                     <div class="container-editing-tools">
-                        <div class="dpl-fl-al-cetr"><img class="icon" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
-                        <div class="dpl-fl-al-cetr"><img class="icon" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
+                        <div class="dpl-fl-al-cetr" onclick="chooseOverlay('edit', ${individualUser.id})"><img class="icon" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
+                        <div class="dpl-fl-al-cetr" onclick="deleteContact(${individualUser.id})"><img class="icon" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
                     </div>
                 </div>
             </div>
@@ -143,7 +152,8 @@ function showContact(individualUser) {
                     <a class="accessibility" href="tel:${individualUser.phone}">${individualUser.phone}</a>
                 </div>
             </div>
-        </div>`;
+        </div>
+    </div>`;
 }
 
 
@@ -158,22 +168,60 @@ function openOverlay() {
 
 function closeOverlay() {
     document.getElementById('overlay').classList.remove('slide');
-    
     setTimeout(() => {
         document.getElementById('overlay').classList.add('d-none');
-        
     }, 200);
     setTimeout(() => {
-        
         document.getElementById('overlayContact').classList.add('d-none');
-    }, 200);
+    }, 100);
 }
 
 
-function overlayAddContact() {
-    return  `
-        <div class="overlay-contact flex-box-center-center">
-            <div class="close-container"><img class="close-btn" src="../assets/img/icon/close.svg" alt=""></div>
+function chooseOverlay(overlay, id) {
+    if (overlay == "add") {
+        addContact();
+    } else if (overlay == "edit") {
+        editContact(id);
+    }
+}
+
+
+function addContact() {
+    clerOverlay();
+    openAddContact();
+    openOverlay();
+}
+
+
+function editContact(id) {
+    clerOverlay();
+    openEditContact(id);
+    openOverlay();
+}
+
+function clerOverlay() {
+    let overlay = document.getElementById('overlayContact');
+    overlay.innerHTML = "";
+}
+
+
+function openAddContact() {
+    let overlay = document.getElementById('overlayContact');
+    overlay.innerHTML = showOverlayAddContact();
+}
+
+
+function openEditContact(id) {
+    let user = findContact(id)
+    let overlay = document.getElementById('overlayContact');
+    overlay.innerHTML = overlayEditContact(user);
+}
+
+
+function showOverlayAddContact() {
+    return `
+        <div id="overlay" class="overlay-contact flex-box-center-center d-none">
+            <div class="close-container" onclick="closeOverlay()"><img class="close-btn" src="../assets/img/icon/close.svg" alt=""></div>
             <div class="overlay-cover">
                 <img class="logo-img" src="../assets/img/logo/cover_join_white.svg" alt="">
                 <div class="card-title">
@@ -200,15 +248,103 @@ function overlayAddContact() {
                         <label class="input-field">
                             <div class="input-content">
                                 <input id="phone" type="tel" pattern="[0-9]{11}" placeholder="Phone">
-                                <img class="input-icon" src="../assets/img/icon/" alt="">
+                                <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
                             </div>
                         </label>
                     </div>
                     <div class="submit-container">
-                        <button class="blue-white-btn">Cancel</button>
-                        <button class="white-blue-btn">Create contact</button>
+                        <button class="blue-white-btn" onclick="closeOverlay()">Cancel</button>
+                        <button class="white-blue-btn" onclick="newContact()>Create contact</button>
                     </div>
                 </form>
             </div>
         </div>`;
+}
+
+
+function overlayEditContact(individualUser) {
+    return `
+        <div id="overlay" class="overlay-contact flex-box-center-center d-none">
+            <div class="close-container" onclick="closeOverlay()"><img class="close-btn" src="../assets/img/icon/close.svg" alt=""></div>
+            <div class="overlay-cover">
+                <img class="logo-img" src="../assets/img/logo/cover_join_white.svg" alt="">
+                <div class="card-title">
+                    <h5>Edit Contact</h5>
+                    <p class="motivation-text">Tasks are better with a Team!</p>
+                </div>
+            </div>
+            <div class="overlay-main-container flex-box-center-center">
+                <div class="info-initial flex-box-center-center" style="background-color: ${individualUser.color}">${individualUser.username.split(" ").map(n => n[0]).join("")}</div>
+                <form onsubmit="return false">
+                    <div class="dpl-fl-colu input-container">
+                        <label class="input-field">
+                            <div class="input-content">
+                                <input id="username" type="text" value="${individualUser.username}" placeholder="Name" required>
+                                <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
+                            </div>
+                        </label>
+                        <label class="input-field">
+                            <div class="input-content">
+                                <input id="email" type="email" value="${individualUser.email}" placeholder="E-mail">
+                                <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
+                            </div>
+                        </label>
+                        <label class="input-field">
+                            <div class="input-content">
+                                <input id="phone" type="tel" value="${individualUser.phone}" pattern="[0-9]{11}" placeholder="Phone">
+                                <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
+                            </div>
+                        </label>
+                    </div>
+                    <div class="submit-container">
+                        <button class="blue-white-btn" onclick="deleteContact(${individualUser.id})">Delete</button>
+                        <button class="white-blue-btn" onclick="saveContact(${individualUser.id})">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>`;
+}
+
+
+
+function saveContact(id) {
+    updateUserData(id);
+    renderContacts();
+}
+
+
+function updateUserData(id) {
+    let n = document.getElementById('username').value;
+    let e = document.getElementById('email').value;
+    let p = document.getElementById('phone').value;
+    let user = users.find(u => u.id === id);
+    if (user) {
+        user.username = n;
+        user.email = e;
+        user.phone = p;
+    }
+}
+
+
+function deleteContact(id) {
+    deleteUserData(id);
+    reSortUser();
+    renderContacts();
+    clearMainContact();
+}
+
+
+function deleteUserData(id) {
+    const index = users.findIndex(user => user.id === id);
+    if (index !== -1) {
+        users.splice(index, 1);
+    }
+}
+
+
+function reSortUser() {
+    users.forEach((user, index) => {
+        user.id = index;
+    });
+    console.log("User wurden neu indiziert:", users);
 }

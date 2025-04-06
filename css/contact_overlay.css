@@ -4,6 +4,7 @@
 
 .overlay-content-container {
     position: absolute;
+    z-index: 100;
     width: 100%;
     height: 100vh;
     background-color: #2a364780;
@@ -11,17 +12,17 @@
 
 
 .overlay-contact {
-    /* animation: overlay 0.2s ease-out 0.0s forwards; */
     position: absolute;
+    z-index: 150;
     top: 50%;
-    left: 50%;
-    transform: translateX(100vh);
-    /* transform: translate(-50%, -50%); */
+    left: 100%;
+    transform: translateY(-50%);
     transition: transform 0.2s ease;
 }
 
 
 .slide {
+    left: 50%;
     transform: translate(-50%, -50%);
     transition: transform 0.2s ease;
 }
@@ -111,6 +112,7 @@ button {
     font-size: 20px;
     border: 0;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 
@@ -211,16 +213,3 @@ label:hover {
 }
 
 
-@keyframes overlay {
-    0% {
-        left: 100%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    100% {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-}

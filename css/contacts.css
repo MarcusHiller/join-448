@@ -99,6 +99,7 @@
     padding-block: 12px;
     gap: 16px;
     border: 1px;
+    cursor: pointer;
 }
 
 
@@ -109,7 +110,6 @@
     line-height: 120%;
     color: white;
     background-color: transparent;
-    cursor: pointer;
 }
 
 
@@ -153,7 +153,7 @@ h2 {
 
 
 .choose-contact {
-    background: #2A3647;
+    background: #2A3647 !important;
 }
 
 
@@ -213,8 +213,18 @@ h3 {
 
 .user-info-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: column;   
+}
 
+
+.user-slide-in {
+    transform: translateX(100vh);
+    transition: transform 0.2s ease;
+}
+
+
+.user-slide-in.active {
+    transform: translateX(0);
 }
 
 
