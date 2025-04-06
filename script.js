@@ -25,7 +25,7 @@ function activePageHiglight(page) {
     document.getElementById("add_task_page").classList.remove("active-menu");
     document.getElementById("board_page").classList.remove("active-menu");
     document.getElementById("contact_page").classList.remove("active-menu");
-
+    document.getElementById("help_page").classList.remove("active-menu");
     document.getElementById(page).classList.add("active-menu");
 }
 

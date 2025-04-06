@@ -7,7 +7,9 @@ html {
     height: 100vh;
     overflow: hidden;
 }
-
+.active-menu {
+    background-color: none;
+}
 .helpContainer {
     display: flex;
     flex-direction: column;
