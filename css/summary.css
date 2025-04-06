@@ -14,7 +14,7 @@
  .dashboardContainer {
     display: flex;
     flex-direction: column;
-    padding-inline: 132px;
+    padding-left: 50px;
     max-width: 1920px;
     margin: 0 auto;
  }
@@ -274,54 +274,49 @@
     text-align: center;
     
 }
-
-
 @media (max-width: 1135px) {
     .greeting {
         width: 200px;
     }
+        .titleGroup h1 {
+            font-size: 47px;
+        }
+    .contentMetric{
+        margin-top: 10px;
+    }
 }
 @media (min-width: 991px) {
-    .devideContent {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
-    }
-
     .greeting {
         height: auto;
         justify-content: center;
     }
 }
 @media (max-width: 990px) {
-    .titleGroup span {
-        font-size: 23px;
-    }
+
     .dashboardContainer {
         padding-inline: 56px;
     }
     .dashboardHeader {
         padding-top: 25px;
-    }
-  }
-  .greetingRepeat {
-    display: none;
-  }
-
-@media (max-width: 570px) {
-    .metricsGrid {
+        display: flex;
+        justify-content: flex-start;
         width: 100%;
-        max-width: 396px;
-        align-self: center;
+    }
+    .greetingRepeat {
+        display: none;
+    } 
+  
+    .metricsGrid {
+            width: 100%;
+            max-width: 396px;
+            align-self: center;
+        }
+    .contentMetric{
+        margin-top: 0px;
     }
     .content {
         display: flex;
         padding: 0px 16px;
-    }
-    .dashboardHeader {
-        display: flex;
-        justify-content: flex-start;
-        width: 100%;
     }
     .metricsGrid.show-mobile {
         display: flex;
@@ -403,7 +398,6 @@
     .titleGroup span {
         font-size: 16px;
     }
-
     .greetingText {
         font-size: 36px;
         font-weight: 400;
