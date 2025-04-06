@@ -32,3 +32,18 @@ function activePageHiglight(page) {
 function burgerMenuSliding() {
     document.getElementById("burger_menu").classList.toggle("burger-menu-transition");
 }
+function acceptCookies() {
+    document.getElementById('cookieBanner').style.display = 'none';
+    document.cookie = "cookiesAccepted=true; path=/; max-age=" + 60 * 60 * 24 * 365;
+}
+
+window.addEventListener('load', function () {
+    const cookiesAccepted = document.cookie.includes("cookiesAccepted=true");
+    if (!cookiesAccepted) {
+        document.getElementById('cookieBanner').style.display = 'flex';
+    }
+
+    document.getElementById('acceptCookiesBtn').addEventListener('click', acceptCookies);
+});
+
+
