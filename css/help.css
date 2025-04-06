@@ -12,7 +12,7 @@ html {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    padding: 32px 64px;
+    padding: 20px 64px;
     box-sizing: border-box;
 }
 
@@ -20,19 +20,22 @@ html {
     margin-bottom: 24px;
 }
 
-.helpHeader h1 {
-    font-size: 48px;
+h1 {
+    font-size: 61px;
     font-weight: 700;
-    color: #2A3647;
-    margin: 0;
+    color: black;
+    margin: 30px;
 }
 
 .helpHeader p {
-    font-size: 18px;
-    color: #647188;
+    font-size: 16px;
+    font-weight: 400;
+    color: black;
     margin: 4px 0 0 0;
 }
-
+.font-strong{
+    color: #29ABE2;
+}
 .helpContent {
     background-color: white;
     padding: 32px;
@@ -42,10 +45,11 @@ html {
     overflow-y: auto;
 }
 
-.helpContent h2 {
-    font-size: 28px;
+h2 {
+    font-size: 27px;
     margin-top: 24px;
-    color: #2A3647;
+    color: black;
+    font-weight: 700;
 }
 
 .helpContent p {

@@ -39,11 +39,16 @@ function acceptCookies() {
 
 window.addEventListener('load', function () {
     const cookiesAccepted = document.cookie.includes("cookiesAccepted=true");
-    if (!cookiesAccepted) {
-        document.getElementById('cookieBanner').style.display = 'flex';
+    const acceptBtn = document.getElementById('acceptCookiesBtn');
+    const banner = document.getElementById('cookieBanner');
+
+    if (!cookiesAccepted && banner) {
+        banner.style.display = 'flex';
     }
 
-    document.getElementById('acceptCookiesBtn').addEventListener('click', acceptCookies);
+    if (acceptBtn) {
+        acceptBtn.addEventListener('click', acceptCookies);
+    }
 });
 
 
