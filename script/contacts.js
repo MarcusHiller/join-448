@@ -21,7 +21,9 @@ const users = [
     { id: 19, username: "Florian Wagner", email: "florian.wagner@email.de", phone: "0123475", color: "#00BEE8" }
 ];
 
-
+function eventBubbling(event) {
+    event.stopPropagation();
+}
 
 
 function renderContacts() {
@@ -166,7 +168,10 @@ function openOverlay() {
 }
 
 
-function closeOverlay() {
+function closeOverlay(event) {
+    if (event) {
+        event.preventDefault();
+    }
     document.getElementById('overlay').classList.remove('slide');
     setTimeout(() => {
         document.getElementById('overlay').classList.add('d-none');
@@ -199,6 +204,7 @@ function editContact(id) {
     openOverlay();
 }
 
+
 function clerOverlay() {
     let overlay = document.getElementById('overlayContact');
     overlay.innerHTML = "";
@@ -220,8 +226,8 @@ function openEditContact(id) {
 
 function showOverlayAddContact() {
     return `
-        <div id="overlay" class="overlay-contact flex-box-center-center d-none">
-            <div class="close-container" onclick="closeOverlay()"><img class="close-btn" src="../assets/img/icon/close.svg" alt=""></div>
+        <div id="overlay" class="overlay-contact flex-box-center-center d-none" onclick="eventBubbling(event)">
+            <div class="close-container" onclick="closeOverlay(event)"><img class="close-btn" src="../assets/img/icon/close.svg" alt=""></div>
             <div class="overlay-cover">
                 <img class="logo-img" src="../assets/img/logo/cover_join_white.svg" alt="">
                 <div class="card-title">
@@ -231,7 +237,7 @@ function showOverlayAddContact() {
             </div>
             <div class="overlay-main-container flex-box-center-center">
                 <div class="profil-img-container flex-box-center-center"><img class="profil-img" src="../assets/img/icon/person.svg" alt=""></div>
-                <form onsubmit="return false">
+                <form onsubmit="createNewContact(); return false">
                     <div class="dpl-fl-colu input-container">
                         <label class="input-field">
                             <div class="input-content">
@@ -247,14 +253,14 @@ function showOverlayAddContact() {
                         </label>
                         <label class="input-field">
                             <div class="input-content">
-                                <input id="phone" type="tel" pattern="[0-9]{11}" placeholder="Phone">
+                                <input id="phone" type="tel" placeholder="Phone">
                                 <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
                             </div>
                         </label>
                     </div>
                     <div class="submit-container">
-                        <button class="blue-white-btn" onclick="closeOverlay()">Cancel</button>
-                        <button class="white-blue-btn" onclick="newContact()>Create contact</button>
+                        <button class="blue-white-btn" onclick="closeOverlay(event)">Cancel</button>
+                        <button class="white-blue-btn">Create contact</button>
                     </div>
                 </form>
             </div>
@@ -264,8 +270,8 @@ function showOverlayAddContact() {
 
 function overlayEditContact(individualUser) {
     return `
-        <div id="overlay" class="overlay-contact flex-box-center-center d-none">
-            <div class="close-container" onclick="closeOverlay()"><img class="close-btn" src="../assets/img/icon/close.svg" alt=""></div>
+        <div id="overlay" class="overlay-contact flex-box-center-center d-none" onclick="eventBubbling(event)">
+            <div class="close-container" onclick="closeOverlay(event)"><img class="close-btn" src="../assets/img/icon/close.svg" alt=""></div>
             <div class="overlay-cover">
                 <img class="logo-img" src="../assets/img/logo/cover_join_white.svg" alt="">
                 <div class="card-title">
@@ -291,7 +297,7 @@ function overlayEditContact(individualUser) {
                         </label>
                         <label class="input-field">
                             <div class="input-content">
-                                <input id="phone" type="tel" value="${individualUser.phone}" pattern="[0-9]{11}" placeholder="Phone">
+                                <input id="phone" type="tel" value="${individualUser.phone}" placeholder="Phone">
                                 <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
                             </div>
                         </label>
@@ -310,18 +316,21 @@ function overlayEditContact(individualUser) {
 function saveContact(id) {
     updateUserData(id);
     renderContacts();
+    clearMainContact();
+    closeOverlay();
+    successChange();
 }
 
 
 function updateUserData(id) {
-    let n = document.getElementById('username').value;
-    let e = document.getElementById('email').value;
-    let p = document.getElementById('phone').value;
+    let n = document.getElementById('username');
+    let e = document.getElementById('email');
+    let p = document.getElementById('phone');
     let user = users.find(u => u.id === id);
     if (user) {
-        user.username = n;
-        user.email = e;
-        user.phone = p;
+        user.username = n.value;
+        user.email = e.value;
+        user.phone = p.value;
     }
 }
 
@@ -331,6 +340,8 @@ function deleteContact(id) {
     reSortUser();
     renderContacts();
     clearMainContact();
+    closeOverlay();
+    successChange();
 }
 
 
@@ -346,5 +357,43 @@ function reSortUser() {
     users.forEach((user, index) => {
         user.id = index;
     });
-    console.log("User wurden neu indiziert:", users);
+}
+
+
+function createNewContact() {
+    pushNewContact();
+    renderContacts();
+    closeOverlay();
+    successChange();
+}
+
+
+function pushNewContact() {
+    
+    let numberOfUser = users.length + 1;
+    let n = document.getElementById('username');
+    let e = document.getElementById('email');
+    let p = document.getElementById('phone');
+    let newContact = { id: numberOfUser, username: n.value, email: e.value, phone: p.value, color: "brown" }
+    users.push(newContact);      
+    console.log(newContact);
+    
+    
+}
+
+
+function successChange() {
+    setTimeout(() => {
+        let success = document.getElementById('success');
+        success.classList.remove('d-none');
+        setTimeout(() => {
+            success.classList.add('show-successful');
+        }, 10);
+        setTimeout(() => {
+            success.classList.remove('show-successful');
+        }, 1510);
+        setTimeout(() => {
+            success.classList.add('d-none');
+        }, 1730);
+    }, 500);
 }

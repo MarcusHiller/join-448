@@ -103,13 +103,18 @@
 }
 
 
+.add-contact-container:hover {
+    background-color: #29ABE2;
+}
+
+
 .add-contact-container button {
     all: unset;
     font-weight: 700;
     font-size: 21px;
     line-height: 120%;
     color: white;
-    background-color: transparent;
+    /* background-color: transparent; */
 }
 
 
@@ -148,7 +153,7 @@ h2 {
 
 
 .contact:hover {
-    background: linear-gradient(180deg, #F9F9F9 0%, #F0F0F0 100%);
+    background: linear-gradient(180deg, #F9F9F9, #F0F0F0);
 }
 
 
