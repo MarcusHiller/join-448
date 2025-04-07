@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #F6F7F8;
+}
+
+.policy-content {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.policy-container {
+    max-width: 960px;
+    width: 100%;
+    color: #2A3647;
+    gap: 30px;
+    left: 328px;
+}
+
+.policy-content h1 {
+    font-size: 48px;
+    margin-bottom: 32px;
+    font-weight: 700;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.section h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.section p {
+    font-size: 16px;
+    line-height: 1.6;
+}
