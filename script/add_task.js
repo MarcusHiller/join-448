@@ -199,13 +199,11 @@ document.querySelectorAll("select").forEach(select => {
       document.getElementById("subtask_plus_icon").classList.add("d_none")
     } else {
       document.getElementById("delete_and_add_icon").classList.add("d_none");
-      document.getElementById("subtask_plus_icon").classList.remove("d_none")
+      document.getElementById("subtask_plus_icon").classList.remove("d_none");
 
     }
   }
 
-
-  
 
   function clearSubtaskInput() {
     document.getElementById("subtask_input").innerHTML = "";
@@ -217,20 +215,32 @@ document.querySelectorAll("select").forEach(select => {
     let listRef = document.getElementById("sub_list");
     let subtaskValue = subtask.value;
 
-    if(subtask.value) {
-    subtaskIndex++;
-
-    
-    listRef.innerHTML += getSubtaskTemplate(subtaskIndex, subtaskValue);
-      
-    
-      subtask.value = "";
-    }
-   
-
-
-    
+      if(subtask.value) {
+        subtaskIndex++;
+        listRef.innerHTML += getSubtaskTemplate(subtaskIndex, subtaskValue);
+        subtask.value = "";
+        document.getElementById("delete_and_add_icon").classList.add("d_none");
+        document.getElementById("subtask_plus_icon").classList.remove("d_none");
+      } 
   }
+
+  function showEditIcons(indexSubTask) {
+    document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.remove("d_none")
+  }
+
+  function blindEditIcons(indexSubTask) {
+    document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.add("d_none")
+  }
+
+  function editSubtask(indexSubTask) {
+    document.getElementById("editable_input_" + indexSubTask).readOnly = false;
+    document.getElementById("editable_input_" + indexSubTask).focus();
+  }
+
+  function removeSubtask(indexSubTask) {
+    document.getElementById("subtask_" + indexSubTask).remove();
+  }
+
 
 
     

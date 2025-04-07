@@ -297,10 +297,6 @@
     -webkit-appearance: none;
 }
 
-ul {
-    list-style: disc;
-}
-
 
 .addTask-footer {
     display: flex;
@@ -474,7 +470,42 @@ ul {
     align-items: center;
     width: 100%;
     justify-content: space-between;
-    list-style: disc;
+    cursor: pointer;
+    padding: 4px 21px;
+    box-sizing: border-box;
+    height: 30px;
+}
+
+.list-subtask-element:hover {
+    background-color: #D1D1D1;
+    border-radius: 10px;
+}
+
+.list-subtask-element img{
+    width: 15px;
+    height: 15px;
+    margin: 0 4px;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.list-subtask-element img:hover {
+    transform: scale(1.1);
+}
+
+.subtasks-container {
+    margin-bottom: 40px;
+}
+
+.list-element-div input {
+    background: transparent;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.list-element-div input:focus {
+    outline: none;
 }
 
 @media(max-width: 1180px) {
