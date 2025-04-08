@@ -19,7 +19,7 @@ header {
     background-color: #ffffff;
     padding-left: 80px;
     padding-right: 48px;
-    /* height: 96px; */
+    height: 96px;
     display: flex;
     justify-content: space-between;
     align-items: center;

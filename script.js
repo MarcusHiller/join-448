@@ -26,8 +26,8 @@ function activePageHiglight(page) {
     document.getElementById("board_page").classList.remove("active-menu");
     document.getElementById("contact_page").classList.remove("active-menu");
     document.getElementById("help_page").classList.remove("active-menu");
-    document.getElementById("legale_notice_page").classList.remove("active-menu");
     document.getElementById("privacy_policy_page").classList.remove("active-menu");
+    document.getElementById("legal_notice_page").classList.remove("active-menu");
 
     document.getElementById(page).classList.add("active-menu");
 }
