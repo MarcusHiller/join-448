@@ -318,6 +318,8 @@ function saveContact(id) {
     renderContacts();
     clearMainContact();
     closeOverlay();
+    clearSuccessfulContainer();
+    successfulAddContact();
     successChange();
 }
 
@@ -341,6 +343,8 @@ function deleteContact(id) {
     renderContacts();
     clearMainContact();
     closeOverlay();
+    clearSuccessfulContainer();
+    successfulDeleteContact();
     successChange();
 }
 
@@ -364,6 +368,8 @@ function createNewContact() {
     pushNewContact();
     renderContacts();
     closeOverlay();
+    clearSuccessfulContainer();
+    successfulAddContact();
     successChange();
 }
 
@@ -396,4 +402,33 @@ function successChange() {
             success.classList.add('d-none');
         }, 1730);
     }, 500);
+}
+
+
+
+
+function clearSuccessfulContainer() {
+    let success = document.getElementById('success');
+    success.innerHTML = "";
+}
+
+function successfulAddContact() {
+    let success = document.getElementById('success');
+    success.innerHTML = showSuccessfulCreated();
+}
+
+
+function successfulDeleteContact() {
+    let success = document.getElementById('success');
+    success.innerHTML = showSuccessfulDeleted();
+}
+
+
+function showSuccessfulCreated() {
+    return `<p>Contact successfully created </p>`;
+}
+
+
+function showSuccessfulDeleted() {
+    return `<p>Contact successfully deleted </p>`;
 }
