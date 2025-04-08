@@ -1,5 +1,23 @@
  let currentDraggableTask;
 
+ const BASE_URL = "https://join-4215a-default-rtdb.europe-west1.firebasedatabase.app/"
+
+async function getDataFromServer(path="") {
+  let response = await fetch(BASE_URL + path + ".json");
+  let responseToJson =  await response.json()
+  tasks.push(responseToJson);
+  console.log(tasks);
+  
+}
+
+ async function start() {
+  await getDataFromServer("Join/tasks/0");
+
+  renderTaskInToColumn();
+}
+
+  
+
 
  // Overlay functions
  
@@ -153,3 +171,6 @@ function dragoverHandler(ev) {
     document.getElementById("empty_task_feedback").classList.add("d_none");
     document.getElementById("empty_task_done").classList.add("d_none");
   }
+
+  
+

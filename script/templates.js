@@ -11,8 +11,7 @@ function getTaskTemplate(taskIndex) {
                 </div>
                 <div class="task-footer">
                     <div class="task-users">
-                        <div class="user">${tasks[taskIndex].assignedTo[0].user.logo}</div>
-                        <div class="user">${tasks[taskIndex].assignedTo[1].user.logo}</div>
+                         <div class="user">${tasks[taskIndex].assignedTo.user1.logo}</div>
                     </div>
                     <div class="priority">
                         <img src="/assets/img/icon/prio_medium.svg" alt="">

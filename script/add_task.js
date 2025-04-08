@@ -34,63 +34,66 @@
 
 
 let tasks = [
-  {
-    id: 1,
-    title: "Kochwelt Page Testing",
-    descripton: "Lorem ipsum dolor sit amet consectetur adipisicin",
-    date: "2025-03-14",
-    priority: 1,
-    category: "User Story",
-    assignedTo: [
-      { user: { name: "Muster Mann", logo: "MM" } },
-      { user: { name: "Max Testing", logo: "MT" } }
-    ],
-    subtasks: ["Testing", "Testing", "Testing"],
-    condition: "ToDo"
-  },
-  {
-    id: 2,
-    title: "Dashboard UI Fixes",
-    descripton: "Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.",
-    date: "2025-03-15",
-    priority: 2,
-    category: "Bug Fix",
-    assignedTo: [
-      { user: { name: "Lisa Dev", logo: "LD" } },
-      { user: { name: "John Doe", logo: "JD" } }
-    ],
-    subtasks: ["Fix layout", "Adjust colors", "Optimize performance"],
-    condition: "feedback"
-  },
-  {
-    id: 3,
-    title: "Backend API Update",
-    descripton: "Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.",
-    date: "2025-03-16",
-    priority: 3,
-    category: "Feature",
-    assignedTo: [
-      { user: { name: "Backend Guru", logo: "BG" } },
-      { user: { name: "API Tester", logo: "AT" } }
-    ],
-    subtasks: ["Update endpoints", "Improve security", "Add logging"],
-    condition: "inProgress"
-  },
-  {
-    id: 4,
-    title: "Mobile App Testing",
-    descripton: "Pellentesque in ipsum id orci porta dapibus.",
-    date: "2025-03-17",
-    priority: 1,
-    category: "done",
-    assignedTo: [
-      { user: { name: "QA Expert", logo: "QE" } },
-      { user: { name: "Mobile Dev", logo: "MD" } }
-    ],
-    subtasks: ["Run test cases", "Report bugs", "Verify fixes"],
-    condition: "done"
-  }
+  // {
+  //   id: 1,
+  //   title: "Kochwelt Page Testing",
+  //   descripton: "Lorem ipsum dolor sit amet consectetur adipisicin",
+  //   date: "2025-03-14",
+  //   priority: 1,
+  //   category: "User Story",
+  //   assignedTo: [
+  //     { user: { name: "Muster Mann", logo: "MM" } },
+  //     { user: { name: "Max Testing", logo: "MT" } }
+  //   ],
+  //   subtasks: ["Testing", "Testing", "Testing"],
+  //   condition: "ToDo"
+  // },
+  // {
+  //   id: 2,
+  //   title: "Dashboard UI Fixes",
+  //   descripton: "Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.",
+  //   date: "2025-03-15",
+  //   priority: 2,
+  //   category: "Bug Fix",
+  //   assignedTo: [
+  //     { user: { name: "Lisa Dev", logo: "LD" } },
+  //     { user: { name: "John Doe", logo: "JD" } }
+  //   ],
+  //   subtasks: ["Fix layout", "Adjust colors", "Optimize performance"],
+  //   condition: "feedback"
+  // },
+  // {
+  //   id: 3,
+  //   title: "Backend API Update",
+  //   descripton: "Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.",
+  //   date: "2025-03-16",
+  //   priority: 3,
+  //   category: "Feature",
+  //   assignedTo: [
+  //     { user: { name: "Backend Guru", logo: "BG" } },
+  //     { user: { name: "API Tester", logo: "AT" } }
+  //   ],
+  //   subtasks: ["Update endpoints", "Improve security", "Add logging"],
+  //   condition: "inProgress"
+  // },
+  // {
+  //   id: 4,
+  //   title: "Mobile App Testing",
+  //   descripton: "Pellentesque in ipsum id orci porta dapibus.",
+  //   date: "2025-03-17",
+  //   priority: 1,
+  //   category: "done",
+  //   assignedTo: [
+  //     { user: { name: "QA Expert", logo: "QE" } },
+  //     { user: { name: "Mobile Dev", logo: "MD" } }
+  //   ],
+  //   subtasks: ["Run test cases", "Report bugs", "Verify fixes"],
+  //   condition: "done"
+  // }
 ];
+
+
+
 
 let nextTaskId = 5;
 
