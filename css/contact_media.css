@@ -1,0 +1,95 @@
+@media (max-width: 1260px) {
+    .headline {
+        flex-direction: column;
+        align-items: start;
+        margin-bottom: 50px;
+    }
+    .headline hr {
+        display: none;
+    }
+    .headline h2 {
+        font-size: 56px;
+        margin-bottom: 4px;
+    }
+
+    .headline p {
+        margin-top: 4px;
+        font-size: 24px;
+    }
+
+    .headline p::after {
+        content: "";
+        display: block;
+        height: 3px;
+        width: 90px;
+        background-color: #29ABE2;
+        margin-top: 3px;
+    }
+    .info-initial {
+        width: 80px;
+        height: 80px;
+        font-size: 35px;
+    }
+    .info-name h4 {
+        font-size: 36px;
+    }
+}
+
+
+@media (max-width: 1200px) {
+    .content-contact {
+        padding-left: 25px;
+    }
+    .user-info-header {
+        gap: 36px;
+    }
+}
+
+
+@media (max-width: 1120px) {
+    
+    .user-container {
+        width: 428px;
+    }
+    .list-header {
+        width: 428px;
+    }
+    .contact {
+        padding: 15px 12px;
+    }
+    .user-list {
+        padding: 32px 12px;
+    }
+    .user-info-header {
+        flex-direction: column;     
+    }
+    .info-initial {
+        align-self: flex-start;
+    }
+}
+
+
+@media (max-width: 1000px) {
+    .user-container {
+        width: 320px;
+    }
+    .list-header {
+        width: 320px;
+    }
+     .tab {
+        width: 260px;
+     }
+    .add-contact-container {
+        width: 280px;
+    }
+    .contact {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+}
+
+
+@media (max-width: 900px) {
+    
+}

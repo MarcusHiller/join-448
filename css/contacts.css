@@ -134,16 +134,20 @@
 }
 
 
-h2 {
-    font-weight: 700;
-    font-size: 61px;
+.tab {
+    width: 352px;
+}
+
+
+h3 {
+    font-weight: 400;
+    font-size: 20px;
     line-height: 120%;
 }
 
 
 .contact {
     display: flex;
-    width: 352px;
     align-items: center;
     gap: 35px;
     padding: 15px 24px;
@@ -202,11 +206,10 @@ strong {
 }
 
 
-h3 {
-    font-weight: 400;
-    font-size: 20px;
+h2 {
+    font-weight: 700;
+    font-size: 61px;
     line-height: 120%;
-    width: 352px;
 }
 
 

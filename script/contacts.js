@@ -53,6 +53,7 @@ function createHTML(list) {                                     // creates headi
     let containerList = document.getElementById('contactList');
     Object.keys(list).sort().forEach(letter => {
         const section = document.createElement("div");
+        section.classList.add('tab');
         section.innerHTML = `<h3>${letter}</h3><hr>`;
         userData(list, letter, section);
         containerList.appendChild(section);
@@ -403,8 +404,6 @@ function successChange() {
         }, 1730);
     }, 500);
 }
-
-
 
 
 function clearSuccessfulContainer() {
