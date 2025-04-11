@@ -241,32 +241,27 @@
     border-radius: 0 0 20px 20px;
     z-index: 9;
     width: 100%;
-    overflow: visible;
+    overflow: hidden;
     position: absolute;
     height: 0;
     transition: height 0.1s;
     margin-top: -10px;
+    
 }
 
 .scrollable-list {
-    overflow-y: auto;
-    height: 140px;
-    margin-top: 10px;
+    overflow: auto;
     margin-right: 10px;
-    box-sizing: border-box;
-    scrollbar-gutter: stable;
+    box-sizing: border-box  ;
+    height: 135px;
+    margin-top: 10px;
 }
-
-.scrollable-list::-webkit-scrollbar-track {
-    background: transparent;
-    margin-top: 16px;    /* Scrollbar beginnt tiefer */
-    margin-bottom: 16px; /* Scrollbar endet früher */
-  }
 
 .dropdown-animation-user {
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
     height: 150px;
-    overflow: unset;
+    overflow: visible;
+    
 }
 
 .user-dropmenu {
