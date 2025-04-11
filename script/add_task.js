@@ -142,16 +142,39 @@ document.querySelectorAll("select").forEach(select => {
 
 
   function openUserDropMenu() {
-    document.getElementById("add_user_list").classList.toggle("d_none");
+    // document.getElementById("add_user_list").classList.toggle("d_none");
     document.getElementById("dropdown_menu_arrow").classList.toggle("rotate-img");
     document.getElementById("assigned_select").classList.toggle("blue-border");
-  
-   
-
-  
+    document.getElementById("add_user_list").classList.toggle("dropdown-animation-user");
+    
   }
 
+   function openCatDropMenu() {
+    document.getElementById("dropdown_menu_arrow_select").classList.toggle("rotate-img");
+    document.getElementById("category_input").classList.toggle("blue-border");
+    document.getElementById("category_list").classList.toggle("dropdown-animation");
 
+  
+    // setTimeout(() => {document.getElementById("category_list").classList.toggle("dropdown-animation")}, 200)  
+    // document.getElementById("category_list").classList.toggle("d_none"); 
+    // document.getElementById("category_list").style.height = "fit-content";  
+   
+    
+   }
+
+
+   function selectCategory(category) {
+    document.getElementById("category_select_input").value = category;
+    openCatDropMenu();
+   }
+
+   function addBorder() {
+    document.getElementById("subtask_input_label").classList.add("blue-border");
+   }
+
+function removeBorder() {
+  document.getElementById("subtask_input_label").classList.remove("blue-border");
+}
 
 
   
@@ -233,8 +256,16 @@ document.querySelectorAll("select").forEach(select => {
   }
 
   function editSubtask(indexSubTask) {
-    document.getElementById("editable_input_" + indexSubTask).readOnly = false;
-    document.getElementById("editable_input_" + indexSubTask).focus();
+    let input = document.getElementById("editable_input_" + indexSubTask);
+    const len = input.value.length;
+
+    input.readOnly = false;
+    input.setSelectionRange(len, len);
+    input.focus();
+  }
+
+  function editSubmit(indexSubTask) {
+    document.getElementById("editable_input_" + indexSubTask).readOnly = true;
   }
 
   function removeSubtask(indexSubTask) {

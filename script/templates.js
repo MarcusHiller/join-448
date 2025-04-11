@@ -22,6 +22,6 @@ function getTaskTemplate(taskIndex) {
 }
 
 function getSubtaskTemplate(indexSubTask, subtaskValue) {
-    return `<div id="subtask_${indexSubTask}" class="list-element-div" onmouseover="showEditIcons(${indexSubTask})" onmouseout="blindEditIcons(${indexSubTask})"><div class="list-subtask-element"><div>&#x1F784 <input id="editable_input_${indexSubTask}" readonly value="${subtaskValue}"></div><div id="edit_and_delete_icons_${indexSubTask}"  class="delete-and-add-icon d_none"><img src="/assets/img/icon/edit.svg" onclick="editSubtask(${indexSubTask})">
+    return `<div id="subtask_${indexSubTask}" class="list-element-div" onmouseover="showEditIcons(${indexSubTask})" onmouseout="blindEditIcons(${indexSubTask})"><div class="list-subtask-element"><div>&#x1F784 <input id="editable_input_${indexSubTask}" readonly onblur="editSubmit(${indexSubTask})" value="${subtaskValue}"></div><div id="edit_and_delete_icons_${indexSubTask}"  class="delete-and-add-icon d_none"><img src="/assets/img/icon/edit.svg" onclick="editSubtask(${indexSubTask})">
     <div class="placholder-for-icons"></div><img src="/assets/img/icon/delete.svg" onclick="removeSubtask(${indexSubTask})" alt=""></div></div></div>`
 }

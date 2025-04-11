@@ -40,21 +40,75 @@
                 </div>
 
                 <label for="" class="addTask-label">Assigned to</label>
-                <select id="assigned_select" class="assigned-select">
-                    <option value="">Select contacts to assign</option>
-                    <option value="0">Max Musterman</option>
-                </select>
-                <label for="" class="addTask-label">Category<span class="required-star">&#42</span></label>
-                <select class="category-select" required>
-                    <option value="" hidden selected>Select task category</option>
-                    <option value="1">User Story</option>
-                    <option value="2">Technical Task</option>
-                </select>
-                <p class="error-message">This field is required</p>
-                <label for="" class="addTask-label">Subtasks</label>
-                <input class="addTask-input" type="text">
-            </div>
-        </div>
+                            <div class="assigned-select-dropdown-menu">
+                                <label for="assigned_select_input" id="assigned_select" class="assigned-select">
+                                    <input id="assigned_select_input" onclick="openUserDropMenu()"
+                                        class="assigned-select-input" value=""
+                                        placeholder="Select contacts to assign"><img id="dropdown_menu_arrow"
+                                        src="/assets/img/icon/arrow_drop_down.svg" alt="">
+                                </label>
+                                <div id="add_user_list" class="add-user-list">
+                                    <label for="user_1" class="user-dropmenu">
+                                        <div class="user-logo-container">
+                                            <div class="user-logo-small">AM</div><span>Alex Marathon</span>
+                                        </div><input id="user_1" type="checkbox">
+                                    </label>
+                                    <label for="user_2" class="user-dropmenu">
+                                        <div class="user-logo-container">
+                                            <div class="user-logo-small">AM</div><span>Alex Marathon</span>
+                                        </div><input id="user_2" type="checkbox">
+                                    </label>
+                                    <label for="user_3" class="user-dropmenu">
+                                        <div class="user-logo-container">
+                                            <div class="user-logo-small">AM</div><span>Alex Marathon</span>
+                                        </div><input id="user_3" type="checkbox">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="user-logo-after-seleceted">
+                                <div class="user-logo-small no-margin">AM</div>
+                                <div class="user-logo-small no-margin">AM</div>
+                                <div class="user-logo-small no-margin">AM</div>
+                            </div>
+
+
+                            <label for="" class="addTask-label">Category<span class="required-star">&#42</span></label>
+                            <div class="assigned-select-dropdown-menu">
+                                <div>
+                                    <label for="" id="category_input" class="assigned-select">
+                                        <input type="text" id="category_select_input" onclick="openCatDropMenu()"
+                                            class="assigned-select-input" placeholder="Select task category" value=""
+                                            readonly>
+                                            <img id="dropdown_menu_arrow_select"
+                                            src="/assets/img/icon/arrow_drop_down.svg" alt="">
+                                    </label>
+                                    <div class="category-list" id="category_list">
+                                        <input  type="text" class="category-element" value="User Story" readonly onclick="selectCategory('User Story')">
+                                        <input type="text" class="category-element" value="Technical Task" readonly onclick="selectCategory('Technical Task')">
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="error-message">This field is required</p>
+                            <label for="" class="addTask-label">Subtasks</label>
+                            <label for="subtask_input"  id="subtask_input_label" class="addTask-input-container">
+                                <input class="subtask-input" id="subtask_input" type="text"
+                                    placeholder="Add new subtask" oninput="showAddSubtaskButton()" onfocus="addBorder()" onblur="removeBorder()">
+                                <img id="subtask_plus_icon" class="subtask-plus-icon" src="/assets/img/icon/add.svg"
+                                    alt="">
+                                <div id="delete_and_add_icon" class="delete-and-add-icon d_none">
+                                    <div class="circle-padding-icon"><img src="/assets/img/icon/delete.svg" alt=""
+                                            onclick="clearSubtaskInput()"></div>
+                                    <div class="placholder-for-icons"></div>
+                                    <div class="circle-padding-icon"><img src="/assets/img/icon/check_subtask.svg"
+                                            alt="" onclick="addSubtask()"></div>
+                                </div>
+                            </label>
+
+                            <div id="sub_list" class="subtasks-container">
+
+                            </div>
+                        </div>
+                    </div>
         <div class="addTask-footer footer-desktop">
             <span><span class="required-star">&#42</span>This field is required</span>
             <div class="addTask-footer-buttons">
