@@ -264,6 +264,14 @@ function removeBorder() {
     input.focus();
   }
 
+  function emptySubtaskDelete(indexSubTask) {
+    let input = document.getElementById("editable_input_" + indexSubTask).value;
+
+    if (!input) {
+      removeSubtask(indexSubTask);
+    }
+  }
+
   function editSubmit(indexSubTask) {
     document.getElementById("editable_input_" + indexSubTask).readOnly = true;
   }
