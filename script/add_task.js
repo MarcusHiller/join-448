@@ -1,38 +1,3 @@
-// let  tasks = [
-//   {
-//     title: "Kochwelt Page Testing",
-//     descripton: "Lorem ipsum dolor sit amet consectetur adipisicin",
-//     date: "2025-03-14",
-//     priority: 1,
-//     category: "User Story",
-//     assignedTo: [
-//       {
-//         user: 
-//           {
-//             name: "Muster Mann",
-//             logo: "MM",
-//           }
-        
-//       },
-//       {
-//         user: 
-//           {
-//             name: "Max Testing",
-//             logo: "MT",
-//           }
-        
-//       }
-//     ],
-//     subtasks: [
-//       "Testing",
-//       "Testing",
-//       "Testing"
-//     ],
-//     condition: "ToDo"
-//   }
-// ]
-
-
 let tasks = [
   {
     id: 1,
@@ -107,31 +72,9 @@ document.querySelectorAll("select").forEach(select => {
   });
 
 
-   function AddTask() {
+  function AddTask() {
     alert("Yes");
   }
-
-  // function renderTaskInToColumn() {
-  //     let toDoColumnRef = document.getElementById("toDo_column");
-  //     let inProgColumnRef = document.getElementById("inProg_column");
-  //     let feedbackColumnRef = document.getElementById("feedback_column");
-  //     let doneColumnRef = document.getElementById("done_column");
-
-  //     for (let taskIndex = 0; taskIndex < tasks.length; taskIndex++) {
-  //       let taskCondition = tasks[taskIndex].condition;
-
-  //       if(taskCondition == "ToDo") {
-  //         toDoColumnRef.innerHTML += getTaskTemplate(taskIndex);
-  //       } else if (taskCondition == "inProgress") {
-  //         inProgColumnRef.innerHTML += getTaskTemplate(taskIndex);
-  //       } else if (taskCondition == "feedback") {
-  //         feedbackColumnRef.innerHTML += getTaskTemplate(taskIndex);
-  //       } else if (taskCondition == "done") {
-  //         doneColumnRef.innerHTML += getTaskTemplate(taskIndex);
-  //       }
-  //     }
-  // }
-
 
   function creatOverlayFromTask(taskIndex) {
     document.getElementById("overlay_category").innerHTML = tasks[taskIndex].category;
@@ -142,7 +85,6 @@ document.querySelectorAll("select").forEach(select => {
 
 
   function openUserDropMenu() {
-    // document.getElementById("add_user_list").classList.toggle("d_none");
     document.getElementById("dropdown_menu_arrow").classList.toggle("rotate-img");
     document.getElementById("assigned_select").classList.toggle("blue-border");
     document.getElementById("add_user_list").classList.toggle("dropdown-animation-user");
@@ -153,13 +95,6 @@ document.querySelectorAll("select").forEach(select => {
     document.getElementById("dropdown_menu_arrow_select").classList.toggle("rotate-img");
     document.getElementById("category_input").classList.toggle("blue-border");
     document.getElementById("category_list").classList.toggle("dropdown-animation");
-
-  
-    // setTimeout(() => {document.getElementById("category_list").classList.toggle("dropdown-animation")}, 200)  
-    // document.getElementById("category_list").classList.toggle("d_none"); 
-    // document.getElementById("category_list").style.height = "fit-content";  
-   
-    
    }
 
 
@@ -176,11 +111,7 @@ function removeBorder() {
   document.getElementById("subtask_input_label").classList.remove("blue-border");
 }
 
-
-  
-
-
-  function addTask() {
+function addTask() {
     let newTask = {}
     let titel = document.getElementById("titel_input");
     let descripton = document.getElementById("description_input");
@@ -198,11 +129,7 @@ function removeBorder() {
         priority = prio[i].value;
     }
   }
-
-
-    
-
-    newTask = {
+  newTask = {
       titel: titel.value,
       descripton: descripton.value,
       date: date.value,
@@ -280,28 +207,9 @@ function removeBorder() {
     document.getElementById("subtask_" + indexSubTask).remove();
   }
 
-
-
-    
-    // let list = document.getElementById("add_user_list");
-    // let arrow = document.getElementById("dropdown_menu_arrow");
-
-    // document.addEventListener('click', e => {
-    //   console.log(e.target.)
-
-    //     if(e.target == "add_user_list") {
-    //       console.log("asd")
-    //     document.getElementById("add_user_list").classList.remove("d_none");
-    //   document.getElementById("dropdown_menu_arrow").classList.remove("rotate-img");
-    //     }
-        
-
-      
-      
-    // }
-    // )
-
-
+  function searchContactToTask() {
+    let input = document.getElementById("assigned_select_input").value;
+  }
    
   
 
