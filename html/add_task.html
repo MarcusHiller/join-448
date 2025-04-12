@@ -26,7 +26,9 @@
             <div class="addTask-container height-fot-content">
                 <div class="addTask-headline">
                     <h2>Add Task</h2>
+                    <div><img id="close_add_task_overlay" class="d_none" src="/assets/img/icon/close.svg" alt=""></div>
                 </div>
+                
                 <form class="addTask-form" onsubmit="addTask(); return false">
                     <div class="addTask-form-container">
                         <div class="addTask-left-side">
@@ -153,8 +155,8 @@
                     <div class="addTask-footer footer-desktop">
                         <span><span class="required-star">&#42</span>This field is required</span>
                         <div class="addTask-footer-buttons">
-                            <div class="cancel-task-button" onclick="">
-                                <span class="add-task-text">Cancel</span>
+                            <div class="cancel-task-button" onclick="clearAddTaskField(); closeAddTask()">
+                                <span id="cancel_or_clear_button" class="add-task-text">Clear</span>
                                 <img src="/assets/img/icon/close.svg" alt="plus">
                             </div>
                             <button type="submit" class="create-task-button">

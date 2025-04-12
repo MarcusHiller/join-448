@@ -207,8 +207,16 @@ function addTask() {
     document.getElementById("subtask_" + indexSubTask).remove();
   }
 
-  function searchContactToTask() {
+  function searchContactToTask() {  // not avalieble yet
     let input = document.getElementById("assigned_select_input").value;
+  }
+
+  function clearAddTaskField() {
+    document.getElementById("titel_input").value = "";
+    document.getElementById("description_input").value = "";
+    document.getElementById("date_input").value = "";
+
+
   }
    
   

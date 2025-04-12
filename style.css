@@ -114,7 +114,7 @@ header {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    z-index: 99;
+    z-index: 10;
 }
 
 .navbar {

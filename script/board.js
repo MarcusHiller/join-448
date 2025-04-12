@@ -1,6 +1,10 @@
  let currentDraggableTask;
 
-
+ async function getAddTaskHTML() {
+  await Promise.all([
+    loadHTML("add_task_overlay.html", "add_container"),
+  ]);
+}
  // Overlay functions
  
  function openOverlayTask(taskIndex) {
@@ -12,12 +16,16 @@
 }
 
 function openAddTask() {
-    document.getElementById("board_overlay").classList.remove("d_none")
-    document.getElementById("add_container").classList.remove("d_none")
-    setTimeout(() => {document.getElementById("add_container").classList.remove("overlay-container-sliding")}, 1)   
+  document.getElementById("cancel_or_clear_button").innerHTML = "Cancel";
+    document.getElementById("board_overlay").classList.remove("d_none");
+    document.getElementById("add_container").classList.remove("d_none");
+    setTimeout(() => {document.getElementById("add_container").classList.remove("overlay-container-sliding")}, 1);
 }
 
 function closeOverlayTask() {
+    let cancelButton = document.getElementById("cancel_or_clear_button");
+    cancelButton.innerHTML = "Clear";
+
     document.getElementById("overlay_container").classList.add("overlay-container-sliding");
     setTimeout(() => {document.getElementById("board_overlay").classList.add("d_none"),
          document.getElementById("overlay_container").classList.add("d_none")
@@ -42,18 +50,7 @@ function searchTask() {
 
 
 
-  async function getAddTaskHTML() {
-    await Promise.all([
-        loadHTML("add_task_overlay.html", "add_container"),
-    ]);
-}
 
-
-async function loadAddTask(file, ID) {
-        const res = await fetch(file);
-        const data = await res.text();
-        document.getElementById(ID).innerHTML = data;
-}
 
   // Render //
 

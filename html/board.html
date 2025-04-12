@@ -10,14 +10,11 @@
     <link rel="stylesheet" href="/css/board.css">
     <link rel="stylesheet" href="/css/board_task_overlay.css">
     <link rel="stylesheet" href="/css/add_task.css">
-    <script src="/script.js"></script>
-    <script src="/script/board.js"></script>
-    <script src="/script/templates.js"></script>
-    <script src="/script/add_task.js"></script>
+   
 
 </head>
 
-<body onload="init('board_page'); renderTaskInToColumn()">
+<body onload="init('board_page'); renderTaskInToColumn(); getAddTaskHTML()">
 
 
     <nav id="navbar-section" class="navbar-section"></nav>
@@ -149,7 +146,7 @@
                         </div>
                     </form>
 
-                    <div class="add-task-button" onclick="getAddTaskHTML(); openAddTask()">
+                    <div class="add-task-button" onclick="openAddTask()">
                         <span class="add-task-text">Add task</span>
                         <img src="/assets/img/icon/add.svg" alt="plus">
                     </div>
@@ -306,14 +303,9 @@
 
         </div>
     </main>
-
-
-
+    <script src="/script.js"></script>
+    <script src="/script/board.js"></script>
+    <script src="/script/templates.js"></script>
+    <script src="/script/add_task.js"></script>
 </body>
-
-
-<script>
-
-</script>
-
 </html>
