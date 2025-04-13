@@ -16,16 +16,22 @@
 }
 
 function openAddTask() {
-  document.getElementById("cancel_or_clear_button").innerHTML = "Cancel";
+    document.getElementById("cancel_button").classList.remove("d_none");
+    document.getElementById("clear_button").classList.add("d_none");
+    document.getElementById("close_add_task_overlay").classList.remove("d_none");
     document.getElementById("board_overlay").classList.remove("d_none");
     document.getElementById("add_container").classList.remove("d_none");
     setTimeout(() => {document.getElementById("add_container").classList.remove("overlay-container-sliding")}, 1);
 }
 
-function closeOverlayTask() {
-    let cancelButton = document.getElementById("cancel_or_clear_button");
-    cancelButton.innerHTML = "Clear";
+function creatOverlayFromTask(taskIndex) {
+  document.getElementById("overlay_category").innerHTML = tasks[taskIndex].category;
+  document.getElementById("overlay_titel").innerHTML = tasks[taskIndex].title;
+  document.getElementById("overlay_description").innerHTML = tasks[taskIndex].descripton
+  document.getElementById("overlay_date").innerHTML = tasks[taskIndex].date;
+}
 
+function closeOverlayTask() {
     document.getElementById("overlay_container").classList.add("overlay-container-sliding");
     setTimeout(() => {document.getElementById("board_overlay").classList.add("d_none"),
          document.getElementById("overlay_container").classList.add("d_none")

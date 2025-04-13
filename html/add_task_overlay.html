@@ -1,5 +1,7 @@
-<div class="addTask-headline">
+<div class="addTask-headline" onload="addClearButtonToThePage()">
     <h2>Add Task</h2>
+    <div><img id="close_add_task_overlay" class="close-icon d_none" onclick="closeAddTask()" src="/assets/img/icon/close.svg"
+            alt=""></div>
 </div>
 <form class="addTask-form" onsubmit="addTask(); return false">
     <div class="addTask-form-container">
@@ -13,38 +15,35 @@
             <label for="" class="addTask-label">Due date<span class="required-star">&#42</span></label>
             <input id="date_input" class="addTask-input" type="date" required placeholder="dd/mm/yyyy">
             <p class="error-message">This field is required</p>
-
         </div>
         <div class="placeholder-addTask"></div>
         <div class="addTask-right-side">
             <label for="" class="addTask-label">Priority</label>
             <div class="addTask-prio">
-
-                <input value="urgent" name="prio" class="prio-urgent d_none" id="prio_urgent" type="radio">
+                <input value="urgent" name="prio" class="prio-urgent d_none" id="prio_urgent"
+                    type="radio">
                 <label class="prio-urgent-label" for="prio_urgent">
                     <div class="prio-label">Urgent<img src="/assets/img/icon/prio_urgent.svg">
                     </div>
                 </label>
-
-                <input value="meduim" name="prio" class="prio-medium d_none" id="prio_medium" type="radio" checked>
+                <input value="meduim" name="prio" class="prio-medium d_none" id="prio_medium"
+                    type="radio" checked>
                 <label class="prio-medium-label" for="prio_medium">
                     <div class="prio-label">Medium<img src="/assets/img/icon/prio_medium.svg">
                     </div>
                 </label>
-
                 <input value="low" name="prio" class="prio-low d_none" id="prio_low" type="radio">
                 <label class="prio-low-label" for="prio_low">
                     <div class="prio-label">Low<img src="/assets/img/icon/prio_low.svg"></div>
-
                 </label>
             </div>
-
             <label for="" class="addTask-label">Assigned to</label>
             <div class="assigned-select-dropdown-menu">
                 <label for="assigned_select_input" id="assigned_select" class="assigned-select">
-                    <input id="assigned_select_input" oninput="searchContactToTask()" onclick="openUserDropMenu()"
-                        class="assigned-select-input" value="" placeholder="Select contacts to assign"><img
-                        id="dropdown_menu_arrow" src="/assets/img/icon/arrow_drop_down.svg" alt="">
+                    <input id="assigned_select_input" oninput="searchContactToTask()"
+                        onclick="openUserDropMenu()" class="assigned-select-input" value=""
+                        placeholder="Select contacts to assign"><img id="dropdown_menu_arrow"
+                        src="/assets/img/icon/arrow_drop_down.svg" alt="">
                 </label>
                 <div id="add_user_list" class="add-user-list">
                     <div class="scrollable-list">
@@ -71,23 +70,21 @@
                         </label>
                     </div>
                 </div>
-
-
             </div>
             <div class="user-logo-after-seleceted">
                 <div class="user-logo-small no-margin">AM</div>
                 <div class="user-logo-small no-margin">AM</div>
                 <div class="user-logo-small no-margin">AM</div>
             </div>
-
-
             <label for="" class="addTask-label">Category<span class="required-star">&#42</span></label>
             <div class="assigned-select-dropdown-menu">
                 <div>
                     <label for="" id="category_input" class="assigned-select z-index-7">
                         <input type="text" id="category_select_input" onclick="openCatDropMenu()"
-                            class="assigned-select-input" placeholder="Select task category" value="" readonly>
-                        <img id="dropdown_menu_arrow_select" src="/assets/img/icon/arrow_drop_down.svg" alt="">
+                            class="assigned-select-input" placeholder="Select task category" value=""
+                            readonly>
+                        <img id="dropdown_menu_arrow_select" src="/assets/img/icon/arrow_drop_down.svg"
+                            alt="">
                     </label>
                     <div class="category-list" id="category_list">
                         <input type="text" class="category-element" value="User Story" readonly
@@ -100,34 +97,39 @@
             <p class="error-message">This field is required</p>
             <label for="" class="addTask-label">Subtasks</label>
             <label for="subtask_input" id="subtask_input_label" class="addTask-input-container">
-                <input class="subtask-input" id="subtask_input" type="text" placeholder="Add new subtask"
-                    oninput="showAddSubtaskButton()" onfocus="addBorder()" onblur="removeBorder()">
-                <img id="subtask_plus_icon" class="subtask-plus-icon" src="/assets/img/icon/add.svg" alt="">
+                <input class="subtask-input" id="subtask_input" type="text"
+                    placeholder="Add new subtask" oninput="showAddSubtaskButton()" onfocus="addBorder()"
+                    onblur="removeBorder()">
+                <img id="subtask_plus_icon" class="subtask-plus-icon" src="/assets/img/icon/add.svg"
+                    alt="">
                 <div id="delete_and_add_icon" class="delete-and-add-icon d_none">
                     <div class="circle-padding-icon"><img src="/assets/img/icon/delete.svg" alt=""
                             onclick="clearSubtaskInput()"></div>
                     <div class="placholder-for-icons"></div>
-                    <div class="circle-padding-icon"><img src="/assets/img/icon/check_subtask.svg" alt=""
-                            onclick="addSubtask()"></div>
+                    <div class="circle-padding-icon"><img src="/assets/img/icon/check_subtask.svg"
+                            alt="" onclick="addSubtask()"></div>
                 </div>
             </label>
-
             <div id="sub_list" class="subtasks-container">
-
             </div>
         </div>
     </div>
-    <div class="addTask-footer-buttons">
-        <div class="cancel-task-button" onclick="clearAddTaskField(); closeAddTask()">
-            <span id="cancel_or_clear_button" class="add-task-text">Clear</span>
-            <img src="/assets/img/icon/close.svg" alt="plus">
+    <div class="addTask-footer footer-desktop">
+        <span><span class="required-star">&#42</span>This field is required</span>
+        <div class="addTask-footer-buttons">
+            <div id="cancel_button" class="cancel-task-button d_none"
+                onclick="clearAddTaskField(); closeAddTask()">
+                <span class="add-task-text ">Cancel</span>
+                <img src="/assets/img/icon/close.svg" alt="plus">
+            </div>
+            <div id="clear_button" class="cancel-task-button" onclick="clearAddTaskField()">
+                <span class="add-task-text ">Clear</span>
+                <img src="/assets/img/icon/close.svg" alt="plus">
+            </div>
+            <button type="submit" class="create-task-button">
+                <span class="add-task-text">Create task</span>
+                <img src="/assets/img/icon/check.svg" alt="plus">
+            </button>
         </div>
-        <button type="submit" class="create-task-button">
-            <span class="add-task-text">Create task</span>
-            <img src="/assets/img/icon/check.svg" alt="plus">
-        </button>
-
-
-    </div>
     </div>
 </form>
