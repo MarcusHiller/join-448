@@ -1,9 +1,13 @@
 let currentDraggableTask;
+let tasks = [];
+
 
 async function getAddTaskHTML() {
  await Promise.all([
    loadHTML("add_task_overlay.html", "add_container"),
  ]);
+
+ renderUserList();
 }
 // Overlay functions
 
@@ -89,6 +93,8 @@ function searchTask() {
      }
    }
 
+   
+
   
 
    if(toDoColumnRef.innerHTML == "") {
@@ -112,6 +118,20 @@ function searchTask() {
    feedbackColumnRef.innerHTML += "<div id='empty_task_feedback' class='empty-task d_none'></div>";
    doneColumnRef.innerHTML += "<div id='empty_task_done' class='empty-task d_none'></div>";
 }
+
+ function renderAssignedTo(assignedUsers) {
+  let userListRef = document.getElementById("task_users_" + taskIndex);
+  let userList = assignedUsers;
+  userListRef.innerHTML = "";
+
+  console.log(userList)
+
+  for (let indexUser = 0; index < userList.length; index++) {
+    userListRef.innerHTML += getUserInTaskTemplate(indexUser, userList)
+    
+  }
+
+ }
 
 
 //   Drag and Drop  //
@@ -156,3 +176,80 @@ function dragoverHandler(ev) {
    document.getElementById("empty_task_feedback").classList.add("d_none");
    document.getElementById("empty_task_done").classList.add("d_none");
  }
+
+//  Get Data //
+
+
+ async function getDataFromServer(path="") {
+  let response = await fetch(BASE_URL + path + ".json");
+  let responseToJson =  await response.json()
+  console.log(responseToJson);
+  
+
+  let tasksKeysArray = Object.keys(responseToJson)
+
+
+  for (let index = 0; index < tasksKeysArray.length; index++) {
+    let assignedUsers = arrayAssignedTo(index, responseToJson, tasksKeysArray);
+    let subtasks = arraySubtasks(index, responseToJson, tasksKeysArray);
+    tasks.push(
+      {
+        title: responseToJson[tasksKeysArray[index]].title,
+        descripton: responseToJson[tasksKeysArray[index]].descripton,
+        date: responseToJson[tasksKeysArray[index]].date,
+        category: responseToJson[tasksKeysArray[index]].category,
+        priority: responseToJson[tasksKeysArray[index]].priority,
+        subtask: subtasks,
+        assignedTo : assignedUsers,
+        id : tasksKeysArray[index],
+        condition: responseToJson[tasksKeysArray[index]].condition
+      
+      }
+    )
+  }
+  
+  renderTaskInToColumn();
+  console.log(tasks);
+  
+}
+
+function arraySubtasks(index, responseToJson, tasksKeysArray) {
+let subtasksKeys = Object.keys(responseToJson[tasksKeysArray[index]].subtask)
+let subtasks = []
+
+for (let indexSubtask = 0; indexSubtask < subtasksKeys.length; indexSubtask++) {
+  subtasks.push(
+    {
+      "subtask" : responseToJson[tasksKeysArray[index]].subtask[subtasksKeys[indexSubtask]]
+    })
+  
+}
+ return subtasks
+}
+
+function arrayAssignedTo(index, responseToJson, tasksKeysArray) {
+  let usersKeysArray = Object.keys(responseToJson[tasksKeysArray[index]].assignedTo);
+  let usersArray = []
+
+  console.log(usersKeysArray);
+
+
+  
+
+
+
+  for (let userIndex = 0; userIndex < usersKeysArray.length; userIndex++) {
+    let userID = responseToJson[tasksKeysArray[index]].assignedTo[usersKeysArray[userIndex]]
+    let user = users.find(user => userID === user.id)
+
+
+    usersArray.push(user)
+    
+  }
+  
+  console.log(usersArray);
+
+  return usersArray;
+  
+}
+
