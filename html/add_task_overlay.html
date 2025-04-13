@@ -3,17 +3,17 @@
     <div><img id="close_add_task_overlay" class="close-icon d_none" onclick="closeAddTask()" src="/assets/img/icon/close.svg"
             alt=""></div>
 </div>
-<form class="addTask-form" onsubmit="addTask(); return false">
+<form class="addTask-form" onsubmit="addTask('ToDo'); return false">
     <div class="addTask-form-container">
         <div class="addTask-left-side">
             <label for="" class="addTask-label">Title<span class="required-star">&#42</span></label>
-            <input id="titel_input" class="addTask-input" placeholder="Enter a title" required>
+            <input id="titel_input" class="addTask-input" placeholder="Enter a title">
             <p class="error-message">This field is required</p>
             <label for="" class="addTask-label">Description</label>
             <textarea id="description_input" class="addTask-textarea" placeholder="Enter a Description"
-                required></textarea>
+                ></textarea>
             <label for="" class="addTask-label">Due date<span class="required-star">&#42</span></label>
-            <input id="date_input" class="addTask-input" type="date" required placeholder="dd/mm/yyyy">
+            <input id="date_input" class="addTask-input" type="date" placeholder="dd/mm/yyyy">
             <p class="error-message">This field is required</p>
         </div>
         <div class="placeholder-addTask"></div>
@@ -46,35 +46,11 @@
                         src="/assets/img/icon/arrow_drop_down.svg" alt="">
                 </label>
                 <div id="add_user_list" class="add-user-list">
-                    <div class="scrollable-list">
-                        <label for="user_1" class="user-dropmenu">
-                            <div class="user-logo-container">
-                                <div class="user-logo-small">AM</div><span>Alex Marathon</span>
-                            </div>
-                            <input id="user_1" type="checkbox" class="checkbox">
-                            <label for="user_1"><img src="/assets/img/icon/checkbox.svg" alt=""></label>
-                        </label>
-                        <label for="user_2" class="user-dropmenu">
-                            <div class="user-logo-container">
-                                <div class="user-logo-small">AM</div><span>Alex Marathon</span>
-                            </div>
-                            <input id="user_2" type="checkbox" class="checkbox">
-                            <label for="user_2"><img src="/assets/img/icon/checkbox.svg" alt=""></label>
-                        </label>
-                        <label for="user_3" class="user-dropmenu">
-                            <div class="user-logo-container">
-                                <div class="user-logo-small">AM</div><span>Alex Marathon</span>
-                            </div>
-                            <input id="user_3" type="checkbox" class="checkbox">
-                            <label for="user_3"><img src="/assets/img/icon/checkbox.svg" alt=""></label>
-                        </label>
+                    <div id="user_list_dropdown" class="scrollable-list">
                     </div>
                 </div>
             </div>
-            <div class="user-logo-after-seleceted">
-                <div class="user-logo-small no-margin">AM</div>
-                <div class="user-logo-small no-margin">AM</div>
-                <div class="user-logo-small no-margin">AM</div>
+            <div id="user_logo_after_seleceted" class="user-logo-after-seleceted">
             </div>
             <label for="" class="addTask-label">Category<span class="required-star">&#42</span></label>
             <div class="assigned-select-dropdown-menu">

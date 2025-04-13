@@ -253,15 +253,14 @@
     overflow: auto;
     margin-right: 10px;
     box-sizing: border-box  ;
-    height: 135px;
+    height: 290px;
     margin-top: 10px;
 }
 
 .dropdown-animation-user {
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
-    height: 150px;
+    height: 300px;
     overflow: visible;
-    
 }
 
 .checkbox[type="checkbox"] {
