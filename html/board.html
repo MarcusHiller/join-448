@@ -14,9 +14,13 @@
     <script src="/script/board.js"></script>
     <script src="/script/templates.js"></script>
     <script src="/script/add_task.js"></script>
+    
+    <script src="/script/templates.js"></script>
+    <script src="/script/add_task.js"></script>
 
 </head>
 
+<body onload="init('board_page'); renderTaskInToColumn()">
 <body onload="init('board_page'); renderTaskInToColumn()">
 
 
@@ -77,12 +81,14 @@
                                 <label for="" class="addTask-label">Assigned to</label>
                                 <select id="assigned_select" class="assigned-select">
                                     <option value="" disabled selected>Select contacts to assign</option>
+                                    <option value="" disabled selected>Select contacts to assign</option>
                                     <option value="0">Max Musterman</option>
                                 </select>
                                 <label for="" class="addTask-label">Category<span
                                         class="required-star">&#42</span></label>
                                 <select class="category-select" required>
-                                    <option value="" hidden selected>Select task category</option>
+                                    <option value="" hidden selected >Select task category</option>
+                                    <option value="" hidden selected >Select task category</option>
                                     <option value="1">User Story</option>
                                     <option value="2">Technical Task</option>
                                 </select>
@@ -117,13 +123,16 @@
                     <div class="overlay-headline">
                         <div class="task-cat-user task-cat-custom">
                             <p id="overlay_category">User Story</p>
+                            <p id="overlay_category">User Story</p>
                         </div>
                         <img onclick="closeOverlayTask()" class="close-icon" src="/assets/img/icon/close.svg" alt="">
                     </div>
                     <div class="overlay-titel">
                         <h2 id="overlay_titel">Kochwelt Page & Recipe Recommender</h2>
+                        <h2 id="overlay_titel">Kochwelt Page & Recipe Recommender</h2>
                     </div>
                     <div class="overlay-task-details">
+                        <div class="overlay-task-description"><span id="overlay_description">Lorem ipsum dolor sit amet consectetur adipisicing
                         <div class="overlay-task-description"><span id="overlay_description">Lorem ipsum dolor sit amet
                                 consectetur adipisicing
                                 elit. Ducimus fuga debitis vero quam tempore alias iste ratione, quis asperiores
@@ -134,6 +143,7 @@
                             <table>
                                 <tr>
                                     <td>Due Date:</td>
+                                    <td><time id="overlay_date" datetime="2025-05-10">10/05/2025</time></td>
                                     <td><time id="overlay_date" datetime="2025-05-10">10/05/2025</time></td>
                                 </tr>
                                 <tr>
@@ -217,6 +227,7 @@
                     <form class="form-for-input" action="" onsubmit="return false">
                         <div class="search-task-input-field">
                             <input id="search_task" type="text" class="input-task" placeholder="Find task..." required>
+                            <input id="search_task" type="text" class="input-task" placeholder="Find task..." required>
                             <div class="spaceholder"></div>
                             <button type="button" class="search-button-container">
                                 <img src="/assets/img/icon/search.svg" alt="search" onclick="searchTask()">
@@ -237,6 +248,7 @@
                             <h3>To do</h3>
                             <img src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
+                        <div ondragover="dragoverHandler(event)" ondrop=" moveTo('ToDo')" id="toDo_column" class="column-container">
                         <div ondragover="dragoverHandler(event)" ondrop=" moveTo('ToDo')" id="toDo_column"
                             class="column-container">
                             <div class="empty-column">
@@ -252,6 +264,8 @@
                         <div id="inProg_column" ondragover="dragoverHandler(event); event.stopPropagation()"
                             ondrop="moveTo('inProgress')" class="column-container">
                             <!-- <div class="task" onclick="openOverlayTask()">
+                        <div id="inProg_column" class="column-container">
+                            <div class="task" onclick="openOverlayTask()">
                                 <div class="task-cat-technical">
                                     <p>Technical Task</p>
                                 </div>
@@ -284,6 +298,7 @@
                             <h3>Await feedback</h3>
                             <img src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
+                        <div ondragover="dragoverHandler(event)" ondrop=" moveTo('feedback')" id="feedback_column" class="column-container">
                         <div ondragover="dragoverHandler(event)" ondrop=" moveTo('feedback')" id="feedback_column"
                             class="column-container">
                             <div class="task">
@@ -317,6 +332,7 @@
                         <div class="column-headline">
                             <h3>Done</h3>
                         </div>
+                        <div ondragover="dragoverHandler(event)" ondrop=" moveTo('done')" id="done_column"  class="column-container">
                         <div ondragover="dragoverHandler(event)" ondrop=" moveTo('done')" id="done_column"
                             class="column-container">
                             <div class="task">
@@ -385,6 +401,7 @@
 
 
 </body>
+
 
 
 <script>

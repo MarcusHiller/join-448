@@ -5,6 +5,11 @@ async function init(page) {
     ]);
     
     activePageHiglight(page);
+    if (page === 'summary_page') {
+        initGreeting();
+        initGreetingRepeat();
+    }
+
 }
 
 //window.onload = init;
@@ -20,6 +25,9 @@ function activePageHiglight(page) {
     document.getElementById("add_task_page").classList.remove("active-menu");
     document.getElementById("board_page").classList.remove("active-menu");
     document.getElementById("contact_page").classList.remove("active-menu");
+    document.getElementById("help_page").classList.remove("active-menu");
+    document.getElementById("privacy_policy_page").classList.remove("active-menu");
+    document.getElementById("legal_notice_page").classList.remove("active-menu");
 
     document.getElementById(page).classList.add("active-menu");
 }
@@ -27,3 +35,23 @@ function activePageHiglight(page) {
 function burgerMenuSliding() {
     document.getElementById("burger_menu").classList.toggle("burger-menu-transition");
 }
+function acceptCookies() {
+    document.getElementById('cookieBanner').style.display = 'none';
+    document.cookie = "cookiesAccepted=true; path=/; max-age=" + 60 * 60 * 24 * 365;
+}
+
+window.addEventListener('load', function () {
+    const cookiesAccepted = document.cookie.includes("cookiesAccepted=true");
+    const acceptBtn = document.getElementById('acceptCookiesBtn');
+    const banner = document.getElementById('cookieBanner');
+
+    if (!cookiesAccepted && banner) {
+        banner.style.display = 'flex';
+    }
+
+    if (acceptBtn) {
+        acceptBtn.addEventListener('click', acceptCookies);
+    }
+});
+
+
