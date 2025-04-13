@@ -9,19 +9,12 @@
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/css/board.css">
     <link rel="stylesheet" href="/css/board_task_overlay.css">
-    <link rel="stylesheet" href="/css/board_add_task_overlay.css">
-    <script src="/script.js"></script>
-    <script src="/script/board.js"></script>
-    <script src="/script/templates.js"></script>
-    <script src="/script/add_task.js"></script>
-    
-    <script src="/script/templates.js"></script>
-    <script src="/script/add_task.js"></script>
+    <link rel="stylesheet" href="/css/add_task.css">
+   
 
 </head>
 
-<body onload="init('board_page'); renderTaskInToColumn()">
-<body onload="init('board_page'); renderTaskInToColumn()">
+<body onload="init('board_page'); renderTaskInToColumn(); getAddTaskHTML()">
 
 
     <nav id="navbar-section" class="navbar-section"></nav>
@@ -34,87 +27,6 @@
                 <!-- Add Overlay -->
                 <div id="add_container" class="add-container overlay-container-sliding d_none"
                     onclick="event.stopPropagation()">
-
-                    <div class="addTask-headline">
-                        <h2>Add Task</h2>
-                        <img onclick="closeAddTask()" class="close-icon" src="/assets/img/icon/close.svg" alt="">
-                    </div>
-                    <form class="addTask-form" onsubmit="addTask()">
-                        <div class="addTask-form-container">
-                            <div class="addTask-left-side">
-                                <label for="" class="addTask-label">Title<span class="required-star">&#42</span></label>
-                                <input class="addTask-input" placeholder="Enter a title" required>
-                                <p class="error-message">This field is required</p>
-                                <label for="" class="addTask-label">Description</label>
-                                <textarea class="addTask-textarea" placeholder="Enter a Description"
-                                    required></textarea>
-                                <label for="" class="addTask-label">Due date<span
-                                        class="required-star">&#42</span></label>
-                                <input class="addTask-input" type="date" required placeholder="dd/mm/yyyy">
-                                <p class="error-message">This field is required</p>
-
-                            </div>
-                            <div class="placeholder-addTask"></div>
-                            <div class="addTask-right-side">
-                                <label for="" class="addTask-label">Priority</label>
-                                <div class="addTask-prio">
-
-                                    <input name="prio" class="prio-urgent d_none" id="prio_urgent" type="radio">
-                                    <label class="prio-urgent-label" for="prio_urgent">
-                                        <div class="prio-label">Urgent<img src="/assets/img/icon/prio_urgent.svg">
-                                        </div>
-                                    </label>
-
-                                    <input name="prio" class="prio-medium d_none" id="prio_medium" type="radio" checked>
-                                    <label class="prio-medium-label" for="prio_medium">
-                                        <div class="prio-label">Medium<img src="/assets/img/icon/prio_medium.svg">
-                                        </div>
-                                    </label>
-
-                                    <input name="prio" class="prio-low d_none" id="prio_low" type="radio">
-                                    <label class="prio-low-label" for="prio_low">
-                                        <div class="prio-label">Low<img src="/assets/img/icon/prio_low.svg"></div>
-
-                                    </label>
-                                </div>
-
-                                <label for="" class="addTask-label">Assigned to</label>
-                                <select id="assigned_select" class="assigned-select">
-                                    <option value="" disabled selected>Select contacts to assign</option>
-                                    <option value="" disabled selected>Select contacts to assign</option>
-                                    <option value="0">Max Musterman</option>
-                                </select>
-                                <label for="" class="addTask-label">Category<span
-                                        class="required-star">&#42</span></label>
-                                <select class="category-select" required>
-                                    <option value="" hidden selected >Select task category</option>
-                                    <option value="" hidden selected >Select task category</option>
-                                    <option value="1">User Story</option>
-                                    <option value="2">Technical Task</option>
-                                </select>
-                                <p class="error-message">This field is required</p>
-                                <label for="" class="addTask-label">Subtasks</label>
-                                <input class="addTask-input" type="text">
-                            </div>
-                        </div>
-                        <div class="addTask-footer">
-                            <span><span class="required-star">&#42</span>This field is required</span>
-                            <div class="addTask-footer-buttons">
-                                <div class="cancel-task-button" onclick="openAddTask()">
-                                    <span class="add-task-text">Cancel</span>
-                                    <img src="/assets/img/icon/close.svg" alt="plus">
-                                </div>
-                                <button type="submit" class="create-task-button">
-                                    <span class="add-task-text">Create task</span>
-                                    <img src="/assets/img/icon/check.svg" alt="plus">
-                                </button>
-
-
-                            </div>
-                        </div>
-                    </form>
-
-
                 </div>
 
                 <!-- Task Overlay -->
@@ -123,16 +35,14 @@
                     <div class="overlay-headline">
                         <div class="task-cat-user task-cat-custom">
                             <p id="overlay_category">User Story</p>
-                            <p id="overlay_category">User Story</p>
                         </div>
                         <img onclick="closeOverlayTask()" class="close-icon" src="/assets/img/icon/close.svg" alt="">
                     </div>
                     <div class="overlay-titel">
                         <h2 id="overlay_titel">Kochwelt Page & Recipe Recommender</h2>
-                        <h2 id="overlay_titel">Kochwelt Page & Recipe Recommender</h2>
                     </div>
                     <div class="overlay-task-details">
-                        <div class="overlay-task-description"><span id="overlay_description">Lorem ipsum dolor sit amet consectetur adipisicing
+                        <div class="details-content-complete">
                         <div class="overlay-task-description"><span id="overlay_description">Lorem ipsum dolor sit amet
                                 consectetur adipisicing
                                 elit. Ducimus fuga debitis vero quam tempore alias iste ratione, quis asperiores
@@ -143,7 +53,6 @@
                             <table>
                                 <tr>
                                     <td>Due Date:</td>
-                                    <td><time id="overlay_date" datetime="2025-05-10">10/05/2025</time></td>
                                     <td><time id="overlay_date" datetime="2025-05-10">10/05/2025</time></td>
                                 </tr>
                                 <tr>
@@ -195,6 +104,9 @@
                             </table>
 
                         </div>
+                    </div>
+
+
                         <div class="edit-task-section">
                             <div class="delete-task">
                                 <img src="/assets/img/icon/delete.svg" alt="">
@@ -227,7 +139,6 @@
                     <form class="form-for-input" action="" onsubmit="return false">
                         <div class="search-task-input-field">
                             <input id="search_task" type="text" class="input-task" placeholder="Find task..." required>
-                            <input id="search_task" type="text" class="input-task" placeholder="Find task..." required>
                             <div class="spaceholder"></div>
                             <button type="button" class="search-button-container">
                                 <img src="/assets/img/icon/search.svg" alt="search" onclick="searchTask()">
@@ -248,7 +159,6 @@
                             <h3>To do</h3>
                             <img src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
-                        <div ondragover="dragoverHandler(event)" ondrop=" moveTo('ToDo')" id="toDo_column" class="column-container">
                         <div ondragover="dragoverHandler(event)" ondrop=" moveTo('ToDo')" id="toDo_column"
                             class="column-container">
                             <div class="empty-column">
@@ -264,8 +174,6 @@
                         <div id="inProg_column" ondragover="dragoverHandler(event); event.stopPropagation()"
                             ondrop="moveTo('inProgress')" class="column-container">
                             <!-- <div class="task" onclick="openOverlayTask()">
-                        <div id="inProg_column" class="column-container">
-                            <div class="task" onclick="openOverlayTask()">
                                 <div class="task-cat-technical">
                                     <p>Technical Task</p>
                                 </div>
@@ -298,7 +206,6 @@
                             <h3>Await feedback</h3>
                             <img src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
-                        <div ondragover="dragoverHandler(event)" ondrop=" moveTo('feedback')" id="feedback_column" class="column-container">
                         <div ondragover="dragoverHandler(event)" ondrop=" moveTo('feedback')" id="feedback_column"
                             class="column-container">
                             <div class="task">
@@ -332,7 +239,6 @@
                         <div class="column-headline">
                             <h3>Done</h3>
                         </div>
-                        <div ondragover="dragoverHandler(event)" ondrop=" moveTo('done')" id="done_column"  class="column-container">
                         <div ondragover="dragoverHandler(event)" ondrop=" moveTo('done')" id="done_column"
                             class="column-container">
                             <div class="task">
@@ -397,15 +303,9 @@
 
         </div>
     </main>
-
-
-
+    <script src="/script.js"></script>
+    <script src="/script/board.js"></script>
+    <script src="/script/templates.js"></script>
+    <script src="/script/add_task_overlay.js"></script>
 </body>
-
-
-
-<script>
-
-</script>
-
 </html>
