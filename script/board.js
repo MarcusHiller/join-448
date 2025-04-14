@@ -12,10 +12,11 @@ async function getAddTaskHTML() {
 // Overlay functions
 
 function openOverlayTask(taskIndex) {
-   creatOverlayFromTask(taskIndex);
+   
 
-   document.getElementById("board_overlay").classList.remove("d_none")
-   document.getElementById("overlay_container").classList.remove("d_none")
+   document.getElementById("board_overlay").classList.remove("d_none");
+   document.getElementById("overlay_container").classList.remove("d_none");
+   creatOverlayFromTask(taskIndex);
    setTimeout(() => {document.getElementById("overlay_container").classList.remove("overlay-container-sliding")}, 1)   
 }
 
@@ -29,10 +30,63 @@ function openAddTask() {
 }
 
 function creatOverlayFromTask(taskIndex) {
- document.getElementById("overlay_category").innerHTML = tasks[taskIndex].category;
+ 
  document.getElementById("overlay_titel").innerHTML = tasks[taskIndex].title;
  document.getElementById("overlay_description").innerHTML = tasks[taskIndex].descripton
  document.getElementById("overlay_date").innerHTML = tasks[taskIndex].date;
+ renderUserIntoTaskOverlay(taskIndex);
+ renderSubtaskIntoTaskOverlay(taskIndex);
+ renderPrioIntoTaskOverlay(taskIndex);
+ renderCategoryIntoTaskOverlay(taskIndex);
+}
+
+function renderCategoryIntoTaskOverlay(taskIndex) {
+  let categoryRef = document.getElementById("overlay_category");
+  let category = tasks[taskIndex].category
+  categoryRef.innerHTML = category;
+
+  if (category === "Technical Task") {
+    categoryRef.style.backgroundColor = "#1FD7C1";
+  } else {
+    categoryRef.style.backgroundColor = "#0038FF";
+  }
+}
+
+function renderPrioIntoTaskOverlay(taskIndex) {
+  let prioImg = document.getElementById("task_overlay_prio_img");
+  let prioTask = document.getElementById("task_overlay_prio_text");
+  let prio = tasks[taskIndex].priority;
+  prioTask.innerHTML = prio;
+
+  if(prio === "low") {
+    prioImg.src = "/assets/img/icon/prio_low.svg";
+  } else if (prio === "medium") {
+    prioImg.src = "/assets/img/icon/prio_medium.svg";
+  } else if(prio === "urgent") {
+    prioImg.src = "/assets/img/icon/prio_urgent.svg";
+  }
+}
+
+function renderSubtaskIntoTaskOverlay(taskIndex) {
+  let subtaskListRef = document.getElementById("task_overlay_subtask_list");
+  let subtaskList = tasks[taskIndex].subtask;
+  subtaskListRef.innerHTML = "";
+
+  for (let indexSubtask = 0; indexSubtask < subtaskList.length; indexSubtask++) {
+    subtaskListRef.innerHTML += getTaskSubtaskOverlayTemplate(taskIndex, indexSubtask);
+  }
+  
+}
+
+function renderUserIntoTaskOverlay(taskIndex) {
+  let taskUsers = tasks[taskIndex].assignedTo;
+  let taskUsersTableRef = document.getElementById("task_overlay_user_list");
+  taskUsersTableRef.innerHTML = "";
+
+  for (let indexUser = 0; indexUser < taskUsers.length; indexUser++) {
+    taskUsersTableRef.innerHTML += getTaskUsersOverlayTemplate(taskIndex, indexUser)
+    
+  }
 }
 
 function closeOverlayTask() {
@@ -93,6 +147,7 @@ function searchTask() {
 
      renderAssignedTo(taskIndex);
      renderSubtasks(taskIndex);
+     renderPrio(taskIndex);
    }
 
    
@@ -121,6 +176,21 @@ function searchTask() {
    inProgColumnRef.innerHTML += "<div id='empty_task_inProg' class='empty-task d_none'></div>";
    feedbackColumnRef.innerHTML += "<div id='empty_task_feedback' class='empty-task d_none'></div>";
    doneColumnRef.innerHTML += "<div id='empty_task_done' class='empty-task d_none'></div>";
+}
+
+
+function renderPrio(taskIndex) {
+  let prioRef = document.getElementById("task_prio_user_" + taskIndex);
+  let taskPrio = tasks[taskIndex].priority;
+
+  if(taskPrio === "low") {
+    prioRef.src = "/assets/img/icon/prio_low.svg";
+  } else if (taskPrio === "medium") {
+    prioRef.src = "/assets/img/icon/prio_medium.svg";
+  } else if(taskPrio === "urgent") {
+    prioRef.src = "/assets/img/icon/prio_urgent.svg";
+  }
+
 }
 
 function renderSubtasks(taskIndex) {

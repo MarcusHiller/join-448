@@ -190,6 +190,16 @@
     overflow-y: auto;
 }
 
+.task-overlay-prio-text::first-letter {
+    text-transform: uppercase;
+}
+
+.subtask-label {
+    cursor: pointer;
+    user-select: none;
+
+}
+
 @media(max-width: 900px) {
     .overlay-container {
         width: 300px;
