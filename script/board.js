@@ -65,7 +65,6 @@ function searchTask() {
  // Render //
 
 
-
  function renderTaskInToColumn() {
    let toDoColumnRef = document.getElementById("toDo_column");
    let inProgColumnRef = document.getElementById("inProg_column");
@@ -91,7 +90,12 @@ function searchTask() {
      } else if (taskCondition == "done") {
        doneColumnRef.innerHTML += getTaskTemplate(taskIndex);
      }
+
+     renderAssignedTo(taskIndex);
+     renderSubtasks(taskIndex);
    }
+
+   
 
    
 
@@ -119,17 +123,29 @@ function searchTask() {
    doneColumnRef.innerHTML += "<div id='empty_task_done' class='empty-task d_none'></div>";
 }
 
- function renderAssignedTo(assignedUsers) {
-  let userListRef = document.getElementById("task_users_" + taskIndex);
-  let userList = assignedUsers;
-  userListRef.innerHTML = "";
+function renderSubtasks(taskIndex) {
+  let subtaskProgressBar = document.getElementById("subtasks_user_" + taskIndex);
+  let subtaskMaxRef = document.getElementById("subtask_max_user_" + taskIndex);
+  let subtaskMax = tasks[taskIndex].subtask.length;
 
+  subtaskProgressBar.setAttribute("max", subtaskMax);
+  subtaskMaxRef.innerHTML = subtaskMax;
+}
+
+ function renderAssignedTo(taskIndex) {
+  let userListRef = document.getElementById("task_users_" + taskIndex);
+  let userList = tasks[taskIndex].assignedTo;
+  userListRef.innerHTML = "";
+      
   console.log(userList)
 
-  for (let indexUser = 0; index < userList.length; index++) {
-    userListRef.innerHTML += getUserInTaskTemplate(indexUser, userList)
-    
+  if(userList) {
+    for (let indexUser = 0; indexUser < userList.length; indexUser++) {
+      userListRef.innerHTML += getUserInTaskTemplate(indexUser, userList)
+      
+    }
   }
+ return userListRef.innerHTML
 
  }
 
@@ -239,8 +255,8 @@ function arrayAssignedTo(index, responseToJson, tasksKeysArray) {
 
 
   for (let userIndex = 0; userIndex < usersKeysArray.length; userIndex++) {
-    let userID = responseToJson[tasksKeysArray[index]].assignedTo[usersKeysArray[userIndex]]
-    let user = users.find(user => userID === user.id)
+    let username = responseToJson[tasksKeysArray[index]].assignedTo[usersKeysArray[userIndex]]
+    let user = users.find(user => username === user.username)
 
 
     usersArray.push(user)

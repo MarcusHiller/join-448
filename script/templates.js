@@ -6,11 +6,11 @@ function getTaskTemplate(taskIndex) {
                 <div class="task-title"><span class="task-title">${tasks[taskIndex].title}</span></div>
                 <div class="task-description"><span>${tasks[taskIndex].descripton}</span></div>
                 <div class="progress">
-                    <progress max="2" value="1"></progress>
-                        <span>1/2 Subtasks</span>
+                    <progress id="subtasks_user_${taskIndex}" max="" value="0"></progress>
+                        <span id="subtask_text_user_${taskIndex}"><span id="subtask_value_user_${taskIndex}">0</span>/<span id="subtask_max_user_${taskIndex}">2</span> Subtasks</span>
                 </div>
                 <div class="task-footer">
-                    <div id="task_users_${taskIndex}" class="task-users">
+                    <div id="task_users_${taskIndex}" onload="renderAssignedTo(${taskIndex})"class="task-users">
                         
     
                     </div>
@@ -22,7 +22,7 @@ function getTaskTemplate(taskIndex) {
 }
 
 function getUserInTaskTemplate(indexUser, userList) {
-    return `<div class="user"></div>`
+    return `<div class="user" style="background-color:${userList[indexUser].color}">${userList[indexUser].avatar}</div>`
 }
 
 function getSubtaskTemplate(indexSubTask, subtaskValue) {
