@@ -194,6 +194,11 @@
     text-transform: uppercase;
 }
 
+.task_overlay_prio {
+    display: flex;
+    
+}
+
 .subtask-label {
     cursor: pointer;
     user-select: none;
