@@ -241,7 +241,7 @@ function addTask(condition="") {
     for (let userIdIndex = 0; userIdIndex < users.length; userIdIndex++) {
       let userCheckbox = document.getElementById("user_" + userIdIndex);
       if(userCheckbox.checked) {
-        userID.push(users[userIdIndex].id)
+        userID.push(users[userIdIndex].username)
       }
     }
 
