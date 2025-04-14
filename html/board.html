@@ -34,79 +34,42 @@
                     onclick="event.stopPropagation()">
                     <div class="overlay-headline">
                         <div class="task-cat-user task-cat-custom">
-                            <p id="overlay_category">User Story</p>
+                            <p id="overlay_category"></p>
                         </div>
                         <img onclick="closeOverlayTask()" class="close-icon" src="/assets/img/icon/close.svg" alt="">
                     </div>
                     <div class="overlay-titel">
-                        <h2 id="overlay_titel">Kochwelt Page & Recipe Recommender</h2>
+                        <h2 id="overlay_titel"></h2>
                     </div>
                     <div class="overlay-task-details">
                         <div class="details-content-complete">
-                        <div class="overlay-task-description"><span id="overlay_description">Lorem ipsum dolor sit amet
-                                consectetur adipisicing
-                                elit. Ducimus fuga debitis vero quam tempore alias iste ratione, quis asperiores
-                                aspernatur quo delectus quod, rerum modi. Enim autem nesciunt tempore
-                                necessitatibus.</span>
+                        <div class="overlay-task-description"><span id="overlay_description"></span>
                         </div>
                         <div class="overlay-table">
                             <table>
                                 <tr>
                                     <td>Due Date:</td>
-                                    <td><time id="overlay_date" datetime="2025-05-10">10/05/2025</time></td>
+                                    <td><time id="overlay_date" datetime="2025-05-10"></time></td>
                                 </tr>
                                 <tr>
                                     <td>Priority:</td>
-                                    <td>Medium <img src="/assets/img/icon/prio_medium.svg" alt=""></td>
+                                    <td><span id="task_overlay_prio_text" class="task-overlay-prio-text"></span><img id="task_overlay_prio_img" src="/assets/img/icon/prio_medium.svg" alt=""></td>
                                 </tr>
                             </table>
 
                         </div>
                         <div class="assigned-section">
                             <span>Assigned to:</span>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <div class="user overlay-user">BC</div>
-                                    </td>
-                                    <td>Max Musterman</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="user overlay-user">MM</div>
-                                    </td>
-                                    <td>Max Musterman</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="user overlay-user">BC</div>
-                                    </td>
-                                    <td>Max Musterman</td>
-                                </tr>
+                            <table id="task_overlay_user_list">
                             </table>
                         </div>
                         <div class="subtasks">
                             <span>Subtasks</span>
-                            <table>
-                                <tr>
-                                    <td><input type="checkbox" class="checkbox" checked id="checkbox_1"><label
-                                            for="checkbox_1"><img src="/assets/img/icon/checkbox.svg" alt=""></label>
-                                    </td>
-                                    <td>Implement Recipe</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" class="checkbox" id="checkbox_2"><label
-                                            for="checkbox_2"><img src="/assets/img/icon/checkbox.svg" alt=""></label>
-                                    </td>
-                                    <td>Implement Recipe</td>
-                                </tr>
-
+                            <table id="task_overlay_subtask_list">
                             </table>
 
                         </div>
                     </div>
-
-
                         <div class="edit-task-section">
                             <div class="delete-task">
                                 <img src="/assets/img/icon/delete.svg" alt="">

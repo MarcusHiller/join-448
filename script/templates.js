@@ -15,7 +15,7 @@ function getTaskTemplate(taskIndex) {
     
                     </div>
                     <div class="priority">
-                        <img src="/assets/img/icon/prio_medium.svg" alt="">
+                        <img id="task_prio_user_${taskIndex}" src="/assets/img/icon/prio_medium.svg" alt="">
                     </div>
                 </div>
             </div>`
@@ -44,4 +44,22 @@ function getUserListTemplate(indexUsers) {
 function getCheckedAvatar(indexUsers) {
     return `<div id="user_checked_${indexUsers}" class="user-logo-small no-margin" style="background-color:${users[indexUsers].color}">${users[indexUsers].avatar}</div>`
     
+}
+
+function getTaskUsersOverlayTemplate(taskIndex, indexUser) {
+    return `<tr>
+                <td>
+                    <div class="user overlay-user" style="background-color: ${tasks[taskIndex].assignedTo[indexUser].color}">${tasks[taskIndex].assignedTo[indexUser].avatar}</div>
+                </td>
+                <td>${tasks[taskIndex].assignedTo[indexUser].username}</td>
+            </tr>`
+}
+
+function getTaskSubtaskOverlayTemplate(taskIndex, indexSubtask) {
+    return `<tr>
+                <td><input type="checkbox" class="checkbox" id="checkbox_${indexSubtask}">
+                    <label for="checkbox_${indexSubtask}"><img src="/assets/img/icon/checkbox.svg" alt=""></label>
+                </td>
+                <td><label for="checkbox_${indexSubtask}" class="subtask-label">${tasks[taskIndex].subtask[indexSubtask].subtask}</label></td>
+            </tr>`
 }
