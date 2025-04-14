@@ -162,6 +162,26 @@ header {
     filter: brightness(0) saturate(100%) invert(99%) sepia(1%) saturate(2%) hue-rotate(94deg) brightness(106%) contrast(100%);
 }
 
+.privacy-Legal-mobile{
+    display: flex;
+        cursor: pointer;
+        opacity: 0.8;
+        text-decoration: none;
+        color: white;
+        font-family: Inter;
+}
+
+.policy-legal-section{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+
+}
+.privacy-Legal-mobile:hover{
+        background-color: #091931;
+            opacity: 1 !important;
+}
+
 .active-menu {
     background-color: #091931;
     opacity: 1 !important;

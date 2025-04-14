@@ -35,6 +35,8 @@ function activePageHiglight(page) {
 function burgerMenuSliding() {
     document.getElementById("burger_menu").classList.toggle("burger-menu-transition");
 }
+
+
 function acceptCookies() {
     document.getElementById('cookieBanner').style.display = 'none';
     document.cookie = "cookiesAccepted=true; path=/; max-age=" + 60 * 60 * 24 * 365;
@@ -55,7 +57,7 @@ window.addEventListener('load', function () {
 });
 
 
-document.addEventListener('DOMContentLoaded', () => {
+/*document.addEventListener('DOMContentLoaded', () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     const isPublicPage = location.pathname.includes('privacy_policy.html') || location.pathname.includes('legal_notice.html');
 
@@ -71,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
+*/
 
 
 
