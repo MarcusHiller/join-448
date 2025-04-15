@@ -86,10 +86,29 @@
         flex-direction: column;
         align-items: flex-start;
     }
+    .headline {
+        margin-top: 5px;
+    }
     
 }
 
 
 @media (max-width: 900px) {
-    
+    .headline {
+        flex-direction: row;
+        align-items: center;
+        margin-block: 50px;
+    }
+    .headline hr {
+        display: block;
+    }
+    .headline h2 {
+        margin: unset;
+    }
+    .headline p {
+        margin: unset;
+    }
+    .user-info-header {
+        flex-direction: row;
+    }
 }
