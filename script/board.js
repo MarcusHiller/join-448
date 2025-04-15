@@ -1,13 +1,19 @@
 let currentDraggableTask;
 let tasks = [];
+let currentCondition = "ToDo";
 
 
 async function getAddTaskHTML() {
  await Promise.all([
    loadHTML("add_task_overlay.html", "add_container"),
+   loadHTML("task_overlay.html", "overlay_container"),
  ]);
+}
 
- renderUserList();
+ async function getEditTaskHTML() {
+  await Promise.all([
+    loadHTML("add_task_overlay.html", "overlay_container"),
+  ]);
 }
 // Overlay functions
 
@@ -20,13 +26,17 @@ function openOverlayTask(taskIndex) {
    setTimeout(() => {document.getElementById("overlay_container").classList.remove("overlay-container-sliding")}, 1)   
 }
 
-function openAddTask() {
-   document.getElementById("cancel_button").classList.remove("d_none");
-   document.getElementById("clear_button").classList.add("d_none");
-   document.getElementById("close_add_task_overlay").classList.remove("d_none");
-   document.getElementById("board_overlay").classList.remove("d_none");
-   document.getElementById("add_container").classList.remove("d_none");
-   setTimeout(() => {document.getElementById("add_container").classList.remove("overlay-container-sliding")}, 1);
+function openAddTask(condition="") {
+
+  if (condition) {
+    currentCondition = condition;
+  }
+  document.getElementById("cancel_button").classList.remove("d_none");
+  document.getElementById("clear_button").classList.add("d_none");
+  document.getElementById("close_add_task_overlay").classList.remove("d_none");
+  document.getElementById("board_overlay").classList.remove("d_none");
+  document.getElementById("add_container").classList.remove("d_none");
+  setTimeout(() => {document.getElementById("add_container").classList.remove("overlay-container-sliding")}, 1);
 }
 
 function creatOverlayFromTask(taskIndex) {
@@ -38,6 +48,19 @@ function creatOverlayFromTask(taskIndex) {
  renderSubtaskIntoTaskOverlay(taskIndex);
  renderPrioIntoTaskOverlay(taskIndex);
  renderCategoryIntoTaskOverlay(taskIndex);
+ renderButtons(taskIndex);
+}
+
+function renderButtons(taskIndex) {
+  let deleteTask = document.getElementById("delete_task_on_overlay");
+  let editTask = document.getElementById("edit_task_on_overlay");
+  let deleteAttribute = `deleteTaskOnOverlay(${taskIndex})`;
+  let editTaskAttribute = `editTaskOnOverlay(${taskIndex})`;
+
+  deleteTask.setAttribute("onclick", deleteAttribute);
+  editTask.setAttribute("onclick", editTaskAttribute);
+
+
 }
 
 function renderCategoryIntoTaskOverlay(taskIndex) {
@@ -112,6 +135,19 @@ function searchTask() {
    document.activeElement.blur();
  }
 
+//  Overlay Edit Function //
+
+
+function editTaskOnOverlay(taskIndex) {
+  getEditTaskHTML();
+  fitEditTaskToContainer();
+  currentInputFieldvalue(taskIndex);
+}
+
+function currentInputFieldvalue(taskIndex) {
+
+}
+
 
 
 
@@ -148,6 +184,7 @@ function searchTask() {
      renderAssignedTo(taskIndex);
      renderSubtasks(taskIndex);
      renderPrio(taskIndex);
+     renderCategoryColor(taskIndex);
    }
 
    
@@ -176,6 +213,17 @@ function searchTask() {
    inProgColumnRef.innerHTML += "<div id='empty_task_inProg' class='empty-task d_none'></div>";
    feedbackColumnRef.innerHTML += "<div id='empty_task_feedback' class='empty-task d_none'></div>";
    doneColumnRef.innerHTML += "<div id='empty_task_done' class='empty-task d_none'></div>";
+}
+
+function renderCategoryColor(taskIndex){
+  let categoryRef = document.getElementById("task_category_" + taskIndex);
+  let category = tasks[taskIndex].category;
+
+  if (category === "Technical Task") {
+    categoryRef.style.backgroundColor = "#1FD7C1";
+  } else {
+    categoryRef.style.backgroundColor = "#0038FF";
+  }
 }
 
 

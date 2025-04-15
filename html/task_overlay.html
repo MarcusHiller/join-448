@@ -1,0 +1,54 @@
+<div class="overlay-headline">
+    <div class="task-cat-user task-cat-custom">
+        <p id="overlay_category"></p>
+    </div>
+    <img onclick="closeOverlayTask()" class="close-icon" src="/assets/img/icon/close.svg" alt="">
+</div>
+<div class="overlay-titel">
+    <h2 id="overlay_titel"></h2>
+</div>
+<div class="overlay-task-details">
+    <div class="details-content-complete">
+        <div class="overlay-task-description"><span id="overlay_description"></span>
+        </div>
+        <div class="overlay-table">
+            <table>
+                <tr>
+                    <td>Due Date:</td>
+                    <td><time id="overlay_date" datetime="2025-05-10"></time></td>
+                </tr>
+                <tr>
+                    <td>Priority:</td>
+                    <td class="task_overlay_prio">
+                        <p id="task_overlay_prio_text" class="task-overlay-prio-text"></p><img
+                            id="task_overlay_prio_img" src="/assets/img/icon/prio_medium.svg"
+                            alt="">
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        <div class="assigned-section">
+            <span>Assigned to:</span>
+            <table id="task_overlay_user_list">
+            </table>
+        </div>
+        <div class="subtasks">
+            <span>Subtasks</span>
+            <table id="task_overlay_subtask_list">
+            </table>
+
+        </div>
+    </div>
+    <div class="edit-task-section">
+        <div id="delete_task_on_overlay" class="delete-task">
+            <img id="delete_task_on_overlay_button" src="/assets/img/icon/delete.svg" alt="">
+            <span>Delete</span>
+        </div>
+        <div class="spaceholder"></div>
+        <div id="edit_task_on_overlay" class="edit-task">
+            <img id="edit_task_on_overlay_button" src="/assets/img/icon/edit.svg" alt="">
+            <span>Edit</span>
+        </div>
+    </div>
+</div>

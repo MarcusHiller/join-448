@@ -195,7 +195,7 @@ function addTask(condition="") {
     let subtasks = getSubtasks();
     let assignedTo = getAssignedTo();
     let taskID = generateID();
-    let firstCondition = condition;
+    let firstCondition = currentCondition;
 
     let urgent = document.getElementById("prio_urgent");
     let medium = document.getElementById("prio_medium");

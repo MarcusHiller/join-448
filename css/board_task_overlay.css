@@ -16,11 +16,14 @@
 
 .overlay-container {
     width: 445px;
-    height: fit-content;
+    height: 700px;
     background-color: white;
     border-radius: 20px;
     padding: 48px 40px;
     transition-duration: 0.1s;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 64px;
 
 }
 
@@ -80,6 +83,7 @@
 
 .overlay-task-details {
     position: relative;
+    flex: 1;
 }
 
 
@@ -124,10 +128,6 @@
     height: 18px;
 }
 
-.subtasks {
-    margin-bottom: 40px;
-}
-
 .subtasks span {
     color: #2A3647;
     margin-bottom: 8px;
@@ -144,7 +144,7 @@
     justify-content: flex-end;
     align-items: center;
     position: absolute;
-    bottom: 0;
+    bottom: -24px;
     left: 0;
     right: 0;
     background-color: white;
@@ -188,6 +188,7 @@
 
 .details-content-complete {
     overflow-y: auto;
+    max-height: 450px;
 }
 
 .task-overlay-prio-text::first-letter {
