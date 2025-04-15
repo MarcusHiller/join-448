@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="/css/board.css">
     <link rel="stylesheet" href="/css/board_task_overlay.css">
     <link rel="stylesheet" href="/css/add_task.css">
-   
+    <link rel="stylesheet" href="/css/edit_task.css">
+
 
 </head>
 
@@ -32,59 +33,7 @@
                 <!-- Task Overlay -->
                 <div id="overlay_container" class="overlay-container overlay-container-sliding d_none"
                     onclick="event.stopPropagation()">
-                    <div class="overlay-headline">
-                        <div class="task-cat-user task-cat-custom">
-                            <p id="overlay_category"></p>
-                        </div>
-                        <img onclick="closeOverlayTask()" class="close-icon" src="/assets/img/icon/close.svg" alt="">
-                    </div>
-                    <div class="overlay-titel">
-                        <h2 id="overlay_titel"></h2>
-                    </div>
-                    <div class="overlay-task-details">
-                        <div class="details-content-complete">
-                        <div class="overlay-task-description"><span id="overlay_description"></span>
-                        </div>
-                        <div class="overlay-table">
-                            <table>
-                                <tr>
-                                    <td>Due Date:</td>
-                                    <td><time id="overlay_date" datetime="2025-05-10"></time></td>
-                                </tr>
-                                <tr>
-                                    <td>Priority:</td>
-                                    <td class="task_overlay_prio"><p id="task_overlay_prio_text" class="task-overlay-prio-text"></p><img id="task_overlay_prio_img" src="/assets/img/icon/prio_medium.svg" alt=""></td>
-                                </tr>
-                            </table>
-
-                        </div>
-                        <div class="assigned-section">
-                            <span>Assigned to:</span>
-                            <table id="task_overlay_user_list">
-                            </table>
-                        </div>
-                        <div class="subtasks">
-                            <span>Subtasks</span>
-                            <table id="task_overlay_subtask_list">
-                            </table>
-
-                        </div>
-                    </div>
-                        <div class="edit-task-section">
-                            <div class="delete-task">
-                                <img src="/assets/img/icon/delete.svg" alt="">
-                                <span>Delete</span>
-                            </div>
-                            <div class="spaceholder"></div>
-                            <div class="edit-task">
-                                <img src="/assets/img/icon/edit.svg" alt="">
-                                <span>Edit</span>
-                            </div>
-                        </div>
-                    </div>
-
-
-
+                    
                 </div>
             </div>
 
@@ -120,81 +69,28 @@
                     <div class="column">
                         <div class="column-headline">
                             <h3>To do</h3>
-                            <img src="/assets/img/icon/plus_button.svg" alt="">
+                            <img onclick="openAddTask()" src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
                         <div ondragover="dragoverHandler(event)" ondrop=" moveTo('ToDo')" id="toDo_column"
                             class="column-container">
-                            <div class="empty-column">
-                                <p>No task To do</p>
-                            </div>
                         </div>
                     </div>
                     <div class="column">
                         <div class="column-headline">
                             <h3>In progress</h3>
-                            <img src="/assets/img/icon/plus_button.svg" alt="">
+                            <img onclick="openAddTask('inProgress')" src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
                         <div id="inProg_column" ondragover="dragoverHandler(event); event.stopPropagation()"
                             ondrop="moveTo('inProgress')" class="column-container">
-                            <!-- <div class="task" onclick="openOverlayTask()">
-                                <div class="task-cat-technical">
-                                    <p>Technical Task</p>
-                                </div>
-                                <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
-                                <div class="task-description"><span>Build start page with recipe
-                                        rec...dasdasdasdasdasd</span></div>
-                                <div class="progress">
-                                    <progress max="2" value="1"></progress>
-                                    <span>1/2 Subtasks</span>
-                                </div>
-                                <div class="task-footer">
-                                    <div class="task-users">
-                                        <div class="user">BC</div>
-                                        <div class="user">PB</div>
-                                        <div class="user">MH</div>
-                                    </div>
-                                    <div class="priority">
-                                        <img src="/assets/img/icon/prio_medium.svg" alt="">
-                                    </div>
-                                </div>
-
-
-                            </div> -->
-
-
                         </div>
                     </div>
                     <div class="column">
                         <div class="column-headline">
                             <h3>Await feedback</h3>
-                            <img src="/assets/img/icon/plus_button.svg" alt="">
+                            <img onclick="openAddTask('feedback')" src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
                         <div ondragover="dragoverHandler(event)" ondrop=" moveTo('feedback')" id="feedback_column"
                             class="column-container">
-                            <div class="task">
-                                <div class="task-cat-user">
-                                    <p>User Story</p>
-                                </div>
-                                <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
-                                <div class="task-description"><span>Build start page with recipe
-                                        rec...dasdasdasdasdasd</span></div>
-                                <div class="progress">
-                                    <progress max="2" value="1"></progress>
-                                    <span>1/2 Subtasks</span>
-                                </div>
-                                <div class="task-footer">
-                                    <div class="task-users">
-                                        <div class="user">BC</div>
-                                        <div class="user">PB</div>
-                                        <div class="user">MH</div>
-                                    </div>
-                                    <div class="priority">
-                                        <img src="/assets/img/icon/prio_medium.svg" alt="">
-                                    </div>
-                                </div>
-
-
-                            </div>
                         </div>
 
                     </div>
@@ -204,57 +100,7 @@
                         </div>
                         <div ondragover="dragoverHandler(event)" ondrop=" moveTo('done')" id="done_column"
                             class="column-container">
-                            <div class="task">
-                                <div class="task-cat-technical">
-                                    <p>Technical Task</p>
-                                </div>
-                                <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
-                                <div class="task-description"><span>Build start page with recipe
-                                        rec...dasdasdasdasdasd</span></div>
-                                <div class="progress">
-                                    <progress max="2" value="1"></progress>
-                                    <span>1/2 Subtasks</span>
-                                </div>
-                                <div class="task-footer">
-                                    <div class="task-users">
-                                        <div class="user">BC</div>
-                                        <div class="user">PB</div>
-                                        <div class="user">MH</div>
-                                    </div>
-                                    <div class="priority">
-                                        <img src="/assets/img/icon/prio_medium.svg" alt="">
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="task">
-                                <div class="task-cat-user">
-                                    <p>User Story</p>
-                                </div>
-                                <div class="task-title"><span class="task-title">Kochwelt pages</span></div>
-                                <div class="task-description"><span>Lorem ipsum dolor sit amet consectetur adipisicing
-                                        elit. Eos suscipit quos repellat ut cum numquam at! Ullam, repellat, fugit
-                                        pariatur vel dignissimos repellendus quisquam debitis corporis nesciunt velit
-                                        commodi quidem.Build start page withasdasdasdasdasd recipe
-                                        rec...dasdasdasdasdasd</span></div>
-                                <div class="progress">
-                                    <progress max="2" value="1"></progress>
-                                    <span>1/2 Subtasks</span>
-                                </div>
-                                <div class="task-footer">
-                                    <div class="task-users">
-                                        <div class="user">BC</div>
-                                        <div class="user">PB</div>
-                                        <div class="user">MH</div>
-                                    </div>
-                                    <div class="priority">
-                                        <img src="/assets/img/icon/prio_medium.svg" alt="">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -271,4 +117,5 @@
     <script src="/script/templates.js"></script>
     <script src="/script/add_task_overlay.js"></script>
 </body>
+
 </html>
