@@ -16,14 +16,15 @@
 
 .overlay-container {
     width: 445px;
-    height: 700px;
+    height: 80%;
     background-color: white;
     border-radius: 20px;
     padding: 48px 40px;
     transition-duration: 0.1s;
     display: flex;
     flex-direction: column;
-    padding-bottom: 64px;
+    justify-content: space-between;
+    max-height: 1200px;
 
 }
 
@@ -84,6 +85,10 @@
 .overlay-task-details {
     position: relative;
     flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 
@@ -143,10 +148,6 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    position: absolute;
-    bottom: -24px;
-    left: 0;
-    right: 0;
     background-color: white;
 }
 
@@ -188,7 +189,6 @@
 
 .details-content-complete {
     overflow-y: auto;
-    max-height: 450px;
 }
 
 .task-overlay-prio-text::first-letter {
