@@ -6,9 +6,14 @@ let currentCondition = "ToDo";
 async function getAddTaskHTML() {
  await Promise.all([
    loadHTML("add_task_overlay.html", "add_container"),
-   loadHTML("task_overlay.html", "overlay_container"),
  ]);
 }
+
+async function getTaskOverlayHTML() {
+  await Promise.all([
+    loadHTML("task_overlay.html", "overlay_container"),
+  ]);
+ }
 
  async function getEditTaskHTML() {
   await Promise.all([
@@ -31,12 +36,14 @@ function openAddTask(condition="") {
   if (condition) {
     currentCondition = condition;
   }
+  getAddTaskHTML();
   document.getElementById("cancel_button").classList.remove("d_none");
   document.getElementById("clear_button").classList.add("d_none");
   document.getElementById("close_add_task_overlay").classList.remove("d_none");
   document.getElementById("board_overlay").classList.remove("d_none");
   document.getElementById("add_container").classList.remove("d_none");
   setTimeout(() => {document.getElementById("add_container").classList.remove("overlay-container-sliding")}, 1);
+  renderUserList();
 }
 
 function creatOverlayFromTask(taskIndex) {
@@ -125,6 +132,8 @@ function closeAddTask() {
    setTimeout(() => {document.getElementById("board_overlay").classList.add("d_none"),
         document.getElementById("add_container").classList.add("d_none")
        }, 100);
+       
+
 
 }
 
@@ -138,13 +147,69 @@ function searchTask() {
 //  Overlay Edit Function //
 
 
-function editTaskOnOverlay(taskIndex) {
-  getEditTaskHTML();
+async function editTaskOnOverlay(taskIndex) {
+  document.getElementById("add_container").innerHTML = "";
+  await getEditTaskHTML();
   fitEditTaskToContainer();
   currentInputFieldvalue(taskIndex);
+  renderUserList();
+ 
+}
+
+function fitEditTaskToContainer() {
+  document.getElementById("addTask_headline").classList.add("d_none");
+  document.getElementById("spaceholder").classList.add("d_none");
+  document.getElementById("addTask_form_container").classList.add("flex-direction");
+  document.getElementById("edit_scrolling").classList.add("scrolling");
+
 }
 
 function currentInputFieldvalue(taskIndex) {
+document.getElementById("titel_input").value = tasks[taskIndex].title;
+document.getElementById("description_input").value = tasks[taskIndex].descripton;
+document.getElementById("date_input").value = tasks[taskIndex].date;
+checkPrio(taskIndex);
+checkAssignedTo(taskIndex);
+}
+
+function checkPrio(taskIndex) {
+  let prio = tasks[taskIndex].priority;
+  let urgent = document.getElementById("prio_urgent");
+  let medium = document.getElementById("prio_medium");
+  let low = document.getElementById("prio_low");
+
+  if (prio === "urgent") {
+    urgent.checked = true
+    medium.checked = false;
+    low.checked = false;
+  }
+
+  if (prio === "medium") {
+    urgent.checked = false
+    medium.checked = true;
+    low.checked = false;
+  }
+
+  if (prio === "low") {
+    urgent.checked = false
+    medium.checked = false;
+    low.checked = true;
+  }
+}
+
+function checkAssignedTo(taskIndex) {
+  let list = document.getElementById("user_list_dropdown");
+  let checkedUsers = tasks[taskIndex].assignedTo;
+  let checkedUsersArray = [];
+
+  for (let index = 0; index < checkedUsers.length; index++) {
+    let username = checkedUsers[index];
+    let userFromList = users.find(user => username === user.username)
+    
+  }
+
+console.log(checkedUsers);
+ 
 
 }
 
