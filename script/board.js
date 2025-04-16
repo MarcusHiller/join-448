@@ -102,10 +102,13 @@ function renderSubtaskIntoTaskOverlay(taskIndex) {
   let subtaskList = tasks[taskIndex].subtask;
   subtaskListRef.innerHTML = "";
 
-  for (let indexSubtask = 0; indexSubtask < subtaskList.length; indexSubtask++) {
-    subtaskListRef.innerHTML += getTaskSubtaskOverlayTemplate(taskIndex, indexSubtask);
+  if(subtaskList.length) {
+    for (let indexSubtask = 0; indexSubtask < subtaskList.length; indexSubtask++) {
+      subtaskListRef.innerHTML += getTaskSubtaskOverlayTemplate(taskIndex, indexSubtask);
+    }
+  } else {
+    subtaskListRef.innerHTML = "<span style='opacity: 0.2; font-size: 16px'>No Subtask added</span>"
   }
-  
 }
 
 function renderUserIntoTaskOverlay(taskIndex) {
@@ -113,17 +116,23 @@ function renderUserIntoTaskOverlay(taskIndex) {
   let taskUsersTableRef = document.getElementById("task_overlay_user_list");
   taskUsersTableRef.innerHTML = "";
 
-  for (let indexUser = 0; indexUser < taskUsers.length; indexUser++) {
-    taskUsersTableRef.innerHTML += getTaskUsersOverlayTemplate(taskIndex, indexUser)
-    
+  if (taskUsers.length) {
+    for (let indexUser = 0; indexUser < taskUsers.length; indexUser++) {
+      taskUsersTableRef.innerHTML += getTaskUsersOverlayTemplate(taskIndex, indexUser)
+      
+  } } else {
+    taskUsersTableRef.innerHTML = "<span style='opacity: 0.2; font-size: 16px'>No User added</span>"
   }
+ 
 }
 
 function closeOverlayTask() {
+
    document.getElementById("overlay_container").classList.add("overlay-container-sliding");
    setTimeout(() => {document.getElementById("board_overlay").classList.add("d_none"),
         document.getElementById("overlay_container").classList.add("d_none")
        }, 100);
+       getTaskOverlayHTML()
 
 }
 
@@ -132,6 +141,7 @@ function closeAddTask() {
    setTimeout(() => {document.getElementById("board_overlay").classList.add("d_none"),
         document.getElementById("add_container").classList.add("d_none")
        }, 100);
+  
        
 
 
@@ -187,7 +197,7 @@ function renderEditButton(taskIndex) {
   addButton.classList.add("d_none");
   editButton.classList.remove("d_none");
   formSubmit.removeAttribute("onsubmit")
-  formSubmit.setAttribute("onsubmit", `addEditedTask(${taskIndex})`);
+  formSubmit.setAttribute("onsubmit", `addEditedTask(${taskIndex}); return false`);
 }
   
 
@@ -195,13 +205,12 @@ function checkSubtasks(taskIndex) {
   let subtaskListRef = document.getElementById("sub_list");
   let subtaskList = tasks[taskIndex].subtask;
   subtaskListRef.innerHTML = "";
-
-  for (let indexCheckSubtask = 0; indexCheckSubtask < subtaskList.length; indexCheckSubtask++) {
-    let subtaskCheckValue = subtaskList[indexCheckSubtask].subtask;
-    subtaskListRef.innerHTML += getSubtaskTemplate(indexCheckSubtask, subtaskCheckValue)
-  }
-  
+    for (let indexCheckSubtask = 0; indexCheckSubtask < subtaskList.length; indexCheckSubtask++) {
+      let subtaskCheckValue = subtaskList[indexCheckSubtask].subtask;
+      subtaskListRef.innerHTML += getSubtaskTemplate(indexCheckSubtask, subtaskCheckValue)
+    }
 }
+
 
 function checkCategory(taskIndex) {
 let category = tasks[taskIndex].category;
@@ -254,9 +263,6 @@ function checkAssignedTo(taskIndex) {
 }
 
 
-
-
-
  // Render //
 
 
@@ -291,12 +297,6 @@ function checkAssignedTo(taskIndex) {
      renderPrio(taskIndex);
      renderCategoryColor(taskIndex);
    }
-
-   
-
-   
-
-  
 
    if(toDoColumnRef.innerHTML == "") {
        toDoColumnRef.innerHTML = "<div class='empty-column'><p>No task To do</p></div>"
@@ -352,21 +352,25 @@ function renderSubtasks(taskIndex) {
   let subtaskMax = tasks[taskIndex].subtask.length;
 
   subtaskProgressBar.setAttribute("max", subtaskMax);
-  subtaskMaxRef.innerHTML = subtaskMax;
+  if(subtaskMax) {
+    subtaskMaxRef.innerHTML = subtaskMax;
+  }
+  
 }
 
  function renderAssignedTo(taskIndex) {
   let userListRef = document.getElementById("task_users_" + taskIndex);
   let userList = tasks[taskIndex].assignedTo;
-  userListRef.innerHTML = "";
-      
+  userListRef.innerHTML = "";      
   console.log(userList)
 
-  if(userList) {
+  if(userList.length) {
     for (let indexUser = 0; indexUser < userList.length; indexUser++) {
       userListRef.innerHTML += getUserInTaskTemplate(indexUser, userList)
       
     }
+  } else {
+    userListRef.innerHTML = "<span style='opacity: 0.2'>No User added</span>";
   }
  return userListRef.innerHTML
 
@@ -374,8 +378,6 @@ function renderSubtasks(taskIndex) {
 
 
 //   Drag and Drop  //
-
-
 
 function dragoverHandler(ev) {
    ev.preventDefault();
@@ -385,13 +387,10 @@ function dragoverHandler(ev) {
    currentDraggableTask = taskIndex;
  }
 
-
-
  function moveTo(condition) {
    tasks[currentDraggableTask].condition = condition;
    renderTaskInToColumn();
  }
-
 
  function addHighlight() {
 
@@ -453,42 +452,42 @@ function dragoverHandler(ev) {
 }
 
 function arraySubtasks(index, responseToJson, tasksKeysArray) {
-let subtasksKeys = Object.keys(responseToJson[tasksKeysArray[index]].subtask)
+
+
 let subtasks = []
 
-for (let indexSubtask = 0; indexSubtask < subtasksKeys.length; indexSubtask++) {
-  subtasks.push(
-    {
-      "subtask" : responseToJson[tasksKeysArray[index]].subtask[subtasksKeys[indexSubtask]]
-    })
+if (responseToJson[tasksKeysArray[index]].subtask  !== undefined) {
+  let subtasksKeys = Object.keys(responseToJson[tasksKeysArray[index]].subtask)
+
   
+  for (let indexSubtask = 0; indexSubtask < subtasksKeys.length; indexSubtask++) {
+    
+    subtasks.push(
+      {
+        "subtask" : responseToJson[tasksKeysArray[index]].subtask[subtasksKeys[indexSubtask]]
+      })
+    
+  }
+
 }
+
  return subtasks
 }
 
 function arrayAssignedTo(index, responseToJson, tasksKeysArray) {
+  let usersArray = [];
+  if(responseToJson[tasksKeysArray[index]].assignedTo){
   let usersKeysArray = Object.keys(responseToJson[tasksKeysArray[index]].assignedTo);
-  let usersArray = []
-
-  console.log(usersKeysArray);
-
-
   
-
-
+  console.log(usersKeysArray);
 
   for (let userIndex = 0; userIndex < usersKeysArray.length; userIndex++) {
     let username = responseToJson[tasksKeysArray[index]].assignedTo[usersKeysArray[userIndex]]
     let user = users.find(user => username === user.username)
-
-
     usersArray.push(user)
-    
+    }
+    console.log(usersArray);
   }
-  
-  console.log(usersArray);
-
   return usersArray;
-  
 }
 

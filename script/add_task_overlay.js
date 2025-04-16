@@ -192,6 +192,12 @@ function removeBorder() {
   document.getElementById("subtask_input_label").classList.remove("blue-border");
 }
 
+
+function addTaskButton() {
+  document.getElementsById("addTask_form").addEventListener("submit", addTask(condition=""))
+}
+
+
 function addTask(condition="") {
     let newTask = {}
     let title = document.getElementById("titel_input");
@@ -232,8 +238,7 @@ function addTask(condition="") {
     console.log(newTask);
 
     putDataToServer(`/join/tasks/${taskID}`, newTask);
-
-  }
+  };
 
   function generateID() {
     return (new Date()).getTime();
@@ -266,6 +271,7 @@ function getSubtasks() {
   let subtasksCount = document.getElementById("sub_list").children.length;
   let subtasksValue = [];
   let subtasksArray = [];
+  
 
   for (let indexSubTask = 0; indexSubTask < subtasksCount; indexSubTask++) {
     let subtask = document.getElementById("editable_input_" + indexSubTask).value;
@@ -368,7 +374,8 @@ function addEditedTask(taskIndex) {
   let subtasks = getSubtasks();
   let assignedTo = getAssignedTo();
   let taskID = tasks[taskIndex].id;
-  let formSubmit = document.getElementById("addTask_form");
+  let condition = tasks[taskIndex].condition;
+  
 
   let urgent = document.getElementById("prio_urgent");
   let medium = document.getElementById("prio_medium");
@@ -391,16 +398,14 @@ function addEditedTask(taskIndex) {
     priority: priority,
     subtask: subtasks,
     assignedTo : assignedTo,
+    condition: condition,
+    id: taskID
   }
 
   console.log(newEditedTask);
   console.log(taskID);
   
 
-  //putDataToServer(`/join/tasks/${taskID}`, newEditedTask);
-  formSubmit.onsubmit = function (event) {
-    event.preventDefault(); // funktioniert genau wie mit addEventListener
-    console.log("Formular wurde abgeschickt – aber ohne Reload.");
-  };
+  putDataToServer(`/join/tasks/${taskID}`, newEditedTask);
 
 }
