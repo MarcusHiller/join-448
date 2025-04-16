@@ -187,7 +187,6 @@ strong {
 .headline {
     display: flex;
     align-items: center;
-    justify-content: center;
     margin-top: 100px;
 }
 
@@ -216,13 +215,15 @@ h2 {
 
 .content-contact {
     padding-left: 50px;
+    flex: 1;
 }
 
 /* Main content Name*/
 
 .user-info-container {
     display: flex;
-    flex-direction: column;   
+    flex-direction: column;
+    overflow: hidden; 
 }
 
 
@@ -288,6 +289,22 @@ h4 {
     display: flex;
     gap: 13px;
     cursor: pointer;
+}
+
+
+.tools:hover {
+    color: #29ABE2;
+
+}
+
+
+.tools:hover img.tools-delete {
+    content: url('../assets/img/icon/delete_blue.svg');
+}
+
+
+.tools:hover img.tools-edit {
+    content: url('../assets/img/icon/edit_blue.svg');
 }
 
 

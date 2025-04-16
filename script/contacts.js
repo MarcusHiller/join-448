@@ -139,8 +139,8 @@ function showContact(individualUser) {
                 <div class="info-name">
                     <h4>${individualUser.username}</h4>
                     <div class="container-editing-tools">
-                        <div class="dpl-fl-al-cetr" onclick="chooseOverlay('edit', ${individualUser.id})"><img class="icon" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
-                        <div class="dpl-fl-al-cetr" onclick="deleteContact(${individualUser.id})"><img class="icon" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
+                        <div class="dpl-fl-al-cetr tools" onclick="chooseOverlay('edit', ${individualUser.id})"><img class="icon tools-edit" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
+                        <div class="dpl-fl-al-cetr tools" onclick="deleteContact(${individualUser.id})"><img class="icon tools-delete" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
                     </div>
                 </div>
             </div>
@@ -431,3 +431,6 @@ function showSuccessfulCreated() {
 function showSuccessfulDeleted() {
     return `<p>Contact successfully deleted </p>`;
 }
+
+
+
