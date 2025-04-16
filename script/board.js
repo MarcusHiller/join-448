@@ -151,8 +151,9 @@ async function editTaskOnOverlay(taskIndex) {
   document.getElementById("add_container").innerHTML = "";
   await getEditTaskHTML();
   fitEditTaskToContainer();
-  currentInputFieldvalue(taskIndex);
   renderUserList();
+  currentInputFieldvalue(taskIndex);
+  
  
 }
 
@@ -170,6 +171,42 @@ document.getElementById("description_input").value = tasks[taskIndex].descripton
 document.getElementById("date_input").value = tasks[taskIndex].date;
 checkPrio(taskIndex);
 checkAssignedTo(taskIndex);
+checkCategory(taskIndex);
+checkSubtasks(taskIndex);
+renderEditButton(taskIndex);
+}
+
+function renderEditButton(taskIndex) {
+  let formSubmit = document.getElementById("addTask_form");
+  let editButton = document.getElementById("edit_button");
+  let addButton = document.getElementById("add_button");
+  let clearButton = document.getElementById("clear_button");
+
+
+  clearButton.classList.add("d_none");
+  addButton.classList.add("d_none");
+  editButton.classList.remove("d_none");
+  formSubmit.removeAttribute("onsubmit")
+  formSubmit.setAttribute("onsubmit", `addEditedTask(${taskIndex})`);
+}
+  
+
+function checkSubtasks(taskIndex) {
+  let subtaskListRef = document.getElementById("sub_list");
+  let subtaskList = tasks[taskIndex].subtask;
+  subtaskListRef.innerHTML = "";
+
+  for (let indexCheckSubtask = 0; indexCheckSubtask < subtaskList.length; indexCheckSubtask++) {
+    let subtaskCheckValue = subtaskList[indexCheckSubtask].subtask;
+    subtaskListRef.innerHTML += getSubtaskTemplate(indexCheckSubtask, subtaskCheckValue)
+  }
+  
+}
+
+function checkCategory(taskIndex) {
+let category = tasks[taskIndex].category;
+
+selectCategory(category);
 }
 
 function checkPrio(taskIndex) {
@@ -198,19 +235,22 @@ function checkPrio(taskIndex) {
 }
 
 function checkAssignedTo(taskIndex) {
-  let list = document.getElementById("user_list_dropdown");
   let checkedUsers = tasks[taskIndex].assignedTo;
-  let checkedUsersArray = [];
+  let ids = [];
 
   for (let index = 0; index < checkedUsers.length; index++) {
-    let username = checkedUsers[index];
-    let userFromList = users.find(user => username === user.username)
-    
+    let username = tasks[taskIndex].assignedTo[index]
+    let user = users.indexOf(username)
+    ids.push(user);
   }
 
-console.log(checkedUsers);
- 
-
+  for (let index = 0; index < ids.length; index++) {
+    const userIndex = ids[index];
+    let checkbox = document.getElementById("user_" + userIndex);
+    checkbox.checked = true;
+    addCheckedUsers(userIndex);
+    
+  }
 }
 
 
