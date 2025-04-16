@@ -116,7 +116,7 @@ const users = [
 let nextTaskId = 5;
 
 let subtasks = [];
-let subtaskIndex = 0;
+let subtaskIndex = -1;
 
 
 
@@ -171,10 +171,17 @@ function openCatDropMenu() {
   document.getElementById("category_list").classList.toggle("dropdown-animation");
 }
 
+function closeOpenCatDropMenu() {
+  document.getElementById("dropdown_menu_arrow_select").classList.remove("rotate-img");
+  document.getElementById("category_input").classList.remove("blue-border");
+  document.getElementById("category_list").classList.remove("dropdown-animation");
+}
+
+
 
 function selectCategory(category) {
   document.getElementById("category_select_input").value = category;
-  openCatDropMenu();
+  closeOpenCatDropMenu();
 }
 
 function addBorder() {
@@ -260,7 +267,7 @@ function getSubtasks() {
   let subtasksValue = [];
   let subtasksArray = [];
 
-  for (let indexSubTask = 1; indexSubTask <= subtasksCount; indexSubTask++) {
+  for (let indexSubTask = 0; indexSubTask < subtasksCount; indexSubTask++) {
     let subtask = document.getElementById("editable_input_" + indexSubTask).value;
 
     subtasksValue.push(subtask);
@@ -349,4 +356,51 @@ function clearAddTaskField() {
   document.getElementById("titel_input").value = "";
   document.getElementById("description_input").value = "";
   document.getElementById("date_input").value = "";
+}
+
+function addEditedTask(taskIndex) {
+  let newEditedTask = {}
+  let title = document.getElementById("titel_input");
+  let descripton = document.getElementById("description_input");
+  let date = document.getElementById("date_input");
+  let category = document.getElementById("category_select_input");
+  let priority;
+  let subtasks = getSubtasks();
+  let assignedTo = getAssignedTo();
+  let taskID = tasks[taskIndex].id;
+  let formSubmit = document.getElementById("addTask_form");
+
+  let urgent = document.getElementById("prio_urgent");
+  let medium = document.getElementById("prio_medium");
+  let low = document.getElementById("prio_low");
+  let prio = [urgent, medium, low];
+  
+  for (i = 0; i < prio.length; i++) {
+    if (prio[i].checked) {
+      priority = prio[i].value;
+  }
+  }
+
+
+
+  newEditedTask = {
+    title: title.value,
+    descripton: descripton.value,
+    date: date.value,
+    category: category.value,
+    priority: priority,
+    subtask: subtasks,
+    assignedTo : assignedTo,
+  }
+
+  console.log(newEditedTask);
+  console.log(taskID);
+  
+
+  //putDataToServer(`/join/tasks/${taskID}`, newEditedTask);
+  formSubmit.onsubmit = function (event) {
+    event.preventDefault(); // funktioniert genau wie mit addEventListener
+    console.log("Formular wurde abgeschickt – aber ohne Reload.");
+  };
+
 }
