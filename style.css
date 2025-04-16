@@ -106,7 +106,6 @@ header {
 
 /* Navbar */
 .navbar-section {
-<<<<<<< HEAD
     background-color: #2A3647;
     width: 232px;
     min-height: 100vh;
@@ -115,15 +114,6 @@ header {
     justify-content: space-between;
     align-items: center;
     z-index: 10;
-=======
-  background-color: #2a3647;
-  width: 232px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
->>>>>>> e62a93c4d397f73d68da64b321f1ec8ebe98c2c4
 }
 
 .navbar {
@@ -152,7 +142,6 @@ header {
 }
 
 .navbar-link span {
-<<<<<<< HEAD
     text-decoration: none;
     color: white;
     font-family: Inter;
@@ -168,23 +157,6 @@ header {
     margin: 8px 0;
     opacity: 0.8;
     text-decoration: none;
-=======
-  text-decoration: none;
-  color: white;
-  font-family: Inter;
-}
-
-.navbar-link {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  cursor: pointer;
-  width: 100%;
-  padding: 8px 0;
-  margin: 8px 0;
-  opacity: 0.8;
-  text-decoration: none;
->>>>>>> e62a93c4d397f73d68da64b321f1ec8ebe98c2c4
 }
 
 .navbar-link img {
