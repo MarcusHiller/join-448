@@ -163,6 +163,7 @@ body {
 
 .column-headline img:hover {
     filter: brightness(0) saturate(100%) invert(57%) sepia(96%) saturate(1284%) hue-rotate(165deg) brightness(93%) contrast(89%);
+    cursor: pointer;
 
 }
 

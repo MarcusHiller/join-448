@@ -11,11 +11,15 @@
     <link rel="stylesheet" href="/css/board_task_overlay.css">
     <link rel="stylesheet" href="/css/add_task.css">
     <link rel="stylesheet" href="/css/edit_task.css">
+    <script src="/script.js"></script>
+    <script src="/script/board.js"></script>
+    <script src="/script/templates.js"></script>
+    <script src="/script/add_task_overlay.js"></script>
 
 
 </head>
 
-<body onload="init('board_page'); getAddTaskHTML(); getDataFromServer('join/tasks')">
+<body onload="init('board_page'); getTaskOverlayHTML(); getDataFromServer('join/tasks')">
 
 
     <nav id="navbar-section" class="navbar-section"></nav>
@@ -112,10 +116,7 @@
 
         </div>
     </main>
-    <script src="/script.js"></script>
-    <script src="/script/board.js"></script>
-    <script src="/script/templates.js"></script>
-    <script src="/script/add_task_overlay.js"></script>
+
 </body>
 
 </html>
