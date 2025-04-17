@@ -54,10 +54,10 @@
                 <div class="add-task-section">
                     <form class="form-for-input" action="" onsubmit="return false">
                         <div class="search-task-input-field">
-                            <input id="search_task" type="text" class="input-task" placeholder="Find task..." required>
+                            <input id="search_task" type="text" oninput="searchTask()" class="input-task" placeholder="Find task..." required>
                             <div class="spaceholder"></div>
                             <button type="button" class="search-button-container">
-                                <img src="/assets/img/icon/search.svg" alt="search" onclick="searchTask()">
+                                <img src="/assets/img/icon/search.svg" alt="search">
                             </button>
                         </div>
                     </form>
