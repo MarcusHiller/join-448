@@ -55,25 +55,3 @@ window.addEventListener('load', function () {
         acceptBtn.addEventListener('click', acceptCookies);
     }
 });
-
-
-/*document.addEventListener('DOMContentLoaded', () => {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    const isPublicPage = location.pathname.includes('privacy_policy.html') || location.pathname.includes('legal_notice.html');
-
-    if (!isLoggedIn && isPublicPage) {
-        // Auth-Links in der Navbar ausblenden
-        document.querySelectorAll('.nav-auth-only').forEach(link => {
-            link.classList.add('d_none');
-        });
-
-        // (Optional: nav-public sichtbar machen, falls sie per Default versteckt wären)
-        document.querySelectorAll('.nav-public').forEach(link => {
-            link.classList.remove('d_none');
-        });
-    }
-});
-*/
-
-
-
