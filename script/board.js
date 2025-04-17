@@ -266,6 +266,64 @@ function checkAssignedTo(taskIndex) {
   }
 }
 
+function addSubtaskChecked(indexSubtask, taskIndex) {
+  let subtask = document.getElementById("checkbox_" + indexSubtask);
+  let progressValue = document.getElementById("subtasks_user_" + taskIndex).value;
+  if (subtask.checked) {
+    progressValue++;
+  } else if (!subtask.checked && progressValue < 0) {
+    progressValue--;
+  } else {
+    progressValue = 0;
+  }
+}
+ 
+
+
+// Delete Task //
+
+ async function deleteTaskOnOverlay(taskIndex) {
+  let task = tasks[taskIndex].id
+  let path = "join/tasks/";
+
+    try {
+      const response = await fetch(BASE_URL + path + task +  ".json", {
+        method: 'DELETE', // Use the DELETE method
+        headers: {
+          'Content-Type': 'application/json' // Optional, but good practice
+        }
+        // No body needed for DELETE requests in this case
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      // DELETE requests often return an empty response or a simple success message
+      // If the API returns JSON, parse it; otherwise, just log a success message
+      if (response.status === 200) {
+        // Assuming 200 OK means success and the response is JSON null
+        console.log('Data deleted successfully!');
+      } else {
+        console.log('Data deletion successful. Response status:', response.status);
+      }
+  
+    } catch (error) {
+      console.error('There was an error deleting the data:', error);
+    }
+
+    deleteTaskFromTaskArray(taskIndex)
+
+    renderTaskInToColumn();
+    closeOverlayTask()
+  }
+
+
+  function deleteTaskFromTaskArray(taskIndex) {
+    tasks.splice(taskIndex, 1)
+  }
+
+
 // Search //
 
 
@@ -439,8 +497,39 @@ function startDragging(taskIndex) {
 
 function moveTo(condition) {
   tasks[currentDraggableTask].condition = condition;
+  saveCondition(condition);
   renderTaskInToColumn();
 }
+
+function saveCondition(condition) {
+  let taskID = tasks[currentDraggableTask].id;
+  let toCondition = {condition: condition}
+  patchDataToServer(`/join/tasks/${taskID}`, toCondition)
+}
+
+
+  async function patchDataToServer(path = "", data) {
+    try {
+      const response = await fetch(BASE_URL + path + ".json", {
+        method: 'PATCH', // Ändere PUT zu PATCH
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const responseData = await response.json();
+      console.log('Data updated successfully:', responseData);
+  
+    } catch (error) {
+      console.error('There was an error updating the data:', error);
+    }
+  }
+
 
 function addHighlight() {
 
@@ -470,7 +559,7 @@ function removeHighlight() {
 
 async function getDataFromServer(path = "") {
   let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json()
+  let responseToJson = await response.json();
   console.log(responseToJson);
 
 
