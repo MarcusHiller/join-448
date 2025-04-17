@@ -55,7 +55,7 @@ window.addEventListener('load', function () {
 });
 
 
-async function loadLegalNoticeIntern() {
+/*async function loadLegalNoticeIntern() {
     await Promise.all([
         loadHTML("header.html", "header-placeholder"),
         loadHTML("navbar.html", "navbar-section")
@@ -67,7 +67,16 @@ async function loadPrivacyPolicyIntern() {
         loadHTML("header.html", "header-placeholder"),
         loadHTML("navbar.html", "navbar-section")
     ]);
+}*/
+async function loadInternHeaderAndNavbar() {
+    await Promise.all([
+        loadHTML("header.html", "header-placeholder"),
+        loadHTML("navbar.html", "navbar-section")
+    ]);
 }
+
+
+
 
 async function loadHeaderNavbarExtern() {
     await loadHTML("navbar_header_extern.html", "navbar-section");
@@ -81,9 +90,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (layout === "intern") {
         if (path.includes("legal_notice.html")) {
-            loadLegalNoticeIntern();
+            loadInternHeaderAndNavbar();
         } else if (path.includes("privacy_policy.html")) {
-            loadPrivacyPolicyIntern();
+            loadInternHeaderAndNavbar();
         }
     } else {
         loadHeaderNavbarExtern();
