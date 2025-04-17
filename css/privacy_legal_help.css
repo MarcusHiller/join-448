@@ -16,10 +16,12 @@ body {
 
 .policy-container {
     max-width: 960px;
-    width: 100%;
-    color: #2A3647;
-    gap: 30px;
-    left: 328px;
+        margin: 0 auto;
+        padding: 48px 24px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
 }
 .headline {
     font-size: 20px;

@@ -54,29 +54,12 @@ window.addEventListener('load', function () {
     }
 });
 
-
-/*async function loadLegalNoticeIntern() {
-    await Promise.all([
-        loadHTML("header.html", "header-placeholder"),
-        loadHTML("navbar.html", "navbar-section")
-    ]);
-}
-
-async function loadPrivacyPolicyIntern() {
-    await Promise.all([
-        loadHTML("header.html", "header-placeholder"),
-        loadHTML("navbar.html", "navbar-section")
-    ]);
-}*/
 async function loadInternHeaderAndNavbar() {
     await Promise.all([
         loadHTML("header.html", "header-placeholder"),
         loadHTML("navbar.html", "navbar-section")
     ]);
 }
-
-
-
 
 async function loadHeaderNavbarExtern() {
     await loadHTML("navbar_header_extern.html", "navbar-section");
