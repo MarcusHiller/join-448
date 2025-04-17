@@ -26,8 +26,6 @@ function activePageHiglight(page) {
     document.getElementById("board_page").classList.remove("active-menu");
     document.getElementById("contact_page").classList.remove("active-menu");
     document.getElementById("help_page").classList.remove("active-menu");
-    document.getElementById("privacy_policy_page").classList.remove("active-menu");
-    document.getElementById("legal_notice_page").classList.remove("active-menu");
 
     document.getElementById(page).classList.add("active-menu");
 }
@@ -54,4 +52,42 @@ window.addEventListener('load', function () {
     if (acceptBtn) {
         acceptBtn.addEventListener('click', acceptCookies);
     }
+});
+
+
+async function loadLegalNoticeIntern() {
+    await Promise.all([
+        loadHTML("header.html", "header-placeholder"),
+        loadHTML("navbar.html", "navbar-section")
+    ]);
+}
+
+async function loadPrivacyPolicyIntern() {
+    await Promise.all([
+        loadHTML("header.html", "header-placeholder"),
+        loadHTML("navbar.html", "navbar-section")
+    ]);
+}
+
+async function loadHeaderNavbarExtern() {
+    await loadHTML("navbar_header_extern.html", "navbar-section");
+    const header = document.getElementById("header-placeholder");
+    if (header) header.innerHTML = "";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const layout = localStorage.getItem("layout");
+    const path = window.location.pathname;
+
+    if (layout === "intern") {
+        if (path.includes("legal_notice.html")) {
+            loadLegalNoticeIntern();
+        } else if (path.includes("privacy_policy.html")) {
+            loadPrivacyPolicyIntern();
+        }
+    } else {
+        loadHeaderNavbarExtern();
+    }
+
+    localStorage.removeItem("layout");
 });
