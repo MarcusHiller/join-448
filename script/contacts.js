@@ -71,7 +71,7 @@ function userData(list, letter, section) {                                      
 
 function showUserInformation(user, initials) {
     return `
-        <div class="contact" id="user${user.id}" onclick="chooseContact(${user.id})">
+        <div class="contact" id="user${user.id}" onclick="chooseContact(${user.id}); showRespUserInfo()">
             <div class="avatar flex-box-center-center" style="background-color: ${user.color}">${initials}</div>
             <div class="info">
                 <strong>${user.username}</strong>
@@ -188,6 +188,8 @@ function chooseOverlay(overlay, id) {
         addContact();
     } else if (overlay == "edit") {
         editContact(id);
+    } else if (overlay == "addResp") {
+        addRespContact();
     }
 }
 
@@ -202,6 +204,13 @@ function addContact() {
 function editContact(id) {
     clerOverlay();
     openEditContact(id);
+    openOverlay();
+}
+
+
+function addRespContact() {
+    clerOverlay();
+    openAddRespContact();
     openOverlay();
 }
 
@@ -222,6 +231,12 @@ function openEditContact(id) {
     let user = findContact(id)
     let overlay = document.getElementById('overlayContact');
     overlay.innerHTML = overlayEditContact(user);
+}
+
+
+function openAddRespContact() {
+    let overlay = document.getElementById('overlayContact');
+    overlay.innerHTML = showOverlayAddResp();
 }
 
 
@@ -376,16 +391,13 @@ function createNewContact() {
 
 
 function pushNewContact() {
-    
     let numberOfUser = users.length + 1;
     let n = document.getElementById('username');
     let e = document.getElementById('email');
     let p = document.getElementById('phone');
     let newContact = { id: numberOfUser, username: n.value, email: e.value, phone: p.value, color: "brown" }
-    users.push(newContact);      
+    users.push(newContact);
     console.log(newContact);
-    
-    
 }
 
 
@@ -433,4 +445,146 @@ function showSuccessfulDeleted() {
 }
 
 
+/* responsive */
 
+
+function showRespUserInfo() {
+    if (window.innerWidth <= 900) {
+        document.getElementById('contactContainer').classList.add('d-none');
+        document.getElementById('contactInfoContainer').classList.add('d-block');
+        cleanContainerBtn();
+        changeOfMoreBtn();
+        setBackBtn();
+    }
+}
+
+
+function cleanContainerBtn() {
+    document.getElementById('addBtnResp').innerHTML = "";
+}
+
+
+function changeOfMoreBtn() {
+    document.getElementById('addBtnResp').innerHTML = changeBtnMore();
+}
+
+
+function changeBtnMore() {
+    return `
+        <div class="add-btn-resp" onclick="">
+            <img class="contact-img" src="../assets/img/icon/more_vert.svg" alt="">
+        </div>`;
+}
+
+
+function setBackBtn() {
+    document.querySelector('.back-btn-resp').classList.add('d-opacity');
+}
+
+
+function showRespContactList() {
+    document.getElementById('contactContainer').classList.remove('d-none');
+    document.getElementById('contactInfoContainer').classList.remove('d-block');
+    cleanContainerBtn();
+    changeOfAddPersoneBtn();
+}
+
+
+function changeOfAddPersoneBtn() {
+    document.getElementById('addBtnResp').innerHTML = changeAddBtnPerson();
+}
+
+
+function changeAddBtnPerson() {
+    return `
+        <div class="add-btn-resp" onclick="">
+            <img class="contact-img" src="../assets/img/icon/person_add.svg" alt="">
+        </div>`;
+}
+
+
+
+function showOverlayAddResp() {// id noch ändern und klasse display none hinzufügen
+    return `
+    <div id="overlay" class="overlay-contact overlay-contact-resp d-none" onclick="eventBubbling(event)">
+            <div class="overlay-cover-resp">
+                <div class="close-resp-overlay" onclick="closeOverlay(event)"><img class="close-btn" src="../assets/img/icon/close_white.svg" alt=""></div>    
+                <div class="card-title">
+                    <h5>Add contact</h5>
+                    <p class="motivation-text">Tasks are better with a Team!</p>
+                </div>
+            </div>
+            <div class="overlay-main-container-resp">
+                <div class="profil-img-container flex-box-center-center profil-img-resp"><img class="profil-img" src="../assets/img/icon/person.svg" alt=""></div>
+                <form onsubmit="createNewContact(); return false">
+                    <div class="dpl-fl-colu input-container-resp">
+                        <label class="input-field input-field-resp">
+                            <div class="input-content-resp">
+                                <input id="username" type="text" placeholder="Name" required>
+                                <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
+                            </div>
+                        </label>
+                        <label class="input-field input-field-resp">
+                            <div class="input-content-resp">
+                                <input id="email" type="email" placeholder="E-mail">
+                                <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
+                            </div>
+                        </label>
+                        <label class="input-field input-field-resp">
+                            <div class="input-content-resp">
+                                <input id="phone" type="tel" placeholder="Phone">
+                                <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
+                            </div>
+                        </label>
+                    </div>
+                    <div class="submit-container submit-container-resp">
+                        <button class="blue-white-btn" onclick="closeOverlay(event)">Cancel</button>
+                        <button class="white-blue-btn">Create contact</button>
+                    </div>
+                </form>
+            </div>
+        </div>`;
+}
+
+
+function showOverlayEditResp() {// id noch ändern und klasse display none hinzufügen
+    return `
+    <div id="overlay" class="overlay-contact overlay-contact-resp" onclick="eventBubbling(event)">
+            <div class="overlay-cover-resp">
+                <div class="close-resp-overlay" onclick="closeOverlay(event)"><img class="close-btn" src="../assets/img/icon/close_white.svg" alt=""></div>    
+                <div class="card-title">
+                    <h5>Add contact</h5>
+                    <p class="motivation-text">Tasks are better with a Team!</p>
+                </div>
+            </div>
+            <div class="overlay-main-container-resp">
+                <div class="profil-img-container flex-box-center-center profil-img-resp"><img class="profil-img" src="../assets/img/icon/person.svg" alt=""></div>
+                <form onsubmit="createNewContact(); return false">
+                    <div class="dpl-fl-colu input-container-resp">
+                        <label class="input-field input-field-resp">
+                            <div class="input-content-resp">
+                                <input id="username" type="text" placeholder="Name" required>
+                                <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
+                            </div>
+                        </label>
+                        <label class="input-field input-field-resp">
+                            <div class="input-content-resp">
+                                <input id="email" type="email" placeholder="E-mail">
+                                <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
+                            </div>
+                        </label>
+                        <label class="input-field input-field-resp">
+                            <div class="input-content-resp">
+                                <input id="phone" type="tel" placeholder="Phone">
+                                <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
+                            </div>
+                        </label>
+                    </div>
+                    <div class="submit-container submit-container-resp">
+                        <button class="blue-white-btn" onclick="closeOverlay(event)">Cancel</button>
+                        <button class="white-blue-btn">Create contact</button>
+                    </div>
+                </form>
+            </div>
+        </div>`;
+}

@@ -18,15 +18,62 @@
 
 <body class="resp-over-screen" onload="renderContacts(); init('contact_page')">
     <nav id="navbar-section" class="navbar-section"></nav>
-    
+
+    <!-- <section id="" class="overlay-content-container" onclick="closeOverlay(event)">
+        <div id="overlay" class="overlay-contact overlay-contact-resp" onclick="eventBubbling(event)">
+            
+            <div class="overlay-cover-resp">
+                <div class="close-resp-overlay" onclick="closeOverlay(event)"><img class="close-btn" src="../assets/img/icon/close_white.svg" alt=""></div>    
+                <div class="card-title">
+                    <h5>Add contact</h5>
+                    <p class="motivation-text">Tasks are better with a Team!</p>
+                </div>
+            </div>
+            <div class="overlay-main-container-resp">
+                <div class="profil-img-container flex-box-center-center profil-img-resp"><img class="profil-img" src="../assets/img/icon/person.svg" alt=""></div>
+                <form onsubmit="createNewContact(); return false">
+                    <div class="dpl-fl-colu input-container-resp">
+                        <label class="input-field input-field-resp">
+                            <div class="input-content-resp">
+                                <input id="username" type="text" placeholder="Name" required>
+                                <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
+                            </div>
+                        </label>
+                        <label class="input-field input-field-resp">
+                            <div class="input-content-resp">
+                                <input id="email" type="email" placeholder="E-mail">
+                                <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
+                            </div>
+                        </label>
+                        <label class="input-field input-field-resp">
+                            <div class="input-content-resp">
+                                <input id="phone" type="tel" placeholder="Phone">
+                                <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
+                            </div>
+                        </label>
+                    </div>
+                    <div class="submit-container submit-container-resp">
+                        <button class="blue-white-btn" onclick="closeOverlay(event)">Cancel</button>
+                        <button class="white-blue-btn">Create contact</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section> -->
+
     <section id="overlayContact" class="overlay-content-container d-none" onclick="closeOverlay(event)"></section>
     <div id="success" class="overlay-successful d-none">
         <p>Contact successfully created </p>
     </div>
+    <div id="addBtnResp">
+        <div class="add-btn-resp" onclick="chooseOverlay('addResp')">
+            <img class="contact-img" src="../assets/img/icon/person_add.svg" alt="">
+        </div>
+    </div>
     <main>
         <header id="header-placeholder"></header>
         <div class="contact-background">
-            <section id="" class="user-container">
+            <section id="contactContainer" class="user-container">
                 <div class="list-header flex-box-center-center">
                     <div id="add-contact-btn" class="add-contact-container flex-box-center-center" onclick="chooseOverlay('add')">
                         <button>Add new contact</button>
@@ -35,7 +82,12 @@
                 </div>
                 <div id="contactList" class="user-list"></div>
             </section>
-            <section class="content-contact">
+            <section id="contactInfoContainer" class="content-contact">
+                <div id="backBtnResp">
+                    <div class="back-btn-resp" onclick="showRespContactList()">
+                        <img class="contact-img" src="../assets/img/icon/arrow-left-line.svg" alt="">
+                    </div>
+                </div>
                 <div class="headline">
                     <h2>Contacts</h2>
                     <hr>
