@@ -266,9 +266,26 @@ function checkAssignedTo(taskIndex) {
   }
 }
 
+// function onLabelClick(indexSubtask, taskIndex) {
+//   // Optional: Checkbox holen und checken/toggeln
+//   const checkbox = document.getElementById(`task_${taskIndex}_checkbox_${indexSubtask}`);
+//   checkbox.checked = !checkbox.checked;
+
+//   // Dann deine Logik aufrufen
+//   addSubtaskChecked(indexSubtask, taskIndex);
+// }
+
 function addSubtaskChecked(indexSubtask, taskIndex) {
-  let subtask = document.getElementById("checkbox_" + indexSubtask);
+  let subtask = document.getElementById("task_" + taskIndex + "_checkbox_" + indexSubtask);
   let progressValue = document.getElementById("subtasks_user_" + taskIndex).value;
+  let progressValueTextRef = document.getElementById("subtask_value_user_" + taskIndex);
+
+  if(subtask.checked === false) {
+    subtask.checked = true;
+  } else {
+    subtask.checked = false;
+  }
+
   if (subtask.checked) {
     progressValue++;
   } else if (!subtask.checked && progressValue < 0) {
@@ -276,7 +293,34 @@ function addSubtaskChecked(indexSubtask, taskIndex) {
   } else {
     progressValue = 0;
   }
+
+  return document.getElementById("subtasks_user_" + taskIndex).value = progressValue, progressValueTextRef.innerHTML = progressValue;
 }
+
+// document.addEventListener("DOMContentLoaded", () => {
+//   const table = document.getElementById("sub_list");
+
+//   if (!table) return;
+
+//   table.addEventListener("change", (event) => {
+//       const target = event.target;
+
+//       // Prüfen, ob das Ziel eine Checkbox ist
+//       if (target.classList.contains("checkbox")) {
+//           const checkboxId = target.id; // z. B. task_1_checkbox_3
+//           const match = checkboxId.match(/task_(\d+)_checkbox_(\d+)/);
+
+//           if (match) {
+//               const taskIndex = parseInt(match[1], 10);
+//               const indexSubtask = parseInt(match[2], 10);
+
+//               addSubtaskChecked(indexSubtask, taskIndex);
+//           }
+//       }
+//   });
+// });
+
+
  
 
 

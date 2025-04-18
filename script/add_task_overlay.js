@@ -121,11 +121,6 @@ let subtaskIndex = -1;
 
 
 
-document.querySelectorAll("select").forEach(select => {
-    select.addEventListener("change", () => {
-      select.blur();
-    });
-  });
 
 function addClearButtonToThePage() {
   document.getElementById("clear_button").classList.remove("d_none");
