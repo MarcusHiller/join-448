@@ -56,10 +56,10 @@ function getTaskUsersOverlayTemplate(taskIndex, indexUser) {
 }
 
 function getTaskSubtaskOverlayTemplate(taskIndex, indexSubtask) {
-    return `<tr>
-                <td><input type="checkbox" class="checkbox" id="task_${taskIndex}_checkbox_${indexSubtask}" >
-                    <label for="task_${taskIndex}_checkbox_${indexSubtask}"><img src="/assets/img/icon/checkbox.svg" alt=""></label>
-                </td>
-                <td><label onclick="addSubtaskChecked(${indexSubtask}, ${taskIndex})" class="subtask-label">${tasks[taskIndex].subtask[indexSubtask].subtask}</label></td>
-            </tr>`
+    return `<label for="task_${taskIndex}_checkbox_${indexSubtask}" onclick="addSubtaskChecked(${indexSubtask}, ${taskIndex})" class="subtask-overlay">
+                <input type="checkbox" class="checkbox" id="task_${taskIndex}_checkbox_${indexSubtask}" >
+                <label for="task_${taskIndex}_checkbox_${indexSubtask}" class="subtask-img"><img src="/assets/img/icon/checkbox.svg" alt=""></div>
+            
+                <div class="subtask-label">${tasks[taskIndex].subtask[indexSubtask].subtaskName}</div>
+            </label>`  
 }

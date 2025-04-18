@@ -127,21 +127,10 @@
     color: #2A3647
 }
 
-.subtasks td:first-child {
-    padding: 8px;
-    width: 18px;
-    height: 18px;
-}
-
-.subtasks span {
-    color: #2A3647;
-    margin-bottom: 8px;
-}
-
-.subtasks tr {
+.subtask-overlay {
     display: flex;
-   align-items: center;
-   margin-left: 8px;
+    margin-left: 12px;
+    align-items: center;
 }
 
 .edit-task-section {
@@ -203,7 +192,26 @@
 .subtask-label {
     cursor: pointer;
     user-select: none;
+    color: #2A3647;
+ 
 
+}
+
+.subtask-img {
+    height: 24px;
+    width: 24px;
+    align-items: center;
+    display: flex;
+}
+
+.subtask-img img {
+    height: 16px;
+    width: 16px;
+    margin-right: 12px;
+}
+
+#task_overlay_subtask_list {
+    margin-top: 8px;
 }
 
 @media(max-width: 900px) {

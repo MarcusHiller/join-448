@@ -28,8 +28,10 @@ function openOverlayTask(taskIndex) {
 
   document.getElementById("board_overlay").classList.remove("d_none");
   document.getElementById("overlay_container").classList.remove("d_none");
+  document.getElementById("overlay_container").classList.remove("overlay-container-sliding")
+  
+  //setTimeout(() => { document.getElementById("overlay_container").classList.remove("overlay-container-sliding") }, 1);
   creatOverlayFromTask(taskIndex);
-  setTimeout(() => { document.getElementById("overlay_container").classList.remove("overlay-container-sliding") }, 1)
 }
 
 function openAddTask(condition = "") {
@@ -106,6 +108,11 @@ function renderSubtaskIntoTaskOverlay(taskIndex) {
   if (subtaskList.length) {
     for (let indexSubtask = 0; indexSubtask < subtaskList.length; indexSubtask++) {
       subtaskListRef.innerHTML += getTaskSubtaskOverlayTemplate(taskIndex, indexSubtask);
+      if(subtaskList[indexSubtask].subtaskCheck) {
+        document.getElementById("task_" + taskIndex + "_checkbox_" + indexSubtask).checked = true;
+      } else {
+        document.getElementById("task_" + taskIndex + "_checkbox_" + indexSubtask).checked = false;
+      }
     }
   } else {
     subtaskListRef.innerHTML = "<span style='opacity: 0.2; font-size: 16px'>No Subtask added</span>"
@@ -321,7 +328,7 @@ function addSubtaskChecked(indexSubtask, taskIndex) {
 // });
 
 
- 
+
 
 
 // Delete Task //
@@ -502,18 +509,34 @@ function renderSubtasks(taskIndex) {
   let subtaskProgressBar = document.getElementById("subtasks_user_" + taskIndex);
   let subtaskMaxRef = document.getElementById("subtask_max_user_" + taskIndex);
   let subtaskMax = tasks[taskIndex].subtask.length;
+  let subtaskValueRef = document.getElementById("subtask_value_user_" + taskIndex);
+  let subtaskValue = subtaskProgressBar.value;
 
   subtaskProgressBar.setAttribute("max", subtaskMax);
   if (subtaskMax) {
     subtaskMaxRef.innerHTML = subtaskMax;
   }
 
-  checkedSubtaskChecked(taskIndex)
+  subtaskValue =  checkedSubtaskChecked(taskIndex, subtaskMax);
+
+  if (subtaskValue > 0 ) {
+    subtaskProgressBar.setAttribute("value", subtaskValue);
+    subtaskValueRef.innerHTML = subtaskValue;
+  }
 
 }
 
-function checkedSubtaskChecked(taskIndex) {
-  
+function checkedSubtaskChecked(taskIndex, subtaskMax) {
+  let subtaskProgress = 0;
+
+  for (let index = 0; index < subtaskMax; index++) {
+    let subtaskCkeck = tasks[taskIndex].subtask[index].subtaskCheck
+
+    if (subtaskCkeck) {
+      subtaskProgress++;
+    }
+  }
+  return subtaskProgress;
 }
 
 function renderAssignedTo(taskIndex) {
@@ -605,6 +628,7 @@ function removeHighlight() {
 }
 
 //  Get Data //
+//ANCHOR - Get Data
 
 
 async function getDataFromServer(path = "") {

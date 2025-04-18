@@ -422,6 +422,9 @@ function addEditedTask(taskIndex) {
 
   console.log(newEditedTask);
   console.log(taskID);
+
+
+  creatOverlayFromTask(taskIndex);
   
 
   putDataToServer(`/join/tasks/${taskID}`, newEditedTask);
