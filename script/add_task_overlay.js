@@ -200,7 +200,7 @@ function addTask(condition="") {
     let date = document.getElementById("date_input");
     let category = document.getElementById("category_select_input");
     let priority = "medium";
-    let subtasks = getSubtasks();
+    let subtasks = getSubtasks().subtasks;
     let assignedTo = getAssignedTo();
     let taskID = generateID();
     let firstCondition = currentCondition;
@@ -262,27 +262,50 @@ function addTask(condition="") {
   }
 
 
-function getSubtasks() {
-  let subtasksCount = document.getElementById("sub_list").children.length;
-  let subtasksValue = [];
-  let subtasksArray = [];
+// function getSubtasks() {
+//   let subtasksCount = document.getElementById("sub_list").children.length;
+//   let subtasksValue = [];
+//   let subtasksArray = [];
   
 
-  for (let indexSubTask = 0; indexSubTask < subtasksCount; indexSubTask++) {
-    let subtask = document.getElementById("editable_input_" + indexSubTask).value;
+//   for (let indexSubTask = 0; indexSubTask < subtasksCount; indexSubTask++) {
+//     let subtask = document.getElementById("editable_input_" + indexSubTask).value;
 
-    subtasksValue.push(subtask);
+//     subtasksValue.push(subtask);
+//   }
+
+//   for (let index = 0; index < subtasksValue.length; index++) {
+//     let subtaskValue = subtasksValue[index];
+//     let subtaskKey = "subtask" + index;
+//     let subtaskArray = [subtaskKey, subtaskValue];
+//     let subtaskCheckKey = "checked" + index; 
+//     let subtaskCheckValue = true;
+//     let subtaskCheckArray = [subtaskCheckKey, subtaskCheckValue];
+
+//     subtasksArray.push(subtaskArray);
+//     subtaskArray.push(subtaskCheckArray);
+//   }
+
+//   return Object.fromEntries(subtasksArray);
+// }
+
+function getSubtasks() {
+  const subtaskElements = document.getElementById("sub_list").children;
+  const subtasksObject = {};
+
+  for (let i = 0; i < subtaskElements.length; i++) {
+    const input = document.getElementById("editable_input_" + i);
+    const value = input ? input.value.trim() : "";
+
+    if (value) {
+      subtasksObject["subtask" + i] = {
+        name: value,
+        checked: true
+      };
+    }
   }
 
-  for (let index = 0; index < subtasksValue.length; index++) {
-    let subtaskValue = subtasksValue[index];
-    let subtaskKey = "subtask" + index;
-    let subtaskArray = [subtaskKey, subtaskValue];
-
-    subtasksArray.push(subtaskArray);
-  }
-
-  return Object.fromEntries(subtasksArray);
+  return { subtasks: subtasksObject };
 }
 
 function showAddSubtaskButton() {

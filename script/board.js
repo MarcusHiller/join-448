@@ -508,6 +508,12 @@ function renderSubtasks(taskIndex) {
     subtaskMaxRef.innerHTML = subtaskMax;
   }
 
+  checkedSubtaskChecked(taskIndex)
+
+}
+
+function checkedSubtaskChecked(taskIndex) {
+  
 }
 
 function renderAssignedTo(taskIndex) {
@@ -647,7 +653,8 @@ function arraySubtasks(index, responseToJson, tasksKeysArray) {
 
       subtasks.push(
         {
-          "subtask": responseToJson[tasksKeysArray[index]].subtask[subtasksKeys[indexSubtask]]
+          "subtaskName": responseToJson[tasksKeysArray[index]].subtask[subtasksKeys[indexSubtask]].name,
+          "subtaskCheck": responseToJson[tasksKeysArray[index]].subtask[subtasksKeys[indexSubtask]].checked
         })
 
     }
