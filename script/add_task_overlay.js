@@ -300,7 +300,7 @@ function getSubtasks() {
     if (value) {
       subtasksObject["subtask" + i] = {
         name: value,
-        checked: true
+        checked: false
       };
     }
   }
@@ -389,7 +389,7 @@ function addEditedTask(taskIndex) {
   let date = document.getElementById("date_input");
   let category = document.getElementById("category_select_input");
   let priority;
-  let subtasks = getSubtasks();
+  let subtasks = getSubtasks().subtasks;
   let assignedTo = getAssignedTo();
   let taskID = tasks[taskIndex].id;
   let condition = tasks[taskIndex].condition;
