@@ -377,8 +377,11 @@ function editSubmit(indexSubTask) {
   document.getElementById("editable_input_" + indexSubTask).readOnly = true;
 }
 
-function removeSubtask(indexSubTask) {
+function removeSubtask(indexSubTask, taskIndex) {
   document.getElementById("subtask_" + indexSubTask).remove();
+  tasks[taskIndex].subtask.splice(indexSubTask, 1)
+  
+  checkSubtasks(taskIndex);
 }
 
 function searchContactToTask() {  // not avalieble yet
