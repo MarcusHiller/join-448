@@ -289,18 +289,26 @@ function addTask(condition="") {
 //   return Object.fromEntries(subtasksArray);
 // }
 
-function getSubtasks() {
+function getSubtasks(taskIndex) {
   const subtaskElements = document.getElementById("sub_list").children;
   const subtasksObject = {};
 
   for (let i = 0; i < subtaskElements.length; i++) {
     const input = document.getElementById("editable_input_" + i);
     const value = input ? input.value.trim() : "";
+    let subtaskCheck = tasks[taskIndex].subtask[i].subtaskCheck;
+    let check;
+
+    if (subtaskCheck) {
+      check = true;
+    } else {
+      check = false;
+    }
 
     if (value) {
       subtasksObject["subtask" + i] = {
         name: value,
-        checked: false
+        checked: check
       };
     }
   }
@@ -329,6 +337,7 @@ function addSubtask() {
   let subtask = document.getElementById("subtask_input");
   let listRef = document.getElementById("sub_list");
   let subtaskValue = subtask.value;
+  subtaskIndex = listRef.children.length - 1;
 
   if(subtask.value) {
     subtaskIndex++;
@@ -382,6 +391,19 @@ function clearAddTaskField() {
   document.getElementById("date_input").value = "";
 }
 
+function getCheckedSubtasks(taskIndex) {
+  const lenght = tasks[taskIndex].subtask.lenght
+
+  for (let index = 0; index < array.length; index++) {
+    let subtaskCheck = tasks[taskIndex].subtask[index].subtaskCheck
+
+    if(subtaskCheck) {
+
+    }
+    
+  }
+}
+
 function addEditedTask(taskIndex) {
   let newEditedTask = {}
   let title = document.getElementById("titel_input");
@@ -389,7 +411,8 @@ function addEditedTask(taskIndex) {
   let date = document.getElementById("date_input");
   let category = document.getElementById("category_select_input");
   let priority;
-  let subtasks = getSubtasks().subtasks;
+  let subtasks = getSubtasks(taskIndex).subtasks;
+  let subtaskCheck = getCheckedSubtasks();
   let assignedTo = getAssignedTo();
   let taskID = tasks[taskIndex].id;
   let condition = tasks[taskIndex].condition;

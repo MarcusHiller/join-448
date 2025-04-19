@@ -227,7 +227,7 @@ function checkSubtasks(taskIndex) {
   let subtaskList = tasks[taskIndex].subtask;
   subtaskListRef.innerHTML = "";
   for (let indexCheckSubtask = 0; indexCheckSubtask < subtaskList.length; indexCheckSubtask++) {
-    let subtaskCheckValue = subtaskList[indexCheckSubtask].subtask;
+    let subtaskCheckValue = subtaskList[indexCheckSubtask].subtaskName;
     subtaskListRef.innerHTML += getSubtaskTemplate(indexCheckSubtask, subtaskCheckValue)
   }
 }
