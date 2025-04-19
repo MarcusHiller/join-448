@@ -108,15 +108,25 @@ function renderSubtaskIntoTaskOverlay(taskIndex) {
   if (subtaskList.length) {
     for (let indexSubtask = 0; indexSubtask < subtaskList.length; indexSubtask++) {
       subtaskListRef.innerHTML += getTaskSubtaskOverlayTemplate(taskIndex, indexSubtask);
-      if(subtaskList[indexSubtask].subtaskCheck) {
-        document.getElementById("task_" + taskIndex + "_checkbox_" + indexSubtask).checked = true;
-      } else {
-        document.getElementById("task_" + taskIndex + "_checkbox_" + indexSubtask).checked = false;
-      }
     }
   } else {
     subtaskListRef.innerHTML = "<span style='opacity: 0.2; font-size: 16px'>No Subtask added</span>"
   }
+
+  checkCheckboxInOverlay(taskIndex, subtaskList)
+}
+
+function checkCheckboxInOverlay(taskIndex, subtaskList){
+
+
+  for (let indexSubtask = 0; indexSubtask < subtaskList.length; indexSubtask++) {
+    if(subtaskList[indexSubtask].subtaskCheck) {
+      document.getElementById("task_" + taskIndex + "_checkbox_" + indexSubtask).checked = true;
+    } else {
+      document.getElementById("task_" + taskIndex + "_checkbox_" + indexSubtask).checked = false;
+    }
+  }
+
 }
 
 function renderUserIntoTaskOverlay(taskIndex) {
@@ -273,63 +283,44 @@ function checkAssignedTo(taskIndex) {
   }
 }
 
-// function onLabelClick(indexSubtask, taskIndex) {
-//   // Optional: Checkbox holen und checken/toggeln
-//   const checkbox = document.getElementById(`task_${taskIndex}_checkbox_${indexSubtask}`);
-//   checkbox.checked = !checkbox.checked;
-
-//   // Dann deine Logik aufrufen
-//   addSubtaskChecked(indexSubtask, taskIndex);
-// }
-
 function addSubtaskChecked(indexSubtask, taskIndex) {
   let subtask = document.getElementById("task_" + taskIndex + "_checkbox_" + indexSubtask);
-  let progressValue = document.getElementById("subtasks_user_" + taskIndex).value;
-  let progressValueTextRef = document.getElementById("subtask_value_user_" + taskIndex);
-
-  if(subtask.checked === false) {
-    subtask.checked = true;
-  } else {
-    subtask.checked = false;
-  }
+  let progressValue = document.getElementById("subtasks_user_" + taskIndex).value
 
   if (subtask.checked) {
     progressValue++;
-  } else if (!subtask.checked && progressValue < 0) {
+  } else if (!subtask.checked && progressValue > 0) {
     progressValue--;
   } else {
     progressValue = 0;
   }
 
-  return document.getElementById("subtasks_user_" + taskIndex).value = progressValue, progressValueTextRef.innerHTML = progressValue;
+  saveCheckboxProcess(taskIndex, indexSubtask, subtask.checked, progressValue)
 }
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   const table = document.getElementById("sub_list");
+function saveCheckboxProcess(taskIndex, indexSubtask, subtask, progressValue) {
+  let progressValueTextRef = document.getElementById("subtask_value_user_" + taskIndex);
+  let taskID =  tasks[taskIndex].id;
+  let subtaskName = "subtask" + indexSubtask;
+  document.getElementById("subtasks_user_" + taskIndex).value = progressValue;
+  progressValueTextRef.innerHTML = progressValue;
+  tasks[taskIndex].subtask[indexSubtask].subtaskCheck = subtask.checked;
+ 
+  patchDataToServer(`join/tasks/${taskID}/subtask/${subtaskName}`, {checked: subtask})
+}
 
-//   if (!table) return;
+function checkedProgressValue(taskIndex, subtaskMax) {
+  subtaskProgress = 0;
 
-//   table.addEventListener("change", (event) => {
-//       const target = event.target;
+  for (let index = 0; index < subtaskMax; index++) {
+    let subtaskCkeck = tasks[taskIndex].subtask[index].subtaskCheck
 
-//       // Prüfen, ob das Ziel eine Checkbox ist
-//       if (target.classList.contains("checkbox")) {
-//           const checkboxId = target.id; // z. B. task_1_checkbox_3
-//           const match = checkboxId.match(/task_(\d+)_checkbox_(\d+)/);
-
-//           if (match) {
-//               const taskIndex = parseInt(match[1], 10);
-//               const indexSubtask = parseInt(match[2], 10);
-
-//               addSubtaskChecked(indexSubtask, taskIndex);
-//           }
-//       }
-//   });
-// });
-
-
-
-
+    if (subtaskCkeck) {
+      subtaskProgress++;
+    }
+  }
+  return subtaskProgress;
+}
 
 // Delete Task //
 
