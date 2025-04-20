@@ -156,7 +156,12 @@ function showContact(individualUser) {
                 </div>
             </div>
         </div>
-    </div>`;
+    </div>
+    <div id="toolsResp" class="editing-tools-resp d-none">
+        <div class="dpl-fl-al-cetr tools tools-resp" onclick="chooseOverlay('edit', ${individualUser.id})"><img class="icon tools-edit" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
+        <div class="dpl-fl-al-cetr tools tools-resp" onclick="deleteContact(${individualUser.id})"><img class="icon tools-delete" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
+    </div>
+    `;
 }
 
 
@@ -490,9 +495,28 @@ function changeOfMoreBtn() {
 
 function changeBtnMore() {
     return `
-        <div class="add-btn-resp" onclick="">
+        <div class="add-btn-resp" onclick="openToolsResp()">
             <img class="contact-img" src="../assets/img/icon/more_vert.svg" alt="">
         </div>`;
+}
+
+function openToolsResp() {
+    let toolcontainer = document.getElementById('toolsResp');
+    toolcontainer.classList.remove('d-none');
+    setTimeout(() => {
+        toolcontainer.classList.add('tools-resp-active');
+    }, 10);
+    
+}
+
+
+function closeToolsresp() {
+    let toolcontainer = document.getElementById('toolsResp');
+    toolcontainer.classList.remove('tools-resp-active');
+    setTimeout(() => {
+        toolcontainer.classList.add('d-none');
+    }, 200);
+    
 }
 
 
