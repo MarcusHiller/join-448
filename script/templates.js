@@ -21,6 +21,27 @@ function getTaskTemplate(taskIndex) {
             </div>`
 }
 
+function getSingleTaskAfterEdit(taskIndex) {
+    return `<div class="task-cat-technical">
+                    <p id="task_category_${taskIndex}">${tasks[taskIndex].category}</p>
+                </div>
+                <div class="task-title"><span class="task-title">${tasks[taskIndex].title}</span></div>
+                <div class="task-description"><span>${tasks[taskIndex].descripton}</span></div>
+                <div class="progress">
+                    <progress id="subtasks_user_${taskIndex}" max="" value="0"></progress>
+                        <span id="subtask_text_user_${taskIndex}"><span id="subtask_value_user_${taskIndex}">0</span>/<span id="subtask_max_user_${taskIndex}">0</span> Subtasks</span>
+                </div>
+                <div class="task-footer">
+                    <div id="task_users_${taskIndex}" onload="renderAssignedTo(${taskIndex})"class="task-users">
+                        
+    
+                    </div>
+                    <div class="priority">
+                        <img id="task_prio_user_${taskIndex}" src="/assets/img/icon/prio_medium.svg" alt="">
+                    </div>
+                </div>`
+}
+
 function getUserInTaskTemplate(indexUser, userList) {
     return `<div class="user" style="background-color:${userList[indexUser].color}">${userList[indexUser].avatar}</div>`
 }
@@ -58,7 +79,7 @@ function getTaskUsersOverlayTemplate(taskIndex, indexUser) {
 function getTaskSubtaskOverlayTemplate(taskIndex, indexSubtask) {
     return `<label for="task_${taskIndex}_checkbox_${indexSubtask}" class="subtask-overlay">
                 <input type="checkbox" class="checkbox" id="task_${taskIndex}_checkbox_${indexSubtask}" onclick="addSubtaskChecked(${indexSubtask}, ${taskIndex})" >
-                <label for="task_${taskIndex}_checkbox_${indexSubtask}" class="subtask-img"><img src="/assets/img/icon/checkbox.svg" alt=""></div>
+                <div for="task_${taskIndex}_checkbox_${indexSubtask}" class="subtask-img"><img src="/assets/img/icon/checkbox.svg" alt=""></div>
             
                 <div class="subtask-label">${tasks[taskIndex].subtask[indexSubtask].subtaskName}</div>
             </label>`  

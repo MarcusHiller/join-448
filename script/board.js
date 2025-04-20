@@ -34,12 +34,12 @@ function openOverlayTask(taskIndex) {
   creatOverlayFromTask(taskIndex);
 }
 
-function openAddTask(condition = "") {
+async function openAddTask(condition = "") {
 
   if (condition) {
     currentCondition = condition;
   }
-  getAddTaskHTML();
+  await getAddTaskHTML();
   document.getElementById("cancel_button").classList.remove("d_none");
   document.getElementById("clear_button").classList.add("d_none");
   document.getElementById("close_add_task_overlay").classList.remove("d_none");
@@ -225,6 +225,7 @@ function renderEditButton(taskIndex) {
 function checkSubtasks(taskIndex) {
   let subtaskListRef = document.getElementById("sub_list");
   let subtaskList = tasks[taskIndex].subtask;
+  subtaskIndex = subtaskList.length;
   subtaskListRef.innerHTML = "";
   for (let indexCheckSubtask = 0; indexCheckSubtask < subtaskList.length; indexCheckSubtask++) {
     let subtaskCheckValue = subtaskList[indexCheckSubtask].subtaskName;
@@ -295,7 +296,7 @@ function addSubtaskChecked(indexSubtask, taskIndex) {
     progressValue = 0;
   }
 
-  saveCheckboxProcess(taskIndex, indexSubtask, subtask.checked, progressValue)
+  saveCheckboxProcess(taskIndex, indexSubtask, subtask, progressValue)
 }
 
 function saveCheckboxProcess(taskIndex, indexSubtask, subtask, progressValue) {
@@ -306,7 +307,7 @@ function saveCheckboxProcess(taskIndex, indexSubtask, subtask, progressValue) {
   progressValueTextRef.innerHTML = progressValue;
   tasks[taskIndex].subtask[indexSubtask].subtaskCheck = subtask.checked;
  
-  patchDataToServer(`join/tasks/${taskID}/subtask/${subtaskName}`, {checked: subtask})
+  patchDataToServer(`join/tasks/${taskID}/subtask/${subtaskName}`, {checked: subtask.checked})
 }
 
 function checkedProgressValue(taskIndex, subtaskMax) {

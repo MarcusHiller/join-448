@@ -289,21 +289,55 @@ function addTask(condition="") {
 //   return Object.fromEntries(subtasksArray);
 // }
 
+
+function sortSubtask(){
+  let subtaskListLength = document.getElementById("sub_list").children.length;
+
+  for (let index = 0; subtaskListLength < array.length; index++) {
+    let subtask = document.getElementById("editable_input_" + i);
+    
+  }
+}
+
+function prepareSubtaskIDs() {
+  const subtaskElements = document.getElementById("sub_list").children;
+
+  for (let i = 0; i < subtaskElements.length; i++) {
+    const element = subtaskElements[i];
+
+    // Nur das Input-Feld sauber neu nummerieren
+    const input = element.querySelector('input');
+    if (input) {
+      input.id = `editable_input_${i}`;
+    }
+  }
+}
+
 function getSubtasks(taskIndex) {
+  prepareSubtaskIDs();
   const subtaskElements = document.getElementById("sub_list").children;
   const subtasksObject = {};
 
   for (let i = 0; i < subtaskElements.length; i++) {
     const input = document.getElementById("editable_input_" + i);
     const value = input ? input.value.trim() : "";
-    let subtaskCheck = tasks[taskIndex].subtask[i].subtaskCheck;
     let check;
 
-    if (subtaskCheck) {
-      check = true;
+    if (taskIndex !== undefined) {
+      let subtaskCheck = tasks[taskIndex].subtask[i].subtaskCheck;
+      
+      if (subtaskCheck) {
+        check = true;
+      } else {
+        check = false;
+      }
+
     } else {
-      check = false;
+      check = false
     }
+
+
+   
 
     if (value) {
       subtasksObject["subtask" + i] = {
@@ -337,7 +371,6 @@ function addSubtask() {
   let subtask = document.getElementById("subtask_input");
   let listRef = document.getElementById("sub_list");
   let subtaskValue = subtask.value;
-  subtaskIndex = listRef.children.length - 1;
 
   if(subtask.value) {
     subtaskIndex++;
@@ -379,9 +412,6 @@ function editSubmit(indexSubTask) {
 
 function removeSubtask(indexSubTask, taskIndex) {
   document.getElementById("subtask_" + indexSubTask).remove();
-  tasks[taskIndex].subtask.splice(indexSubTask, 1)
-  
-  checkSubtasks(taskIndex);
 }
 
 function searchContactToTask() {  // not avalieble yet
@@ -394,18 +424,18 @@ function clearAddTaskField() {
   document.getElementById("date_input").value = "";
 }
 
-function getCheckedSubtasks(taskIndex) {
-  const lenght = tasks[taskIndex].subtask.lenght
+// function getCheckedSubtasks(taskIndex) {
+//   const lenght = tasks[taskIndex].subtask.lenght
 
-  for (let index = 0; index < array.length; index++) {
-    let subtaskCheck = tasks[taskIndex].subtask[index].subtaskCheck
+//   for (let index = 0; index < array.length; index++) {
+//     let subtaskCheck = tasks[taskIndex].subtask[index].subtaskCheck
 
-    if(subtaskCheck) {
+//     if(subtaskCheck) {
 
-    }
+//     }
     
-  }
-}
+//   }
+// }
 
 function addEditedTask(taskIndex) {
   let newEditedTask = {}
@@ -415,7 +445,6 @@ function addEditedTask(taskIndex) {
   let category = document.getElementById("category_select_input");
   let priority;
   let subtasks = getSubtasks(taskIndex).subtasks;
-  let subtaskCheck = getCheckedSubtasks();
   let assignedTo = getAssignedTo();
   let taskID = tasks[taskIndex].id;
   let condition = tasks[taskIndex].condition;
@@ -450,9 +479,69 @@ function addEditedTask(taskIndex) {
   console.log(taskID);
 
 
-  creatOverlayFromTask(taskIndex);
   
 
-  putDataToServer(`/join/tasks/${taskID}`, newEditedTask);
 
+
+  console.log(tasks);
+  console.log(tasks[taskIndex]);
+  console.log(newEditedTask);
+
+ 
+  
+  putDataToServer(`/join/tasks/${taskID}`, newEditedTask);
+  tasks[taskIndex] = newEditedTask;
+  getSubtasksArrayAfterEdit(taskIndex);
+  getAssignedToArrayAfterEdit(taskIndex);
+  renderSingleTaskInToColumn(taskIndex);
+  closeOverlayTask();
+  clearOverlay();
 }
+
+function getAssignedToArrayAfterEdit(taskIndex) {
+  let usersArray = [];
+  let usersObjekt = tasks[taskIndex].assignedTo;
+  let usersKeysArray = Object.keys(usersObjekt);
+
+  for (let userIndex = 0; userIndex < usersKeysArray.length; userIndex++) {
+    let username = usersObjekt[usersKeysArray[userIndex]]
+    let user = users.find(user => username === user.username)
+    usersArray.push(user)
+  }
+
+  return tasks[taskIndex].assignedTo = usersArray;
+}
+
+function getSubtasksArrayAfterEdit(taskIndex) {
+  let subtasksObj = tasks[taskIndex].subtask
+  let subtasksKeys = Object.keys(subtasksObj)
+  let subtasks = [];
+
+  for (let index = 0; index < subtasksKeys.length; index++) {
+    subtasks.push(
+      {
+        "subtaskName": subtasksObj[subtasksKeys[index]].name,
+        "subtaskCheck": subtasksObj[subtasksKeys[index]].checked
+      })
+    
+  }
+
+  return tasks[taskIndex].subtask = subtasks;
+}
+
+async function clearOverlay() {
+  await getTaskOverlayHTML();
+}
+
+function renderSingleTaskInToColumn(taskIndex) {
+    selectConditionForSingleTask(taskIndex);
+    renderAssignedTo(taskIndex);
+    renderSubtasks(taskIndex);
+    renderPrio(taskIndex);
+    renderCategoryColor(taskIndex);
+  }
+
+  function selectConditionForSingleTask(taskIndex) {
+    let taskRef = document.getElementById("task_"+ "index_"+ taskIndex);
+    taskRef.innerHTML = getSingleTaskAfterEdit(taskIndex);
+  }

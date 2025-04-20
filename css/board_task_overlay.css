@@ -162,7 +162,7 @@
    display: none;
 }
 
-.checkbox[type="checkbox"]:checked + label img  {
+.checkbox[type="checkbox"]:checked + div img  {
     content: url(/assets/img/icon/checkbox_checked.svg);
 }
 
