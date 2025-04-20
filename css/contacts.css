@@ -253,7 +253,8 @@ h2 {
     font-family: Inter;
     font-size: 47px;
     line-height: 120%;
-
+    color: white;
+    border: 3px solid white;
 }
 
 

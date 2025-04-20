@@ -190,6 +190,8 @@ function chooseOverlay(overlay, id) {
         editContact(id);
     } else if (overlay == "addResp") {
         addRespContact();
+    } else if (overlay == "editResp") {
+        editRespContact(id);
     }
 }
 
@@ -211,6 +213,13 @@ function editContact(id) {
 function addRespContact() {
     clerOverlay();
     openAddRespContact();
+    openOverlay();
+}
+
+
+function editRespContact(id) {
+    clerOverlay();
+    openEditRespContact(id)
     openOverlay();
 }
 
@@ -237,6 +246,13 @@ function openEditContact(id) {
 function openAddRespContact() {
     let overlay = document.getElementById('overlayContact');
     overlay.innerHTML = showOverlayAddResp();
+}
+
+
+function openEditRespContact(id) {
+    let user = findContact(id)
+    let overlay = document.getElementById('overlayContact');
+    overlay.innerHTML = showOverlayEditResp(user);
 }
 
 
@@ -404,7 +420,9 @@ function pushNewContact() {
 function successChange() {
     setTimeout(() => {
         let success = document.getElementById('success');
+        let succContainer = document.getElementById('successContainer');
         success.classList.remove('d-none');
+        succContainer.classList.remove('d-none');
         setTimeout(() => {
             success.classList.add('show-successful');
         }, 10);
@@ -413,6 +431,7 @@ function successChange() {
         }, 1510);
         setTimeout(() => {
             success.classList.add('d-none');
+            succContainer.classList.add('d-none');
         }, 1730);
     }, 500);
 }
@@ -482,9 +501,15 @@ function setBackBtn() {
 }
 
 
+function removeBackBtn() {
+    document.querySelector('.back-btn-resp').classList.remove('d-opacity');
+}
+
+
 function showRespContactList() {
     document.getElementById('contactContainer').classList.remove('d-none');
     document.getElementById('contactInfoContainer').classList.remove('d-block');
+    removeBackBtn();
     cleanContainerBtn();
     changeOfAddPersoneBtn();
 }
@@ -497,7 +522,7 @@ function changeOfAddPersoneBtn() {
 
 function changeAddBtnPerson() {
     return `
-        <div class="add-btn-resp" onclick="">
+        <div class="add-btn-resp" onclick="chooseOverlay('addResp')">
             <img class="contact-img" src="../assets/img/icon/person_add.svg" alt="">
         </div>`;
 }
@@ -547,7 +572,7 @@ function showOverlayAddResp() {// id noch ändern und klasse display none hinzuf
 }
 
 
-function showOverlayEditResp() {// id noch ändern und klasse display none hinzufügen
+function showOverlayEditResp(individualUser) {// id noch ändern und klasse display none hinzufügen
     return `
     <div id="overlay" class="overlay-contact overlay-contact-resp" onclick="eventBubbling(event)">
             <div class="overlay-cover-resp">
@@ -558,31 +583,31 @@ function showOverlayEditResp() {// id noch ändern und klasse display none hinzu
                 </div>
             </div>
             <div class="overlay-main-container-resp">
-                <div class="profil-img-container flex-box-center-center profil-img-resp"><img class="profil-img" src="../assets/img/icon/person.svg" alt=""></div>
+                <div class="profil-img-container flex-box-center-center profil-img-resp" style="background-color: ${individualUser.color}">${individualUser.username.split(" ").map(n => n[0]).join("")}</div>
                 <form onsubmit="createNewContact(); return false">
                     <div class="dpl-fl-colu input-container-resp">
                         <label class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="username" type="text" placeholder="Name" required>
+                                <input id="username" type="text" value="${individualUser.username}" placeholder="Name" required>
                                 <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
                             </div>
                         </label>
                         <label class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="email" type="email" placeholder="E-mail">
+                                <input id="email" type="email" value="${individualUser.email}" placeholder="E-mail">
                                 <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
                             </div>
                         </label>
                         <label class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="phone" type="tel" placeholder="Phone">
+                                <input id="phone" type="tel" value="${individualUser.phone}" placeholder="Phone">
                                 <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
                             </div>
                         </label>
                     </div>
                     <div class="submit-container submit-container-resp">
-                        <button class="blue-white-btn" onclick="closeOverlay(event)">Cancel</button>
-                        <button class="white-blue-btn">Create contact</button>
+                        <button class="blue-white-btn" onclick="deleteContact(${individualUser.id})">Delete</button>
+                        <button class="white-blue-btn" onclick="saveContact(${individualUser.id})">Save</button>
                     </div>
                 </form>
             </div>
