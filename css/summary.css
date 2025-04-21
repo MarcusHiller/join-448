@@ -4,24 +4,27 @@
  }
 
  body,html {
-    font-family: "Inter", sans-serif;     
+    font-family: Inter;     
     background-color: #F6F7F8;
     width: 100%;
     max-width: 1920px;
-    overflow: hidden;
+    height: 100vh;
  }
 
  .dashboardContainer {
-     display: flex;
-     flex-direction: column;
-     margin-left: 128px;
-     max-width: 1920px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+    max-width: 1920px;
+    margin: 0 auto;
  }
 
 .dashboardHeader {
     display: flex;
-    margin-top: 50px;
     text-align: center;
+    padding-top: 30px;
+    width: 100%;
+    justify-content: flex-start;
 }
 
 .titleGroup {
@@ -63,17 +66,27 @@
     display: flex;
 }
 
-.devideContent{
-    gap: 25px;
-    align-items: center;
+.devideContent {
     display: flex;
+    gap: 10px;
 }
 
-.greeting{
-    gap: 3px;
-    width: 385px;
-    height: 136px;
+.greeting {
+    display: flex; 
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    height: 100vh;
+    margin-top: 164px;
 }
+
+.greetingRepeat{
+        display: flex;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+}
+
 
 .greetingName{
     color: #29ABE2;
@@ -85,6 +98,12 @@
     font-size: 47px;
     font-weight: 500;
     color: #2A3647;
+    
+}
+.greetingTextRepeat{
+        font-size: 47px;
+            font-weight: 500;
+            color: #2A3647;
 }
 
 .metricsGrid {
@@ -110,20 +129,9 @@
 }
 
 .firstMetric{
-   height: 168px;
    display: flex;
-   flex-direction: row;
    gap: 18px;
-   margin-bottom: 25px;
-   width: 100%;
-}
-
-.cardUpLeft{
-    padding: 38px 19px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
+   padding-bottom: 25px;
 }
 
 .metricCardsUp.clicked{
@@ -131,10 +139,14 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.ContentCardUp{
+.contentCard{
     width: 63px;
-    height: 101px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
 }
 
 .frameLogo{
@@ -147,12 +159,11 @@
     font-weight: 400;
 }
 
-.cardUpRight{
-    padding: 38px 58px;
+.cardUp {
     display: flex;
-    gap: 10px;
     align-items: center;
     justify-content: center;
+    gap: 10px;
 }
 
 .middleMetric{
@@ -198,8 +209,6 @@
     font-size: 64px;
     font-weight: 600;
     color: black;
-    width: 50px;
-    height: 77px;
 }
 
 .metricLabel {
@@ -222,6 +231,7 @@
     gap: 13px;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .metricDate{
@@ -232,11 +242,11 @@
 
 .downMetric{
     display: flex;
-    height: 170px;
     width: 100%;
     align-items: center;
     justify-content: space-between;
-    margin: 25px 0px;
+    padding-top: 25px;
+    flex-wrap: nowrap;
     }
 
 .metricCardDown{
@@ -256,7 +266,7 @@
     transition: all 0.3s ease;
 }
 
-.cardDownleft{
+.cardDown{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -264,99 +274,129 @@
     text-align: center;
     
 }
-
-.cardDownMiddle{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.cardDownRight{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-/* responsive */
-
-@media (max-width: 1300px) {
+@media (max-width: 1135px) {
     .greeting {
         width: 200px;
     }
-}
-
-@media (max-width: 1135px) {
-    .greeting {
-        display: none;
-    }
-}
-
-@media (max-width: 990px) {
-    .titleGroup h1{
-     font-size: 48px;   
-    }
-        .titleGroup span {
-            font-size: 23px;
+        .titleGroup h1 {
+            font-size: 47px;
         }
-}
-
-@media (max-width: 900px) {
-    .dashboardContainer {
-        margin-left: 0;
-        align-items: center;
+    .contentMetric{
+        margin-top: 10px;
     }
-    .contentMetric {
+}
+@media (min-width: 991px) {
+    .greeting {
+        height: auto;
         justify-content: center;
     }
 }
+@media (max-width: 990px) {
 
-@media (max-width: 570px) {
-    .metricsGrid{
-        display: none;
+    .dashboardContainer {
+        padding-inline: 56px;
     }
     .dashboardHeader {
-        display: none;
-          }
-    .devideContent {
-        height: calc(100vh - 176px);
-        justify-content: center;
-        align-items: center;
+        padding-top: 25px;
         display: flex;
-    }
-          .titleGroup {
-              flex-direction: column;
-              align-items: center;
-              gap: 12px;
-              height: 104px;
-              width: 223px;
-          }
-          .desktop-divider {
-              display: none;
-          }
-          .mobile-divider {
-            display: block;
-            width: 60px;
-            height: 3px;
-             margin: 0 auto;
-          }
-          .titleGroup h1 {
-              font-size: 36px;
-          }
-          .titleGroup span {
-              font-size: 18px;
-          }
-
-    .greeting {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        flex-direction: column;
+        justify-content: flex-start;
         width: 100%;
-        height: 100%;
+    }
+    .greetingRepeat {
+        display: none;
+    } 
+  
+    .metricsGrid {
+            width: 100%;
+            max-width: 396px;
+            align-self: center;
+        }
+    .contentMetric{
+        margin-top: 0px;
+    }
+    .content {
+        display: flex;
+        padding: 0px 16px;
+    }
+    .metricsGrid.show-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        margin-top: 32px;
+    }
+    .metricCardsUp {
+        width: 186px;
+        height: 110px;
+        border-radius: 20px;
+    }
+    .frameLogo {
+        width: 40px;
+        height: 40px;
+    }
+    .middleMetric {
+        height: 110px;
+        border-radius: 20px;
+        gap: 20px;
+        width: 100%;
+    }
+    .urgentLogo {
+        height: 40px;
+        width: 40px;
+    }
+    .urgentContent {
+        width: 50px;
+        height: 73px;
+    }
+    .devider {
+        height: 68px;
+    }
+    .textLabel {
+        font-size: 14px;
+    }
+    .metricNumber {
+        font-size: 47px;
+    }
+    .middleCardright {
+        width: 135px;
+        height: 44px;
+        gap: 8px;
+        text-align: center;
+    }
+    .metricDate {
+        font-size: 16px;
+    }
+    .downMetric {
+        height: 116px;
+        width: 100%;
+        gap: 12px;
+    }
+    .metricCardDown {
+        width: 116px;
+        height: 116px;
+        border-radius: 20px;
+    }
+    .titleGroup {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: 8px;
+        height: 104px;
+        width: 223px;
+    }
+    .desktop-divider {
+        display: none;
+    }
+    .mobile-divider {
+        display: block;
+        width: 90px;
+        height: 3px;
+    }
+    .titleGroup h1 {
+        font-size: 33px;
+    }
+    .titleGroup span {
+        font-size: 16px;
     }
     .greetingText {
         font-size: 36px;
@@ -365,7 +405,70 @@
     .greetingName {
         font-size: 47px;
     }
-
-                           
 }
 
+@media (max-width: 400px) {
+    .metricsGrid.show-mobile {
+        width: 100%;
+        max-width: 300px;
+        gap: 12px;
+        margin-top: 24px;
+    }
+    .metricCardsUp {
+        width: 140px;
+        height: 100px;
+        border-radius: 20px;
+    }
+    .frameLogo {
+        width: 32px;
+        height: 32px;
+    }
+    .contentCard {
+        width: 36px;
+        height: 65px;
+    }
+    .textLabel {
+        font-size: 13px;
+    }
+    .metricNumber {
+        font-size: 36px;
+    }
+    .middleMetric {
+        width: 300px;
+        height: 90px;
+        gap: 14px;
+        padding: 16px;
+        border-radius: 20px;
+    }
+    .urgentLogo {
+        width: 36px;
+        height: 36px;
+    }
+    .urgentContent {
+        width: 42px;
+        height: 60px;
+    }
+    .devider {
+        height: 50px;
+    }
+    .middleCardright {
+        width: 110px;
+        height: 38px;
+        gap: 4px;
+        text-align: center;
+    }
+    .metricDate {
+        font-size: 14px;
+    }
+    .metricLabel {
+        font-size: 12px;
+    }
+    .downMetric {
+        max-width: 300px;
+        width: 100%;
+    }
+    .metricCardDown {
+        width: 96px;
+        height: 96px;
+    }
+}

@@ -6,13 +6,9 @@
     <title>Summary</title>
     <link rel="stylesheet" href="../css/summary.css">
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/fonts.css">
     <script src="../script/summary.js" defer></script>
     <script src="../script.js" defer></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
 </head>
 <body onload="init('summary_page')">
     <nav id="navbar-section" class="navbar-section"></nav>
@@ -32,24 +28,21 @@
                     <div class="devideContent">
                         <div class="metricsGrid">
                             <div class="firstMetric">
-                                <div class="metricCardsUp cardUpLeft">
+                                <div class="metricCardsUp cardUp" onclick="navigateTo('board.html', this)"> 
                                     <img class="frameLogo" src="../assets/img/icon/Icon_summary/Frame pencil.svg">
-                                    <div class="ContentCardUp">
+                                    <div class="contentCard">
                                         <p class="metricNumber">1</p>
                                         <p class="textLabel">To-do</p>
                                     </div>
                                 </div>
-
-                                <div class="metricCardsUp cardUpRight">
-                                    <img class="frameLogo" src="../assets/img/icon/Icon_summary/Frame check.svg">
-                                    <div class="ContentCardUp">
+                                <div class="metricCardsUp cardUp" onclick="navigateTo('board.html', this)">                                      <img class="frameLogo" src="../assets/img/icon/Icon_summary/Frame check.svg">
+                                    <div class="contentCard">
                                         <p class="metricNumber">1</p>
                                         <p class="textLabel">Done</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="middleMetric">
-                                <div class="middleCardLeft">
+                            <div class="middleMetric" onclick="navigateTo('board.html', this)">                                <div class="middleCardLeft">
                                     <img class="urgentLogo" src="../assets/img/icon/Icon_summary/Frame urgent.svg">
                                     <div class="urgentContent">
                                         <span class="metricNumber">1</span>
@@ -63,25 +56,37 @@
                                 </div>
                             </div>
                             <div class="downMetric">
-                                <div class="metricCardDown cardDownleft">
-                                    <p class="metricNumber">5</p>
-                                    <p class="textLabel">Tasks in Board</p>
+                                <div class="metricCardDown cardDown" onclick="navigateTo('board.html', this)">
+                                    <div class="contentCard">
+                                         <p class="metricNumber">5</p>
+                                        <p class="textLabel">Tasks in <br> Board<br></p>
+                                    </div>
                                 </div>
-                                <div class="metricCardDown cardDownMiddle">
-                                    <p class="metricNumber">2</p>
-                                    <p class="textLabel">Tasks In Progress</p>
+                                <div class="metricCardDown cardDown" onclick="navigateTo('board.html', this)">
+                                    <div class="contentCard">
+                                        <p class="metricNumber">2</p>
+                                        <p class="textLabel">Tasks in Progress</p>
+                                    </div>
                                 </div>
-                                <div class="metricCardDown cardDownRight">
-                                    <p class="metricNumber">2</p>
-                                    <p class="textLabel">Awaiting Feedback</p>
+                                <div class="metricCardDown cardDown" onclick="navigateTo('board.html', this)">
+                                    <div class="contentCard">
+                                        <p class="metricNumber">2</p>
+                                        <p class="textLabel">Awaiting Feedback</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="greeting">
-                            <div class="greetingText">
-                                Good morning, <span class="greetingName">Sofia Müller</span>
+                            <div class="greeting">
+                                <div class="greetingText">
+                                    <span class="greetingName" id="greetingUser"></span>
+                                </div>
+                            </div>
+                        <div class="greetingRepeat">
+                            <div class="greetingTextRepeat">
+                                <span class="greetingName" id="greetingUserRepeat"></span>
                             </div>
                         </div>
+
                     </div>
                 </div>
     </main>

@@ -26,7 +26,7 @@ function login() {
     if (user) {
         console.log(user);
         
-        window.location.href = `html/summary.html?name=${encodeURIComponent(user.username)}&email=${encodeURIComponent(email)}`;
+        window.location.href = `html/summary.html?name=${encodeURIComponent(user.username)}&login=true`;
     } else {
         document.getElementById('labelPasswd').classList.add('input-field-error');
         info.classList.remove('opacity');
@@ -40,5 +40,6 @@ function guestLogin(event) {
     event.preventDefault();
     document.getElementById('email').removeAttribute('required');
     document.getElementById('passwd').removeAttribute('required');
-    window.location.href = "html/summary.html?name=Guest";
+    window.location.href = "html/summary.html?name=Guest&login=true";
+
 }

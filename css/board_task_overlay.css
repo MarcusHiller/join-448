@@ -16,11 +16,15 @@
 
 .overlay-container {
     width: 445px;
-    height: fit-content;
+    height: 80%;
     background-color: white;
     border-radius: 20px;
     padding: 48px 40px;
     transition-duration: 0.1s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-height: 1200px;
 
 }
 
@@ -73,12 +77,18 @@
 }
 
 .overlay-task-description {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
     width: 100%;
     margin-bottom: 24px;
 
+}
+
+.overlay-task-details {
+    position: relative;
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 
@@ -117,38 +127,24 @@
     color: #2A3647
 }
 
-.subtasks td:first-child {
-    padding: 8px;
-    width: 18px;
-    height: 18px;
-}
-
-.subtasks {
-    margin-bottom: 24px;
-}
-
-.subtasks span {
-    color: #2A3647;
-    margin-bottom: 8px;
-}
-
-.subtasks tr {
+.subtask-overlay {
     display: flex;
-   align-items: center;
-   margin-left: 8px;
+    margin-left: 12px;
+    align-items: center;
 }
 
 .edit-task-section {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    background-color: white;
 }
 
 .delete-task, .edit-task {
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: 8px 16px;
+    padding: 0px 16px;
     color: #2A3647;
 }
 
@@ -166,7 +162,7 @@
    display: none;
 }
 
-.checkbox[type="checkbox"]:checked + label img  {
+.checkbox[type="checkbox"]:checked + div img  {
     content: url(/assets/img/icon/checkbox_checked.svg);
 }
 
@@ -178,4 +174,78 @@
     width: 1px;
     background-color: #D1D1D1;
     height: 24px;
+}
+
+.details-content-complete {
+    overflow-y: auto;
+}
+
+.task-overlay-prio-text::first-letter {
+    text-transform: uppercase;
+}
+
+.task_overlay_prio {
+    display: flex;
+    
+}
+
+.subtask-label {
+    cursor: pointer;
+    user-select: none;
+    color: #2A3647;
+ 
+
+}
+
+.subtask-img {
+    height: 24px;
+    width: 24px;
+    align-items: center;
+    display: flex;
+}
+
+.subtask-img img {
+    height: 16px;
+    width: 16px;
+    margin-right: 12px;
+}
+
+#task_overlay_subtask_list {
+    margin-top: 8px;
+}
+
+@media(max-width: 900px) {
+    .overlay-container {
+        width: 300px;
+        border-radius: 20px;
+        padding: 24px 20px;
+    
+    }
+
+    .overlay-titel h2 {
+        font-size: 40px;
+        margin: 12px 0;
+    
+    }
+
+    .task-cat-custom {
+        font-size: 16px;
+        align-content: center;
+    }
+
+    .details-content-complete {
+        height: 500px;
+    }
+
+}
+
+@media(max-width: 400px) {
+    .overlay-container {
+        padding: 8px;
+        width: 280px;
+    }
+
+    .overlay-titel h2 {
+        font-size: 20px;
+    }
 }

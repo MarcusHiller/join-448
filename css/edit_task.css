@@ -1,0 +1,12 @@
+.edit-task-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-direction {
+    flex-direction: column;
+}
+
+.scrolling {
+    overflow-y: auto;
+}

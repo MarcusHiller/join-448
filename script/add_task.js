@@ -1,12 +1,7 @@
-document.querySelectorAll("select").forEach(select => {
-    select.addEventListener("change", () => {
-      select.blur();
-    });
-  });
+async function getAddTaskHTML() {
+    await Promise.all([
+      loadHTML("add_task_overlay.html", "addTask_container"),
+    ]);
 
-
-   function AddTask() {
-    alert("Yes");
+    renderUserList();
   }
-
-

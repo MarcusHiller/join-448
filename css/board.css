@@ -11,6 +11,10 @@ h1 {
     font-size: 64px;
 }
 
+body {
+    min-height: 100vh;
+}
+
 .board-headline {
     display: flex;
     justify-content: space-between;
@@ -137,6 +141,17 @@ h1 {
 
 .column {
     width: 256px;
+
+}
+
+.empty-task {
+    border: 1px dashed #A8A8A8;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #A8A8A8;
+    height: 256px;
 }
 
 .column-headline {
@@ -148,6 +163,7 @@ h1 {
 
 .column-headline img:hover {
     filter: brightness(0) saturate(100%) invert(57%) sepia(96%) saturate(1284%) hue-rotate(165deg) brightness(93%) contrast(89%);
+    cursor: pointer;
 
 }
 
@@ -269,6 +285,7 @@ h1 {
     font-size: 12px;
 }
 
+
 @media(max-width: 1400px) {
     .row {
         flex-wrap: wrap;
@@ -283,7 +300,9 @@ h1 {
     }
 }
 
-@media(max-width: 640px) {
+
+
+@media(max-width: 900px) {
 
     .add-task-button {
         display: none;
@@ -341,6 +360,18 @@ h1 {
         width: 100%;
         padding-left: 8px;
         padding-right: 8px;
+    }
+    
+    .input-task {
+        flex: 1;
+    }
+
+    .search-task-input-field {
+        justify-content: space-between;
+    }
+
+    .form-for-input {
+        width: 100%;
     }
 
 
