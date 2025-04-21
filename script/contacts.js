@@ -583,7 +583,7 @@ function showOverlayAddResp() {
                     </div>
                     <div class="submit-container submit-container-resp">
                         
-                        <button class="white-blue-btn">Create contact</button>
+                        <button class="white-blue-btn white-blue-btn-resp">Create contact</button>
                     </div>
                 </form>
             </div>
@@ -626,7 +626,7 @@ function showOverlayEditResp(individualUser) {// id noch ändern und klasse disp
                     </div>
                     <div class="submit-container submit-container-resp">
                         <button class="blue-white-btn" onclick="deleteContact(${individualUser.id})">Delete</button>
-                        <button class="white-blue-btn" onclick="saveContact(${individualUser.id})">Save</button>
+                        <button class="white-blue-btn white-blue-btn-resp" onclick="saveContact(${individualUser.id})">Save</button>
                     </div>
                 </form>
             </div>

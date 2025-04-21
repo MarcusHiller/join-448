@@ -148,6 +148,14 @@ button {
 }
 
 
+.white-blue-btn-resp::after {
+    content: url('../assets/img/icon/check.svg');
+    margin-left: 5px;
+    width: 24px;
+    height: 24px;
+}
+
+
 .profil-img-container {
     width: 120px;
     height: 120px;
