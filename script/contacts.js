@@ -576,13 +576,12 @@ function showOverlayAddResp() {
                         </label>
                         <label class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="phone" type="tel" placeholder="Phone">
+                                <input id="phone" type="tel" placeholder="Phone" pattern="[0-9]+$" inputmode="numeric">
                                 <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
                             </div>
                         </label>
                     </div>
-                    <div class="submit-container submit-container-resp">
-                        
+                    <div class="submit-container submit-container-resp">    
                         <button class="white-blue-btn white-blue-btn-resp">Create contact</button>
                     </div>
                 </form>
@@ -619,7 +618,7 @@ function showOverlayEditResp(individualUser) {// id noch ändern und klasse disp
                         </label>
                         <label class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="phone" type="tel" value="${individualUser.phone}" placeholder="Phone">
+                                <input id="phone" type="tel" value="${individualUser.phone}" placeholder="Phone" pattern="[0-9]+$" inputmode="numeric">
                                 <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
                             </div>
                         </label>
