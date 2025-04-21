@@ -77,6 +77,18 @@
     .info-initial {
         align-self: flex-start;
     }
+    .overlay-main-container {
+        padding: 45px 24px;
+    }
+    .overlay-cover {
+        padding: 45px 24px;
+    }
+    .input-container {
+        width: 320px;
+    }
+    .info-initial-overlay {
+        align-self: center;
+    }
 }
 
 
@@ -113,6 +125,7 @@
     position: fixed;
     bottom: 150px;
     right: 45px;
+    z-index: 50;
     display: none;
     justify-content: center;
     align-items: center;
@@ -151,12 +164,21 @@
     cursor: pointer;
 }
 
+.tools-overlay-Container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    height: 100vh;
+    width: 100%;
+}
+
 
 .editing-tools-resp {
     position: fixed;
     bottom: 120px;
     right: 5px;
-    z-index: 150;
+    z-index: 60;
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -256,5 +278,27 @@
     .back-btn-resp {
         top: 130px;
         right: 25px;
+    }
+    .overlay-contact-resp {
+        width: 100% !important;
+    }
+    .overlay-cover-resp {
+        width: 100% !important;
+    }
+    .overlay-main-container-resp {
+        width: 100% !important;
+    }
+}
+
+
+@media (max-width: 400px) {
+    .input-container-resp {
+        width: 300px;
+    }
+}
+
+@media (max-height: 670px) {
+    .overlay-contact-resp {
+        height: 665px;
     }
 }

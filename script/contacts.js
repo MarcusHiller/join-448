@@ -139,7 +139,7 @@ function showContact(individualUser) {
                 <div class="info-name">
                     <h4>${individualUser.username}</h4>
                     <div class="container-editing-tools">
-                        <div class="dpl-fl-al-cetr tools" onclick="chooseOverlay('edit', ${individualUser.id})"><img class="icon tools-edit" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
+                        <div class="dpl-fl-al-cetr tools" onclick="editContact(${individualUser.id})"><img class="icon tools-edit" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
                         <div class="dpl-fl-al-cetr tools" onclick="deleteContact(${individualUser.id})"><img class="icon tools-delete" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
                     </div>
                 </div>
@@ -157,9 +157,11 @@ function showContact(individualUser) {
             </div>
         </div>
     </div>
-    <div id="toolsResp" class="editing-tools-resp d-none">
-        <div class="dpl-fl-al-cetr tools tools-resp" onclick="chooseOverlay('edit', ${individualUser.id})"><img class="icon tools-edit" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
-        <div class="dpl-fl-al-cetr tools tools-resp" onclick="deleteContact(${individualUser.id})"><img class="icon tools-delete" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
+    <div id="toolsRespContainer" class="tools-overlay-Container d-none" onclick="closeToolsresp()">
+        <div id="toolsResp" class="editing-tools-resp d-none">
+            <div class="dpl-fl-al-cetr tools tools-resp" onclick="editRespContact(${individualUser.id});"><img class="icon tools-edit" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
+            <div class="dpl-fl-al-cetr tools tools-resp" onclick="deleteContact(${individualUser.id})"><img class="icon tools-delete" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
+        </div>
     </div>
     `;
 }
@@ -188,19 +190,6 @@ function closeOverlay(event) {
 }
 
 
-function chooseOverlay(overlay, id) {
-    if (overlay == "add") {
-        addContact();
-    } else if (overlay == "edit") {
-        editContact(id);
-    } else if (overlay == "addResp") {
-        addRespContact();
-    } else if (overlay == "editResp") {
-        editRespContact(id);
-    }
-}
-
-
 function addContact() {
     clerOverlay();
     openAddContact();
@@ -226,6 +215,7 @@ function editRespContact(id) {
     clerOverlay();
     openEditRespContact(id)
     openOverlay();
+    closeToolsresp();
 }
 
 
@@ -317,7 +307,7 @@ function overlayEditContact(individualUser) {
                 </div>
             </div>
             <div class="overlay-main-container flex-box-center-center">
-                <div class="info-initial flex-box-center-center" style="background-color: ${individualUser.color}">${individualUser.username.split(" ").map(n => n[0]).join("")}</div>
+                <div class="info-initial info-initial-overlay flex-box-center-center" style="background-color: ${individualUser.color}">${individualUser.username.split(" ").map(n => n[0]).join("")}</div>
                 <form onsubmit="return false">
                     <div class="dpl-fl-colu input-container">
                         <label class="input-field">
@@ -500,23 +490,28 @@ function changeBtnMore() {
         </div>`;
 }
 
+
 function openToolsResp() {
+    let toolOverlay = document.getElementById('toolsRespContainer');
     let toolcontainer = document.getElementById('toolsResp');
+    toolOverlay.classList.remove('d-none');
     toolcontainer.classList.remove('d-none');
     setTimeout(() => {
         toolcontainer.classList.add('tools-resp-active');
-    }, 10);
-    
+    }, 10);   
 }
 
 
 function closeToolsresp() {
+    let toolOverlay = document.getElementById('toolsRespContainer');
     let toolcontainer = document.getElementById('toolsResp');
-    toolcontainer.classList.remove('tools-resp-active');
-    setTimeout(() => {
-        toolcontainer.classList.add('d-none');
-    }, 200);
-    
+    if (toolcontainer) {
+        toolcontainer.classList.remove('tools-resp-active');
+        setTimeout(() => {
+            toolcontainer.classList.add('d-none');
+            toolOverlay.classList.add('d-none');
+        }, 200);  
+    }
 }
 
 
@@ -546,14 +541,14 @@ function changeOfAddPersoneBtn() {
 
 function changeAddBtnPerson() {
     return `
-        <div class="add-btn-resp" onclick="chooseOverlay('addResp')">
+        <div class="add-btn-resp" onclick="addRespContact()">
             <img class="contact-img" src="../assets/img/icon/person_add.svg" alt="">
         </div>`;
 }
 
 
 
-function showOverlayAddResp() {// id noch ändern und klasse display none hinzufügen
+function showOverlayAddResp() {
     return `
     <div id="overlay" class="overlay-contact overlay-contact-resp d-none" onclick="eventBubbling(event)">
             <div class="overlay-cover-resp">
@@ -587,7 +582,7 @@ function showOverlayAddResp() {// id noch ändern und klasse display none hinzuf
                         </label>
                     </div>
                     <div class="submit-container submit-container-resp">
-                        <button class="blue-white-btn" onclick="closeOverlay(event)">Cancel</button>
+                        
                         <button class="white-blue-btn">Create contact</button>
                     </div>
                 </form>
@@ -608,7 +603,7 @@ function showOverlayEditResp(individualUser) {// id noch ändern und klasse disp
             </div>
             <div class="overlay-main-container-resp">
                 <div class="profil-img-container flex-box-center-center profil-img-resp" style="background-color: ${individualUser.color}">${individualUser.username.split(" ").map(n => n[0]).join("")}</div>
-                <form onsubmit="createNewContact(); return false">
+                <form onsubmit="return false">
                     <div class="dpl-fl-colu input-container-resp">
                         <label class="input-field input-field-resp">
                             <div class="input-content-resp">
