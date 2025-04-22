@@ -52,7 +52,9 @@
 
 
 @media (max-width: 1120px) {
-
+    .headline {
+        margin-top: 5px;
+    }
     .user-container {
         width: 428px;
     }
@@ -79,12 +81,13 @@
     }
     .overlay-main-container {
         padding: 45px 24px;
+        gap: 20px;
     }
     .overlay-cover {
         padding: 45px 24px;
     }
     .input-container {
-        width: 320px;
+        width: 350px;
     }
     .info-initial-overlay {
         align-self: center;
@@ -113,11 +116,6 @@
         flex-direction: column;
         align-items: flex-start;
     }
-
-    .headline {
-        margin-top: 5px;
-    }
-
 }
 
 

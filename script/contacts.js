@@ -21,6 +21,62 @@ const users = [
     { id: 19, username: "Florian Wagner", email: "florian.wagner@email.de", phone: "0123475", color: "#00BEE8" }
 ];
 
+let contactsFirebase;
+
+const BASE_URL = "https://join-2c200-default-rtdb.europe-west1.firebasedatabase.app/";
+
+async function loadUser() {
+    let response = await fetch(BASE_URL + "/users.json");
+    let responseToJson = await response.json();
+    //console.log(responseToJson);
+    const usersArray = Object.values(responseToJson);
+    console.log(usersArray);
+    contactsFirebase = usersArray;
+}
+
+
+async function saveUsers() {
+    const usersAsObject = {};
+    users.forEach(user => {
+        usersAsObject[user.id] = user;
+    });
+
+    const response = await fetch(BASE_URL + "/users.json", {
+        method: "PUT", // oder PATCH, je nachdem ob du bestehende Daten behalten willst
+        body: JSON.stringify(usersAsObject)
+    });
+
+    if (response.ok) {
+        console.log("User erfolgreich gespeichert.");
+    } else {
+        console.error("Fehler beim Speichern:", await response.text());
+    }
+}
+
+
+
+
+
+
+
+
+
+async function saveContactsToFirebase() {
+    const contactsAsObject = {};
+    contactsFirebase.forEach((contact, index) => {
+        contactsAsObject[index] = { ...contact, id: index };
+    });
+
+    await fetch(`${BASE_URL}/users.json`, {
+        method: 'PUT',
+        body: JSON.stringify(contactsAsObject),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+
 function eventBubbling(event) {
     event.stopPropagation();
 }
@@ -286,7 +342,7 @@ function showOverlayAddContact() {
                         </label>
                     </div>
                     <div class="submit-container">
-                        <button class="blue-white-btn" onclick="closeOverlay(event)">Cancel</button>
+                        <button class="blue-white-btn cancel" onclick="closeOverlay(event)">Cancel</button>
                         <button class="white-blue-btn">Create contact</button>
                     </div>
                 </form>
@@ -339,9 +395,10 @@ function overlayEditContact(individualUser) {
 }
 
 
-
-function saveContact(id) {
+/* Edit Contact */
+async function saveContact(id) {
     updateUserData(id);
+    await saveContactsToFirebase();
     renderContacts();
     clearMainContact();
     closeOverlay();
@@ -351,7 +408,7 @@ function saveContact(id) {
 }
 
 
-function updateUserData(id) {
+/* function updateUserData(id) {
     let n = document.getElementById('username');
     let e = document.getElementById('email');
     let p = document.getElementById('phone');
@@ -361,22 +418,46 @@ function updateUserData(id) {
         user.email = e.value;
         user.phone = p.value;
     }
+} */
+
+function updateUserData(id) {
+    let n = document.getElementById('username');
+    let e = document.getElementById('email');
+    let p = document.getElementById('phone');
+
+    let contact = contactsFirebase.find(c => c.id === id);
+    if (contact) {
+        contact.username = n.value;
+        contact.email = e.value;
+        contact.phone = p.value;
+    } else {
+        console.log("Kontakt nicht gefunden");    
+    }
 }
 
 
-function deleteContact(id) {
+function getContactColorById(id) {
+    const contact = contactsFirebase.find(c => c.id === id);
+    return contact ? contact.color : "brown"; // Fallback-Farbe
+}
+
+
+/* Delete Contact */
+
+
+async function deleteContact(id) {
     deleteUserData(id);
     reSortUser();
+    await saveContactsToFirebase();
     renderContacts();
     clearMainContact();
-    closeOverlay();
     clearSuccessfulContainer();
     successfulDeleteContact();
     successChange();
 }
 
 
-function deleteUserData(id) {
+/* function deleteUserData(id) {
     const index = users.findIndex(user => user.id === id);
     if (index !== -1) {
         users.splice(index, 1);
@@ -388,11 +469,23 @@ function reSortUser() {
     users.forEach((user, index) => {
         user.id = index;
     });
+} */
+
+
+function deleteUserData(id) {
+    contactsFirebase = contactsFirebase.filter(user => user.id !== id);
+}
+
+function reSortUser() {
+    contactsFirebase.forEach((user, index) => {user.id = index;});   
 }
 
 
-function createNewContact() {
+/* Create New Contact */
+
+async function createNewContact() {
     pushNewContact();
+    await saveContactsToFirebase();
     renderContacts();
     closeOverlay();
     clearSuccessfulContainer();
@@ -401,7 +494,7 @@ function createNewContact() {
 }
 
 
-function pushNewContact() {
+/* function pushNewContact() {
     let numberOfUser = users.length + 1;
     let n = document.getElementById('username');
     let e = document.getElementById('email');
@@ -409,8 +502,26 @@ function pushNewContact() {
     let newContact = { id: numberOfUser, username: n.value, email: e.value, phone: p.value, color: "brown" }
     users.push(newContact);
     console.log(newContact);
+} */
+
+
+function pushNewContact() {
+    let n = document.getElementById('username');
+    let e = document.getElementById('email');
+    let p = document.getElementById('phone');
+
+    let newId = contactsFirebase.length;
+    let newContact = {
+        id: newId,
+        username: n.value,
+        email: e.value,
+        phone: p.value,
+        color: "brown"
+    };
+    contactsFirebase.push(newContact);
 }
 
+/* Animation action successful  */
 
 function successChange() {
     setTimeout(() => {
