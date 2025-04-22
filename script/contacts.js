@@ -1,3 +1,7 @@
+/* Local contact list, if too many contacts have been deleted or edited, 
+the old list can be saved in Firebase using the two functions available below. 
+These must be executed in the console.*/
+
 const users = [
     { id: 0, username: "Max Bäcker", email: "max.baecker@email.de", phone: "0123456", color: "#FF7A00" },
     { id: 1, username: "Anna Fischer", email: "anna.fischer@email.de", phone: "0123457", color: "#FF5EB3" },
@@ -21,9 +25,6 @@ const users = [
     { id: 19, username: "Florian Wagner", email: "florian.wagner@email.de", phone: "0123475", color: "#00BEE8" }
 ];
 
-let contactsFirebase = [];
-
-const BASE_URL = "https://join-2c200-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function loadUser() {
     let response = await fetch(BASE_URL + "/users.json");
@@ -40,9 +41,8 @@ async function saveUsers() {
     users.forEach(user => {
         usersAsObject[user.id] = user;
     });
-
     const response = await fetch(BASE_URL + "/users.json", {
-        method: "PUT", // oder PATCH, je nachdem ob du bestehende Daten behalten willst
+        method: "PUT", 
         body: JSON.stringify(usersAsObject)
     });
 
@@ -52,6 +52,12 @@ async function saveUsers() {
         console.error("Fehler beim Speichern:", await response.text());
     }
 }
+
+
+/* firebase functions loading and saving contacts */
+
+let contactsFirebase = [];
+const BASE_URL = "https://join-2c200-default-rtdb.europe-west1.firebasedatabase.app/";
 
 
 async function loadContactsFromFirebase() {
@@ -70,7 +76,6 @@ async function saveContactsToFirebase() {
     contactsFirebase.forEach((contact, index) => {
         contactsAsObject[index] = { ...contact, id: index };
     });
-
     await fetch(`${BASE_URL}/users.json`, {
         method: 'PUT',
         body: JSON.stringify(contactsAsObject),
@@ -79,6 +84,8 @@ async function saveContactsToFirebase() {
         }
     });
 }
+
+
 async function initContactsPage() {
     await loadContactsFromFirebase();
     await renderContacts();
@@ -103,23 +110,12 @@ function cleanContactsList() {                                  // clears the en
 }
 
 
-/* function groupInitials() {                                     //  saves all contacts in a list, sorted by initials
+function groupInitials() {                                    
     let group = {};
-    users.forEach(user => {
-        let lastNameInitinal = user.username.split(" ")[0][0].toUpperCase();
+    contactsFirebase.forEach(contact => {
+        let lastNameInitinal = contact.username.split(" ")[0][0].toUpperCase();
         if (!group[lastNameInitinal]) group[lastNameInitinal] = [];
-        group[lastNameInitinal].push(user);
-    })
-    createHTML(group);
-} */
-
-
-function groupInitials() {                                     //  FIREBASETEST saves all contacts in a list, sorted by initials
-    let group = {};
-    contactsFirebase.forEach(user => {
-        let lastNameInitinal = user.username.split(" ")[0][0].toUpperCase();
-        if (!group[lastNameInitinal]) group[lastNameInitinal] = [];
-        group[lastNameInitinal].push(user);
+        group[lastNameInitinal].push(contact);
     })
     createHTML(group);
 }
@@ -138,20 +134,20 @@ function createHTML(list) {                                     // creates headi
 
 
 function userData(list, letter, section) {                                           // creates an element with user information
-    list[letter].forEach(user => {
-        const initials = user.username.split(" ").map(n => n[0]).join("");
-        section.innerHTML += showUserInformation(user, initials);
+    list[letter].forEach(contact => {
+        const initials = contact.username.split(" ").map(n => n[0]).join("");
+        section.innerHTML += showUserInformation(contact, initials);
     })
 }
 
 
-function showUserInformation(user, initials) {
+function showUserInformation(contact, initials) {
     return `
-        <div class="contact" id="user${user.id}" onclick="chooseContact(${user.id}); showRespUserInfo()">
-            <div class="avatar flex-box-center-center" style="background-color: ${user.color}">${initials}</div>
+        <div class="contact" id="contact${contact.id}" onclick="chooseContact(${contact.id}); showRespUserInfo()">
+            <div class="avatar flex-box-center-center" style="background-color: ${contact.color}">${initials}</div>
             <div class="info">
-                <strong>${user.username}</strong>
-                <p class="accessibility">${user.email}</p>
+                <strong>${contact.username}</strong>
+                <p class="accessibility">${contact.email}</p>
             </div>
         </div>
         `;
@@ -167,7 +163,7 @@ function chooseContact(id) {
 
 
 function setClassChoooseContact(id) {
-    let contact = document.getElementById(`user${id}`);
+    let contact = document.getElementById(`contact${id}`);
     contact.classList.add('choose-contact');
 }
 
@@ -180,28 +176,22 @@ function resetClassChooseContact() {
 }
 
 
-/* function findContact(id) {
-    let user = users.find(u => u.id == id);
-    return user;
-} */
-
-
-function findContact(id) {                              // TEST FIREBASE
-    let user = contactsFirebase.find(u => u.id == id);
-    return user;
+function findContact(id) {                              
+    let contact = contactsFirebase.find(c => c.id == id);
+    return contact;
 }
 
 
 function clearMainContact() {
-    let contactInformation = document.getElementById('userInformation');
+    let contactInformation = document.getElementById('contactInformation');
     contactInformation.innerHTML = "";
 }
 
 
 function userInfo(id) {
-    let individualUser = findContact(id);
-    let contactInformation = document.getElementById('userInformation');
-    contactInformation.innerHTML += showContact(individualUser);
+    let individualContact = findContact(id);
+    let contactInformation = document.getElementById('contactInformation');
+    contactInformation.innerHTML += showContact(individualContact);
     slideIn();
 }
 
@@ -213,16 +203,16 @@ function slideIn() {
 }
 
 
-function showContact(individualUser) {
+function showContact(individualContact) {
     return `
     <div id="slide" class="user-slide-in">
         <div class="user-info-header">
-            <div class="info-initial flex-box-center-center" style="background-color: ${individualUser.color}">${individualUser.username.split(" ").map(n => n[0]).join("")}</div>
+            <div class="info-initial flex-box-center-center" style="background-color: ${individualContact.color}">${individualContact.username.split(" ").map(n => n[0]).join("")}</div>
                 <div class="info-name">
-                    <h4>${individualUser.username}</h4>
+                    <h4>${individualContact.username}</h4>
                     <div class="container-editing-tools">
-                        <div class="dpl-fl-al-cetr tools" onclick="editContact(${individualUser.id})"><img class="icon tools-edit" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
-                        <div class="dpl-fl-al-cetr tools" onclick="deleteContact(${individualUser.id})"><img class="icon tools-delete" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
+                        <div class="dpl-fl-al-cetr tools" onclick="editContact(${individualContact.id})"><img class="icon tools-edit" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
+                        <div class="dpl-fl-al-cetr tools" onclick="deleteContact(${individualContact.id})"><img class="icon tools-delete" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
                     </div>
                 </div>
             </div>
@@ -232,17 +222,17 @@ function showContact(individualUser) {
                 </div>
                 <div>
                     <p class="accessibility-description">Email</p>
-                    <a class="accessibility" href="mailto:${individualUser.email}"> ${individualUser.email}</a>
+                    <a class="accessibility" href="mailto:${individualContact.email}"> ${individualContact.email}</a>
                     <p class="accessibility-description">Phone</p>
-                    <a class="accessibility" href="tel:${individualUser.phone}">${individualUser.phone}</a>
+                    <a class="accessibility" href="tel:${individualContact.phone}">${individualContact.phone}</a>
                 </div>
             </div>
         </div>
     </div>
     <div id="toolsRespContainer" class="tools-overlay-Container d-none" onclick="closeToolsresp()">
         <div id="toolsResp" class="editing-tools-resp d-none">
-            <div class="dpl-fl-al-cetr tools tools-resp" onclick="editRespContact(${individualUser.id});"><img class="icon tools-edit" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
-            <div class="dpl-fl-al-cetr tools tools-resp" onclick="deleteContact(${individualUser.id})"><img class="icon tools-delete" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
+            <div class="dpl-fl-al-cetr tools tools-resp" onclick="editRespContact(${individualContact.id});"><img class="icon tools-edit" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
+            <div class="dpl-fl-al-cetr tools tools-resp" onclick="deleteContact(${individualContact.id})"><img class="icon tools-delete" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
         </div>
     </div>
     `;
@@ -314,9 +304,9 @@ function openAddContact() {
 
 
 function openEditContact(id) {
-    let user = findContact(id)
+    let contact = findContact(id)
     let overlay = document.getElementById('overlayContact');
-    overlay.innerHTML = overlayEditContact(user);
+    overlay.innerHTML = overlayEditContact(contact);
 }
 
 
@@ -327,9 +317,9 @@ function openAddRespContact() {
 
 
 function openEditRespContact(id) {
-    let user = findContact(id)
+    let contact = findContact(id)
     let overlay = document.getElementById('overlayContact');
-    overlay.innerHTML = showOverlayEditResp(user);
+    overlay.innerHTML = showOverlayEditResp(contact);
 }
 
 
@@ -350,7 +340,7 @@ function showOverlayAddContact() {
                     <div class="dpl-fl-colu input-container">
                         <label class="input-field">
                             <div class="input-content">
-                                <input id="username" type="text" placeholder="Name" required>
+                                <input id="contactname" type="text" placeholder="Name" required>
                                 <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
                             </div>
                         </label>
@@ -394,7 +384,7 @@ function overlayEditContact(individualUser) {
                     <div class="dpl-fl-colu input-container">
                         <label class="input-field">
                             <div class="input-content">
-                                <input id="username" type="text" value="${individualUser.username}" placeholder="Name" required>
+                                <input id="contactname" type="text" value="${individualUser.username}" placeholder="Name" required>
                                 <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
                             </div>
                         </label>
@@ -434,23 +424,10 @@ async function saveContact(id) {
 }
 
 
-/* function updateUserData(id) {
-    let n = document.getElementById('username');
-    let e = document.getElementById('email');
-    let p = document.getElementById('phone');
-    let user = users.find(u => u.id === id);
-    if (user) {
-        user.username = n.value;
-        user.email = e.value;
-        user.phone = p.value;
-    }
-} */
-
 function updateUserData(id) {
-    let n = document.getElementById('username');
+    let n = document.getElementById('contactname');
     let e = document.getElementById('email');
     let p = document.getElementById('phone');
-
     let contact = contactsFirebase.find(c => c.id === id);
     if (contact) {
         contact.username = n.value;
@@ -464,7 +441,7 @@ function updateUserData(id) {
 
 function getContactColorById(id) {
     const contact = contactsFirebase.find(c => c.id === id);
-    return contact ? contact.color : "brown"; // Fallback-Farbe
+    return contact ? contact.color : "brown"; 
 }
 
 
@@ -483,24 +460,10 @@ async function deleteContact(id) {
 }
 
 
-/* function deleteUserData(id) {
-    const index = users.findIndex(user => user.id === id);
-    if (index !== -1) {
-        users.splice(index, 1);
-    }
-}
-
-
-function reSortUser() {
-    users.forEach((user, index) => {
-        user.id = index;
-    });
-} */
-
-
 function deleteUserData(id) {
     contactsFirebase = contactsFirebase.filter(user => user.id !== id);
 }
+
 
 function reSortUser() {
     contactsFirebase.forEach((user, index) => {user.id = index;});   
@@ -520,25 +483,12 @@ async function createNewContact() {
 }
 
 
-/* function pushNewContact() {
-    let numberOfUser = users.length + 1;
-    let n = document.getElementById('username');
-    let e = document.getElementById('email');
-    let p = document.getElementById('phone');
-    let newContact = { id: numberOfUser, username: n.value, email: e.value, phone: p.value, color: "brown" }
-    users.push(newContact);
-    console.log(newContact);
-} */
-
-
 function pushNewContact() {
-    let n = document.getElementById('username');
+    let n = document.getElementById('contactname');
     let e = document.getElementById('email');
     let p = document.getElementById('phone');
-
-    let newId = contactsFirebase.length;
     let newContact = {
-        id: newId,
+        id: contactsFirebase.length,
         username: n.value,
         email: e.value,
         phone: p.value,
@@ -555,12 +505,8 @@ function successChange() {
         let succContainer = document.getElementById('successContainer');
         success.classList.remove('d-none');
         succContainer.classList.remove('d-none');
-        setTimeout(() => {
-            success.classList.add('show-successful');
-        }, 10);
-        setTimeout(() => {
-            success.classList.remove('show-successful');
-        }, 1510);
+        setTimeout(() => {success.classList.add('show-successful');}, 10);
+        setTimeout(() => {success.classList.remove('show-successful');}, 1510);
         setTimeout(() => {
             success.classList.add('d-none');
             succContainer.classList.add('d-none');
@@ -573,6 +519,7 @@ function clearSuccessfulContainer() {
     let success = document.getElementById('success');
     success.innerHTML = "";
 }
+
 
 function successfulAddContact() {
     let success = document.getElementById('success');
@@ -597,7 +544,6 @@ function showSuccessfulDeleted() {
 
 
 /* responsive */
-
 
 function showRespUserInfo() {
     if (window.innerWidth <= 900) {
@@ -684,7 +630,6 @@ function changeAddBtnPerson() {
 }
 
 
-
 function showOverlayAddResp() {
     return `
     <div id="overlay" class="overlay-contact overlay-contact-resp d-none" onclick="eventBubbling(event)">
@@ -701,7 +646,7 @@ function showOverlayAddResp() {
                     <div class="dpl-fl-colu input-container-resp">
                         <label class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="username" type="text" placeholder="Name" required>
+                                <input id="contactname" type="text" placeholder="Name" required>
                                 <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
                             </div>
                         </label>
@@ -727,7 +672,7 @@ function showOverlayAddResp() {
 }
 
 
-function showOverlayEditResp(individualUser) {// id noch ändern und klasse display none hinzufügen
+function showOverlayEditResp(individualContact) {
     return `
     <div id="overlay" class="overlay-contact overlay-contact-resp" onclick="eventBubbling(event)">
             <div class="overlay-cover-resp">
@@ -738,31 +683,31 @@ function showOverlayEditResp(individualUser) {// id noch ändern und klasse disp
                 </div>
             </div>
             <div class="overlay-main-container-resp">
-                <div class="profil-img-container flex-box-center-center profil-img-resp" style="background-color: ${individualUser.color}">${individualUser.username.split(" ").map(n => n[0]).join("")}</div>
+                <div class="profil-img-container flex-box-center-center profil-img-resp" style="background-color: ${individualContact.color}">${individualContact.username.split(" ").map(n => n[0]).join("")}</div>
                 <form onsubmit="return false">
                     <div class="dpl-fl-colu input-container-resp">
                         <label class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="username" type="text" value="${individualUser.username}" placeholder="Name" required>
+                                <input id="contactname" type="text" value="${individualContact.username}" placeholder="Name" required>
                                 <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
                             </div>
                         </label>
                         <label class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="email" type="email" value="${individualUser.email}" placeholder="E-mail">
+                                <input id="email" type="email" value="${individualContact.email}" placeholder="E-mail">
                                 <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
                             </div>
                         </label>
                         <label class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="phone" type="tel" value="${individualUser.phone}" placeholder="Phone" pattern="[0-9]+$" inputmode="numeric">
+                                <input id="phone" type="tel" value="${individualContact.phone}" placeholder="Phone" pattern="[0-9]+$" inputmode="numeric">
                                 <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
                             </div>
                         </label>
                     </div>
                     <div class="submit-container submit-container-resp">
-                        <button class="blue-white-btn" onclick="deleteContact(${individualUser.id})">Delete</button>
-                        <button class="white-blue-btn white-blue-btn-resp" onclick="saveContact(${individualUser.id})">Save</button>
+                        <button class="blue-white-btn" onclick="deleteContact(${individualContact.id})">Delete</button>
+                        <button class="white-blue-btn white-blue-btn-resp" onclick="saveContact(${individualContact.id})">Save</button>
                     </div>
                 </form>
             </div>
