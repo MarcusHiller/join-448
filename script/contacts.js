@@ -21,7 +21,7 @@ const users = [
     { id: 19, username: "Florian Wagner", email: "florian.wagner@email.de", phone: "0123475", color: "#00BEE8" }
 ];
 
-let contactsFirebase;
+let contactsFirebase = [];
 
 const BASE_URL = "https://join-2c200-default-rtdb.europe-west1.firebasedatabase.app/";
 
@@ -54,11 +54,15 @@ async function saveUsers() {
 }
 
 
-
-
-
-
-
+async function loadContactsFromFirebase() {
+    let response = await fetch(BASE_URL + "/users.json");
+    if (response.ok) {
+        let data = await response.json();
+        contactsFirebase = Object.values(data || {});
+    } else {
+        contactsFirebase = [];
+    }
+}
 
 
 async function saveContactsToFirebase() {
@@ -75,6 +79,11 @@ async function saveContactsToFirebase() {
         }
     });
 }
+async function initContactsPage() {
+    await loadContactsFromFirebase();
+    await renderContacts();
+    init('contact_page');
+}
 
 
 function eventBubbling(event) {
@@ -82,7 +91,7 @@ function eventBubbling(event) {
 }
 
 
-function renderContacts() {
+async function renderContacts() {
     cleanContactsList();
     groupInitials();
 }
@@ -94,9 +103,20 @@ function cleanContactsList() {                                  // clears the en
 }
 
 
-function groupInitials() {                                     //  saves all contacts in a list, sorted by initials
+/* function groupInitials() {                                     //  saves all contacts in a list, sorted by initials
     let group = {};
     users.forEach(user => {
+        let lastNameInitinal = user.username.split(" ")[0][0].toUpperCase();
+        if (!group[lastNameInitinal]) group[lastNameInitinal] = [];
+        group[lastNameInitinal].push(user);
+    })
+    createHTML(group);
+} */
+
+
+function groupInitials() {                                     //  FIREBASETEST saves all contacts in a list, sorted by initials
+    let group = {};
+    contactsFirebase.forEach(user => {
         let lastNameInitinal = user.username.split(" ")[0][0].toUpperCase();
         if (!group[lastNameInitinal]) group[lastNameInitinal] = [];
         group[lastNameInitinal].push(user);
@@ -160,8 +180,14 @@ function resetClassChooseContact() {
 }
 
 
-function findContact(id) {
+/* function findContact(id) {
     let user = users.find(u => u.id == id);
+    return user;
+} */
+
+
+function findContact(id) {                              // TEST FIREBASE
+    let user = contactsFirebase.find(u => u.id == id);
     return user;
 }
 
