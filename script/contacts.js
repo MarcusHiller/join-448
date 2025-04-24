@@ -2,7 +2,7 @@
 the old list can be saved in Firebase using the two functions available below. 
 These must be executed in the console.*/
 
-const users = [
+const contacts = [
     { id: 0, username: "Max Bäcker", email: "max.baecker@email.de", phone: "0123456", color: "#FF7A00" },
     { id: 1, username: "Anna Fischer", email: "anna.fischer@email.de", phone: "0123457", color: "#FF5EB3" },
     { id: 2, username: "Sophie Förster", email: "sophie.foerster@email.de", phone: "0123458", color: "#6E52FF" },
@@ -27,7 +27,7 @@ const users = [
 
 
 async function loadUser() {
-    let response = await fetch(BASE_URL + "/users.json");
+    let response = await fetch(BASE_URL + "/contacts.json");
     let responseToJson = await response.json();
     //console.log(responseToJson);
     const usersArray = Object.values(responseToJson);
@@ -38,10 +38,10 @@ async function loadUser() {
 
 async function saveUsers() {
     const usersAsObject = {};
-    users.forEach(user => {
+    contacts.forEach(user => {
         usersAsObject[user.id] = user;
     });
-    const response = await fetch(BASE_URL + "/users.json", {
+    const response = await fetch(BASE_URL + "/contacts.json", {
         method: "PUT", 
         body: JSON.stringify(usersAsObject)
     });
@@ -61,7 +61,7 @@ const BASE_URL = "https://join-2c200-default-rtdb.europe-west1.firebasedatabase.
 
 
 async function loadContactsFromFirebase() {
-    let response = await fetch(BASE_URL + "/users.json");
+    let response = await fetch(BASE_URL + "/contacts.json");
     if (response.ok) {
         let data = await response.json();
         contactsFirebase = Object.values(data || {});
@@ -76,7 +76,7 @@ async function saveContactsToFirebase() {
     contactsFirebase.forEach((contact, index) => {
         contactsAsObject[index] = { ...contact, id: index };
     });
-    await fetch(`${BASE_URL}/users.json`, {
+    await fetch(BASE_URL + `/contacts.json`, {
         method: 'PUT',
         body: JSON.stringify(contactsAsObject),
         headers: {

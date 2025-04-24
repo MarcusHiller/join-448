@@ -33,15 +33,15 @@
                 </label>
                 <label class="input-field">
                     <div class="input-content">
-                        <input type="password" placeholder="Password" id="passwordReg" required>
-                        <img class="input-icon" src="../assets/img/icon/lock.svg" alt="">
+                        <input type="password" placeholder="Password" id="passwordReg" required oninput="updateSignupIcon('passwordReg')">
+                        <img class="input-icon" id="icon-passwordReg" src="../assets/img/icon/lock.svg" alt="" onclick="toggleSignupVisibility('passwordReg')">
                     </div>
                 </label>
                 <div class="dpl-fl-colu gap-small">
                     <label class="input-field" id="labelPasswdConf">
                         <div class="input-content">
-                            <input type="password" placeholder="Confirm Password" id="passwordConf" required>
-                            <img class="input-icon" src="../assets/img/icon/lock.svg" alt="">
+                            <input type="password" placeholder="Confirm Password" id="passwordConf" required oninput="updateSignupIcon('passwordConf')">
+                            <img class="input-icon" id="icon-passwordConf" src="../assets/img/icon/lock.svg" alt="" onclick="toggleSignupVisibility('passwordConf')">
                         </div>
                     </label>
                     <p id="errorPoppin" class="poppins opacity">Ups! your password don't match.</p>
@@ -53,14 +53,14 @@
                 </label>
             </div>
             <div class="submit-container" disabled="true">
-                <button>Sign Up</button>
+                <button>Sign up</button>
             </div>
         </form>
         <div class="info-pri-pol-container">
             <a href="#Privacy Policy">Privacy Policy</a><a href="Legal Notice">Legal Notice</a>
         </div>
         <div id="success" class="d-none">
-            <p>You Signed Up successfully!</p>
+            <p>You Signed up successfully!</p>
         </div>
     </div>
 </body>

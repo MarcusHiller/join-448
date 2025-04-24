@@ -1,3 +1,6 @@
+let isPasswordVisible = false;
+
+
 setTimeout(() => {
     document.getElementById('logoImg').classList.remove('d-none');
 }, 1060);
@@ -18,20 +21,29 @@ if (msg) {
 }
 
 
-function login() {
+async function login() {
     let email = document.getElementById('email');
     let passwd = document.getElementById('passwd');
-    let user = users.find(user => user.email == email.value && user.password == passwd.value)
-    console.log(user);
+    await loadUserData();
+    let user = userFirebase.find(user => user.email == email.value && user.password == passwd.value);
     if (user) {
-        console.log(user);
-        
         window.location.href = `html/summary.html?name=${encodeURIComponent(user.username)}&login=true`;
+        resetUserArray();
     } else {
         document.getElementById('labelPasswd').classList.add('input-field-error');
         info.classList.remove('opacity');
         info.innerHTML = "";
         info.innerHTML = "Check your e-mail and password. Please try again.";
+    }
+}
+
+
+async function loadUserData() {
+    try {
+        let data = await loadUsersFromFirebase();
+        userFirebase = Object.values(data || {});
+    } catch (error) {
+        console.error("Error loading user login function:", error);
     }
 }
 
@@ -42,4 +54,24 @@ function guestLogin(event) {
     document.getElementById('passwd').removeAttribute('required');
     window.location.href = "html/summary.html?name=Guest&login=true";
 
+}
+
+
+function updatePasswdIcon() {
+    const passwdInput = document.getElementById('passwd');
+    const passwdIcon = document.getElementById('passwdIcon');
+    if (passwdInput.value.length > 0) {
+        passwdIcon.src = isPasswordVisible ? '../assets/img/icon/visibility.svg' : '../assets/img/icon/visibility_off.svg';    
+    } else {
+        passwdIcon.src = '../assets/img/icon/lock.svg';
+    }
+}
+
+
+function togglePasswordVisibility() {
+    const passwdInput = document.getElementById('passwd');
+    const passwdIcon = document.getElementById('passwdIcon');
+    isPasswordVisible = !isPasswordVisible;
+    passwdInput.type = isPasswordVisible ? 'text' : 'password';
+    passwdIcon.src = isPasswordVisible ? '../assets/img/icon/visibility.svg' : '../assets/img/icon/visibility_off.svg';
 }

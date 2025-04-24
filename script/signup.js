@@ -1,3 +1,29 @@
+let visiblePasswords = {
+    passwordReg: false,
+    passwordConf: false,
+};
+
+
+function updateSignupIcon(id) {
+    const input = document.getElementById(id);
+    const icon = document.getElementById(`icon-${id}`);
+    if (input.value.length > 0) {
+        icon.src = visiblePasswords[id] ? '../assets/img/icon/visibility.svg' : '../assets/img/icon/visibility_off.svg';
+    } else {
+        icon.src = '../assets/img/icon/lock.svg';
+    }
+}
+
+
+function toggleSignupVisibility(id) {
+    const input = document.getElementById(id);
+    const icon = document.getElementById(`icon-${id}`);
+    visiblePasswords[id] = !visiblePasswords[id];
+    input.type = visiblePasswords[id] ? 'text' : 'password';
+    icon.src = visiblePasswords[id] ? '../assets/img/icon/visibility.svg' : '../assets/img/icon/visibility_off.svg';
+}
+
+
 function toggleCheckbox(event) {
     event.preventDefault();
     const checkbox = document.getElementById("checkbox");
@@ -26,7 +52,7 @@ function hoverImage(isHover, event) {
 document.getElementById('signup').addEventListener("submit", function (event) {
     const checkbox = document.getElementById("checkbox");
     if (!checkbox.checked) {
-        checkbox.reportValidity(); // Zeigt die Standard-Fehlermeldung
+        checkbox.reportValidity(); 
         event.preventDefault();
     }
 });

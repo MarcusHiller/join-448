@@ -193,6 +193,11 @@ h2::after {
 }
 
 
+.sign-up-container button:hover {
+    background-color: #29ABE2;
+}
+
+
 .submit-container {
     display: flex;
     gap: 35px;
@@ -204,6 +209,11 @@ h2::after {
     font-size: 21px;
     background-color: #2A3647;
     color: white;
+}
+
+
+.submit-container button:hover {
+    background-color: #29ABE2;
 }
 
 
