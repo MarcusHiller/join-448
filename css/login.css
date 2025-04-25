@@ -6,7 +6,7 @@
 
 
 .d-none {
-    display: none;
+    display: none !important;
 }
 
 
@@ -224,7 +224,7 @@ h2::after {
     gap: 10px;
     width: 246px;
     height: 35px;
-    bottom: 35px;
+    bottom: 80px;
     position: absolute;
 }
 
