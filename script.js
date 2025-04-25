@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function acceptCookies() {
     const now = new Date().getTime();
     localStorage.setItem("cookiesAcceptedAt", now);
-    document.getElementById('cookieBanner').classList.add('d_none');
+    document.getElementById('cookieBanner').classList.add('d-none');
     enableLogin();
     enableLoginButtons();
 }
@@ -86,7 +86,7 @@ function cookiesStillValid() {
 function enableLogin() {
     const loginArea = document.getElementById('loginArea');
     if (loginArea) {
-        loginArea.classList.remove('d_none');
+        loginArea.classList.remove('d-none');
     }
 }
 
@@ -115,13 +115,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (!stillValid) {
         // Kein Cookie oder abgelaufen
-        if (banner) banner.classList.remove('d_none');
-        if (loginArea) loginArea.classList.remove('d_none');
+        if (banner) banner.classList.remove('d-none');
+        if (loginArea) loginArea.classList.remove('d-none');
         disableLoginButtons();
     } else {
         // Zustimmung gültig
-        if (banner) banner.classList.add('d_none');
-        if (loginArea) loginArea.classList.remove('d_none');
+        if (banner) banner.classList.add('d-none');
+        if (loginArea) loginArea.classList.remove('d-none');
         enableLoginButtons();
     }
 
