@@ -121,75 +121,6 @@
     color: #D1D1D1;
 }
 
-.addTask-prio {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    margin-bottom: 24px;
-}
-
-
-.prio-label {
-    padding: 16px 10px;
-    border: 1px solid #D1D1D1;
-    border-radius: 10px;
-    font-size: 20px;
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-    width: 136px;
-    box-sizing: border-box;
-    text-align: center;
-    cursor: pointer;
-    user-select: none;
-}
-
-.prio-label img {
-    margin-left: 8px;
-}
-
-.prio-label:hover {
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-}
-
-.prio-urgent[type="radio"]:checked+.prio-urgent-label div {
-    background-color: #FF3D00;
-    color: white;
-}
-
-.prio-urgent[type="radio"]:checked+.prio-urgent-label div:hover {
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-}
-
-.prio-urgent[type="radio"]:checked+.prio-urgent-label img {
-    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7476%) hue-rotate(119deg) brightness(110%) contrast(101%);
-    ;
-}
-
-.prio-medium[type="radio"]:checked+.prio-medium-label div {
-    background-color: #FFA800;
-    color: white;
-}
-
-.prio-medium[type="radio"]:checked+.prio-medium-label div:hover {
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-}
-
-.prio-medium[type="radio"]:checked+.prio-medium-label img {
-    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7476%) hue-rotate(119deg) brightness(110%) contrast(101%);
-}
-
-.prio-low[type="radio"]:checked+.prio-low-label div {
-    background-color: #7AE229;
-    color: white;
-}
-
-.prio-low[type="radio"]:checked+.prio-low-label div:hover {
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-}
-
-.prio-low[type="radio"]:checked+.prio-low-label img {
-    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7476%) hue-rotate(119deg) brightness(110%) contrast(101%);
-}
-
 .assigned-select {
     cursor: pointer;
     background-color: white;
@@ -208,7 +139,6 @@
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);;
 }
 
-
 .assigned-select-dropdown-menu {
     position: relative;
 }
@@ -222,7 +152,6 @@
 
 .assigned-select-input:focus {
     outline: none;
-    
 }
 
 .assigned-select-input::placeholder {
@@ -264,14 +193,6 @@
     height: 300px;
     overflow: visible;
 }
-
-.checkbox[type="checkbox"] {
-    display: none;
- }
- 
- .checkbox[type="checkbox"]:checked + label img  {
-     content: url(/assets/img/icon/checkbox_checked.svg);
- }
 
 .user-dropmenu {
     display: flex;
@@ -346,7 +267,6 @@
     outline: #29ABE2 !important;
 }
 
-
 .addTask-footer {
     display: flex;
     align-items: flex-end;
@@ -365,7 +285,6 @@
     color: #FF8190;
     font-size: 20px !important;
 }
-
 
 .create-task-button {
     background-color: #2A3647;
@@ -564,28 +483,18 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    
     padding-top: 20px;
     margin-top: -20px;
-    /* transform: scaleY(0); */
-    /* transform-origin: top;
-    transition-duration: 200ms; */
     height: 0px;
     z-index: 11px;
-    
     overflow: hidden;
     position: absolute;
     transition: height 0.1s;
-
-   
 }
 
 .dropdown-animation {
-    /* transform: scaleY(1.0); */
-    /* transition-duration: 200ms; */
     height: 78px;
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
-    
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3); 
 }
 
 .category-element {
@@ -600,59 +509,4 @@
 .category-element:hover {
     background-color: #D1D1D1;
     
-}
-
-@media(max-width: 1180px) {
-    .add-container {
-        margin: 40px;
-        min-height: 0;
-        height: 90%;
-        width: 90%;
-    }
-
-    .content {
-        padding: 24px !important;
-    }
-
-    .addTask-prio {
-        flex-wrap: wrap;
-    }
-
-    .addTask-headline h2{
-        font-size: 48px;
-    }
-
-    .assigned-select {
-        font-size: 16px;
-    }
-
-    .addTask-label {
-        font-size: 16px;
-    }
-
-    .addTask-input {
-        font-size: 16px;
-    }
-
-    .addTask-textarea {
-        font-size: 16px;
-    }
-
-    .category-select {
-        font-size: 16px;
-    }
-
-    .prio-label {
-        font-size: 16px;
-    }
-
-    .placeholder-addTask {
-        margin: 0 12px;
-    }
-}
-
-@media(max-width: 900px) {
-    .add-container {
-        display: none;
-    }
 }

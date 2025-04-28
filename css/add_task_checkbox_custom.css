@@ -1,0 +1,76 @@
+.addTask-prio {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+
+.prio-label {
+    padding: 16px 10px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    font-size: 20px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    width: 136px;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.prio-label img {
+    margin-left: 8px;
+}
+
+.prio-label:hover {
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.prio-urgent[type="radio"]:checked+.prio-urgent-label div {
+    background-color: #FF3D00;
+    color: white;
+}
+
+.prio-urgent[type="radio"]:checked+.prio-urgent-label div:hover {
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.prio-urgent[type="radio"]:checked+.prio-urgent-label img {
+    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7476%) hue-rotate(119deg) brightness(110%) contrast(101%);
+    ;
+}
+
+.prio-medium[type="radio"]:checked+.prio-medium-label div {
+    background-color: #FFA800;
+    color: white;
+}
+
+.prio-medium[type="radio"]:checked+.prio-medium-label div:hover {
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.prio-medium[type="radio"]:checked+.prio-medium-label img {
+    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7476%) hue-rotate(119deg) brightness(110%) contrast(101%);
+}
+
+.prio-low[type="radio"]:checked+.prio-low-label div {
+    background-color: #7AE229;
+    color: white;
+}
+
+.prio-low[type="radio"]:checked+.prio-low-label div:hover {
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.prio-low[type="radio"]:checked+.prio-low-label img {
+    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7476%) hue-rotate(119deg) brightness(110%) contrast(101%);
+}
+
+.checkbox[type="checkbox"] {
+    display: none;
+ }
+ 
+ .checkbox[type="checkbox"]:checked + label img  {
+     content: url(/assets/img/icon/checkbox_checked.svg);
+ }
