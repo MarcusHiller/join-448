@@ -193,6 +193,10 @@ function fitEditTaskToContainer() {
   document.getElementById("spaceholder").classList.add("d_none");
   document.getElementById("addTask_form_container").classList.add("flex-direction");
   document.getElementById("edit_scrolling").classList.add("scrolling");
+  document.querySelectorAll(".prio-label").forEach(prioClass => {
+    prioClass.classList.add("prio-label-fit")
+    
+  });
 
 }
 
@@ -371,33 +375,35 @@ function checkedProgressValue(taskIndex, subtaskMax) {
 
 
 function searchTask() {
-  let inputField = document.getElementById("search_task");
-  let inputValue = inputField.value.toLowerCase();
-
+  const inputField = document.getElementById("search_task");
+  const inputValue = inputField.value.toLowerCase();
 
   for (let indexTask = 0; indexTask < tasks.length; indexTask++) {
-    let taskIndex = tasks.indexOf(tasks[indexTask])
-    let task = document.getElementById("task_index_" + taskIndex)
+    const taskIndex = indexTask;
+    const task = document.getElementById("task_index_" + taskIndex);
 
-    if (inputValue.length) {
-      if (tasks[indexTask].title.toLowerCase().match(inputValue) || tasks[indexTask].descripton.toLowerCase().match(inputValue)) {
+    if (!task) continue; // Sicherheits-Check
 
+    const title = tasks[indexTask].title.toLowerCase();
+    const descripton = tasks[indexTask].descripton.toLowerCase(); // <-- richtig geschrieben
 
+    // Wenn das Suchfeld leer ist → alle Tasks zeigen
+    if (inputValue === "") {
+      task.classList.remove("d_none");
+    } 
+    // Wenn etwas eingegeben wurde → filtern
+    else {
+      const isMatch = title.includes(inputValue) || descripton.includes(inputValue);
+
+      if (isMatch) {
         task.classList.remove("d_none");
-
-
-        searchedTasks.push(taskIndex);
-
       } else {
         task.classList.add("d_none");
       }
-
-    } else if (inputValue.length === 0) {
-      task.classList.remove("d_none");
-
     }
   }
 
+  // Wichtig: danach erneut leere Spalten prüfen
   renderEmptyColumn();
 }
 
@@ -416,7 +422,7 @@ function renderTaskInToColumn() {
   feedbackColumnRef.innerHTML = "";
   doneColumnRef.innerHTML = "";
 
-
+  
 
   for (let taskIndex = 0; taskIndex < tasks.length; taskIndex++) {
     let taskCondition = tasks[taskIndex].condition;
@@ -436,40 +442,58 @@ function renderTaskInToColumn() {
     renderPrio(taskIndex);
     renderCategoryColor(taskIndex);
   }
-
   renderEmptyColumn();
 
- 
+  renderDragDropHighlights(toDoColumnRef, inProgColumnRef, feedbackColumnRef, doneColumnRef)
+}
 
+function renderDragDropHighlights(toDoColumnRef, inProgColumnRef, feedbackColumnRef, doneColumnRef) {
   toDoColumnRef.innerHTML += "<div id='empty_task_toDo' class='empty-task d_none'></div>";
   inProgColumnRef.innerHTML += "<div id='empty_task_inProg' class='empty-task d_none'></div>";
   feedbackColumnRef.innerHTML += "<div id='empty_task_feedback' class='empty-task d_none'></div>";
   doneColumnRef.innerHTML += "<div id='empty_task_done' class='empty-task d_none'></div>";
+
 }
 
-function renderEmptyColumn() {
 
-  let toDoColumnRef = document.getElementById("toDo_column");
-  let inProgColumnRef = document.getElementById("inProg_column");
-  let feedbackColumnRef = document.getElementById("feedback_column");
-  let doneColumnRef = document.getElementById("done_column");
 
-  if (toDoColumnRef.innerHTML == "") {
-    toDoColumnRef.innerHTML = "<div class='empty-column'><p>No task To do</p></div>"
+  // const visibleChildren = Array.from(parent.children).filter(child => {
+  //   return window.getComputedStyle(child).display !== 'none';
+  // });
+
+  function renderEmptyColumn() {
+    let toDoColumnRef = document.getElementById("toDo_column");
+    let inProgColumnRef = document.getElementById("inProg_column");
+    let feedbackColumnRef = document.getElementById("feedback_column");
+    let doneColumnRef = document.getElementById("done_column");
+  
+    checkAndRenderEmptyMessage(toDoColumnRef, "No task To do");
+    checkAndRenderEmptyMessage(inProgColumnRef, "No task in Progress");
+    checkAndRenderEmptyMessage(feedbackColumnRef, "No task waiting");
+    checkAndRenderEmptyMessage(doneColumnRef, "No task is done");
   }
-
-  if (inProgColumnRef.innerHTML == "") {
-    inProgColumnRef.innerHTML = "<div class='empty-column'><p>No task in Progress</p></div>"
+  
+  function checkAndRenderEmptyMessage(columnRef, message) {
+    const visibleTasks = Array.from(columnRef.children).filter(child =>
+      !child.classList.contains("d_none") &&
+      !child.classList.contains("empty-column")
+    );
+  
+    const alreadyHasPlaceholder = columnRef.querySelector(".empty-column");
+  
+    // Wenn keine sichtbaren Tasks vorhanden sind → dann Platzhalter hinzufügen (aber nur wenn er nicht schon existiert)
+    if (visibleTasks.length === 0 && !alreadyHasPlaceholder) {
+      const placeholder = document.createElement("div");
+      placeholder.classList.add("empty-column");
+      placeholder.innerHTML = `<p>${message}</p>`;
+      columnRef.appendChild(placeholder);
+    }
+  
+    // Wenn wieder sichtbare Tasks da sind → Platzhalter entfernen
+    if (visibleTasks.length > 0 && alreadyHasPlaceholder) {
+      alreadyHasPlaceholder.remove();
+    }
   }
-
-  if (feedbackColumnRef.innerHTML == "") {
-    feedbackColumnRef.innerHTML = "<div class='empty-column'><p>No task waiting</p></div>"
-  }
-
-  if (doneColumnRef.innerHTML == "") {
-    doneColumnRef.innerHTML = "<div class='empty-column'><p>No task is done</p></div>"
-  };
-}
 
 function renderCategoryColor(taskIndex) {
   let categoryRef = document.getElementById("task_category_" + taskIndex);
@@ -554,10 +578,28 @@ function renderAssignedTo(taskIndex) {
 
 function dragoverHandler(ev) {
   ev.preventDefault();
+
+  const scrollZone = 30; // Abstand zum Rand
+  const scrollSpeed = 30;
+
+  // vertikal scrollen
+  if (ev.pageY < scrollZone) { // Scrollt, wenn Y-Position der Maus < 30px vom oberen Rand
+    window.scrollBy(0, -scrollSpeed);
+  } else if (window.innerHeight - ev.pageY < scrollZone) { // Scrollt, wenn Y-Position der Maus < 30px vom unteren Rand
+    window.scrollBy(0, scrollSpeed);
+  }
+
+  // // optional: horizontal scrollen
+  // if (ev.clientX < scrollZone) {
+  //   window.scrollBy(-scrollSpeed, 0);
+  // } else if (window.innerWidth - ev.clientX < scrollZone) {
+  //   window.scrollBy(scrollSpeed, 0);
+  // }
 }
 
 function startDragging(taskIndex) {
   currentDraggableTask = taskIndex;
+  // document.querySelector('.board-distribution').classList.add('lock-layout');
 }
 
 function moveTo(condition) {
@@ -598,25 +640,26 @@ function saveCondition(condition) {
 
 function addHighlight() {
 
-  if (tasks[currentDraggableTask].condition == "ToDo") {
-    document.getElementById("empty_task_inProg").classList.remove("d_none");
-  } else if (tasks[currentDraggableTask].condition == "inProgress") {
-    document.getElementById("empty_task_toDo").classList.remove("d_none");
-    document.getElementById("empty_task_feedback").classList.remove("d_none");
-  } else if (tasks[currentDraggableTask].condition == "feedback") {
-    document.getElementById("empty_task_inProg").classList.remove("d_none");
-    document.getElementById("empty_task_done").classList.remove("d_none");
-  } else if (tasks[currentDraggableTask].condition == "done") {
-    document.getElementById("empty_task_feedback").classList.remove("d_none");
-  }
+  // if (tasks[currentDraggableTask].condition == "ToDo") {
+  //   document.getElementById("empty_task_inProg").classList.remove("d_none");
+  // } else if (tasks[currentDraggableTask].condition == "inProgress") {
+  //   document.getElementById("empty_task_toDo").classList.remove("d_none");
+  //   document.getElementById("empty_task_feedback").classList.remove("d_none");
+  // } else if (tasks[currentDraggableTask].condition == "feedback") {
+  //   document.getElementById("empty_task_inProg").classList.remove("d_none");
+  //   document.getElementById("empty_task_done").classList.remove("d_none");
+  // } else if (tasks[currentDraggableTask].condition == "done") {
+  //   document.getElementById("empty_task_feedback").classList.remove("d_none");
+  // }
 }
 
 
 function removeHighlight() {
-  document.getElementById("empty_task_toDo").classList.add("d_none");
-  document.getElementById("empty_task_inProg").classList.add("d_none");
-  document.getElementById("empty_task_feedback").classList.add("d_none");
-  document.getElementById("empty_task_done").classList.add("d_none");
+  // document.querySelector('.board-distribution').classList.remove('lock-layout');
+  // document.getElementById("empty_task_toDo").classList.add("d_none");
+  // document.getElementById("empty_task_inProg").classList.add("d_none");
+  // document.getElementById("empty_task_feedback").classList.add("d_none");
+  // document.getElementById("empty_task_done").classList.add("d_none");
 }
 
 //  Get Data //

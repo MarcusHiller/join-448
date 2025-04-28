@@ -131,6 +131,7 @@ body {
 
 .board-distribution {
     display: flex;
+    position: relative;
 }
 
 .row {
@@ -171,6 +172,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    position: relative;
+    min-height: 54px;
 }
 
 .task {
@@ -183,7 +186,6 @@ body {
     flex-direction: column;
     cursor: pointer;
     user-select: none;
-
 }
 
 .task-cat-user {
@@ -285,8 +287,41 @@ body {
     font-size: 12px;
 }
 
+/* Spinner */
 
-@media(max-width: 1400px) {
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 8px solid #eee;
+    border-top: 8px solid #2A3647;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .lock-layout {
+    min-width: 1000px; /* oder was dein Layout braucht */
+  }
+  
+  @media (max-width: 600px) {
+    .lock-layout {
+      min-width: 600px; /* kleinere Min-Width für Handy */
+    }
+  }
+
+
+@media(max-width: 1500px) {
     .row {
         flex-wrap: wrap;
         gap: 24px;
