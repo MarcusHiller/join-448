@@ -130,3 +130,11 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+window.addEventListener("DOMContentLoaded", () => {
+    const backClick = document.getElementById("backArrow");
+    if (backClick) {
+        backClick.addEventListener("click", () => {
+            history.back();
+        });
+    }
+});
