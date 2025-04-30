@@ -129,3 +129,4 @@ window.addEventListener('DOMContentLoaded', () => {
         acceptBtn.addEventListener('click', acceptCookies);
     }
 });
+
