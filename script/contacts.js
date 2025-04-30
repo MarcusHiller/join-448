@@ -53,6 +53,22 @@ async function saveUsers() {
     }
 }
 
+function logOut() {
+    localStorage.setItem("loggedIn", "false");
+    window.location.href = "../index.html";
+}
+
+
+
+/* Access protection for the main pages */
+
+const statusLogIn = localStorage.getItem("loggedIn");
+
+    if (!statusLogIn) {
+      window.location.href = "../index.html";
+    }
+
+
 
 /* firebase functions loading and saving contacts */
 

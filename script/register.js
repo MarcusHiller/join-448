@@ -100,7 +100,7 @@ async function saveUsersToFirebase() {
             headers: { 'Content-Type': 'application/json' }
         });
     } catch (error) {
-        console.error("Fehler beim Speichern:", error.message);
+        console.error("Error when saving:", error.message);
         resetUserArray();
     }
 }
@@ -110,7 +110,7 @@ function showOverlaySuccessful() {
     let overlay = document.getElementById('success');
     overlay.classList.remove('d-none');
     overlay.classList.add('overlay-successful');
-    setTimeout(() => { window.location.href = '../index.html?msg=Du hast dich erfolgreich registriert.' }, 1500);
+    setTimeout(() => { window.location.href = '../index.html?msg=You have successfully registered.' }, 1500);
 }
 
 

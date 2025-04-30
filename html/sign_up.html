@@ -33,14 +33,14 @@
                 </label>
                 <label class="input-field">
                     <div class="input-content">
-                        <input type="password" placeholder="Password" id="passwordReg" required oninput="updateSignupIcon('passwordReg')">
+                        <input type="password" placeholder="Password" id="passwordReg" minlength="6" required oninput="updateSignupIcon('passwordReg')">
                         <img class="input-icon" id="icon-passwordReg" src="../assets/img/icon/lock.svg" alt="" onclick="toggleSignupVisibility('passwordReg')">
                     </div>
                 </label>
                 <div class="dpl-fl-colu gap-small">
                     <label class="input-field" id="labelPasswdConf">
                         <div class="input-content">
-                            <input type="password" placeholder="Confirm Password" id="passwordConf" required oninput="updateSignupIcon('passwordConf')">
+                            <input type="password" placeholder="Confirm Password" id="passwordConf" minlength="6" required oninput="updateSignupIcon('passwordConf')">
                             <img class="input-icon" id="icon-passwordConf" src="../assets/img/icon/lock.svg" alt="" onclick="toggleSignupVisibility('passwordConf')">
                         </div>
                     </label>
