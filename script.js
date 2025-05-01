@@ -12,6 +12,19 @@ async function init(page) {
 
 }
 
+function isUserLoged() {
+    const statusLogIn = localStorage.getItem("loggedIn");
+    if (statusLogIn === "false") {
+        window.location.href = "../index.html";
+    }
+}
+
+
+function logOut() {
+    localStorage.setItem("loggedIn", "false");
+    window.location.href = "../index.html";
+}
+
 //window.onload = init;
 
 async function loadHTML(file, ID) {

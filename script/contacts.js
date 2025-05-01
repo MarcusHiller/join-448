@@ -1,19 +1,6 @@
 /* Access protection for the main pages */
 
 
-function isUserLoged() {
-    const statusLogIn = localStorage.getItem("loggedIn");
-    if (statusLogIn === "false") {
-      window.location.href = "../index.html";
-    }
-}
-
-
-function logOut() {
-    localStorage.setItem("loggedIn", "false");
-    window.location.href = "../index.html";
-}
-
 
 async function initContactsPage() {
     isUserLoged();
