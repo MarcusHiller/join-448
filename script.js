@@ -33,8 +33,21 @@ function activePageHiglight(page) {
 function burgerMenuSliding() {
     document.getElementById("burger_menu").classList.toggle("burger-menu-transition");
 }
+async function loadHeaderNavbarIntern() {
+    await Promise.all([
+        loadHTML("header.html", "header-placeholder"),
+        loadHTML("navbar.html", "navbar-section")
+    ]);
+}
 
-async function loadInternHeaderAndNavbar() {
+async function loadHTML(file, elementId) {
+    const response = await fetch(file);
+    const html = await response.text();
+    const container = document.getElementById(elementId);
+    if (container) container.innerHTML = html;
+}
+
+async function loadHeaderNavbarIntern() {
     await Promise.all([
         loadHTML("header.html", "header-placeholder"),
         loadHTML("navbar.html", "navbar-section")
@@ -42,27 +55,31 @@ async function loadInternHeaderAndNavbar() {
 }
 
 async function loadHeaderNavbarExtern() {
-    await loadHTML("navbar_header_extern.html", "navbar-section");
-    const header = document.getElementById("header-placeholder");
-    if (header) header.innerHTML = "";
+    await Promise.all([
+        loadHTML("header_extern.html", "header-placeholder"),
+        loadHTML("navbar_extern.html", "navbar-section")
+    ]);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     const layout = localStorage.getItem("layout");
-    const path = window.location.pathname;
 
-    const isExternPage = path.includes("legal_notice.html") || path.includes("privacy_policy.html");
-
-    if (isExternPage) {
-        if (layout === "intern") {
-            loadInternHeaderAndNavbar();
-        } else {
-            loadHeaderNavbarExtern();
-        }
-
+    if (layout === "intern") {
+        loadHeaderNavbarIntern();
         localStorage.removeItem("layout");
     }
+
+    if (layout === "extern") {
+        loadHeaderNavbarExtern();
+        localStorage.removeItem("layout");
+    }
+
+    // Wenn kein Marker da: NICHTS laden (wie ganz am Anfang auf allen anderen Seiten)
 });
+
+
+
+
 
 function acceptCookies() {
     const now = new Date().getTime();
@@ -75,11 +92,9 @@ function acceptCookies() {
 function cookiesStillValid() {
     const timestamp = localStorage.getItem("cookiesAcceptedAt");
     if (!timestamp) return false;
-
     const acceptedAt = parseInt(timestamp);
     const now = new Date().getTime();
     const oneYear = 1000 * 60 * 60 * 24 * 365; // 1 Jahr
-
     return (now - acceptedAt) < oneYear;
 }
 
@@ -109,23 +124,25 @@ window.addEventListener('DOMContentLoaded', () => {
     const acceptBtn = document.getElementById('acceptCookiesBtn');
     const banner = document.getElementById('cookieBanner');
     const loginArea = document.getElementById('loginArea');
-
-    console.log("cookiesAcceptedAt:", localStorage.getItem("cookiesAcceptedAt"));
-    console.log("cookiesStillValid():", stillValid);
-
     if (!stillValid) {
-        // Kein Cookie oder abgelaufen
         if (banner) banner.classList.remove('d-none');
         if (loginArea) loginArea.classList.remove('d-none');
         disableLoginButtons();
     } else {
-        // Zustimmung gültig
         if (banner) banner.classList.add('d-none');
         if (loginArea) loginArea.classList.remove('d-none');
         enableLoginButtons();
     }
-
     if (acceptBtn) {
         acceptBtn.addEventListener('click', acceptCookies);
+    }
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+    const backClick = document.getElementById("backArrow");
+    if (backClick) {
+        backClick.addEventListener("click", () => {
+            history.back();
+        });
     }
 });

@@ -75,6 +75,16 @@ a:hover {
     text-decoration: underline;
 }
 
+.help-icon{
+    display: none;
+}
+
+.helpFirstSection{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .helpContainer {
     display: flex;
     flex-direction: column;
