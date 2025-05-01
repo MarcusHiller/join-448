@@ -34,26 +34,6 @@ function burgerMenuSliding() {
     document.getElementById("burger_menu").classList.toggle("burger-menu-transition");
 }
 
-
-function acceptCookies() {
-    document.getElementById('cookieBanner').style.display = 'none';
-    document.cookie = "cookiesAccepted=true; path=/; max-age=" + 60 * 60 * 24 * 365;
-}
-
-window.addEventListener('load', function () {
-    const cookiesAccepted = document.cookie.includes("cookiesAccepted=true");
-    const acceptBtn = document.getElementById('acceptCookiesBtn');
-    const banner = document.getElementById('cookieBanner');
-
-    if (!cookiesAccepted && banner) {
-        banner.style.display = 'flex';
-    }
-
-    if (acceptBtn) {
-        acceptBtn.addEventListener('click', acceptCookies);
-    }
-});
-
 async function loadInternHeaderAndNavbar() {
     await Promise.all([
         loadHTML("header.html", "header-placeholder"),
@@ -71,15 +51,81 @@ document.addEventListener("DOMContentLoaded", () => {
     const layout = localStorage.getItem("layout");
     const path = window.location.pathname;
 
-    if (layout === "intern") {
-        if (path.includes("legal_notice.html")) {
+    const isExternPage = path.includes("legal_notice.html") || path.includes("privacy_policy.html");
+
+    if (isExternPage) {
+        if (layout === "intern") {
             loadInternHeaderAndNavbar();
-        } else if (path.includes("privacy_policy.html")) {
-            loadInternHeaderAndNavbar();
+        } else {
+            loadHeaderNavbarExtern();
         }
+
+        localStorage.removeItem("layout");
+    }
+});
+
+function acceptCookies() {
+    const now = new Date().getTime();
+    localStorage.setItem("cookiesAcceptedAt", now);
+    document.getElementById('cookieBanner').classList.add('d-none');
+    enableLogin();
+    enableLoginButtons();
+}
+
+function cookiesStillValid() {
+    const timestamp = localStorage.getItem("cookiesAcceptedAt");
+    if (!timestamp) return false;
+
+    const acceptedAt = parseInt(timestamp);
+    const now = new Date().getTime();
+    const oneYear = 1000 * 60 * 60 * 24 * 365; // 1 Jahr
+
+    return (now - acceptedAt) < oneYear;
+}
+
+function enableLogin() {
+    const loginArea = document.getElementById('loginArea');
+    if (loginArea) {
+        loginArea.classList.remove('d-none');
+    }
+}
+
+function disableLoginButtons() {
+    const logInBtn = document.getElementById('logIn');
+    const guestBtn = document.getElementById('guestLogIn');
+    if (logInBtn) logInBtn.disabled = true;
+    if (guestBtn) guestBtn.disabled = true;
+}
+
+function enableLoginButtons() {
+    const logInBtn = document.getElementById('logIn');
+    const guestBtn = document.getElementById('guestLogIn');
+    if (logInBtn) logInBtn.disabled = false;
+    if (guestBtn) guestBtn.disabled = false;
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const stillValid = cookiesStillValid();
+    const acceptBtn = document.getElementById('acceptCookiesBtn');
+    const banner = document.getElementById('cookieBanner');
+    const loginArea = document.getElementById('loginArea');
+
+    console.log("cookiesAcceptedAt:", localStorage.getItem("cookiesAcceptedAt"));
+    console.log("cookiesStillValid():", stillValid);
+
+    if (!stillValid) {
+        // Kein Cookie oder abgelaufen
+        if (banner) banner.classList.remove('d-none');
+        if (loginArea) loginArea.classList.remove('d-none');
+        disableLoginButtons();
     } else {
-        loadHeaderNavbarExtern();
+        // Zustimmung gültig
+        if (banner) banner.classList.add('d-none');
+        if (loginArea) loginArea.classList.remove('d-none');
+        enableLoginButtons();
     }
 
-    localStorage.removeItem("layout");
+    if (acceptBtn) {
+        acceptBtn.addEventListener('click', acceptCookies);
+    }
 });

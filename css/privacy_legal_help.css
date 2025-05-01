@@ -3,6 +3,7 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: #F6F7F8;
     color: black;
+    height: 100vh;
 }
 
 .policy-content {
@@ -16,13 +17,14 @@ body {
 
 .policy-container {
     max-width: 960px;
-        margin: 0 auto;
-        padding: 48px 24px;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        box-sizing: border-box;
+    margin: 0 auto;
+    padding: 32px 24px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
+
 .headline {
     font-size: 20px;
     font-weight: 700;
@@ -42,7 +44,7 @@ body {
 .legal-container {
     max-width: 960px;
     margin: 0 auto;
-    padding: 48px 24px;
+    padding: 32px 24px;
     height: 100vh;
     display: flex;
     flex-direction: column;
