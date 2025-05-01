@@ -145,6 +145,20 @@ function renderUserIntoTaskOverlay(taskIndex) {
 
 }
 
+// function renderUserIntoTaskOverlay(taskIndex) {
+//   let taskUsers = tasks[taskIndex].assignedTo;
+//   let taskUsersTableRef = document.getElementById("task_overlay_user_list");
+//   taskUsersTableRef.innerHTML = "";
+
+//   if (taskUsers.length) {
+//     taskUsers.forEach((user, indexUser) => {
+//       taskUsersTableRef.innerHTML += getTaskUsersOverlayTemplate(taskIndex, indexUser);
+//     });
+//   } else {
+//     taskUsersTableRef.innerHTML = "<span style='opacity: 0.2; font-size: 16px'>No User added</span>";
+//   }
+// }
+
 function closeOverlayTask() {
 
   document.getElementById("overlay_container").classList.add("overlay-container-sliding");
