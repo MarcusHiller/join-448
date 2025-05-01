@@ -1,7 +1,9 @@
 let currentDraggableTask;
 let tasks = [];
 let currentCondition = "ToDo";
-let searchedTasks = []
+let searchedTasks = [];
+let usersToDeleteFromFirebase = [];
+
 
 
 async function getAddTaskHTML() {
@@ -289,7 +291,7 @@ function checkAssignedTo(taskIndex) {
 
   for (let index = 0; index < checkedUsers.length; index++) {
     let username = tasks[taskIndex].assignedTo[index]
-    let user = users.indexOf(username)
+    let user = contactsFirebase.indexOf(username)
     ids.push(user);
   }
 
@@ -681,6 +683,7 @@ function removeHighlight() {
 
 
 async function getDataFromServer(path = "") {
+  await loadContactsFromFirebase();
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
   console.log(responseToJson);
@@ -707,10 +710,19 @@ async function getDataFromServer(path = "") {
       }
     )
   }
-
   renderTaskInToColumn();
+  await deleteNotFoundedUserFromTask()
   console.log(tasks);
 
+}
+
+async function deleteNotFoundedUserFromTask() {
+  for (let del of usersToDeleteFromFirebase) {
+    await fetch(`${BASE_URL}/tasks/${del.taskKey}/assignedTo/${del.userKey}.json`, {
+      method: "DELETE"
+    });
+    console.log(`Gelöscht nach dem Laden: ${del.username} (Key: ${del.userKey})`);
+  }
 }
 
 function arraySubtasks(index, responseToJson, tasksKeysArray) {
@@ -734,23 +746,56 @@ function arraySubtasks(index, responseToJson, tasksKeysArray) {
 
   }
 
-  return subtasks
+  return subtasks;
 }
+
+// function arrayAssignedTo(index, responseToJson, tasksKeysArray) {
+//   let usersArray = [];
+//   if (responseToJson[tasksKeysArray[index]].assignedTo) {
+//     let usersKeysArray = Object.keys(responseToJson[tasksKeysArray[index]].assignedTo);
+
+//     console.log(usersKeysArray);
+
+//     for (let userIndex = 0; userIndex < usersKeysArray.length; userIndex++) {
+//       let username = responseToJson[tasksKeysArray[index]].assignedTo[usersKeysArray[userIndex]]  
+//       let user = contactsFirebase.find(user => username === user.username)
+//       usersArray.push(user)
+//     }
+//     console.log(usersArray);
+//   }
+//   return usersArray;
+// }
+
+
 
 function arrayAssignedTo(index, responseToJson, tasksKeysArray) {
   let usersArray = [];
-  if (responseToJson[tasksKeysArray[index]].assignedTo) {
-    let usersKeysArray = Object.keys(responseToJson[tasksKeysArray[index]].assignedTo);
+  let taskKey = tasksKeysArray[index];
+  let assignedTo = responseToJson[taskKey].assignedTo;
 
-    console.log(usersKeysArray);
+  if (assignedTo) {
+    let usersKeysArray = Object.keys(assignedTo);
 
-    for (let userIndex = 0; userIndex < usersKeysArray.length; userIndex++) {
-      let username = responseToJson[tasksKeysArray[index]].assignedTo[usersKeysArray[userIndex]]
-      let user = users.find(user => username === user.username)
-      usersArray.push(user)
+    for (let userKey of usersKeysArray) {
+      let username = assignedTo[userKey];
+      let contact = contactsFirebase.find(user =>
+        user.username.toLowerCase() === username.toLowerCase()
+      );
+
+      if (contact) {
+        usersArray.push(contact);
+      } else {
+        // ❌ Statt sofort zu löschen → merken
+        usersToDeleteFromFirebase.push({
+          taskKey: taskKey,
+          userKey: userKey,
+          username: username
+        });
+      }
     }
-    console.log(usersArray);
   }
+
   return usersArray;
 }
+
 

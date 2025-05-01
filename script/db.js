@@ -23,11 +23,11 @@ async function saveUsers() {
 }
 
 
-let users = [
-    { 'username': 'Max Mustermann', 'email': 'maxmustermann@email.de', 'password': 'test' },
-    { 'username': 'Rainer Zufall', 'email': 'rainerzufall@email.de', 'password': 'test' },
-    { 'username': 'Beate Baum', 'email': 'beatebaum@email.de', 'password': 'test' }
-];
+// let users = [
+//     { 'username': 'Max Mustermann', 'email': 'maxmustermann@email.de', 'password': 'test' },
+//     { 'username': 'Rainer Zufall', 'email': 'rainerzufall@email.de', 'password': 'test' },
+//     { 'username': 'Beate Baum', 'email': 'beatebaum@email.de', 'password': 'test' }
+// ];
 
 
 const contacts = [
@@ -93,9 +93,19 @@ async function loadContactsFromFirebase() {
     if (response.ok) {
         let data = await response.json();
         contactsFirebase = Object.values(data || {});
+        renderAvatar();
     } else {
         contactsFirebase = [];
     }
+}
+
+ function renderAvatar() {
+    contactsFirebase.forEach(contact => {
+        contact.avatar = contact.username
+            .split(" ")                   // Zerlege in einzelne Wörter
+            .map(name => name[0].toUpperCase())  // Nimm jeweils den ersten Buchstaben und mach ihn groß
+            .join("");                    // Füge die Buchstaben zusammen
+    });
 }
 
 

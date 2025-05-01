@@ -54,8 +54,8 @@ function getSubtaskTemplate(indexSubTask, subtaskValue, taskIndex) {
 function getUserListTemplate(indexUsers) {
     return `<label for="user_${indexUsers}" class="user-dropmenu">
                 <div class="user-logo-container">
-                    <div id="avatar_user_${indexUsers}" class="user-logo-small" style="background-color:${users[indexUsers].color}">${users[indexUsers].avatar}</div>
-                    <span>${users[indexUsers].username}</span>
+                    <div id="avatar_user_${indexUsers}" class="user-logo-small" style="background-color:${contactsFirebase[indexUsers].color}">${contactsFirebase[indexUsers].avatar}</div>
+                    <span>${contactsFirebase[indexUsers].username}</span>
                 </div>
                 <input id="user_${indexUsers}" type="checkbox" class="checkbox" onclick="addCheckedUsers(${indexUsers})">
                 <label for="user_${indexUsers}"><img src="/assets/img/icon/checkbox.svg" alt=""></label>
@@ -63,7 +63,7 @@ function getUserListTemplate(indexUsers) {
 }
 
 function getCheckedAvatar(indexUsers) {
-    return `<div id="user_checked_${indexUsers}" class="user-logo-small no-margin" style="background-color:${users[indexUsers].color}">${users[indexUsers].avatar}</div>`
+    return `<div id="user_checked_${indexUsers}" class="user-logo-small no-margin" style="background-color:${contactsFirebase[indexUsers].color}">${contactsFirebase[indexUsers].avatar}</div>`
     
 }
 
