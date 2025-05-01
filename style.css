@@ -114,6 +114,7 @@ header {
     justify-content: space-between;
     align-items: center;
     z-index: 10;
+    text-decoration: none;
 }
 
 .navbar {
@@ -188,6 +189,14 @@ header {
   font-family: Inter;
 }
 
+.privacy-legal:hover{
+  background-color: #091931;
+    opacity: 1 !important;
+    text-decoration: none;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
 .content {
   flex: 1;
   box-sizing: border-box;
@@ -253,6 +262,10 @@ header {
 .privacy-Legal-mobile:hover {
   background-color: #091931;
   opacity: 1 !important;
+    text-decoration: none;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
 
