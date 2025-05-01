@@ -23,6 +23,7 @@ function isUserLoged() {
 function logOut() {
     localStorage.setItem("loggedIn", "false");
     window.location.href = "../index.html";
+    localStorage.removeItem("layout");
 }
 
 //window.onload = init;
@@ -58,33 +59,36 @@ async function loadHTML(file, elementId) {
 
 async function loadHeaderNavbarIntern() {
     await Promise.all([
-        loadHTML("header.html", "header-placeholder"),
-        loadHTML("navbar.html", "navbar-section")
+        loadHTML("/html/header.html", "header-placeholder"),
+        loadHTML("/html/navbar.html", "navbar-section")
     ]);
 }
 
 
 async function loadHeaderNavbarExtern() {
     await Promise.all([
-        loadHTML("header_extern.html", "header-placeholder"),
-        loadHTML("navbar_extern.html", "navbar-section")
+        loadHTML("/html/header_extern", "header-placeholder"),
+        loadHTML("/html/navbar_extern.html", "navbar-section")
     ]);
 }
 
+function setLayoutAndRedirect(layout, url) {
+    localStorage.setItem('layout', layout);
+    window.location.href = url;
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     const layout = localStorage.getItem("layout");
 
     if (layout === "intern") {
         loadHeaderNavbarIntern();
-        localStorage.removeItem("layout");
-    }
-
-    if (layout === "extern") {
+    } else if (layout === "extern") {
         loadHeaderNavbarExtern();
-        localStorage.removeItem("layout");
     }
 });
+
+
+
 
 
 function acceptCookies() {
