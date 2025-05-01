@@ -1,474 +1,276 @@
- * {
+* {
      box-sizing: border-box;
      margin: 0;
  }
 
- body,html {
-    font-family: Inter;     
-    background-color: #F6F7F8;
-    width: 100%;
-    max-width: 1920px;
-    height: 100vh;
+ body,
+ html {
+     font-family: Inter;
+     background-color: #F6F7F8;
+     width: 100%;
+     max-width: 1920px;
+     height: 100vh;
  }
 
- .dashboardContainer {
-    display: flex;
-    flex-direction: column;
-    padding-left: 50px;
-    max-width: 1920px;
-    margin: 0 auto;
+ 
+ .dashboard-container {
+     display: flex;
+     flex-direction: column;
+     padding-left: 50px;
+     max-width: 1920px;
+     margin: 0 auto;
  }
 
-.dashboardHeader {
-    display: flex;
-    text-align: center;
-    padding-top: 30px;
-    width: 100%;
-    justify-content: flex-start;
-}
+ .dashboard-header {
+     display: flex;
+     text-align: center;
+     padding-top: 30px;
+     width: 100%;
+     justify-content: flex-start;
+ }
 
-.titleGroup {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    height: 73px;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-}
+ .title-group {
+     display: flex;
+     align-items: center;
+     gap: 30px;
+     height: 73px;
+     flex-wrap: nowrap;
+     white-space: nowrap;
+ }
 
-.titleGroup h1 {
-    font-size: 61px;
-    font-weight: 700;
-}
+ .title-group h1 {
+     font-size: 61px;
+     font-weight: 700;
+ }
 
-.titleDivider {
-    background-color: #29ABE2;
-}
+ .title-divider {
+     background-color: #29ABE2;
+ }
 
-.desktop-divider {
-    display: block;
-    width: 3px;
-    height: 60px;
-}
+ .desktop-divider {
+     display: block;
+     width: 3px;
+     height: 60px;
+ }
 
-.mobile-divider {
-    display: none;
-}
+ .mobile-divider {
+     display: none;
+ }
 
-.titleGroup span {
-    font-size: 27px;
-    color: #2A3647;
-    font-weight: 400;
-}
+ .title-group span {
+     font-size: 27px;
+     color: #2A3647;
+     font-weight: 400;
+ }
 
-.contentMetric{
-    margin-top: 35px;
-    display: flex;
-}
+ .content-metric {
+     margin-top: 35px;
+     display: flex;
+ }
 
-.devideContent {
-    display: flex;
-    gap: 10px;
-}
+ .devide-content {
+     display: flex;
+     gap: 10px;
+ }
 
-.greeting {
-    display: flex; 
-    align-items: center;
-    text-align: center;
-    flex-direction: column;
-    height: 100vh;
-    margin-top: 164px;
-}
+ .greeting {
+     display: flex;
+     align-items: center;
+     text-align: center;
+     flex-direction: column;
+     height: 100vh;
+     margin-top: 164px;
+ }
 
-.greetingRepeat{
-        display: flex;
-            align-items: center;
-            text-align: center;
-            flex-direction: column;
-}
+ .greeting-repeat {
+     display: flex;
+     align-items: center;
+     text-align: center;
+     flex-direction: column;
+ }
 
+ .greeting-name {
+     color: #29ABE2;
+     font-weight: 700;
+     font-size: 64px;
+ }
 
-.greetingName{
-    color: #29ABE2;
-    font-weight: 700;
-    font-size: 64px;
-}
+ .greeting-text {
+     font-size: 47px;
+     font-weight: 500;
+     color: #2A3647;
+ }
 
-.greetingText{
-    font-size: 47px;
-    font-weight: 500;
-    color: #2A3647;
-    
-}
-.greetingTextRepeat{
-        font-size: 47px;
-            font-weight: 500;
-            color: #2A3647;
-}
+ .greeting-text-repeat {
+     font-size: 47px;
+     font-weight: 500;
+     color: #2A3647;
+ }
 
-.metricsGrid {
-    width: 560px;
-    max-width: 100%;
-    margin: 0 auto;
-   }
+ .metrics-grid {
+     width: 560px;
+     max-width: 100%;
+     margin: 0 auto;
+ }
 
-.metricCardsUp{
-    width: 264px;
-    height: 168px;
-    background-color: white;
-    border-radius: 30px;
-    display: flex;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-}
+ .metric-cards-up {
+     width: 264px;
+     height: 168px;
+     background-color: white;
+     border-radius: 30px;
+     display: flex;
+     box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+ }
 
-.metricCardsUp:hover {
-    cursor: pointer;
-    transform: translateY(-4px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.08s ease-out, box-shadow 0.08s ease-out;
-}
+ .metric-cards-up:hover {
+     cursor: pointer;
+     transform: translateY(-4px);
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+     transition: transform 0.08s ease-out, box-shadow 0.08s ease-out;
+ }
 
-.firstMetric{
-   display: flex;
-   gap: 18px;
-   padding-bottom: 25px;
-}
+ .first-metric {
+     display: flex;
+     gap: 18px;
+     padding-bottom: 25px;
+ }
 
-.metricCardsUp.clicked{
-    transform: scale(0.97);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
+ .metric-cards-up.clicked {
+     transform: scale(0.97);
+     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+ }
 
-.contentCard{
-    width: 63px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-}
+ .content-card {
+     width: 63px;
+     text-align: center;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     gap: 4px;
+ }
 
-.frameLogo{
-    width: 69px;
-    height: 69px;
-}
+ .frame-logo {
+     width: 69px;
+     height: 69px;
+ }
 
-.textLabel{
-    font-size: 20px;
-    font-weight: 400;
-}
+ .text-label {
+     font-size: 20px;
+     font-weight: 400;
+ }
 
-.cardUp {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
+ .card-up {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 10px;
+ }
 
-.middleMetric{
-    height: 168px;
-    border-radius: 30px;
-    gap: 61px;
-    background-color: white;
-    padding: 28px 48px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-}
+ .middle-metric {
+     height: 168px;
+     border-radius: 30px;
+     gap: 61px;
+     background-color: white;
+     padding: 28px 48px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     width: 100%;
+     box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+ }
 
-.middleMetric:hover{
-    cursor: pointer;
-    transform: translateY(-4px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
+ .middle-metric:hover {
+     cursor: pointer;
+     transform: translateY(-4px);
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+     transition: all 0.3s ease;
+ }
 
-.middleCardLeft{
-    display: flex;
-    width: 130px;
-    height: 96px;
-    gap: 18px;
-    align-items: center;
-}
+ .middle-card-left {
+     display: flex;
+     width: 130px;
+     height: 96px;
+     gap: 18px;
+     align-items: center;
+ }
 
-.urgentLogo{
-    height: 60px;
-    width: 60px;
-}
+ .urgent-logo {
+     height: 60px;
+     width: 60px;
+ }
 
-.urgentContent{
-    width: 52px;
-    height: 96px;
-    text-align: center;
-}
+ .urgent-content {
+     width: 52px;
+     height: 96px;
+     text-align: center;
+ }
 
-.metricNumber {
-    font-size: 64px;
-    font-weight: 600;
-    color: black;
-}
+ .metric-number {
+     font-size: 64px;
+     font-weight: 600;
+     color: black;
+ }
 
-.metricLabel {
-    font-size: 16px;
-    font-weight: 400;
-    color: #2A3647;
-}
+ .metric-label {
+     font-size: 16px;
+     font-weight: 400;
+     color: #2A3647;
+ }
 
-.devider{
-    border:  2px;
-    width: 3px;
-    height: 102px;
-    background-color: #D1D1D1;
-}
+ .devider {
+     border: 2px;
+     width: 3px;
+     height: 102px;
+     background-color: #D1D1D1;
+ }
 
-.middleCardright{
-    display: flex;
-    width: 178px;
-    height: 57px;
-    gap: 13px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+ .middle-card-right {
+     display: flex;
+     width: 178px;
+     height: 57px;
+     gap: 13px;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+ }
 
-.metricDate{
-    font-size: 21px;
-    font-weight: 700;
-    color: #2A3647;
-}
+ .metric-date {
+     font-size: 21px;
+     font-weight: 700;
+     color: #2A3647;
+ }
 
-.downMetric{
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 25px;
-    flex-wrap: nowrap;
-    }
+ .down-metric {
+     display: flex;
+     width: 100%;
+     align-items: center;
+     justify-content: space-between;
+     padding-top: 25px;
+     flex-wrap: nowrap;
+ }
 
-.metricCardDown{
-    width: 168px;
-    height: 168px;
-    background-color: white;
-    border-radius: 30px;
-    padding: 25px;
-    gap: 13px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-}
+ .metric-card-down {
+     width: 168px;
+     height: 168px;
+     background-color: white;
+     border-radius: 30px;
+     padding: 25px;
+     gap: 13px;
+     box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+ }
 
-.metricCardDown:hover {
-    cursor: pointer;
-    transform: translateY(-4px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
+ .metric-card-down:hover {
+     cursor: pointer;
+     transform: translateY(-4px);
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+     transition: all 0.3s ease;
+ }
 
-.cardDown{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    
-}
-@media (max-width: 1135px) {
-    .greeting {
-        width: 200px;
-    }
-        .titleGroup h1 {
-            font-size: 47px;
-        }
-    .contentMetric{
-        margin-top: 10px;
-    }
-}
-@media (min-width: 991px) {
-    .greeting {
-        height: auto;
-        justify-content: center;
-    }
-}
-@media (max-width: 990px) {
-
-    .dashboardContainer {
-        padding-inline: 56px;
-    }
-    .dashboardHeader {
-        padding-top: 25px;
-        display: flex;
-        justify-content: flex-start;
-        width: 100%;
-    }
-    .greetingRepeat {
-        display: none;
-    } 
-  
-    .metricsGrid {
-            width: 100%;
-            max-width: 396px;
-            align-self: center;
-        }
-    .contentMetric{
-        margin-top: 0px;
-    }
-    .content {
-        display: flex;
-        padding: 0px 16px;
-    }
-    .metricsGrid.show-mobile {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-        margin-top: 32px;
-    }
-    .metricCardsUp {
-        width: 186px;
-        height: 110px;
-        border-radius: 20px;
-    }
-    .frameLogo {
-        width: 40px;
-        height: 40px;
-    }
-    .middleMetric {
-        height: 110px;
-        border-radius: 20px;
-        gap: 20px;
-        width: 100%;
-    }
-    .urgentLogo {
-        height: 40px;
-        width: 40px;
-    }
-    .urgentContent {
-        width: 50px;
-        height: 73px;
-    }
-    .devider {
-        height: 68px;
-    }
-    .textLabel {
-        font-size: 14px;
-    }
-    .metricNumber {
-        font-size: 47px;
-    }
-    .middleCardright {
-        width: 135px;
-        height: 44px;
-        gap: 8px;
-        text-align: center;
-    }
-    .metricDate {
-        font-size: 16px;
-    }
-    .downMetric {
-        height: 116px;
-        width: 100%;
-        gap: 12px;
-    }
-    .metricCardDown {
-        width: 116px;
-        height: 116px;
-        border-radius: 20px;
-    }
-    .titleGroup {
-        flex-direction: column;
-        align-items: flex-start;
-        text-align: left;
-        gap: 8px;
-        height: 104px;
-        width: 223px;
-    }
-    .desktop-divider {
-        display: none;
-    }
-    .mobile-divider {
-        display: block;
-        width: 90px;
-        height: 3px;
-    }
-    .titleGroup h1 {
-        font-size: 33px;
-    }
-    .titleGroup span {
-        font-size: 16px;
-    }
-    .greetingText {
-        font-size: 36px;
-        font-weight: 400;
-    }
-    .greetingName {
-        font-size: 47px;
-    }
-}
-
-@media (max-width: 400px) {
-    .metricsGrid.show-mobile {
-        width: 100%;
-        max-width: 300px;
-        gap: 12px;
-        margin-top: 24px;
-    }
-    .metricCardsUp {
-        width: 140px;
-        height: 100px;
-        border-radius: 20px;
-    }
-    .frameLogo {
-        width: 32px;
-        height: 32px;
-    }
-    .contentCard {
-        width: 36px;
-        height: 65px;
-    }
-    .textLabel {
-        font-size: 13px;
-    }
-    .metricNumber {
-        font-size: 36px;
-    }
-    .middleMetric {
-        width: 300px;
-        height: 90px;
-        gap: 14px;
-        padding: 16px;
-        border-radius: 20px;
-    }
-    .urgentLogo {
-        width: 36px;
-        height: 36px;
-    }
-    .urgentContent {
-        width: 42px;
-        height: 60px;
-    }
-    .devider {
-        height: 50px;
-    }
-    .middleCardright {
-        width: 110px;
-        height: 38px;
-        gap: 4px;
-        text-align: center;
-    }
-    .metricDate {
-        font-size: 14px;
-    }
-    .metricLabel {
-        font-size: 12px;
-    }
-    .downMetric {
-        max-width: 300px;
-        width: 100%;
-    }
-    .metricCardDown {
-        width: 96px;
-        height: 96px;
-    }
-}
+ .card-down {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     text-align: center;
+ }

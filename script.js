@@ -39,19 +39,14 @@ function activePageHiglight(page) {
     document.getElementById("board_page").classList.remove("active-menu");
     document.getElementById("contact_page").classList.remove("active-menu");
     document.getElementById("help_page").classList.remove("active-menu");
-
     document.getElementById(page).classList.add("active-menu");
 }
+
 
 function burgerMenuSliding() {
     document.getElementById("burger_menu").classList.toggle("burger-menu-transition");
 }
-async function loadHeaderNavbarIntern() {
-    await Promise.all([
-        loadHTML("header.html", "header-placeholder"),
-        loadHTML("navbar.html", "navbar-section")
-    ]);
-}
+
 
 async function loadHTML(file, elementId) {
     const response = await fetch(file);
@@ -60,6 +55,7 @@ async function loadHTML(file, elementId) {
     if (container) container.innerHTML = html;
 }
 
+
 async function loadHeaderNavbarIntern() {
     await Promise.all([
         loadHTML("header.html", "header-placeholder"),
@@ -67,12 +63,14 @@ async function loadHeaderNavbarIntern() {
     ]);
 }
 
+
 async function loadHeaderNavbarExtern() {
     await Promise.all([
         loadHTML("header_extern.html", "header-placeholder"),
         loadHTML("navbar_extern.html", "navbar-section")
     ]);
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const layout = localStorage.getItem("layout");
@@ -86,12 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
         loadHeaderNavbarExtern();
         localStorage.removeItem("layout");
     }
-
-    // Wenn kein Marker da: NICHTS laden (wie ganz am Anfang auf allen anderen Seiten)
 });
-
-
-
 
 
 function acceptCookies() {
@@ -102,6 +95,7 @@ function acceptCookies() {
     enableLoginButtons();
 }
 
+
 function cookiesStillValid() {
     const timestamp = localStorage.getItem("cookiesAcceptedAt");
     if (!timestamp) return false;
@@ -111,12 +105,14 @@ function cookiesStillValid() {
     return (now - acceptedAt) < oneYear;
 }
 
+
 function enableLogin() {
     const loginArea = document.getElementById('loginArea');
     if (loginArea) {
         loginArea.classList.remove('d-none');
     }
 }
+
 
 function disableLoginButtons() {
     const logInBtn = document.getElementById('logIn');
@@ -125,12 +121,14 @@ function disableLoginButtons() {
     if (guestBtn) guestBtn.disabled = true;
 }
 
+
 function enableLoginButtons() {
     const logInBtn = document.getElementById('logIn');
     const guestBtn = document.getElementById('guestLogIn');
     if (logInBtn) logInBtn.disabled = false;
     if (guestBtn) guestBtn.disabled = false;
 }
+
 
 window.addEventListener('DOMContentLoaded', () => {
     const stillValid = cookiesStillValid();
@@ -150,6 +148,7 @@ window.addEventListener('DOMContentLoaded', () => {
         acceptBtn.addEventListener('click', acceptCookies);
     }
 });
+
 
 window.addEventListener("DOMContentLoaded", () => {
     const backClick = document.getElementById("backArrow");

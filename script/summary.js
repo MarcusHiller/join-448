@@ -17,11 +17,21 @@ function navigateTo(url, element) {
     }, 80);
 }
 
+function setGreetingText(element, name) {
+    if (!element) return;
+
+    if (name && name !== "Guest") {
+        element.innerHTML = `${greetingPhrase}, <span class="greeting-name">${name}</span>`;
+    } else {
+        element.innerHTML = `${greetingPhrase}!`;
+    }
+}
+
 function showMetricsGrid(event) {
     if (window.innerWidth <= 990) {
         event.preventDefault();
         let greeting = document.querySelector('.greeting');
-        let grid = document.querySelector('.metricsGrid');
+        let grid = document.querySelector('.metrics-grid');
 
         if (greeting) greeting.classList.add('d-none');
         if (grid) {
@@ -33,21 +43,11 @@ function showMetricsGrid(event) {
     return true;
 }
 
-function setGreetingText(element, name) {
-    if (!element) return;
-
-    if (name && name !== "Guest") {
-        element.innerHTML = `${greetingPhrase}, <span class="greetingName">${name}</span>`;
-    } else {
-        element.innerHTML = `${greetingPhrase}!`;
-    }
-}
-
 function initGreeting() {
     let greetingContainer = document.querySelector('.greeting');
-    let greetingText = document.querySelector('.greetingText');
-    let grid = document.querySelector('.metricsGrid');
-    let header = document.querySelector('.dashboardHeader');
+    let greetingText = document.querySelector('.greeting-text');
+    let grid = document.querySelector('.metrics-grid');
+    let header = document.querySelector('.dashboard-header');
 
     if (!greetingContainer || !greetingText || !grid || !header) return;
 
@@ -68,6 +68,6 @@ function initGreeting() {
 }
 
 function initGreetingRepeat() {
-    let greetingRepeatText = document.querySelector('.greetingTextRepeat');
+    let greetingRepeatText = document.querySelector('.greeting-text-repeat');
     setGreetingText(greetingRepeatText, greetsName);
 }
