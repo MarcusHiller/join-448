@@ -1,4 +1,4 @@
-const BASE_URL = "https://join-2c200-default-rtdb.europe-west1.firebasedatabase.app/";
+//const BASE_URL = "https://join-2c200-default-rtdb.europe-west1.firebasedatabase.app/";
 let = userFirebase = [];
 let textPasswdError = "Ups! your password don't match.";
 let textEmailError = "The e-mail already exists. Please select another e-mail."
@@ -11,16 +11,36 @@ async function addUser() {
     const email = document.getElementById('emailSignUp');
     const password = document.getElementById('passwordReg');
     const confirm = document.getElementById('passwordConf');
-
     if (!checkSamePasswd(password.value, confirm.value)) return;
     const emailExists = await checkUserExists(email.value);
     if (emailExists) return;
-
     const newUser = createUserObject(username.value, email.value, password.value);
     userFirebase.push(newUser);
     await saveUsersToFirebase();
+    await addUserToContacts(username, email);
     showOverlaySuccessful();
 }
+
+
+async function addUserToContacts(username, email) {
+    await loadContactsFromFirebase();
+    createUserForContacts(username, email);
+    await saveContactsToFirebase();
+    contactsFirebase = [];
+}
+
+
+function createUserForContacts(n, e) {
+    let newContact = {
+        id: contactsFirebase.length,
+        username: n.value,
+        email: e.value,
+        phone: "",
+        color: "brown"
+    };
+    contactsFirebase.push(newContact);
+}
+
 
 
 function checkSamePasswd(a, b) {
@@ -117,33 +137,3 @@ function showOverlaySuccessful() {
 function resetUserArray() {
     userFirebase = [];
 }
-
-
-
-
-
-/* FOR ABGABE LÖSCHEN!!!! */
-
-async function saveUsers() {
-    const usersAsObject = {};
-    users.forEach((user, index) => {
-        usersAsObject[index] = user;
-    });
-    const response = await fetch(BASE_URL + "/users.json", {
-        method: "PUT",
-        body: JSON.stringify(usersAsObject)
-    });
-
-    if (response.ok) {
-        console.log("User erfolgreich gespeichert.");
-    } else {
-        console.error("Fehler beim Speichern:", await response.text());
-    }
-}
-
-
-let users = [
-    { 'username': 'Max Mustermann', 'email': 'maxmustermann@email.de', 'password': 'test' },
-    { 'username': 'Rainer Zufall', 'email': 'rainerzufall@email.de', 'password': 'test' },
-    { 'username': 'Beate Baum', 'email': 'beatebaum@email.de', 'password': 'test' }
-];
