@@ -84,3 +84,12 @@ function getTaskSubtaskOverlayTemplate(taskIndex, indexSubtask) {
                 <div class="subtask-label">${tasks[taskIndex].subtask[indexSubtask].subtaskName}</div>
             </label>`  
 }
+
+
+function showSuccessfulClear() {
+    return `<p>Task successfully cleared! </p><img src="/assets/img/icon/close_white.svg">`;
+}
+
+function showSuccessfulAddedTask() {
+    return `<p>Task added to board! </p><img class="feedback-img" src="/assets/img/icon/board_icon.svg">`;
+}
