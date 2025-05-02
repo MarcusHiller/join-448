@@ -23,11 +23,11 @@ async function saveUsers() {
 }
 
 
-// let users = [
-//     { 'username': 'Max Mustermann', 'email': 'maxmustermann@email.de', 'password': 'test' },
-//     { 'username': 'Rainer Zufall', 'email': 'rainerzufall@email.de', 'password': 'test' },
-//     { 'username': 'Beate Baum', 'email': 'beatebaum@email.de', 'password': 'test' }
-// ];
+let users = [
+    { 'username': 'Max Mustermann', 'email': 'maxmustermann@email.de', 'password': 'test' },
+    { 'username': 'Rainer Zufall', 'email': 'rainerzufall@email.de', 'password': 'test' },
+    { 'username': 'Beate Baum', 'email': 'beatebaum@email.de', 'password': 'test' }
+];
 
 
 const contacts = [

@@ -52,7 +52,7 @@ body {
     background-color: transparent;
     cursor: pointer;
 
-    
+
     padding: 8px;
     display: flex;
     align-items: center;
@@ -287,37 +287,14 @@ body {
     font-size: 12px;
 }
 
-/* Spinner */
-
-.spinner-container {
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
+.lock-layout {
+    min-width: 1000px;
+    /* oder was dein Layout braucht */
 }
 
-.spinner {
-    width: 60px;
-    height: 60px;
-    border: 8px solid #eee;
-    border-top: 8px solid #2A3647;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .lock-layout {
-    min-width: 1000px; /* oder was dein Layout braucht */
-  }
-  
-  @media (max-width: 600px) {
+@media (max-width: 600px) {
     .lock-layout {
-      min-width: 600px; /* kleinere Min-Width für Handy */
+        min-width: 600px;
+        /* kleinere Min-Width für Handy */
     }
-  }
-
-
+}
