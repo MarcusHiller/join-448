@@ -130,10 +130,12 @@ header {
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  text-decoration: none;
 }
 
 .navbar-links a:hover {
     background-color: #2A3D59;
+    text-decoration: none;
 }
 
 .navbar-logo {
@@ -177,26 +179,29 @@ header {
   flex-direction: column;
   margin-bottom: 100px;
   width: 100%;
-}
-
-.policy-section a {
-  color: white;
+  align-items: center;
   text-decoration: none;
-  margin: 8px 0;
-  padding: 8px 0;
-  opacity: 0.5;
-  text-align: center;
-  font-family: Inter;
 }
 
-.privacy-legal:hover{
-  background-color: #091931;
-    opacity: 1 !important;
-    text-decoration: none;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
+.privacy-legal {
+  text-decoration: none;
+  color: rgba(168, 168, 168, 1);
+  font-family: Inter;
+  height: 35px;
+  align-items: center;
+  gap: 10px;
+  font-weight: 400;
+  font-size: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
+
+.privacy-legal:hover {
+  color: rgba(41, 171, 226, 1);
+  text-decoration: none;
+}
+
 .content {
   flex: 1;
   box-sizing: border-box;
