@@ -1,5 +1,6 @@
 body {
   display: flex;
+  overflow-x: hidden;
 }
 
 * {
@@ -18,6 +19,11 @@ main {
 .d_none {
   display: none !important;
 }
+
+.d-none {
+  display: none !important;
+}
+
 
 /* Header */
 
