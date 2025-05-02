@@ -187,6 +187,7 @@ function removeErrorMsg() {
 }
 
 function checkInputFields(fields) {
+  let hasError = false
   fields.forEach(({ id, errorId }) => {
     const input = document.getElementById(id);
     const error = document.getElementById(errorId);
@@ -404,6 +405,8 @@ function clearAddTaskField() {
   document.getElementById("user_logo_after_seleceted").innerHTML = "";
   document.getElementById("category_select_input").value = "";
   clearSubtaskInput();
+  successfulClearTask()
+  userFeedback();
 }
 
 function clearSubtaskInput() {
@@ -417,6 +420,30 @@ function unsetCheckbox() {
     document.getElementById("user_" + userIndex).checked = false
   }
 }
+
+function successfulClearTask() {
+  let success = document.getElementById('success');
+  success.innerHTML = showSuccessfulClear();
+}
+
+function successfulAddedTask() {
+  let success = document.getElementById('success');
+  success.innerHTML = showSuccessfulAddedTask();
+}
+
+///////////
+
+function userFeedback() {
+  setTimeout(() => {
+      let success = document.getElementById('success');
+      success.classList.remove('d-none');
+      setTimeout(() => {success.classList.add('show-successful');}, 1);
+      setTimeout(() => {success.classList.remove('show-successful');}, 1510);
+      setTimeout(() => {success.classList.add('d-none');}, 1730);
+  }, 200);
+}
+
+////////////////
 
 
 function addEditedTask(taskIndex) {
