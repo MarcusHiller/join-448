@@ -56,6 +56,8 @@ async function putDataToServer(path = "", data) {
 }
 
 
+
+
 function addClearButtonToThePage() {
   document.getElementById("clear_button").classList.remove("d_none");
 }
@@ -115,7 +117,13 @@ function closeOpenCatDropMenu() {
 
 
 function selectCategory(category) {
-  document.getElementById("category_select_input").value = category;
+  const input = document.getElementById("category_select_input");
+  input.value = category;
+
+  // Fehleranzeige entfernen
+  input.parentElement.classList.remove("error-label-border");
+  document.getElementById("error-cat").classList.remove("visible");
+
   closeOpenCatDropMenu();
 }
 
@@ -134,8 +142,43 @@ function addTaskButton() {
 
 
 function addTask(condition = "") {
-  let newTask = getNewTask();
+  let hasError = false;
+  let newTask;
+  const fields = [
+    { id: 'titel_input', errorId: 'error-title' },
+    { id: 'date_input', errorId: 'error-date' },
+    { id: 'category_select_input', errorId: 'error-cat' }
+  ];
+  removeErrorMsg();
+  hasError = checkInputFields(fields);
+  if (hasError) return;
+  newTask = getNewTask();
   putDataToServer(`/join/tasks/${newTask.id}`, newTask);
+}
+
+function removeErrorMsg() {
+  document.querySelectorAll('.error-message').forEach(e => e.classList.remove('visible'));
+  document.querySelectorAll('.error-border').forEach(e => e.classList.remove('error-border'));
+  document.querySelectorAll('.error-label-border').forEach(e => e.classList.remove('error-label-border'));
+}
+
+function checkInputFields(fields) {
+  fields.forEach(({ id, errorId }) => {
+    const input = document.getElementById(id);
+    const error = document.getElementById(errorId);
+    const isEmpty = !input.value.trim();
+
+    if (isEmpty) {
+      error.classList.add('visible');
+      if (id === 'category_select_input') {
+        input.parentElement.classList.add('error-label-border');
+      } else {
+        input.classList.add('error-border');
+      }
+      hasError = true;
+    }
+  });
+  return hasError;
 }
 
 
@@ -332,6 +375,23 @@ function clearAddTaskField() {
   document.getElementById("titel_input").value = "";
   document.getElementById("description_input").value = "";
   document.getElementById("date_input").value = "";
+  document.getElementById("prio_medium").checked = true;
+  unsetCheckbox();
+  document.getElementById("user_logo_after_seleceted").innerHTML = "";
+  document.getElementById("category_select_input").value = "";
+  clearSubtaskInput();
+}
+
+function clearSubtaskInput() {
+  document.getElementById("subtask_input").value = "";
+  document.getElementById("sub_list").innerHTML = "";
+}
+
+
+function unsetCheckbox() {
+  for (let userIndex = 0; userIndex < contactsFirebase.length; userIndex++) {
+    document.getElementById("user_" + userIndex).checked = false
+  }
 }
 
 
