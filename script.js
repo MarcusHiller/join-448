@@ -8,6 +8,7 @@ async function init(page) {
     if (page === 'summary_page') {
         initGreeting();
         initGreetingRepeat();
+        
     }
 
 }
