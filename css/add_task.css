@@ -398,3 +398,36 @@
 .category-element:hover {
     background-color: #D1D1D1;
 }
+
+.overlay-successful-addTask {
+    position: fixed;
+    top: 150px;
+    right: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 74px;
+    border-radius: 20px;
+    background: #2A3647;
+    transform: translateX(100%);
+    transition: transform 0.2s ease;
+    z-index: 100;
+    padding: 0 24px;
+    gap: 24px;
+  }
+  
+  .show-successful {
+    transform: translateX(0);
+  }
+  
+  
+  .overlay-successful-addTask p {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 120%;
+    color: white;
+  }
+
+  .feedback-img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(2%) hue-rotate(228deg) brightness(107%) contrast(101%);
+  }

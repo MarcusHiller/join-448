@@ -33,6 +33,10 @@
 
     <main>
         <header id="header-placeholder"></header>
+
+        <div id="success" class="overlay-successful-addTask d-none">
+            <p>Contact successfully created </p>
+        </div>
         <div class="content">
             <div id="board_overlay" class="board-overlay d_none" onclick="closeOverlayTask(); closeAddTask()">
 
@@ -44,7 +48,7 @@
                 <!-- Task Overlay -->
                 <div id="overlay_container" class="overlay-container overlay-container-sliding d_none"
                     onclick="event.stopPropagation()">
-                    
+
                 </div>
             </div>
 
@@ -61,7 +65,8 @@
                 <div class="add-task-section">
                     <form class="form-for-input" action="" onsubmit="return false">
                         <div class="search-task-input-field">
-                            <input id="search_task" type="text" oninput="searchTask()" class="input-task" placeholder="Find task..." required>
+                            <input id="search_task" type="text" oninput="searchTask()" class="input-task"
+                                placeholder="Find task..." required>
                             <div class="spaceholder"></div>
                             <button type="button" class="search-button-container">
                                 <img src="/assets/img/icon/search.svg" alt="search">
@@ -76,7 +81,7 @@
                 </div>
             </div>
             <div class="board-distribution">
-                
+
                 <div class="row">
                     <div class="column">
                         <div class="column-headline">
@@ -88,7 +93,7 @@
                             <div class="spinner-container">
                                 <div class="spinner"></div>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="column">
@@ -96,8 +101,8 @@
                             <h3>In progress</h3>
                             <img onclick="openAddTask('inProgress')" src="/assets/img/icon/plus_button.svg" alt="">
                         </div>
-                        <div id="inProg_column" ondragover="dragoverHandler(event)"
-                            ondrop="moveTo('inProgress')" class="column-container">
+                        <div id="inProg_column" ondragover="dragoverHandler(event)" ondrop="moveTo('inProgress')"
+                            class="column-container">
                             <div class="spinner-container">
                                 <div class="spinner"></div>
                             </div>
