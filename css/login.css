@@ -245,7 +245,11 @@ h2::after {
     padding: 8px;
     font-size: 16px;
 }
-
+.privacy-legal-index:hover {
+    color: rgba(41, 171, 226, 1);
+    transform: scale(1.03) translateY(-4px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 .cookie-banner {
     position: fixed;
     bottom: 0;

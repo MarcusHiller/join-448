@@ -12,7 +12,7 @@
     <script src="../script.js" defer></script>
 </head>
 
-<body onload="init('summary_page')">
+<body onload="init('summary_page'); loadSummaryData();">
     <nav id="navbar-section" class="navbar-section"></nav>
     <main>
         <header id="header-placeholder"></header>
@@ -31,16 +31,16 @@
                         <div class="metrics-grid">
                             <div class="first-metric">
                                 <div class="metric-cards-up card-up" onclick="navigateTo('board.html', this)">
-                                    <img class="frame-logo" src="../assets/img/icon/Icon_summary/Frame pencil.svg">
+                                    <img class="frame-logo frame-logo-left" src="../assets/img/icon/Icon_summary/Frame pencil.svg">
                                     <div class="content-card">
-                                        <p class="metric-number">1</p>
+                                        <p class="metric-number" id="summaryTodo"></p>
                                         <p class="text-label">To-do</p>
                                     </div>
                                 </div>
                                 <div class="metric-cards-up card-up" onclick="navigateTo('board.html', this)">
-                                    <img class="frame-logo" src="../assets/img/icon/Icon_summary/Frame check.svg">
+                                    <img class="frame-logo frame-logo-right" src="../assets/img/icon/Icon_summary/Frame check.svg">
                                     <div class="content-card">
-                                        <p class="metric-number">1</p>
+                                        <p class="metric-number" id="summaryDone"></p>
                                         <p class="text-label">Done</p>
                                     </div>
                                 </div>
@@ -49,32 +49,32 @@
                                 <div class="middle-card-left">
                                     <img class="urgent-logo" src="../assets/img/icon/Icon_summary/Frame urgent.svg">
                                     <div class="urgent-content">
-                                        <span class="metric-number">1</span>
+                                        <span class="metric-number" id="summaryUrgent"></span>
                                         <span class="metric-label">Urgent</span>
                                     </div>
                                 </div>
                                 <div class="devider"></div>
                                 <div class="middle-card-right">
-                                    <p class="metric-date">October 16, 2022</p>
+                                    <p class="metric-date" id="summaryDeadline"></p>
                                     <p class="metric-label">Upcoming Deadline</p>
                                 </div>
                             </div>
                             <div class="down-metric">
                                 <div class="metric-card-down card-down" onclick="navigateTo('board.html', this)">
                                     <div class="content-card">
-                                        <p class="metric-number">5</p>
+                                        <p class="metric-number" id="summaryTotal"></p>
                                         <p class="text-label">Tasks in <br> Board</p>
                                     </div>
                                 </div>
                                 <div class="metric-card-down card-down" onclick="navigateTo('board.html', this)">
                                     <div class="content-card">
-                                        <p class="metric-number">2</p>
+                                        <p class="metric-number" id="summaryProgress"></p>
                                         <p class="text-label">Tasks in Progress</p>
                                     </div>
                                 </div>
                                 <div class="metric-card-down card-down" onclick="navigateTo('board.html', this)">
                                     <div class="content-card">
-                                        <p class="metric-number">2</p>
+                                        <p class="metric-number" id="summaryFeedback"></p>
                                         <p class="text-label">Awaiting Feedback</p>
                                     </div>
                                 </div>
