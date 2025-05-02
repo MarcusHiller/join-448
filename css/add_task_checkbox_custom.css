@@ -2,7 +2,6 @@
     display: flex;
     gap: 16px;
     justify-content: center;
-    margin-bottom: 24px;
 }
 
 
@@ -30,6 +29,7 @@
 .prio-urgent[type="radio"]:checked+.prio-urgent-label div {
     background-color: #FF3D00;
     color: white;
+    font-weight: bold;
 }
 
 .prio-urgent[type="radio"]:checked+.prio-urgent-label div:hover {
@@ -44,6 +44,7 @@
 .prio-medium[type="radio"]:checked+.prio-medium-label div {
     background-color: #FFA800;
     color: white;
+    font-weight: bold;
 }
 
 .prio-medium[type="radio"]:checked+.prio-medium-label div:hover {
@@ -57,6 +58,7 @@
 .prio-low[type="radio"]:checked+.prio-low-label div {
     background-color: #7AE229;
     color: white;
+    font-weight: bold;
 }
 
 .prio-low[type="radio"]:checked+.prio-low-label div:hover {

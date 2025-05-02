@@ -216,6 +216,18 @@ header {
   max-width: 1920px;
 }
 
+.visible {
+  opacity: 1 !important;
+}
+
+.error-border {
+  border: 1px solid red !important;
+}
+
+.error-label-border {
+  border: 1px solid red !important;
+}
+
 @media (max-width: 900px) {
   main {
     width: 100%;
