@@ -1,4 +1,7 @@
 const BASE_URL = "https://join-4215a-default-rtdb.europe-west1.firebasedatabase.app/"
+let nextTaskId = 5;
+let subtasks = [];
+let subtaskIndex = -1;
 
 /////  From Marcus
 let contactsFirebase = [];
@@ -6,25 +9,25 @@ const BASE_URL_Marcus = "https://join-2c200-default-rtdb.europe-west1.firebaseda
 
 
 async function loadContactsFromFirebase() {
-    let response = await fetch(BASE_URL_Marcus + "/contacts.json");
-    if (response.ok) {
-        let data = await response.json();
-        contactsFirebase = Object.values(data || {});
-        renderAvatar();
-    } else {
-        contactsFirebase = [];
-    }
+  let response = await fetch(BASE_URL_Marcus + "/contacts.json");
+  if (response.ok) {
+    let data = await response.json();
+    contactsFirebase = Object.values(data || {});
+    renderAvatar();
+  } else {
+    contactsFirebase = [];
+  }
 }
 
 
 
- function renderAvatar() {
-    contactsFirebase.forEach(contact => {
-        contact.avatar = contact.username
-            .split(" ")                   // Zerlege in einzelne Wörter
-            .map(name => name[0].toUpperCase())  // Nimm jeweils den ersten Buchstaben und mach ihn groß
-            .join("");                    // Füge die Buchstaben zusammen
-    });
+function renderAvatar() {
+  contactsFirebase.forEach(contact => {
+    contact.avatar = contact.username
+      .split(" ")                   // Zerlege in einzelne Wörter
+      .map(name => name[0].toUpperCase())  // Nimm jeweils den ersten Buchstaben und mach ihn groß
+      .join("");                    // Füge die Buchstaben zusammen
+  });
 }
 
 ////////// ------------   ///////////
@@ -52,55 +55,25 @@ async function putDataToServer(path = "", data) {
   }
 }
 
-// const users = [
-//   { id: 0, username: "Max Bäcker", email: "max.baecker@email.de", phone: "0123456", color: "#FF7A00", avatar: "MB"},
-//   { id: 1, username: "Anna Fischer", email: "anna.fischer@email.de", phone: "0123457", color: "#FF5EB3", avatar: "AF" },
-//   { id: 2, username: "Sophie Förster", email: "sophie.foerster@email.de", phone: "0123458", color: "#6E52FF", avatar: "SF" },
-//   { id: 3, username: "Lukas Schreiner", email: "lukas.schreiner@email.de", phone: "0123459", color: "#9327FF", avatar: "LS" },
-//   { id: 4, username: "Marie Koch", email: "marie.koch@email.de", phone: "0123460", color: "#00BEE8", avatar: "MK" },
-//   { id: 5, username: "Jonas Müller", email: "jonas.mueller@email.de", phone: "0123461", color: "#1FD7C1", avatar: "JM" },
-//   { id: 6, username: "Lea Schneider", email: "lea.schneider@email.de", phone: "0123462", color: "#FF745E", avatar: "LS" },
-//   { id: 7, username: "Felix Weber", email: "felix.weber@email.de", phone: "0123463", color: "#FFA35E", avatar: "FW" },
-//   { id: 8, username: "Emma Zimmermann", email: "emma.zimmermann@email.de", phone: "0123464", color: "#FC71FF", avatar: "EZ" },
-//   { id: 9, username: "Paul Bauer", email: "paul.bauer@email.de", phone: "0123465", color: "#FFC701", avatar: "PB" },
-//   { id: 10, username: "Clara Seiler", email: "clara.seiler@email.de", phone: "0123466", color: "#0038FF", avatar: "CS" },
-//   { id: 11, username: "Niklas Meier", email: "niklas.meier@email.de", phone: "0123467", color: "#C3FF2B", avatar: "NM" },
-//   { id: 12, username: "Hannah Richter", email: "hannah.richter@email.de", phone: "0123468", color: "#FFE62B", avatar: "HR" },
-//   { id: 13, username: "Tom Wolf", email: "tom.wolf@email.de", phone: "0123469", color: "#FF4646", avatar: "TW" },
-//   { id: 14, username: "Lena Hartmann", email: "lena.hartmann@email.de", phone: "0123470", color: "#FFBB2B", avatar: "LH" },
-//   { id: 15, username: "Julian Beck", email: "julian.beck@email.de", phone: "0123471", color: "#FF7A00", avatar: "JB" },
-//   { id: 16, username: "Sophia Brandt", email: "sophia.brandt@email.de", phone: "0123472", color: "#FF5EB3", avatar: "SB" },
-//   { id: 17, username: "David Schuster", email: "david.schuster@email.de", phone: "0123473", color: "#6E52FF", avatar: "DS" },
-//   { id: 18, username: "Mia Neumann", email: "mia.neumann@email.de", phone: "0123474", color: "#9327FF", avatar: "MN" },
-//   { id: 19, username: "Florian Wagner", email: "florian.wagner@email.de", phone: "0123475", color: "#00BEE8", avatar: "FW" }
-// ];
-
-let nextTaskId = 5;
-
-let subtasks = [];
-let subtaskIndex = -1;
-
-
-
-
 
 function addClearButtonToThePage() {
   document.getElementById("clear_button").classList.remove("d_none");
-  }
-
+}
 
 
 function openUserDropMenu() {
   document.getElementById("dropdown_menu_arrow").classList.toggle("rotate-img");
   document.getElementById("assigned_select").classList.toggle("blue-border");
-  document.getElementById("add_user_list").classList.toggle("dropdown-animation-user"); 
-  }
+  document.getElementById("add_user_list").classList.toggle("dropdown-animation-user");
+}
+
 
 function resortUserlist() {
   contactsFirebase.sort((a, b) => {
     return a.username.localeCompare(b.username, 'de', { sensitivity: 'base' });
   });
 }
+
 
 function renderUserList() {
   resortUserlist();
@@ -109,7 +82,7 @@ function renderUserList() {
 
   for (let indexUsers = 0; indexUsers < contactsFirebase.length; indexUsers++) {
     usersListRef.innerHTML += getUserListTemplate(indexUsers);
-    
+
   }
 }
 
@@ -118,12 +91,12 @@ function addCheckedUsers(indexUsers) {
   let userCheckbox = document.getElementById("user_" + indexUsers);
   let userAvatar = document.getElementById("user_checked_" + indexUsers);
 
-    if(userCheckbox.checked) {
-      avatarList.innerHTML += getCheckedAvatar(indexUsers);
-    }
-    if (!userCheckbox.checked) {
-      userAvatar.remove();
-    }
+  if (userCheckbox.checked) {
+    avatarList.innerHTML += getCheckedAvatar(indexUsers);
+  }
+  if (!userCheckbox.checked) {
+    userAvatar.remove();
+  }
 
 }
 
@@ -156,113 +129,85 @@ function removeBorder() {
 
 
 function addTaskButton() {
-  document.getElementsById("addTask_form").addEventListener("submit", addTask(condition=""))
+  document.getElementsById("addTask_form").addEventListener("submit", addTask(condition = ""))
 }
 
 
-function addTask(condition="") {
-    let newTask = {}
-    let title = document.getElementById("titel_input");
-    let descripton = document.getElementById("description_input");
-    let date = document.getElementById("date_input");
-    let category = document.getElementById("category_select_input");
-    let priority = "medium";
-    let subtasks = getSubtasks().subtasks;
-    let assignedTo = getAssignedTo();
-    let taskID = generateID();
-    let firstCondition = currentCondition;
+function addTask(condition = "") {
+  let newTask = getNewTask();
+  putDataToServer(`/join/tasks/${newTask.id}`, newTask);
+}
 
-    let urgent = document.getElementById("prio_urgent");
-    let medium = document.getElementById("prio_medium");
-    let low = document.getElementById("prio_low");
-    let prio = [urgent, medium, low];
-    
-    for (i = 0; i < prio.length; i++) {
-      if (prio[i].checked) {
-        priority = prio[i].value;
+
+function getNewTask() {
+  let title = document.getElementById("titel_input").value;
+  let descripton = document.getElementById("description_input").value;
+  let date = document.getElementById("date_input").value;
+  let category = document.getElementById("category_select_input").value;
+  let priority = getPriority();
+  let subtask = getSubtasks().subtasks;
+  let assignedTo = getAssignedTo();
+  let id = generateID();
+  let condition = currentCondition;
+  return { title, descripton, date, category, priority, subtask, assignedTo, id, condition }
+}
+
+
+function getPriority() {
+  let priority;
+  let urgent = document.getElementById("prio_urgent");
+  let medium = document.getElementById("prio_medium");
+  let low = document.getElementById("prio_low");
+  let prio = [urgent, medium, low];
+
+  for (i = 0; i < prio.length; i++) {
+    if (prio[i].checked) {
+      priority = prio[i].value;
     }
-    }
-
-
-
-  newTask = {
-      title: title.value,
-      descripton: descripton.value,
-      date: date.value,
-      category: category.value,
-      priority: priority,
-      subtask: subtasks,
-      assignedTo : assignedTo,
-      id : taskID,
-      condition: firstCondition
-    }
-
-    console.log(newTask);
-
-    putDataToServer(`/join/tasks/${taskID}`, newTask);
-  };
-
-  function generateID() {
-    return (new Date()).getTime();
   }
+  return priority;
+}
 
-  function getAssignedTo() {
-    
-    let userID = [];
-    let allUsers = [];
-  
 
-    for (let userIdIndex = 0; userIdIndex < contactsFirebase.length; userIdIndex++) {
-      let userCheckbox = document.getElementById("user_" + userIdIndex);
-      if(userCheckbox.checked) {
-        userID.push(contactsFirebase[userIdIndex].username)
-      }
+function generateID() {
+  return (new Date()).getTime();
+}
+
+
+function getAssignedTo() {
+  let userID = getUserID();
+  let allUsers = getUserObject(userID);
+  return Object.fromEntries(allUsers)
+}
+
+
+function getUserID() {
+  let userID = [];
+  for (let userIdIndex = 0; userIdIndex < contactsFirebase.length; userIdIndex++) {
+    let userCheckbox = document.getElementById("user_" + userIdIndex);
+    if (userCheckbox.checked) {
+      userID.push(contactsFirebase[userIdIndex].username)
     }
-
-    for (let index = 0; index < userID.length; index++) {
-      let user = ["user" + index, userID[index]]
-      allUsers.push(user);
-      
-    }
-
-     return Object.fromEntries(allUsers)
   }
+  return userID;
+}
 
 
-// function getSubtasks() {
-//   let subtasksCount = document.getElementById("sub_list").children.length;
-//   let subtasksValue = [];
-//   let subtasksArray = [];
-  
+function getUserObject(userID) {
+  let allUsers = [];
+  for (let index = 0; index < userID.length; index++) {
+    let user = ["user" + index, userID[index]]
+    allUsers.push(user);
+  }
+  return allUsers;
+}
 
-//   for (let indexSubTask = 0; indexSubTask < subtasksCount; indexSubTask++) {
-//     let subtask = document.getElementById("editable_input_" + indexSubTask).value;
-
-//     subtasksValue.push(subtask);
-//   }
-
-//   for (let index = 0; index < subtasksValue.length; index++) {
-//     let subtaskValue = subtasksValue[index];
-//     let subtaskKey = "subtask" + index;
-//     let subtaskArray = [subtaskKey, subtaskValue];
-//     let subtaskCheckKey = "checked" + index; 
-//     let subtaskCheckValue = true;
-//     let subtaskCheckArray = [subtaskCheckKey, subtaskCheckValue];
-
-//     subtasksArray.push(subtaskArray);
-//     subtaskArray.push(subtaskCheckArray);
-//   }
-
-//   return Object.fromEntries(subtasksArray);
-// }
-
-
-function sortSubtask(){
+function sortSubtask() {
   let subtaskListLength = document.getElementById("sub_list").children.length;
 
   for (let index = 0; subtaskListLength < array.length; index++) {
     let subtask = document.getElementById("editable_input_" + i);
-    
+
   }
 }
 
@@ -292,7 +237,7 @@ function getSubtasks(taskIndex) {
 
     if (taskIndex !== undefined) {
       let subtaskCheck = tasks[taskIndex].subtask[i].subtaskCheck;
-      
+
       if (subtaskCheck) {
         check = true;
       } else {
@@ -303,8 +248,6 @@ function getSubtasks(taskIndex) {
       check = false
     }
 
-
-   
 
     if (value) {
       subtasksObject["subtask" + i] = {
@@ -320,7 +263,7 @@ function getSubtasks(taskIndex) {
 function showAddSubtaskButton() {
   let subtask = document.getElementById("subtask_input");
 
-  if(subtask.value) {
+  if (subtask.value) {
     document.getElementById("delete_and_add_icon").classList.remove("d_none");
     document.getElementById("subtask_plus_icon").classList.add("d_none")
   } else {
@@ -339,13 +282,13 @@ function addSubtask() {
   let listRef = document.getElementById("sub_list");
   let subtaskValue = subtask.value;
 
-  if(subtask.value) {
+  if (subtask.value) {
     subtaskIndex++;
     listRef.innerHTML += getSubtaskTemplate(subtaskIndex, subtaskValue);
     subtask.value = "";
     document.getElementById("delete_and_add_icon").classList.add("d_none");
     document.getElementById("subtask_plus_icon").classList.remove("d_none");
-  } 
+  }
 }
 
 function showEditIcons(indexSubTask) {
@@ -391,18 +334,6 @@ function clearAddTaskField() {
   document.getElementById("date_input").value = "";
 }
 
-// function getCheckedSubtasks(taskIndex) {
-//   const lenght = tasks[taskIndex].subtask.lenght
-
-//   for (let index = 0; index < array.length; index++) {
-//     let subtaskCheck = tasks[taskIndex].subtask[index].subtaskCheck
-
-//     if(subtaskCheck) {
-
-//     }
-    
-//   }
-// }
 
 function addEditedTask(taskIndex) {
   let newEditedTask = {}
@@ -415,17 +346,17 @@ function addEditedTask(taskIndex) {
   let assignedTo = getAssignedTo();
   let taskID = tasks[taskIndex].id;
   let condition = tasks[taskIndex].condition;
-  
+
 
   let urgent = document.getElementById("prio_urgent");
   let medium = document.getElementById("prio_medium");
   let low = document.getElementById("prio_low");
   let prio = [urgent, medium, low];
-  
+
   for (i = 0; i < prio.length; i++) {
     if (prio[i].checked) {
       priority = prio[i].value;
-  }
+    }
   }
 
 
@@ -437,7 +368,7 @@ function addEditedTask(taskIndex) {
     category: category.value,
     priority: priority,
     subtask: subtasks,
-    assignedTo : assignedTo,
+    assignedTo: assignedTo,
     condition: condition,
     id: taskID
   }
@@ -446,7 +377,7 @@ function addEditedTask(taskIndex) {
   console.log(taskID);
 
 
-  
+
 
 
 
@@ -454,8 +385,8 @@ function addEditedTask(taskIndex) {
   console.log(tasks[taskIndex]);
   console.log(newEditedTask);
 
- 
-  
+
+
   putDataToServer(`/join/tasks/${taskID}`, newEditedTask);
   tasks[taskIndex] = newEditedTask;
   getSubtasksArrayAfterEdit(taskIndex);
@@ -490,7 +421,7 @@ function getSubtasksArrayAfterEdit(taskIndex) {
         "subtaskName": subtasksObj[subtasksKeys[index]].name,
         "subtaskCheck": subtasksObj[subtasksKeys[index]].checked
       })
-    
+
   }
 
   return tasks[taskIndex].subtask = subtasks;
@@ -501,14 +432,14 @@ async function clearOverlay() {
 }
 
 function renderSingleTaskInToColumn(taskIndex) {
-    selectConditionForSingleTask(taskIndex);
-    renderAssignedTo(taskIndex);
-    renderSubtasks(taskIndex);
-    renderPrio(taskIndex);
-    renderCategoryColor(taskIndex);
-  }
+  selectConditionForSingleTask(taskIndex);
+  renderAssignedTo(taskIndex);
+  renderSubtasks(taskIndex);
+  renderPrio(taskIndex);
+  renderCategoryColor(taskIndex);
+}
 
-  function selectConditionForSingleTask(taskIndex) {
-    let taskRef = document.getElementById("task_"+ "index_"+ taskIndex);
-    taskRef.innerHTML = getSingleTaskAfterEdit(taskIndex);
-  }
+function selectConditionForSingleTask(taskIndex) {
+  let taskRef = document.getElementById("task_" + "index_" + taskIndex);
+  taskRef.innerHTML = getSingleTaskAfterEdit(taskIndex);
+}
