@@ -25,7 +25,7 @@
     width: 100%;
     justify-content: space-between;
     cursor: pointer;
-    padding: 4px 21px;
+    padding-left: 16px;
     box-sizing: border-box;
     height: 30px;
 }
@@ -35,12 +35,15 @@
     border-radius: 10px;
 }
 
-.list-subtask-element img{
+.list-subtask-element img {
     width: 15px;
     height: 15px;
-    margin: 0 4px;
-    padding: 4px;
+    margin: 0 8px;
     cursor: pointer;
+}
+
+.margin-left {
+    margin-left: 12px;
 }
 
 .list-subtask-element img:hover {
@@ -48,7 +51,8 @@
 }
 
 .subtasks-container {
-    margin-bottom: 40px;
+    max-height: 240px;
+    overflow: auto;
 }
 
 .list-element-div input {
@@ -68,9 +72,9 @@
 }
 
 .delete-and-add-icon img {
-    width: 15px;
-    height: 15px;
-    object-fit: contain
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
 }
 
 .circle-padding-icon {
@@ -95,6 +99,9 @@
 }
 
 .dropdown-animation {
-    height: 78px;
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3); 
+    height: 99px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
 }
+
+
+

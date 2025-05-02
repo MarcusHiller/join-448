@@ -23,7 +23,7 @@
 }
 
 .addTask-headline {
-    margin-bottom: 40px;
+    margin-bottom: 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,7 +40,7 @@
     display: flex;
     justify-content: center;
     overflow-y: auto;
-    margin-bottom: 40px;
+    height: 600px;
 }
 
 .addTask-left-side {
@@ -271,7 +271,7 @@
 }
 
 .addTask-footer span {
-    font-size: 16px;
+    font-size: 21px;
 }
 
 .required-star {
@@ -282,7 +282,7 @@
 .create-task-button {
     background-color: #2A3647;
     color: white;
-    padding: 8px 16px;
+    padding: 16px;
     display: flex;
     align-items: center;
     border-radius: 8px;
@@ -291,6 +291,7 @@
     cursor: pointer;
     border: 1px solid #2A3647;
     font-size: 21px;
+    height: 56px;
 }
 
 .create-task-button img {
@@ -310,9 +311,9 @@
     border-radius: 8px;
     height: 24px;
     gap: 8px;
-    font-weight: bold;
     cursor: pointer;
     border: 1px solid #2A3647;
+    height: 56px;
 }
 
 .cancel-task-button img {

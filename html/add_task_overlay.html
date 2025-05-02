@@ -9,12 +9,12 @@
             <div class="addTask-left-side">
                 <label for="" class="addTask-label">Title<span class="required-star">&#42</span></label>
                 <input id="titel_input" class="addTask-input" placeholder="Enter a title">
-                <p class="error-message">This field is required</p>
+                <p class="error-message" id="error-title">This field is required</p>
                 <label for="" class="addTask-label">Description</label>
                 <textarea id="description_input" class="addTask-textarea" placeholder="Enter a Description"></textarea>
                 <label for="" class="addTask-label">Due date<span class="required-star">&#42</span></label>
                 <input id="date_input" class="addTask-input" type="date" placeholder="dd/mm/yyyy">
-                <p class="error-message">This field is required</p>
+                <p class="error-message" id="error-date">This field is required</p>
             </div>
             <div id="spaceholder" class="placeholder-addTask"></div>
             <div class="addTask-right-side">
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="error-message">This field is required</p>
+                <p class="error-message" id="error-cat">This field is required</p>
                 <label for="" class="addTask-label">Subtasks</label>
                 <label for="subtask_input" id="subtask_input_label" class="addTask-input-container">
                     <input class="subtask-input" id="subtask_input" type="text" placeholder="Add new subtask"
@@ -85,7 +85,7 @@
         </div>
         </div>
         <div class="addTask-footer footer-desktop">
-            <span><span class="required-star">&#42</span>This field is required</span>
+            <span class="required-field"><span class="required-star">&#42</span>This field is required</span>
             <div class="addTask-footer-buttons">
                 <div id="cancel_button" class="cancel-task-button d_none" onclick="clearAddTaskField(); closeAddTask()">
                     <span class="add-task-text ">Cancel</span>
