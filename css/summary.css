@@ -126,8 +126,44 @@ html {
     transform: translateY(-4px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.08s ease-out, box-shadow 0.08s ease-out;
+    background-color:  rgba(42, 54, 71, 1);
 }
 
+.metric-cards-up:hover .frame-logo-right {
+        content: url("../assets/img/icon/Vector_white.svg");
+    }
+
+.metric-cards-up:hover .frame-logo-left {
+    content: url("../assets/img/icon/Pencil_white.svg");
+}
+.metric-cards-up:hover .metric-number,
+.metric-cards-up:hover .text-label {
+    color: white;
+}
+.middle-metric:hover {
+    background-color: #2A3647;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.middle-metric:hover .metric-date,
+.middle-metric:hover .metric-label,
+.middle-metric:hover .metric-number {
+    color: white;
+}
+
+.metric-card-down:hover {
+    background-color: #2A3647;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.metric-card-down:hover .metric-number,
+.metric-card-down:hover .text-label {
+    color: white;
+}
 .first-metric {
     display: flex;
     gap: 18px;

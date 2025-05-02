@@ -50,17 +50,15 @@ body {
     width: 245px;
     font-size: 16px;
     background-color: transparent;
-    cursor: pointer;
-
-    
     padding: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 24px;
+    height: 48px;
     cursor: pointer;
     outline: #29ABE2;
     border: none;
+    flex: 1;
 }
 
 .form-for-input {
@@ -78,7 +76,6 @@ body {
 .form-for-input img {
     width: 18px;
     height: 18px;
-    padding: 12px 12px;
 }
 
 .search-task-input-field img:hover {
@@ -96,7 +93,9 @@ body {
     justify-content: center;
     cursor: pointer;
     background: transparent;
-
+    width: 48px;
+    height: 48px;
+    padding: 0;
 }
 
 .add-task-button {
@@ -106,7 +105,7 @@ body {
     display: flex;
     align-items: center;
     border-radius: 8px;
-    height: 24px;
+    height: 48px;
     gap: 8px;
     font-weight: bold;
     cursor: pointer;
@@ -287,37 +286,14 @@ body {
     font-size: 12px;
 }
 
-/* Spinner */
-
-.spinner-container {
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
+.lock-layout {
+    min-width: 1000px;
+    /* oder was dein Layout braucht */
 }
 
-.spinner {
-    width: 60px;
-    height: 60px;
-    border: 8px solid #eee;
-    border-top: 8px solid #2A3647;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .lock-layout {
-    min-width: 1000px; /* oder was dein Layout braucht */
-  }
-  
-  @media (max-width: 600px) {
+@media (max-width: 600px) {
     .lock-layout {
-      min-width: 600px; /* kleinere Min-Width für Handy */
+        min-width: 600px;
+        /* kleinere Min-Width für Handy */
     }
-  }
-
-
+}

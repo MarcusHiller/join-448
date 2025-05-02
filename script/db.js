@@ -1,3 +1,5 @@
+const BASE_URL = "https://join-4215a-default-rtdb.europe-west1.firebasedatabase.app/"
+
 /* Local contact list, if too many contacts have been deleted or edited, 
 the old list can be saved in Firebase using the two functions available below. 
 These must be executed in the console.*/
@@ -10,7 +12,7 @@ async function saveUsers() {
     users.forEach((user, index) => {
         usersAsObject[index] = user;
     });
-    const response = await fetch(BASE_URL + "/users.json", {
+    const response = await fetch(BASE_URL + "/join/users.json", {
         method: "PUT",
         body: JSON.stringify(usersAsObject)
     });
@@ -23,11 +25,11 @@ async function saveUsers() {
 }
 
 
-// let users = [
-//     { 'username': 'Max Mustermann', 'email': 'maxmustermann@email.de', 'password': 'test' },
-//     { 'username': 'Rainer Zufall', 'email': 'rainerzufall@email.de', 'password': 'test' },
-//     { 'username': 'Beate Baum', 'email': 'beatebaum@email.de', 'password': 'test' }
-// ];
+let users = [
+    { 'username': 'Max Mustermann', 'email': 'maxmustermann@email.de', 'password': 'test' },
+    { 'username': 'Rainer Zufall', 'email': 'rainerzufall@email.de', 'password': 'test' },
+    { 'username': 'Beate Baum', 'email': 'beatebaum@email.de', 'password': 'test' }
+];
 
 
 const contacts = [
@@ -55,7 +57,7 @@ const contacts = [
 
 
 async function loadUser() {
-    let response = await fetch(BASE_URL + "/contacts.json");
+    let response = await fetch(BASE_URL + "/join/contacts.json");
     let responseToJson = await response.json();
     //console.log(responseToJson);
     const usersArray = Object.values(responseToJson);
@@ -69,7 +71,7 @@ async function saveContacts() {
     contacts.forEach(user => {
         usersAsObject[user.id] = user;
     });
-    const response = await fetch(BASE_URL + "/contacts.json", {
+    const response = await fetch(BASE_URL + "/join/contacts.json", {
         method: "PUT", 
         body: JSON.stringify(usersAsObject)
     });
@@ -85,11 +87,10 @@ async function saveContacts() {
 /* firebase functions loading and saving contacts */
 
 let contactsFirebase = [];
-const BASE_URL = "https://join-2c200-default-rtdb.europe-west1.firebasedatabase.app/";
 
 
 async function loadContactsFromFirebase() {
-    let response = await fetch(BASE_URL + "/contacts.json");
+    let response = await fetch(BASE_URL + "/join/contacts.json");
     if (response.ok) {
         let data = await response.json();
         contactsFirebase = Object.values(data || {});
@@ -114,7 +115,7 @@ async function saveContactsToFirebase() {
     contactsFirebase.forEach((contact, index) => {
         contactsAsObject[index] = { ...contact, id: index };
     });
-    await fetch(BASE_URL + `/contacts.json`, {
+    await fetch(BASE_URL + `/join/contacts.json`, {
         method: 'PUT',
         body: JSON.stringify(contactsAsObject),
         headers: {
