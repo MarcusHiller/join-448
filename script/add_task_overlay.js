@@ -1,34 +1,34 @@
-const BASE_URL = "https://join-4215a-default-rtdb.europe-west1.firebasedatabase.app/"
+
 let nextTaskId = 5;
 let subtasks = [];
 let subtaskIndex = -1;
 
 /////  From Marcus
-let contactsFirebase = [];
-const BASE_URL_Marcus = "https://join-2c200-default-rtdb.europe-west1.firebasedatabase.app/";
+// let contactsFirebase = [];
+// const BASE_URL_Marcus = "https://join-2c200-default-rtdb.europe-west1.firebasedatabase.app/";
 
 
-async function loadContactsFromFirebase() {
-  let response = await fetch(BASE_URL_Marcus + "/contacts.json");
-  if (response.ok) {
-    let data = await response.json();
-    contactsFirebase = Object.values(data || {});
-    renderAvatar();
-  } else {
-    contactsFirebase = [];
-  }
-}
+// async function loadContactsFromFirebase() {
+//   let response = await fetch(BASE_URL_Marcus + "/contacts.json");
+//   if (response.ok) {
+//     let data = await response.json();
+//     contactsFirebase = Object.values(data || {});
+//     renderAvatar();
+//   } else {
+//     contactsFirebase = [];
+//   }
+// }
 
 
 
-function renderAvatar() {
-  contactsFirebase.forEach(contact => {
-    contact.avatar = contact.username
-      .split(" ")                   // Zerlege in einzelne Wörter
-      .map(name => name[0].toUpperCase())  // Nimm jeweils den ersten Buchstaben und mach ihn groß
-      .join("");                    // Füge die Buchstaben zusammen
-  });
-}
+// function renderAvatar() {
+//   contactsFirebase.forEach(contact => {
+//     contact.avatar = contact.username
+//       .split(" ")                   // Zerlege in einzelne Wörter
+//       .map(name => name[0].toUpperCase())  // Nimm jeweils den ersten Buchstaben und mach ihn groß
+//       .join("");                    // Füge die Buchstaben zusammen
+//   });
+// }
 
 ////////// ------------   ///////////
 
