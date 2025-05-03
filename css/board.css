@@ -293,19 +293,13 @@ body {
     height: unset !important;
 }
 
-.overflow-hidden {
-    overflow: hidden;
-    overflow-y: hidden;
-    overflow-x: hidden;
-}
-
-/* .edit-scrolling-scrollbar {
+.edit-scrolling-scrollbar {
     max-height: 100vh;
     overflow-y: auto;
     padding: 0 5px 0 0;
     scrollbar-gutter: stable;
     margin-right: -20px;
-} */
+}
 
 .lock-layout {
     min-width: 1000px;
