@@ -207,6 +207,9 @@ function enableLoginButtons() {
  * @event DOMContentLoaded
  */
 window.addEventListener("DOMContentLoaded", async () => {
+    await loadHTML("/html/rotate_warning.html", "rotate-warning-placeholder");
+    checkOrientation();
+
     let layout = localStorage.getItem("layout");
     if (layout === "intern") {
         await loadHeaderNavbarIntern();
@@ -238,3 +241,28 @@ window.addEventListener("DOMContentLoaded", async () => {
         backClick.addEventListener("click", () => history.back());
     }
 });
+
+/**
+ * Checks the current device orientation and toggles a fullscreen warning overlay.
+ * 
+ * The warning only appears on mobile devices (viewport width < 990px)
+ * and only when the device is in landscape mode (width > height).
+ * 
+ * The overlay must be present in the DOM with the ID "rotateWarning".
+ * 
+ * @function checkOrientation
+ * @returns {void}
+ */
+function checkOrientation() {
+    const warning = document.getElementById("rotateWarning");
+    if (!warning) return;
+
+    const isMobile = window.innerWidth < 990;
+    const isLandscape = window.innerWidth > window.innerHeight;
+
+    warning.style.display = (isMobile && isLandscape) ? "flex" : "none";
+}
+// Attach orientation check to relevant window events
+window.addEventListener("load", checkOrientation);
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("orientationchange", checkOrientation);

@@ -24,7 +24,33 @@ main {
   display: none !important;
 }
 
+.rotate-warning-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  font-size: 1.4em;
+  font-family: 'Inter', sans-serif;
+  backdrop-filter: blur(5px);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
 
+.rotate-warning-overlay img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
 /* Header */
 
 header {
