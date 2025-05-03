@@ -124,3 +124,23 @@ async function saveContactsToFirebase() {
     });
 }
 
+async function putDataToServer(path = "", data) {
+    try {
+      const response = await fetch(BASE_URL + path + ".json", {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      successfulAddedTask();
+      userFeedback();
+    } catch (error) {
+      console.error('There was an error saving the data:', error);
+    }
+  }
+

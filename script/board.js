@@ -206,6 +206,7 @@ function fitEditTaskToContainer() {
   document.getElementById("addTask_form_container").classList.add("height-unset");
   document.getElementById("close_edit_task_overlay").classList.remove("d_none");
   document.getElementById("addTask_form_container").classList.add("overflow-hidden");
+  document.getElementById("addTask_prio").classList.add("gap-8");
 }
 
 function currentInputFieldvalue(taskIndex) {
