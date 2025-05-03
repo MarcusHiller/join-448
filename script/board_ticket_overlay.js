@@ -1,6 +1,5 @@
 /// Tikcet Overlay //
 
-
 function openOverlayTask(taskIndex) {
     document.getElementById("board_overlay").classList.remove("d_none");
     document.getElementById("overlay_container").classList.remove("d_none");
@@ -97,7 +96,6 @@ function renderUserIntoTaskOverlay(taskIndex) {
     if (taskUsers.length) {
         for (let indexUser = 0; indexUser < taskUsers.length; indexUser++) {
             taskUsersTableRef.innerHTML += getTaskUsersOverlayTemplate(taskIndex, indexUser)
-
         }
     } else {
         taskUsersTableRef.innerHTML = "<span style='opacity: 0.2; font-size: 16px'>No User added</span>"
@@ -183,28 +181,12 @@ function checkCategory(taskIndex) {
 }
 
 function checkPrio(taskIndex) {
-    let prio = tasks[taskIndex].priority;
-    let urgent = document.getElementById("prio_urgent");
-    let medium = document.getElementById("prio_medium");
-    let low = document.getElementById("prio_low");
+    const prio = tasks[taskIndex].priority;
+    const prioIds = ["urgent", "medium", "low"];
 
-    if (prio === "urgent") {
-        urgent.checked = true
-        medium.checked = false;
-        low.checked = false;
-    }
-
-    if (prio === "medium") {
-        urgent.checked = false
-        medium.checked = true;
-        low.checked = false;
-    }
-
-    if (prio === "low") {
-        urgent.checked = false
-        medium.checked = false;
-        low.checked = true;
-    }
+    prioIds.forEach(level => {
+        document.getElementById(`prio_${level}`).checked = (level === prio);
+    });
 }
 
 
@@ -217,7 +199,6 @@ function checkAssignedTo(taskIndex) {
         let user = contactsFirebase.indexOf(username)
         ids.push(user);
     }
-
     for (let index = 0; index < ids.length; index++) {
         const userIndex = ids[index];
         let checkbox = document.getElementById("user_" + userIndex);
@@ -234,32 +215,25 @@ function checkAssignedTo(taskIndex) {
 async function deleteTaskOnOverlay(taskIndex) {
     let task = tasks[taskIndex].id
     let path = "join/tasks/";
-
-    try {
-        const response = await fetch(BASE_URL + path + task + ".json", {
+        await fetch(BASE_URL + path + task + ".json", {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        if (response.status === 200) {
-            console.log('Data deleted successfully!');
-        } else {
-            console.log('Data deletion successful. Response status:', response.status);
-        }
-
-    } catch (error) {
-        console.error('There was an error deleting the data:', error);
-    }
-
+    
     deleteTaskFromTaskArray(taskIndex)
     renderTaskInToColumn();
-    closeOverlayTask()
+    closeOverlayTask();
+    successfulTaskDeleted();
+    userFeedback();
+    
 }
+
+function successfulTaskDeleted() {
+    let success = document.getElementById('success');
+    success.innerHTML = showTaskDeleted();
+  }
 
 
 function deleteTaskFromTaskArray(taskIndex) {
