@@ -37,8 +37,8 @@ function isUserLoged() {
  * @function logOut
  */
 function logOut() {
-    localStorage.removeItem("layout");
     localStorage.setItem("loggedIn", "false");
+    localStorage.removeItem("layout");
     window.location.href = "../index.html";
 }
 
@@ -64,12 +64,13 @@ async function loadHTML(file, elementId) {
  * @param {string} page - ID of the currently active menu element.
  */
 function activePageHiglight(page) {
-    document.getElementById("summary_page").classList.remove("active-menu");
-    document.getElementById("add_task_page").classList.remove("active-menu");
-    document.getElementById("board_page").classList.remove("active-menu");
-    document.getElementById("contact_page").classList.remove("active-menu");
-    document.getElementById("help_page").classList.remove("active-menu");
-    document.getElementById(page).classList.add("active-menu");
+    const ids = ["summary_page", "add_task_page", "board_page", "contact_page", "help_page"];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove("active-menu");
+    });
+    const current = document.getElementById(page);
+    if (current) current.classList.add("active-menu");
 }
 
 /**
@@ -89,6 +90,7 @@ function burgerMenuSliding() {
  * @param {string} url - Destination URL to redirect to.
  */
 function setLayoutAndRedirect(layout, url) {
+    localStorage.removeItem('layout');
     localStorage.setItem('layout', layout);
     window.location.href = url;
 }
@@ -203,12 +205,12 @@ function enableLoginButtons() {
 /**
  * Handles layout and login state based on localStorage on page load.
  * Also sets up cookie banner visibility and back arrow behavior.
- * 
- * @event DOMContentLoaded
  */
 window.addEventListener("DOMContentLoaded", async () => {
+    localStorage.removeItem("layout");
     await loadHTML("/html/rotate_warning.html", "rotate-warning-placeholder");
     checkOrientation();
+
     let layout = localStorage.getItem("layout");
     let loggedIn = localStorage.getItem("loggedIn");
 
@@ -217,12 +219,11 @@ window.addEventListener("DOMContentLoaded", async () => {
         localStorage.setItem("layout", "intern");
     }
 
-    if (!layout || layout === "extern" || loggedIn === "false") {
-        await loadHeaderNavbarExtern();
-    } else {
+    if (layout === "intern") {
         await loadHeaderNavbarIntern();
+    } else {
+        await loadHeaderNavbarExtern();
     }
-
 
     let stillValid = cookiesStillValid();
     let acceptBtn = document.getElementById("acceptCookiesBtn");
@@ -250,41 +251,21 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 /**
- * Clears layout and login info when navigating to external pages (e.g., privacy/legal).
- * This ensures correct state when returning or using guest login.
- */
-document.addEventListener("click", function (e) {
-    const target = e.target.closest("a");
-    if (!target) return;
-
-    const externLinks = [
-        "privacy_policy.html",
-        "legal_notice.html",
-        "index.html"
-    ];
-
-    if (externLinks.some(page => target.href.includes(page))) {
-        localStorage.removeItem("layout");
-        localStorage.setItem("loggedIn", "false");
-    }
-});
-
-
-/**
  * Checks the device orientation and toggles a fullscreen warning overlay.
- * 
- * The warning appears only on mobile-sized viewports in landscape orientation.
+ * Only active on mobile-sized screens in landscape mode.
  * 
  * @function checkOrientation
- * @returns {void}
  */
 function checkOrientation() {
     const warning = document.getElementById("rotateWarning");
     if (!warning) return;
 
-    const isMobileViewport = window.innerWidth < 990; // Mobile-like Breite
-    const isLandscape = window.innerWidth > window.innerHeight;
+    const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+    const isMobile = Math.min(window.innerWidth, window.innerHeight) <= 800;
 
-    // Nur zeigen, wenn beides zutrifft
-    warning.style.display = (isMobileViewport && isLandscape) ? "flex" : "none";
+    warning.style.display = (isMobile && isLandscape) ? "flex" : "none";
 }
+
+window.addEventListener("load", checkOrientation);
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("orientationchange", checkOrientation);
