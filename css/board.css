@@ -289,6 +289,18 @@ body {
     font-size: 12px;
 }
 
+.height-unset {
+    height: unset !important;
+}
+
+.edit-scrolling-scrollbar {
+    max-height: 100vh;
+    overflow-y: auto;
+    padding: 0 5px 0 0;
+    scrollbar-gutter: stable;
+    margin-right: -20px;
+}
+
 .lock-layout {
     min-width: 1000px;
     /* oder was dein Layout braucht */

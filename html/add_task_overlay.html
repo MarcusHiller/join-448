@@ -1,10 +1,13 @@
 <div id="addTask_headline" class="addTask-headline" onload="addClearButtonToThePage()">
-    <h2>Add Task</h2>
-    <div><img id="close_add_task_overlay" class="close-icon d_none" onclick="closeAddTask()"
+    <h2 id="addTask_headline_h1">Add Task</h2>
+    <div>
+        <img id="close_add_task_overlay" class="close-icon d_none" onclick="closeAddTask()"
+            src="/assets/img/icon/close.svg" alt=""></div>
+        <img id="close_edit_task_overlay" class="close-icon d_none" onclick="closeAddTask(); closeOverlayTask()"
             src="/assets/img/icon/close.svg" alt=""></div>
 </div>
 <form id="addTask_form" class="addTask-form" onsubmit="addTask(); return false">
-    <div id="edit_scrolling">
+    <div id="edit_scrolling" class="edit-scrolling-scrollbar">
         <div id="addTask_form_container" class="addTask-form-container">
             <div class="addTask-left-side">
                 <label for="" class="addTask-label">Title<span class="required-star">&#42</span></label>
@@ -87,7 +90,7 @@
         <div class="addTask-footer footer-desktop">
             <span class="required-field"><span class="required-star">&#42</span>This field is required</span>
             <div class="addTask-footer-buttons">
-                <div id="cancel_button" class="cancel-task-button d_none" onclick="clearAddTaskField(); closeAddTask()">
+                <div id="cancel_button" class="cancel-task-button d_none" onclick="closeAddTask()">
                     <span class="add-task-text ">Cancel</span>
                     <img src="/assets/img/icon/close.svg" alt="plus">
                 </div>
