@@ -3,64 +3,6 @@ let nextTaskId = 5;
 let subtasks = [];
 let subtaskIndex = -1;
 
-/////  From Marcus
-// let contactsFirebase = [];
-// const BASE_URL_Marcus = "https://join-2c200-default-rtdb.europe-west1.firebasedatabase.app/";
-
-
-// async function loadContactsFromFirebase() {
-//   let response = await fetch(BASE_URL_Marcus + "/contacts.json");
-//   if (response.ok) {
-//     let data = await response.json();
-//     contactsFirebase = Object.values(data || {});
-//     renderAvatar();
-//   } else {
-//     contactsFirebase = [];
-//   }
-// }
-
-
-
-// function renderAvatar() {
-//   contactsFirebase.forEach(contact => {
-//     contact.avatar = contact.username
-//       .split(" ")                   // Zerlege in einzelne Wörter
-//       .map(name => name[0].toUpperCase())  // Nimm jeweils den ersten Buchstaben und mach ihn groß
-//       .join("");                    // Füge die Buchstaben zusammen
-//   });
-// }
-
-////////// ------------   ///////////
-
-
-async function putDataToServer(path = "", data) {
-  try {
-    const response = await fetch(BASE_URL + path + ".json", {
-      method: 'PUT', // Use the PUT method
-      headers: {
-        'Content-Type': 'application/json' // Specify that you're sending JSON data
-      },
-      body: JSON.stringify(data) // Convert your data to a JSON string
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const responseData = await response.json(); // Parse the response body as JSON
-    console.log('Data saved successfully:', responseData); // Log the response from the server (optional)
-    successfulAddedTask();
-    userFeedback();
-
-    
-
-  } catch (error) {
-    console.error('There was an error saving the data:', error);
-  }
-}
-
-
-
 
 function addClearButtonToThePage() {
   document.getElementById("clear_button").classList.remove("d_none");
@@ -103,14 +45,15 @@ function addCheckedUsers(indexUsers) {
   if (!userCheckbox.checked) {
     userAvatar.remove();
   }
-
 }
+
 
 function openCatDropMenu() {
   document.getElementById("dropdown_menu_arrow_select").classList.toggle("rotate-img");
   document.getElementById("category_input").classList.toggle("blue-border");
   document.getElementById("category_list").classList.toggle("dropdown-animation");
 }
+
 
 function closeOpenCatDropMenu() {
   document.getElementById("dropdown_menu_arrow_select").classList.remove("rotate-img");
@@ -119,21 +62,19 @@ function closeOpenCatDropMenu() {
 }
 
 
-
 function selectCategory(category) {
   const input = document.getElementById("category_select_input");
   input.value = category;
-
-  // Fehleranzeige entfernen
   input.parentElement.classList.remove("error-label-border");
   document.getElementById("error-cat").classList.remove("visible");
-
   closeOpenCatDropMenu();
 }
+
 
 function addBorder() {
   document.getElementById("subtask_input_label").classList.add("blue-border");
 }
+
 
 function removeBorder() {
   document.getElementById("subtask_input_label").classList.remove("blue-border");
@@ -146,19 +87,24 @@ function addTaskButton() {
 
 
 function addTask(condition = "") {
-  let hasError = false;
   let newTask;
+  let hasError = checkInputFields();
+  if (hasError) return;
+  newTask = getNewTask();
+  putDataToServer(`/join/tasks/${newTask.id}`, newTask);
+}
+
+
+function checkRequiredInputsField() {
   const fields = [
     { id: 'titel_input', errorId: 'error-title' },
     { id: 'date_input', errorId: 'error-date' },
     { id: 'category_select_input', errorId: 'error-cat' }
   ];
   removeErrorMsg();
-  hasError = checkInputFields(fields);
-  if (hasError) return;
-  newTask = getNewTask();
-  putDataToServer(`/join/tasks/${newTask.id}`, newTask);
+  return fields;
 }
+
 
 function removeErrorMsg() {
   document.querySelectorAll('.error-message').forEach(e => e.classList.remove('visible'));
@@ -166,8 +112,10 @@ function removeErrorMsg() {
   document.querySelectorAll('.error-label-border').forEach(e => e.classList.remove('error-label-border'));
 }
 
-function checkInputFields(fields) {
+
+function checkInputFields() {
   let hasError = false
+  let fields = checkRequiredInputsField();
   fields.forEach(({ id, errorId }) => {
     const input = document.getElementById(id);
     const error = document.getElementById(errorId);
@@ -250,22 +198,14 @@ function getUserObject(userID) {
   return allUsers;
 }
 
-function sortSubtask() {
-  let subtaskListLength = document.getElementById("sub_list").children.length;
-
-  for (let index = 0; subtaskListLength < array.length; index++) {
-    let subtask = document.getElementById("editable_input_" + i);
-
-  }
-}
 
 function prepareSubtaskIDs() {
-  const subtaskElements = document.getElementById("sub_list").children;
+  const subList = document.getElementById("sub_list");
+  if (!subList) return;
 
+  const subtaskElements = subList.children;
   for (let i = 0; i < subtaskElements.length; i++) {
     const element = subtaskElements[i];
-
-    // Nur das Input-Feld sauber neu nummerieren
     const input = element.querySelector('input');
     if (input) {
       input.id = `editable_input_${i}`;
@@ -273,40 +213,62 @@ function prepareSubtaskIDs() {
   }
 }
 
-function getSubtasks(taskIndex) {
-  prepareSubtaskIDs();
-  const subtaskElements = document.getElementById("sub_list").children;
-  const subtasksObject = {};
 
+function prepareSubtaskIDs() {
+  const subList = document.getElementById("sub_list");
+  if (!subList) return;
+
+  const subtaskElements = subList.children;
   for (let i = 0; i < subtaskElements.length; i++) {
-    const input = document.getElementById("editable_input_" + i);
-    const value = input ? input.value.trim() : "";
-    let check;
-
-    if (taskIndex !== undefined) {
-      let subtaskCheck = tasks[taskIndex].subtask[i].subtaskCheck;
-
-      if (subtaskCheck) {
-        check = true;
-      } else {
-        check = false;
-      }
-
-    } else {
-      check = false
-    }
+    const input = subtaskElements[i].querySelector("input");
+    if (input) input.id = `editable_input_${i}`;
+  }
+}
 
 
-    if (value) {
-      subtasksObject["subtask" + i] = {
-        name: value,
-        checked: check
-      };
-    }
+function getCheckStatus(taskIndex, subtaskIndex) {
+  if (
+    taskIndex === undefined ||
+    !tasks[taskIndex] ||
+    !tasks[taskIndex].subtask ||
+    !tasks[taskIndex].subtask[subtaskIndex]
+  ) {
+    return false;
   }
 
-  return { subtasks: subtasksObject };
+  return !!tasks[taskIndex].subtask[subtaskIndex].subtaskCheck;
 }
+
+
+function extractSubtask(inputId, taskIndex, i) {
+  const input = document.getElementById(inputId);
+  const value = input ? input.value.trim() : "";
+  if (!value) return null;
+
+  return {
+    name: value,
+    checked: getCheckStatus(taskIndex, i)
+  };
+}
+
+
+function getSubtasks(taskIndex) {
+  prepareSubtaskIDs();
+
+  const subList = document.getElementById("sub_list");
+  if (!subList) return { subtasks: [] };
+
+  const subtasksArray = [];
+  const subtaskElements = subList.children;
+
+  for (let i = 0; i < subtaskElements.length; i++) {
+    const subtask = extractSubtask(`editable_input_${i}`, taskIndex, i);
+    if (subtask) subtasksArray.push(subtask);
+  }
+
+  return { subtasks: subtasksArray };
+}
+
 
 function showAddSubtaskButton() {
   let subtask = document.getElementById("subtask_input");
@@ -319,6 +281,7 @@ function showAddSubtaskButton() {
     document.getElementById("subtask_plus_icon").classList.remove("d_none");
   }
 }
+
 
 function clearSubtaskInput() {
   document.getElementById("subtask_input").innerHTML = "";
@@ -339,13 +302,16 @@ function addSubtask() {
   }
 }
 
+
 function showEditIcons(indexSubTask) {
   document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.remove("d_none")
 }
 
+
 function blindEditIcons(indexSubTask) {
   document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.add("d_none")
 }
+
 
 function editSubtask(indexSubTask) {
   let input = document.getElementById("editable_input_" + indexSubTask);
@@ -356,6 +322,7 @@ function editSubtask(indexSubTask) {
   input.focus();
 }
 
+
 function emptySubtaskDelete(indexSubTask) {
   let input = document.getElementById("editable_input_" + indexSubTask).value;
 
@@ -364,17 +331,21 @@ function emptySubtaskDelete(indexSubTask) {
   }
 }
 
+
 function editSubmit(indexSubTask) {
   document.getElementById("editable_input_" + indexSubTask).readOnly = true;
 }
+
 
 function removeSubtask(indexSubTask, taskIndex) {
   document.getElementById("subtask_" + indexSubTask).remove();
 }
 
+
 function searchContactToTask() {  // not avalieble yet
   let input = document.getElementById("assigned_select_input").value;
 }
+
 
 function clearAddTaskField() {
   document.getElementById("titel_input").value = "";
@@ -389,6 +360,7 @@ function clearAddTaskField() {
   userFeedback();
 }
 
+
 function clearSubtaskInput() {
   document.getElementById("subtask_input").value = "";
   document.getElementById("sub_list").innerHTML = "";
@@ -401,84 +373,37 @@ function unsetCheckbox() {
   }
 }
 
+
 function successfulClearTask() {
   let success = document.getElementById('success');
   success.innerHTML = showSuccessfulClear();
 }
+
 
 function successfulAddedTask() {
   let success = document.getElementById('success');
   success.innerHTML = showSuccessfulAddedTask();
 }
 
-///////////
 
 function userFeedback() {
   setTimeout(() => {
-      let success = document.getElementById('success');
-      success.classList.remove('d-none');
-      setTimeout(() => {success.classList.add('show-successful');}, 1);
-      setTimeout(() => {success.classList.remove('show-successful');}, 1510);
-      setTimeout(() => {success.classList.add('d-none');}, 1730);
+    let success = document.getElementById('success');
+    success.classList.remove('d-none');
+    setTimeout(() => { success.classList.add('show-successful'); }, 1);
+    setTimeout(() => { success.classList.remove('show-successful'); }, 1510);
+    setTimeout(() => { success.classList.add('d-none'); }, 1730);
   }, 200);
 }
 
-////////////////
-
 
 function addEditedTask(taskIndex) {
-  let newEditedTask = {}
-  let title = document.getElementById("titel_input");
-  let descripton = document.getElementById("description_input");
-  let date = document.getElementById("date_input");
-  let category = document.getElementById("category_select_input");
-  let priority;
-  let subtasks = getSubtasks(taskIndex).subtasks;
-  let assignedTo = getAssignedTo();
-  let taskID = tasks[taskIndex].id;
-  let condition = tasks[taskIndex].condition;
+  let newEditedTask = {};
+  let hasError = checkInputFields();
+  if (hasError) return;
+  newEditedTask = getEditedTask(taskIndex)
 
-
-  let urgent = document.getElementById("prio_urgent");
-  let medium = document.getElementById("prio_medium");
-  let low = document.getElementById("prio_low");
-  let prio = [urgent, medium, low];
-
-  for (i = 0; i < prio.length; i++) {
-    if (prio[i].checked) {
-      priority = prio[i].value;
-    }
-  }
-
-
-
-  newEditedTask = {
-    title: title.value,
-    descripton: descripton.value,
-    date: date.value,
-    category: category.value,
-    priority: priority,
-    subtask: subtasks,
-    assignedTo: assignedTo,
-    condition: condition,
-    id: taskID
-  }
-
-  console.log(newEditedTask);
-  console.log(taskID);
-
-
-
-
-
-
-  console.log(tasks);
-  console.log(tasks[taskIndex]);
-  console.log(newEditedTask);
-
-
-
-  putDataToServer(`/join/tasks/${taskID}`, newEditedTask);
+  putDataToServer(`/join/tasks/${newEditedTask.id}`, newEditedTask);
   tasks[taskIndex] = newEditedTask;
   getSubtasksArrayAfterEdit(taskIndex);
   getAssignedToArrayAfterEdit(taskIndex);
@@ -486,6 +411,20 @@ function addEditedTask(taskIndex) {
   closeOverlayTask();
   clearOverlay();
 }
+
+function getEditedTask(taskIndex) {
+  let title = document.getElementById("titel_input").value;
+  let descripton = document.getElementById("description_input").value;
+  let date = document.getElementById("date_input").value;
+  let category = document.getElementById("category_select_input").value;
+  let priority = getPriority();
+  let subtask = getSubtasks(taskIndex).subtasks;
+  let assignedTo = getAssignedTo();
+  let id = tasks[taskIndex].id;
+  let condition = tasks[taskIndex].condition;
+  return {title, descripton, date, category, priority, subtask, assignedTo, id, condition }
+}
+
 
 function getAssignedToArrayAfterEdit(taskIndex) {
   let usersArray = [];
@@ -501,6 +440,7 @@ function getAssignedToArrayAfterEdit(taskIndex) {
   return tasks[taskIndex].assignedTo = usersArray;
 }
 
+
 function getSubtasksArrayAfterEdit(taskIndex) {
   let subtasksObj = tasks[taskIndex].subtask
   let subtasksKeys = Object.keys(subtasksObj)
@@ -514,13 +454,14 @@ function getSubtasksArrayAfterEdit(taskIndex) {
       })
 
   }
-
   return tasks[taskIndex].subtask = subtasks;
 }
+
 
 async function clearOverlay() {
   await getTaskOverlayHTML();
 }
+
 
 function renderSingleTaskInToColumn(taskIndex) {
   selectConditionForSingleTask(taskIndex);
@@ -529,6 +470,7 @@ function renderSingleTaskInToColumn(taskIndex) {
   renderPrio(taskIndex);
   renderCategoryColor(taskIndex);
 }
+
 
 function selectConditionForSingleTask(taskIndex) {
   let taskRef = document.getElementById("task_" + "index_" + taskIndex);

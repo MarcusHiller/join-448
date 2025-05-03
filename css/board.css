@@ -299,6 +299,10 @@ body {
     overflow-x: hidden;
 }
 
+.gap-8 {
+    gap: 8px !important;
+}
+
 /* .edit-scrolling-scrollbar {
     max-height: 100vh;
     overflow-y: auto;
