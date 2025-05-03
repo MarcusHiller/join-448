@@ -66,8 +66,8 @@ function isUserLoged() {
  */
 function logOut() {
     localStorage.setItem("loggedIn", "false");
-    window.location.href = "../index.html";
     localStorage.removeItem("layout");
+    window.location.href = "../index.html";
 }
 
 /**
@@ -92,12 +92,13 @@ async function loadHTML(file, elementId) {
  * @param {string} page - ID of the currently active menu element.
  */
 function activePageHiglight(page) {
-    document.getElementById("summary_page").classList.remove("active-menu");
-    document.getElementById("add_task_page").classList.remove("active-menu");
-    document.getElementById("board_page").classList.remove("active-menu");
-    document.getElementById("contact_page").classList.remove("active-menu");
-    document.getElementById("help_page").classList.remove("active-menu");
-    document.getElementById(page).classList.add("active-menu");
+    const ids = ["summary_page", "add_task_page", "board_page", "contact_page", "help_page"];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove("active-menu");
+    });
+    const current = document.getElementById(page);
+    if (current) current.classList.add("active-menu");
 }
 
 /**
@@ -117,6 +118,7 @@ function burgerMenuSliding() {
  * @param {string} url - Destination URL to redirect to.
  */
 function setLayoutAndRedirect(layout, url) {
+    localStorage.removeItem('layout');
     localStorage.setItem('layout', layout);
     window.location.href = url;
 }
@@ -231,14 +233,28 @@ function enableLoginButtons() {
 /**
  * Handles layout and login state based on localStorage on page load.
  * Also sets up cookie banner visibility and back arrow behavior.
- * 
- * @event DOMContentLoaded
  */
 window.addEventListener("DOMContentLoaded", async () => {
+    // Nur auf externen Seiten layout löschen
+    if (window.location.pathname.includes("privacy_policy.html") ||
+        window.location.pathname.includes("legal_notice.html")) {
+        localStorage.removeItem("layout");
+    }
+
+    await loadHTML("/html/rotate_warning.html", "rotate-warning-placeholder");
+    checkOrientation();
+
     let layout = localStorage.getItem("layout");
+    let loggedIn = localStorage.getItem("loggedIn");
+
+    if (!layout &amp;&amp; loggedIn === "true") {
+        layout = "intern";
+        localStorage.setItem("layout", "intern");
+    }
+
     if (layout === "intern") {
         await loadHeaderNavbarIntern();
-    } else if (layout === "extern") {
+    } else {
         await loadHeaderNavbarExtern();
     }
 
@@ -266,6 +282,26 @@ window.addEventListener("DOMContentLoaded", async () => {
         backClick.addEventListener("click", () => history.back());
     }
 });
+
+/**
+ * Checks the device orientation and toggles a fullscreen warning overlay.
+ * Only active on mobile-sized screens in landscape mode.
+ * 
+ * @function checkOrientation
+ */
+function checkOrientation() {
+    const warning = document.getElementById("rotateWarning");
+    if (!warning) return;
+
+    const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+    const isMobile = Math.min(window.innerWidth, window.innerHeight) &lt;= 800;
+
+    warning.style.display = (isMobile &amp;&amp; isLandscape) ? "flex" : "none";
+}
+
+window.addEventListener("load", checkOrientation);
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("orientationchange", checkOrientation);
 </code></pre>
         </article>
     </section>
@@ -276,13 +312,13 @@ window.addEventListener("DOMContentLoaded", async () => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li></ul><h3>Global</h3><ul><li><a href="global.html#acceptCookies">acceptCookies</a></li><li><a href="global.html#activePageHiglight">activePageHiglight</a></li><li><a href="global.html#burgerMenuSliding">burgerMenuSliding</a></li><li><a href="global.html#cookiesStillValid">cookiesStillValid</a></li><li><a href="global.html#disableLoginButtons">disableLoginButtons</a></li><li><a href="global.html#enableLogin">enableLogin</a></li><li><a href="global.html#enableLoginButtons">enableLoginButtons</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isUserLoged">isUserLoged</a></li><li><a href="global.html#loadHTML">loadHTML</a></li><li><a href="global.html#loadHeaderNavbarExtern">loadHeaderNavbarExtern</a></li><li><a href="global.html#loadHeaderNavbarIntern">loadHeaderNavbarIntern</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#markLegalPrivacyActiveLink">markLegalPrivacyActiveLink</a></li><li><a href="global.html#setLayoutAndRedirect">setLayoutAndRedirect</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#acceptCookies">acceptCookies</a></li><li><a href="global.html#activePageHiglight">activePageHiglight</a></li><li><a href="global.html#burgerMenuSliding">burgerMenuSliding</a></li><li><a href="global.html#checkOrientation">checkOrientation</a></li><li><a href="global.html#cookiesStillValid">cookiesStillValid</a></li><li><a href="global.html#disableLoginButtons">disableLoginButtons</a></li><li><a href="global.html#enableLogin">enableLogin</a></li><li><a href="global.html#enableLoginButtons">enableLoginButtons</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isUserLoged">isUserLoged</a></li><li><a href="global.html#loadHTML">loadHTML</a></li><li><a href="global.html#loadHeaderNavbarExtern">loadHeaderNavbarExtern</a></li><li><a href="global.html#loadHeaderNavbarIntern">loadHeaderNavbarIntern</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#markLegalPrivacyActiveLink">markLegalPrivacyActiveLink</a></li><li><a href="global.html#setLayoutAndRedirect">setLayoutAndRedirect</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat May 03 2025 13:00:31 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat May 03 2025 20:44:43 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>
