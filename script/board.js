@@ -58,31 +58,20 @@ function searchTask() {
   document.activeElement.blur();
 }
 
-
-
 // Search //
 
 function searchTask() {
-  const inputField = document.getElementById("search_task");
-  const inputValue = inputField.value.toLowerCase();
+  const inputValue = document.getElementById("search_task").value.toLowerCase();
 
   for (let indexTask = 0; indexTask < tasks.length; indexTask++) {
-    const taskIndex = indexTask;
-    const task = document.getElementById("task_index_" + taskIndex);
-
-    if (!task) continue; // Sicherheits-Check
-
+    const task = document.getElementById("task_index_" + indexTask);
+    if (!task) continue;
     const title = tasks[indexTask].title.toLowerCase();
     const descripton = tasks[indexTask].descripton.toLowerCase(); // <-- richtig geschrieben
-
-    // Wenn das Suchfeld leer ist → alle Tasks zeigen
     if (inputValue === "") {
       task.classList.remove("d_none");
-    }
-    // Wenn etwas eingegeben wurde → filtern
-    else {
+    } else {
       const isMatch = title.includes(inputValue) || descripton.includes(inputValue);
-
       if (isMatch) {
         task.classList.remove("d_none");
       } else {
@@ -90,8 +79,6 @@ function searchTask() {
       }
     }
   }
-
-  // Wichtig: danach erneut leere Spalten prüfen
   renderEmptyColumn();
 }
 
@@ -100,6 +87,36 @@ function searchTask() {
 
 
 function renderTaskInToColumn() {
+  let columns = clearColumn();
+  sortTask(columns);
+  renderEmptyColumn();
+  renderDragDropHighlights(columns)
+}
+
+function sortTask(columns) {
+  for (let taskIndex = 0; taskIndex < tasks.length; taskIndex++) {
+    let taskCondition = tasks[taskIndex].condition;
+    if (taskCondition == "ToDo") {
+      columns.toDoColumnRef.innerHTML += getTaskTemplate(taskIndex);
+    } else if (taskCondition == "inProgress") {
+      columns.inProgColumnRef.innerHTML += getTaskTemplate(taskIndex);
+    } else if (taskCondition == "feedback") {
+      columns.feedbackColumnRef.innerHTML += getTaskTemplate(taskIndex);
+    } else if (taskCondition == "done") {
+      columns.doneColumnRef.innerHTML += getTaskTemplate(taskIndex);
+    }
+    renderDetails(taskIndex);
+  }
+}
+
+function renderDetails(taskIndex) {
+  renderAssignedTo(taskIndex);
+  renderSubtasks(taskIndex);
+  renderPrio(taskIndex);
+  renderCategoryColor(taskIndex);
+}
+
+function clearColumn() {
   let toDoColumnRef = document.getElementById("toDo_column");
   let inProgColumnRef = document.getElementById("inProg_column");
   let feedbackColumnRef = document.getElementById("feedback_column");
@@ -109,37 +126,15 @@ function renderTaskInToColumn() {
   inProgColumnRef.innerHTML = "";
   feedbackColumnRef.innerHTML = "";
   doneColumnRef.innerHTML = "";
-
-  for (let taskIndex = 0; taskIndex < tasks.length; taskIndex++) {
-    let taskCondition = tasks[taskIndex].condition;
-
-    if (taskCondition == "ToDo") {
-      toDoColumnRef.innerHTML += getTaskTemplate(taskIndex);
-    } else if (taskCondition == "inProgress") {
-      inProgColumnRef.innerHTML += getTaskTemplate(taskIndex);
-    } else if (taskCondition == "feedback") {
-      feedbackColumnRef.innerHTML += getTaskTemplate(taskIndex);
-    } else if (taskCondition == "done") {
-      doneColumnRef.innerHTML += getTaskTemplate(taskIndex);
-    }
-
-    renderAssignedTo(taskIndex);
-    renderSubtasks(taskIndex);
-    renderPrio(taskIndex);
-    renderCategoryColor(taskIndex);
-  }
-  renderEmptyColumn();
-
-  renderDragDropHighlights(toDoColumnRef, inProgColumnRef, feedbackColumnRef, doneColumnRef)
+  return { toDoColumnRef, inProgColumnRef, feedbackColumnRef, doneColumnRef };
 }
 
 
-function renderDragDropHighlights(toDoColumnRef, inProgColumnRef, feedbackColumnRef, doneColumnRef) {
-  toDoColumnRef.innerHTML += "<div id='empty_task_toDo' class='empty-task d_none'></div>";
-  inProgColumnRef.innerHTML += "<div id='empty_task_inProg' class='empty-task d_none'></div>";
-  feedbackColumnRef.innerHTML += "<div id='empty_task_feedback' class='empty-task d_none'></div>";
-  doneColumnRef.innerHTML += "<div id='empty_task_done' class='empty-task d_none'></div>";
-
+function renderDragDropHighlights(columns) {
+  columns.toDoColumnRef.innerHTML += "<div id='empty_task_toDo' class='empty-task d_none'></div>";
+  columns.inProgColumnRef.innerHTML += "<div id='empty_task_inProg' class='empty-task d_none'></div>";
+  columns.feedbackColumnRef.innerHTML += "<div id='empty_task_feedback' class='empty-task d_none'></div>";
+  columns.doneColumnRef.innerHTML += "<div id='empty_task_done' class='empty-task d_none'></div>";
 }
 
 
@@ -159,12 +154,9 @@ function renderEmptyColumn() {
 function checkAndRenderEmptyMessage(columnRef, message) {
   const visibleTasks = Array.from(columnRef.children).filter(child =>
     !child.classList.contains("d_none") &&
-    !child.classList.contains("empty-column")
-  );
+    !child.classList.contains("empty-column"));
 
   const alreadyHasPlaceholder = columnRef.querySelector(".empty-column");
-
-  // Wenn keine sichtbaren Tasks vorhanden sind → dann Platzhalter hinzufügen (aber nur wenn er nicht schon existiert)
   if (visibleTasks.length === 0 && !alreadyHasPlaceholder) {
     const placeholder = document.createElement("div");
     placeholder.classList.add("empty-column");
@@ -172,7 +164,6 @@ function checkAndRenderEmptyMessage(columnRef, message) {
     columnRef.appendChild(placeholder);
   }
 
-  // Wenn wieder sichtbare Tasks da sind → Platzhalter entfernen
   if (visibleTasks.length > 0 && alreadyHasPlaceholder) {
     alreadyHasPlaceholder.remove();
   }
@@ -212,14 +203,12 @@ function renderSubtasks(taskIndex) {
   let subtaskMax = tasks[taskIndex].subtask.length;
   let subtaskValueRef = document.getElementById("subtask_value_user_" + taskIndex);
   let subtaskValue = subtaskProgressBar.value;
-
   subtaskProgressBar.setAttribute("max", subtaskMax);
+
   if (subtaskMax) {
     subtaskMaxRef.innerHTML = subtaskMax;
   }
-
   subtaskValue = checkedSubtaskChecked(taskIndex, subtaskMax);
-
   if (subtaskValue > 0) {
     subtaskProgressBar.setAttribute("value", subtaskValue);
     subtaskValueRef.innerHTML = subtaskValue;
@@ -231,12 +220,10 @@ function renderAssignedTo(taskIndex) {
   let userListRef = document.getElementById("task_users_" + taskIndex);
   let userList = tasks[taskIndex].assignedTo;
   userListRef.innerHTML = "";
-  console.log(userList)
 
   if (userList.length) {
     for (let indexUser = 0; indexUser < userList.length; indexUser++) {
       userListRef.innerHTML += getUserInTaskTemplate(indexUser, userList)
-
     }
   } else {
     userListRef.innerHTML = "<span style='opacity: 0.2'>No User added</span>";
@@ -251,30 +238,30 @@ async function getDataFromServer(path = "") {
   await loadContactsFromFirebase();
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
-
   let tasksKeysArray = Object.keys(responseToJson)
 
   for (let index = 0; index < tasksKeysArray.length; index++) {
-    let assignedUsers = arrayAssignedTo(index, responseToJson, tasksKeysArray);
-    let subtasks = arraySubtasks(index, responseToJson, tasksKeysArray);
-    tasks.push(
-      {
-        title: responseToJson[tasksKeysArray[index]].title,
-        descripton: responseToJson[tasksKeysArray[index]].descripton,
-        date: responseToJson[tasksKeysArray[index]].date,
-        category: responseToJson[tasksKeysArray[index]].category,
-        priority: responseToJson[tasksKeysArray[index]].priority,
-        subtask: subtasks,
-        assignedTo: assignedUsers,
-        id: tasksKeysArray[index],
-        condition: responseToJson[tasksKeysArray[index]].condition
-
-      }
-    )
+    tasks.push(firbaseObject(index, responseToJson, tasksKeysArray))
   }
   renderTaskInToColumn();
   await deleteNotFoundedUserFromTask();
 }
+
+
+function firbaseObject(index, responseToJson, tasksKeysArray) {
+  return {
+    title: responseToJson[tasksKeysArray[index]].title,
+    descripton: responseToJson[tasksKeysArray[index]].descripton,
+    date: responseToJson[tasksKeysArray[index]].date,
+    category: responseToJson[tasksKeysArray[index]].category,
+    priority: responseToJson[tasksKeysArray[index]].priority,
+    subtask: arraySubtasks(index, responseToJson, tasksKeysArray),
+    assignedTo: arrayAssignedTo(index, responseToJson, tasksKeysArray),
+    id: tasksKeysArray[index],
+    condition: responseToJson[tasksKeysArray[index]].condition
+  }
+}
+
 
 async function deleteNotFoundedUserFromTask() {
   for (let del of usersToDeleteFromFirebase) {
@@ -285,27 +272,20 @@ async function deleteNotFoundedUserFromTask() {
   }
 }
 
+
 function arraySubtasks(index, responseToJson, tasksKeysArray) {
-
-
   let subtasks = []
-
   if (responseToJson[tasksKeysArray[index]].subtask !== undefined) {
     let subtasksKeys = Object.keys(responseToJson[tasksKeysArray[index]].subtask)
 
-
     for (let indexSubtask = 0; indexSubtask < subtasksKeys.length; indexSubtask++) {
-
       subtasks.push(
         {
           "subtaskName": responseToJson[tasksKeysArray[index]].subtask[subtasksKeys[indexSubtask]].name,
           "subtaskCheck": responseToJson[tasksKeysArray[index]].subtask[subtasksKeys[indexSubtask]].checked
         })
-
     }
-
   }
-
   return subtasks;
 }
 
@@ -314,20 +294,16 @@ function arrayAssignedTo(index, responseToJson, tasksKeysArray) {
   let usersArray = [];
   let taskKey = tasksKeysArray[index];
   let assignedTo = responseToJson[taskKey].assignedTo;
-
   if (assignedTo) {
     let usersKeysArray = Object.keys(assignedTo);
-
     for (let userKey of usersKeysArray) {
       let username = assignedTo[userKey];
       let contact = contactsFirebase.find(user =>
         user.username.toLowerCase() === username.toLowerCase()
       );
-
       if (contact) {
         usersArray.push(contact);
       } else {
-        // ❌ Statt sofort zu löschen → merken
         usersToDeleteFromFirebase.push({
           taskKey: taskKey,
           userKey: userKey,
@@ -336,7 +312,6 @@ function arrayAssignedTo(index, responseToJson, tasksKeysArray) {
       }
     }
   }
-
   return usersArray;
 }
 

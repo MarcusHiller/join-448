@@ -93,3 +93,11 @@ function showSuccessfulClear() {
 function showSuccessfulAddedTask() {
     return `<p>Task added to board! </p><img class="feedback-img" src="/assets/img/icon/board_icon.svg">`;
 }
+
+function showErrorAddedTask() {
+    return `<p>There was an error saving the data</p><img class="feedback-img" src="/assets/img/icon/close_white.svg">`;
+}
+
+function showTaskDeleted() {
+    return `<p>Task deleted successfully!</p><img class="feedback-img" src="/assets/img/icon/delete.svg">`;
+}
