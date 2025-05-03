@@ -37,10 +37,11 @@ function isUserLoged() {
  * @function logOut
  */
 function logOut() {
-    localStorage.setItem("loggedIn", "false");   // bleibt wie bei dir
-    localStorage.removeItem("layout");           // Layout zurücksetzen (intern vs. extern)
-    window.location.href = "../index.html";      // Weiterleitung bleibt bestehen
+    localStorage.removeItem("layout");
+    localStorage.setItem("loggedIn", "false");
+    window.location.href = "../index.html";
 }
+
 /**
  * Loads an HTML snippet into a target DOM element.
  * 
@@ -208,13 +209,20 @@ function enableLoginButtons() {
 window.addEventListener("DOMContentLoaded", async () => {
     await loadHTML("/html/rotate_warning.html", "rotate-warning-placeholder");
     checkOrientation();
-
     let layout = localStorage.getItem("layout");
-    if (layout === "intern") {
-        await loadHeaderNavbarIntern();
-    } else if (layout === "extern") {
-        await loadHeaderNavbarExtern();
+    let loggedIn = localStorage.getItem("loggedIn");
+
+    if (!layout && loggedIn === "true") {
+        layout = "intern";
+        localStorage.setItem("layout", "intern");
     }
+
+    if (!layout || layout === "extern" || loggedIn === "false") {
+        await loadHeaderNavbarExtern();
+    } else {
+        await loadHeaderNavbarIntern();
+    }
+
 
     let stillValid = cookiesStillValid();
     let acceptBtn = document.getElementById("acceptCookiesBtn");
@@ -242,12 +250,30 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 /**
- * Checks the current device orientation and toggles a fullscreen warning overlay.
+ * Clears layout and login info when navigating to external pages (e.g., privacy/legal).
+ * This ensures correct state when returning or using guest login.
+ */
+document.addEventListener("click", function (e) {
+    const target = e.target.closest("a");
+    if (!target) return;
+
+    const externLinks = [
+        "privacy_policy.html",
+        "legal_notice.html",
+        "index.html"
+    ];
+
+    if (externLinks.some(page => target.href.includes(page))) {
+        localStorage.removeItem("layout");
+        localStorage.setItem("loggedIn", "false");
+    }
+});
+
+
+/**
+ * Checks the device orientation and toggles a fullscreen warning overlay.
  * 
- * The warning only appears on mobile devices (viewport width < 990px)
- * and only when the device is in landscape mode (width > height).
- * 
- * The overlay must be present in the DOM with the ID "rotateWarning".
+ * The warning appears only on mobile-sized viewports in landscape orientation.
  * 
  * @function checkOrientation
  * @returns {void}
@@ -256,12 +282,9 @@ function checkOrientation() {
     const warning = document.getElementById("rotateWarning");
     if (!warning) return;
 
-    const isMobile = window.innerWidth < 990;
+    const isMobileViewport = window.innerWidth < 990; // Mobile-like Breite
     const isLandscape = window.innerWidth > window.innerHeight;
 
-    warning.style.display = (isMobile && isLandscape) ? "flex" : "none";
+    // Nur zeigen, wenn beides zutrifft
+    warning.style.display = (isMobileViewport && isLandscape) ? "flex" : "none";
 }
-// Attach orientation check to relevant window events
-window.addEventListener("load", checkOrientation);
-window.addEventListener("resize", checkOrientation);
-window.addEventListener("orientationchange", checkOrientation);
