@@ -19,6 +19,7 @@ async function init(page) {
     }
 }
 
+
 /**
  * Checks if the user is logged in and redirects to the start page if not.
  * 
@@ -31,6 +32,7 @@ function isUserLoged() {
     }
 }
 
+
 /**
  * Logs the user out by clearing login state and redirecting to the login page.
  * 
@@ -41,6 +43,7 @@ function logOut() {
     localStorage.removeItem("layout");
     window.location.href = "../index.html";
 }
+
 
 /**
  * Loads an HTML snippet into a target DOM element.
@@ -56,6 +59,7 @@ async function loadHTML(file, elementId) {
     let container = document.getElementById(elementId);
     if (container) container.innerHTML = html;
 }
+
 
 /**
  * Highlights the currently active page in the navigation menu.
@@ -73,6 +77,7 @@ function activePageHiglight(page) {
     if (current) current.classList.add("active-menu");
 }
 
+
 /**
  * Toggles the burger menu's slide animation on mobile devices.
  * 
@@ -81,6 +86,7 @@ function activePageHiglight(page) {
 function burgerMenuSliding() {
     document.getElementById("burger_menu").classList.toggle("burger-menu-transition");
 }
+
 
 /**
  * Stores layout preference and redirects to a new page.
@@ -94,6 +100,7 @@ function setLayoutAndRedirect(layout, url) {
     localStorage.setItem('layout', layout);
     window.location.href = url;
 }
+
 
 /**
  * Loads the internal header and navbar for authenticated users.
@@ -109,6 +116,7 @@ async function loadHeaderNavbarIntern() {
     markLegalPrivacyActiveLink();
 }
 
+
 /**
  * Loads the external header and navbar for guests.
  * 
@@ -121,6 +129,7 @@ async function loadHeaderNavbarExtern() {
         loadHTML("/html/navbar_extern.html", "navbar-section")
     ]);
 }
+
 
 /**
  * Marks the current page in the navbar as active for legal/privacy pages.
@@ -139,6 +148,7 @@ function markLegalPrivacyActiveLink() {
     }
 }
 
+
 /**
  * Accepts cookies and enables the login area and buttons.
  * Saves the acceptance time in localStorage.
@@ -152,6 +162,7 @@ function acceptCookies() {
     enableLogin();
     enableLoginButtons();
 }
+
 
 /**
  * Checks whether the cookie acceptance is still valid (within 1 year).
@@ -168,6 +179,7 @@ function cookiesStillValid() {
     return now - acceptedAt < oneYear;
 }
 
+
 /**
  * Shows the login area.
  * 
@@ -177,6 +189,7 @@ function enableLogin() {
     let loginArea = document.getElementById("loginArea");
     if (loginArea) loginArea.classList.remove("d-none");
 }
+
 
 /**
  * Disables the login and guest login buttons.
@@ -190,6 +203,7 @@ function disableLoginButtons() {
     if (guestBtn) guestBtn.disabled = true;
 }
 
+
 /**
  * Enables the login and guest login buttons.
  * 
@@ -201,6 +215,7 @@ function enableLoginButtons() {
     if (logInBtn) logInBtn.disabled = false;
     if (guestBtn) guestBtn.disabled = false;
 }
+
 
 /**
  * Handles layout and login state based on localStorage on page load.
@@ -253,6 +268,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         backClick.addEventListener("click", () => history.back());
     }
 });
+
 
 /**
  * Checks the device orientation and toggles a fullscreen warning overlay.

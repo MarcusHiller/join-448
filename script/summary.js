@@ -16,6 +16,7 @@ let greetingPhrase = (hour >= 5.5 && hour < 10.5) ? "Good morning" :
         (hour < 21.5) ? "Good evening" :
             "Good night";
 
+            
 /**
  * Fetches task data from Firebase and updates the summary metrics on the page.
  * Calculates various counts like "To Do", "Done", "In Progress", etc.,
@@ -84,6 +85,7 @@ async function loadSummaryData() {
     }
 }
 
+
 /**
  * Formats a date string into a readable format.
  * 
@@ -99,6 +101,7 @@ function formatDate(dateString) {
     });
 }
 
+
 /**
  * Navigates to a new URL with a short delay and visual feedback.
  * 
@@ -112,6 +115,7 @@ function navigateTo(url, element) {
     }, 80);
 }
 
+
 /**
  * Updates the greeting text element based on login state and user name.
  * 
@@ -124,6 +128,7 @@ function setGreetingText(element, name) {
         ? `${greetingPhrase}, <span class="greeting-name">${name}</span>`
         : `${greetingPhrase}!`;
 }
+
 
 /**
  * For mobile: hides the greeting and shows the metrics grid when the user clicks a button.
@@ -146,6 +151,7 @@ function showMetricsGrid(event) {
     }
     return true;
 }
+
 
 /**
  * Initializes the greeting message on the summary page after login.
@@ -175,6 +181,7 @@ function initGreeting() {
         header.style.display = "flex";
     }
 }
+
 
 /**
  * Re-applies the greeting text, e.g. when returning to the summary page from another view.
