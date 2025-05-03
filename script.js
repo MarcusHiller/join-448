@@ -207,7 +207,6 @@ function enableLoginButtons() {
  * Also sets up cookie banner visibility and back arrow behavior.
  */
 window.addEventListener("DOMContentLoaded", async () => {
-    // Nur auf externen Seiten layout löschen
     if (window.location.pathname.includes("privacy_policy.html") ||
         window.location.pathname.includes("legal_notice.html")) {
         localStorage.removeItem("layout");
@@ -266,9 +265,10 @@ function checkOrientation() {
     if (!warning) return;
 
     const isLandscape = window.matchMedia("(orientation: landscape)").matches;
-    const isMobile = Math.min(window.innerWidth, window.innerHeight) <= 800;
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    const smallScreen = Math.min(window.innerWidth, window.innerHeight) <= 800;
 
-    warning.style.display = (isMobile && isLandscape) ? "flex" : "none";
+    warning.style.display = (isMobile && smallScreen && isLandscape) ? "flex" : "none";
 }
 
 window.addEventListener("load", checkOrientation);
