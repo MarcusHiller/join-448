@@ -27,6 +27,8 @@
     <script src="/script/db.js"></script>
 </head>
 
+
+
 <body onload="init('board_page'); getTaskOverlayHTML(); getDataFromServer('join/tasks')" id="body">
 
 
@@ -48,9 +50,23 @@
                 <!-- Task Overlay -->
                 <div id="overlay_container" class="overlay-container overlay-container-sliding d_none"
                     onclick="event.stopPropagation()">
+                </div>
 
+                <!-- Mobile Nav -->
+                <div class="mobile-nav d_none" id="mobile_nav">
+                    <div class="move-to-head">Move to</div>
+                    <div class="move-to-arrow">
+                        <img src="/assets/img/icon/arrow_upward.svg" alt="">
+                        <p>To-do</p>
+                    </div>
+                    <div class="move-to-arrow">
+                        <img src="/assets/img/icon/arrow_downward.svg" alt="">
+                        <p>Review</p>
+                    </div>
                 </div>
             </div>
+
+
 
             <!-- Board -->
             <div class="board-headline">
@@ -137,4 +153,5 @@
         </div>
     </main>
 </body>
+
 </html>
