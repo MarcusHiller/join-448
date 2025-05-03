@@ -62,8 +62,6 @@ async function putDataToServer(path = "", data) {
 
 
 
-
-
 function addClearButtonToThePage() {
   document.getElementById("clear_button").classList.remove("d_none");
 }
@@ -130,13 +128,6 @@ function selectCategory(category) {
   input.parentElement.classList.remove("error-label-border");
   document.getElementById("error-cat").classList.remove("visible");
 
-  const input = document.getElementById("category_select_input");
-  input.value = category;
-
-  // Fehleranzeige entfernen
-  input.parentElement.classList.remove("error-label-border");
-  document.getElementById("error-cat").classList.remove("visible");
-
   closeOpenCatDropMenu();
 }
 
@@ -155,17 +146,6 @@ function addTaskButton() {
 
 
 function addTask(condition = "") {
-  let hasError = false;
-  let newTask;
-  const fields = [
-    { id: 'titel_input', errorId: 'error-title' },
-    { id: 'date_input', errorId: 'error-date' },
-    { id: 'category_select_input', errorId: 'error-cat' }
-  ];
-  removeErrorMsg();
-  hasError = checkInputFields(fields);
-  if (hasError) return;
-  newTask = getNewTask();
   let hasError = false;
   let newTask;
   const fields = [
