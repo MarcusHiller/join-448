@@ -37,11 +37,10 @@ function isUserLoged() {
  * @function logOut
  */
 function logOut() {
-    localStorage.setItem("loggedIn", "false");
-    window.location.href = "../index.html";
-    localStorage.removeItem("layout");
+    localStorage.setItem("loggedIn", "false");   // bleibt wie bei dir
+    localStorage.removeItem("layout");           // Layout zurücksetzen (intern vs. extern)
+    window.location.href = "../index.html";      // Weiterleitung bleibt bestehen
 }
-
 /**
  * Loads an HTML snippet into a target DOM element.
  * 
