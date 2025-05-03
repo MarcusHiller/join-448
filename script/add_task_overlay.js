@@ -85,9 +85,6 @@ function addTaskButton() {
 }
 
 
-
-
-
 function checkRequiredInputsField() {
   const fields = [
     { id: 'titel_input', errorId: 'error-title' },

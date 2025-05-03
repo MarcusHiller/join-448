@@ -135,13 +135,10 @@ function getUserObject(userID) {
 
 function getSubtasks(taskIndex) {
     prepareSubtaskIDs();
-
     const subList = document.getElementById("sub_list");
     if (!subList) return { subtasks: {} };
-
     const subtaskElements = subList.children;
     const subtasksObject = {};
-
     for (let i = 0; i < subtaskElements.length; i++) {
         const subtask = extractSubtask(`editable_input_${i}`, taskIndex, i);
         if (subtask) {

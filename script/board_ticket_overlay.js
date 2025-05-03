@@ -208,7 +208,6 @@ function checkAssignedTo(taskIndex) {
 }
 
 
-
 // Delete Task from Ticket //
 
 
