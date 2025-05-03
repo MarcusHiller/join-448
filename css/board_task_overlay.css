@@ -239,15 +239,26 @@
         height: 500px;
     }
 
-}
+    .addTask-footer span {
+        font-size: 16px !important;
+    }
 
-@media(max-width: 400px) {
+    .create-task-button{
+        padding: 8px !important;
+        height: 36px !important;
+    }
+
+    .required-field {
+        font-size: 16px;
+    }
+
     .overlay-container {
         padding: 8px;
-        width: 280px;
+        width: 300px;
     }
 
     .overlay-titel h2 {
         font-size: 20px;
     }
+
 }
