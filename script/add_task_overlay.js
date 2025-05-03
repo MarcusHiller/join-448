@@ -227,16 +227,9 @@ function prepareSubtaskIDs() {
 
 
 function getCheckStatus(taskIndex, subtaskIndex) {
-  if (
-    taskIndex === undefined ||
-    !tasks[taskIndex] ||
-    !tasks[taskIndex].subtask ||
-    !tasks[taskIndex].subtask[subtaskIndex]
-  ) {
-    return false;
-  }
-
-  return !!tasks[taskIndex].subtask[subtaskIndex].subtaskCheck;
+  const task = tasks?.[taskIndex];
+  const subtask = task?.subtask?.[subtaskIndex];
+  return !!subtask?.subtaskCheck;
 }
 
 
@@ -256,17 +249,19 @@ function getSubtasks(taskIndex) {
   prepareSubtaskIDs();
 
   const subList = document.getElementById("sub_list");
-  if (!subList) return { subtasks: [] };
+  if (!subList) return { subtasks: {} };
 
-  const subtasksArray = [];
   const subtaskElements = subList.children;
+  const subtasksObject = {};
 
   for (let i = 0; i < subtaskElements.length; i++) {
     const subtask = extractSubtask(`editable_input_${i}`, taskIndex, i);
-    if (subtask) subtasksArray.push(subtask);
+    if (subtask) {
+      subtasksObject[`subtask${i}`] = subtask;
+    }
   }
 
-  return { subtasks: subtasksArray };
+  return { subtasks: subtasksObject };
 }
 
 
