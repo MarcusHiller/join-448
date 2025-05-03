@@ -316,3 +316,27 @@ function arrayAssignedTo(index, responseToJson, tasksKeysArray) {
 }
 
 
+// Touch Function // 
+
+
+function mobileNavigator(taskIndex, condition) {
+  document.getElementById("mobile_nav").classList.remove("d_none");
+
+  if(condition === "ToDo") {
+    moveToProg(taskIndex, condition)
+  }
+
+  if(condition === "inProgress") {
+    moveToFeedback(taskItaskIndex, conditionndex)
+  }
+
+  if(condition === "feedback") {
+    moveToDone(taskIndex, condition)
+  }
+
+  if(condition === "done") {
+    moveToBackFeedback(taskIndex, condition)
+  }
+
+
+}

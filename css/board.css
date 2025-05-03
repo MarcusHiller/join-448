@@ -205,6 +205,13 @@ body {
 
 .task-cat-technical {
     margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mobile-button {
+    width: 28px;
+    height: 28px;
 }
 
 .task-cat-technical p {
@@ -303,13 +310,34 @@ body {
     gap: 8px !important;
 }
 
-/* .edit-scrolling-scrollbar {
-    max-height: 100vh;
-    overflow-y: auto;
-    padding: 0 5px 0 0;
-    scrollbar-gutter: stable;
-    margin-right: -20px;
-} */
+
+.mobile-nav {
+    width: 106px;
+    height: 113px;
+    background-color: #2A3647;
+    border-radius: 0 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.move-to-arrow {
+    display: flex;
+    width: 80px;
+}
+
+.move-to-arrow img {
+    margin-right: 4px;
+}
+
+.move-to-head {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
 
 .lock-layout {
     min-width: 1000px;
