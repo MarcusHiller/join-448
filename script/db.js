@@ -144,3 +144,25 @@ async function putDataToServer(path = "", data) {
     }
   }
 
+  async function patchDataToServer(path = "", data) {
+    try {
+      const response = await fetch(BASE_URL + path + ".json", {
+        method: 'PATCH', // Ändere PUT zu PATCH
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const responseData = await response.json();
+      console.log('Data updated successfully:', responseData);
+  
+    } catch (error) {
+      console.error('There was an error updating the data:', error);
+    }
+  }
+
