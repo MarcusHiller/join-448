@@ -26,18 +26,14 @@ async function getEditTaskHTML() {
 // Overlay functions
 
 function openOverlayTask(taskIndex) {
-
-
   document.getElementById("board_overlay").classList.remove("d_none");
   document.getElementById("overlay_container").classList.remove("d_none");
-  document.getElementById("overlay_container").classList.remove("overlay-container-sliding")
-  
-  //setTimeout(() => { document.getElementById("overlay_container").classList.remove("overlay-container-sliding") }, 1);
+  setTimeout(() => { document.getElementById("overlay_container").classList.remove("overlay-container-sliding") }, 1);
+  document.getElementById("body").classList.add("overflow-hidden");
   creatOverlayFromTask(taskIndex);
 }
 
 async function openAddTask(condition = "") {
-
   if (condition) {
     currentCondition = condition;
   }
@@ -48,11 +44,11 @@ async function openAddTask(condition = "") {
   document.getElementById("board_overlay").classList.remove("d_none");
   document.getElementById("add_container").classList.remove("d_none");
   setTimeout(() => { document.getElementById("add_container").classList.remove("overlay-container-sliding") }, 1);
+  document.getElementById("body").classList.add("overflow-hidden");
   renderUserList();
 }
 
 function creatOverlayFromTask(taskIndex) {
-
   document.getElementById("overlay_titel").innerHTML = tasks[taskIndex].title;
   document.getElementById("overlay_description").innerHTML = tasks[taskIndex].descripton
   document.getElementById("overlay_date").innerHTML = tasks[taskIndex].date;
@@ -118,11 +114,11 @@ function renderSubtaskIntoTaskOverlay(taskIndex) {
   checkCheckboxInOverlay(taskIndex, subtaskList)
 }
 
-function checkCheckboxInOverlay(taskIndex, subtaskList){
+function checkCheckboxInOverlay(taskIndex, subtaskList) {
 
 
   for (let indexSubtask = 0; indexSubtask < subtaskList.length; indexSubtask++) {
-    if(subtaskList[indexSubtask].subtaskCheck) {
+    if (subtaskList[indexSubtask].subtaskCheck) {
       document.getElementById("task_" + taskIndex + "_checkbox_" + indexSubtask).checked = true;
     } else {
       document.getElementById("task_" + taskIndex + "_checkbox_" + indexSubtask).checked = false;
@@ -166,9 +162,10 @@ function closeOverlayTask() {
   document.getElementById("overlay_container").classList.add("overlay-container-sliding");
   setTimeout(() => {
     document.getElementById("board_overlay").classList.add("d_none"),
-    document.getElementById("overlay_container").classList.add("d_none")
+      document.getElementById("overlay_container").classList.add("d_none")
   }, 100);
-  getTaskOverlayHTML()
+  document.getElementById("body").classList.remove("overflow-hidden");
+  getTaskOverlayHTML();
 
 }
 
@@ -176,12 +173,9 @@ function closeAddTask() {
   document.getElementById("add_container").classList.add("overlay-container-sliding");
   setTimeout(() => {
     document.getElementById("board_overlay").classList.add("d_none"),
-    document.getElementById("add_container").classList.add("d_none")
+      document.getElementById("add_container").classList.add("d_none")
   }, 100);
-
-
-
-
+  document.getElementById("body").classList.remove("overflow-hidden");
 }
 
 function searchTask() {
@@ -209,10 +203,9 @@ function fitEditTaskToContainer() {
   document.getElementById("spaceholder").classList.add("d_none");
   document.getElementById("addTask_form_container").classList.add("flex-direction");
   document.getElementById("edit_scrolling").classList.add("scrolling");
-  document.querySelectorAll(".prio-label").forEach(prioClass => {
-    prioClass.classList.add("prio-label-fit")})
   document.getElementById("addTask_form_container").classList.add("height-unset");
   document.getElementById("close_edit_task_overlay").classList.remove("d_none");
+  document.getElementById("addTask_form_container").classList.add("overflow-hidden");
 }
 
 function currentInputFieldvalue(taskIndex) {
@@ -320,13 +313,13 @@ function addSubtaskChecked(indexSubtask, taskIndex) {
 
 function saveCheckboxProcess(taskIndex, indexSubtask, subtask, progressValue) {
   let progressValueTextRef = document.getElementById("subtask_value_user_" + taskIndex);
-  let taskID =  tasks[taskIndex].id;
+  let taskID = tasks[taskIndex].id;
   let subtaskName = "subtask" + indexSubtask;
   document.getElementById("subtasks_user_" + taskIndex).value = progressValue;
   progressValueTextRef.innerHTML = progressValue;
   tasks[taskIndex].subtask[indexSubtask].subtaskCheck = subtask.checked;
- 
-  patchDataToServer(`join/tasks/${taskID}/subtask/${subtaskName}`, {checked: subtask.checked})
+
+  patchDataToServer(`join/tasks/${taskID}/subtask/${subtaskName}`, { checked: subtask.checked })
 }
 
 function checkedProgressValue(taskIndex, subtaskMax) {
@@ -344,46 +337,46 @@ function checkedProgressValue(taskIndex, subtaskMax) {
 
 // Delete Task //
 
- async function deleteTaskOnOverlay(taskIndex) {
+async function deleteTaskOnOverlay(taskIndex) {
   let task = tasks[taskIndex].id
   let path = "join/tasks/";
 
-    try {
-      const response = await fetch(BASE_URL + path + task +  ".json", {
-        method: 'DELETE', // Use the DELETE method
-        headers: {
-          'Content-Type': 'application/json' // Optional, but good practice
-        }
-        // No body needed for DELETE requests in this case
-      });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+  try {
+    const response = await fetch(BASE_URL + path + task + ".json", {
+      method: 'DELETE', // Use the DELETE method
+      headers: {
+        'Content-Type': 'application/json' // Optional, but good practice
       }
-  
-      // DELETE requests often return an empty response or a simple success message
-      // If the API returns JSON, parse it; otherwise, just log a success message
-      if (response.status === 200) {
-        // Assuming 200 OK means success and the response is JSON null
-        console.log('Data deleted successfully!');
-      } else {
-        console.log('Data deletion successful. Response status:', response.status);
-      }
-  
-    } catch (error) {
-      console.error('There was an error deleting the data:', error);
+      // No body needed for DELETE requests in this case
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    deleteTaskFromTaskArray(taskIndex)
+    // DELETE requests often return an empty response or a simple success message
+    // If the API returns JSON, parse it; otherwise, just log a success message
+    if (response.status === 200) {
+      // Assuming 200 OK means success and the response is JSON null
+      console.log('Data deleted successfully!');
+    } else {
+      console.log('Data deletion successful. Response status:', response.status);
+    }
 
-    renderTaskInToColumn();
-    closeOverlayTask()
+  } catch (error) {
+    console.error('There was an error deleting the data:', error);
   }
 
+  deleteTaskFromTaskArray(taskIndex)
 
-  function deleteTaskFromTaskArray(taskIndex) {
-    tasks.splice(taskIndex, 1)
-  }
+  renderTaskInToColumn();
+  closeOverlayTask()
+}
+
+
+function deleteTaskFromTaskArray(taskIndex) {
+  tasks.splice(taskIndex, 1)
+}
 
 
 // Search //
@@ -405,7 +398,7 @@ function searchTask() {
     // Wenn das Suchfeld leer ist → alle Tasks zeigen
     if (inputValue === "") {
       task.classList.remove("d_none");
-    } 
+    }
     // Wenn etwas eingegeben wurde → filtern
     else {
       const isMatch = title.includes(inputValue) || descripton.includes(inputValue);
@@ -437,7 +430,7 @@ function renderTaskInToColumn() {
   feedbackColumnRef.innerHTML = "";
   doneColumnRef.innerHTML = "";
 
-  
+
 
   for (let taskIndex = 0; taskIndex < tasks.length; taskIndex++) {
     let taskCondition = tasks[taskIndex].condition;
@@ -472,43 +465,43 @@ function renderDragDropHighlights(toDoColumnRef, inProgColumnRef, feedbackColumn
 
 
 
-  // const visibleChildren = Array.from(parent.children).filter(child => {
-  //   return window.getComputedStyle(child).display !== 'none';
-  // });
+// const visibleChildren = Array.from(parent.children).filter(child => {
+//   return window.getComputedStyle(child).display !== 'none';
+// });
 
-  function renderEmptyColumn() {
-    let toDoColumnRef = document.getElementById("toDo_column");
-    let inProgColumnRef = document.getElementById("inProg_column");
-    let feedbackColumnRef = document.getElementById("feedback_column");
-    let doneColumnRef = document.getElementById("done_column");
-  
-    checkAndRenderEmptyMessage(toDoColumnRef, "No task To do");
-    checkAndRenderEmptyMessage(inProgColumnRef, "No task in Progress");
-    checkAndRenderEmptyMessage(feedbackColumnRef, "No task waiting");
-    checkAndRenderEmptyMessage(doneColumnRef, "No task is done");
+function renderEmptyColumn() {
+  let toDoColumnRef = document.getElementById("toDo_column");
+  let inProgColumnRef = document.getElementById("inProg_column");
+  let feedbackColumnRef = document.getElementById("feedback_column");
+  let doneColumnRef = document.getElementById("done_column");
+
+  checkAndRenderEmptyMessage(toDoColumnRef, "No task To do");
+  checkAndRenderEmptyMessage(inProgColumnRef, "No task in Progress");
+  checkAndRenderEmptyMessage(feedbackColumnRef, "No task waiting");
+  checkAndRenderEmptyMessage(doneColumnRef, "No task is done");
+}
+
+function checkAndRenderEmptyMessage(columnRef, message) {
+  const visibleTasks = Array.from(columnRef.children).filter(child =>
+    !child.classList.contains("d_none") &&
+    !child.classList.contains("empty-column")
+  );
+
+  const alreadyHasPlaceholder = columnRef.querySelector(".empty-column");
+
+  // Wenn keine sichtbaren Tasks vorhanden sind → dann Platzhalter hinzufügen (aber nur wenn er nicht schon existiert)
+  if (visibleTasks.length === 0 && !alreadyHasPlaceholder) {
+    const placeholder = document.createElement("div");
+    placeholder.classList.add("empty-column");
+    placeholder.innerHTML = `<p>${message}</p>`;
+    columnRef.appendChild(placeholder);
   }
-  
-  function checkAndRenderEmptyMessage(columnRef, message) {
-    const visibleTasks = Array.from(columnRef.children).filter(child =>
-      !child.classList.contains("d_none") &&
-      !child.classList.contains("empty-column")
-    );
-  
-    const alreadyHasPlaceholder = columnRef.querySelector(".empty-column");
-  
-    // Wenn keine sichtbaren Tasks vorhanden sind → dann Platzhalter hinzufügen (aber nur wenn er nicht schon existiert)
-    if (visibleTasks.length === 0 && !alreadyHasPlaceholder) {
-      const placeholder = document.createElement("div");
-      placeholder.classList.add("empty-column");
-      placeholder.innerHTML = `<p>${message}</p>`;
-      columnRef.appendChild(placeholder);
-    }
-  
-    // Wenn wieder sichtbare Tasks da sind → Platzhalter entfernen
-    if (visibleTasks.length > 0 && alreadyHasPlaceholder) {
-      alreadyHasPlaceholder.remove();
-    }
+
+  // Wenn wieder sichtbare Tasks da sind → Platzhalter entfernen
+  if (visibleTasks.length > 0 && alreadyHasPlaceholder) {
+    alreadyHasPlaceholder.remove();
   }
+}
 
 function renderCategoryColor(taskIndex) {
   let categoryRef = document.getElementById("task_category_" + taskIndex);
@@ -548,9 +541,9 @@ function renderSubtasks(taskIndex) {
     subtaskMaxRef.innerHTML = subtaskMax;
   }
 
-  subtaskValue =  checkedSubtaskChecked(taskIndex, subtaskMax);
+  subtaskValue = checkedSubtaskChecked(taskIndex, subtaskMax);
 
-  if (subtaskValue > 0 ) {
+  if (subtaskValue > 0) {
     subtaskProgressBar.setAttribute("value", subtaskValue);
     subtaskValueRef.innerHTML = subtaskValue;
   }
@@ -625,32 +618,32 @@ function moveTo(condition) {
 
 function saveCondition(condition) {
   let taskID = tasks[currentDraggableTask].id;
-  let toCondition = {condition: condition}
+  let toCondition = { condition: condition }
   patchDataToServer(`/join/tasks/${taskID}`, toCondition)
 }
 
 
-  async function patchDataToServer(path = "", data) {
-    try {
-      const response = await fetch(BASE_URL + path + ".json", {
-        method: 'PATCH', // Ändere PUT zu PATCH
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-  
-      const responseData = await response.json();
-      console.log('Data updated successfully:', responseData);
-  
-    } catch (error) {
-      console.error('There was an error updating the data:', error);
+async function patchDataToServer(path = "", data) {
+  try {
+    const response = await fetch(BASE_URL + path + ".json", {
+      method: 'PATCH', // Ändere PUT zu PATCH
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const responseData = await response.json();
+    console.log('Data updated successfully:', responseData);
+
+  } catch (error) {
+    console.error('There was an error updating the data:', error);
   }
+}
 
 
 function addHighlight() {
