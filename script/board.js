@@ -1,10 +1,7 @@
 let currentDraggableTask;
 let tasks = [];
 let currentCondition = "ToDo";
-let searchedTasks = [];
 let usersToDeleteFromFirebase = [];
-
-
 
 async function getAddTaskHTML() {
   await Promise.all([
@@ -12,26 +9,21 @@ async function getAddTaskHTML() {
   ]);
 }
 
+
 async function getTaskOverlayHTML() {
   await Promise.all([
     loadHTML("task_overlay.html", "overlay_container"),
   ]);
 }
 
+
 async function getEditTaskHTML() {
   await Promise.all([
     loadHTML("add_task_overlay.html", "overlay_container"),
   ]);
 }
-// Overlay functions
 
-function openOverlayTask(taskIndex) {
-  document.getElementById("board_overlay").classList.remove("d_none");
-  document.getElementById("overlay_container").classList.remove("d_none");
-  setTimeout(() => { document.getElementById("overlay_container").classList.remove("overlay-container-sliding") }, 1);
-  document.getElementById("body").classList.add("overflow-hidden");
-  creatOverlayFromTask(taskIndex);
-}
+// Add Task functions
 
 async function openAddTask(condition = "") {
   if (condition) {
@@ -48,126 +40,6 @@ async function openAddTask(condition = "") {
   renderUserList();
 }
 
-function creatOverlayFromTask(taskIndex) {
-  document.getElementById("overlay_titel").innerHTML = tasks[taskIndex].title;
-  document.getElementById("overlay_description").innerHTML = tasks[taskIndex].descripton
-  document.getElementById("overlay_date").innerHTML = tasks[taskIndex].date;
-  renderUserIntoTaskOverlay(taskIndex);
-  renderSubtaskIntoTaskOverlay(taskIndex);
-  renderPrioIntoTaskOverlay(taskIndex);
-  renderCategoryIntoTaskOverlay(taskIndex);
-  renderButtons(taskIndex);
-}
-
-function renderButtons(taskIndex) {
-  let deleteTask = document.getElementById("delete_task_on_overlay");
-  let editTask = document.getElementById("edit_task_on_overlay");
-  let deleteAttribute = `deleteTaskOnOverlay(${taskIndex})`;
-  let editTaskAttribute = `editTaskOnOverlay(${taskIndex})`;
-
-  deleteTask.setAttribute("onclick", deleteAttribute);
-  editTask.setAttribute("onclick", editTaskAttribute);
-
-
-}
-
-function renderCategoryIntoTaskOverlay(taskIndex) {
-  let categoryRef = document.getElementById("overlay_category");
-  let category = tasks[taskIndex].category
-  categoryRef.innerHTML = category;
-
-  if (category === "Technical Task") {
-    categoryRef.style.backgroundColor = "#1FD7C1";
-  } else {
-    categoryRef.style.backgroundColor = "#0038FF";
-  }
-}
-
-function renderPrioIntoTaskOverlay(taskIndex) {
-  let prioImg = document.getElementById("task_overlay_prio_img");
-  let prioTask = document.getElementById("task_overlay_prio_text");
-  let prio = tasks[taskIndex].priority;
-  prioTask.innerHTML = prio;
-
-  if (prio === "low") {
-    prioImg.src = "/assets/img/icon/prio_low.svg";
-  } else if (prio === "medium") {
-    prioImg.src = "/assets/img/icon/prio_medium.svg";
-  } else if (prio === "urgent") {
-    prioImg.src = "/assets/img/icon/prio_urgent.svg";
-  }
-}
-
-function renderSubtaskIntoTaskOverlay(taskIndex) {
-  let subtaskListRef = document.getElementById("task_overlay_subtask_list");
-  let subtaskList = tasks[taskIndex].subtask;
-  subtaskListRef.innerHTML = "";
-
-  if (subtaskList.length) {
-    for (let indexSubtask = 0; indexSubtask < subtaskList.length; indexSubtask++) {
-      subtaskListRef.innerHTML += getTaskSubtaskOverlayTemplate(taskIndex, indexSubtask);
-    }
-  } else {
-    subtaskListRef.innerHTML = "<span style='opacity: 0.2; font-size: 16px'>No Subtask added</span>"
-  }
-
-  checkCheckboxInOverlay(taskIndex, subtaskList)
-}
-
-function checkCheckboxInOverlay(taskIndex, subtaskList) {
-
-
-  for (let indexSubtask = 0; indexSubtask < subtaskList.length; indexSubtask++) {
-    if (subtaskList[indexSubtask].subtaskCheck) {
-      document.getElementById("task_" + taskIndex + "_checkbox_" + indexSubtask).checked = true;
-    } else {
-      document.getElementById("task_" + taskIndex + "_checkbox_" + indexSubtask).checked = false;
-    }
-  }
-
-}
-
-function renderUserIntoTaskOverlay(taskIndex) {
-  let taskUsers = tasks[taskIndex].assignedTo;
-  let taskUsersTableRef = document.getElementById("task_overlay_user_list");
-  taskUsersTableRef.innerHTML = "";
-
-  if (taskUsers.length) {
-    for (let indexUser = 0; indexUser < taskUsers.length; indexUser++) {
-      taskUsersTableRef.innerHTML += getTaskUsersOverlayTemplate(taskIndex, indexUser)
-
-    }
-  } else {
-    taskUsersTableRef.innerHTML = "<span style='opacity: 0.2; font-size: 16px'>No User added</span>"
-  }
-
-}
-
-// function renderUserIntoTaskOverlay(taskIndex) {
-//   let taskUsers = tasks[taskIndex].assignedTo;
-//   let taskUsersTableRef = document.getElementById("task_overlay_user_list");
-//   taskUsersTableRef.innerHTML = "";
-
-//   if (taskUsers.length) {
-//     taskUsers.forEach((user, indexUser) => {
-//       taskUsersTableRef.innerHTML += getTaskUsersOverlayTemplate(taskIndex, indexUser);
-//     });
-//   } else {
-//     taskUsersTableRef.innerHTML = "<span style='opacity: 0.2; font-size: 16px'>No User added</span>";
-//   }
-// }
-
-function closeOverlayTask() {
-
-  document.getElementById("overlay_container").classList.add("overlay-container-sliding");
-  setTimeout(() => {
-    document.getElementById("board_overlay").classList.add("d_none"),
-      document.getElementById("overlay_container").classList.add("d_none")
-  }, 100);
-  document.getElementById("body").classList.remove("overflow-hidden");
-  getTaskOverlayHTML();
-
-}
 
 function closeAddTask() {
   document.getElementById("add_container").classList.add("overlay-container-sliding");
@@ -178,6 +50,7 @@ function closeAddTask() {
   document.getElementById("body").classList.remove("overflow-hidden");
 }
 
+
 function searchTask() {
   const input = document.getElementById("search_task");
   input.blur();
@@ -185,203 +58,9 @@ function searchTask() {
   document.activeElement.blur();
 }
 
-//  Overlay Edit Function //
-
-
-async function editTaskOnOverlay(taskIndex) {
-  document.getElementById("add_container").innerHTML = "";
-  await getEditTaskHTML();
-  fitEditTaskToContainer();
-  renderUserList();
-  currentInputFieldvalue(taskIndex);
-
-
-}
-
-function fitEditTaskToContainer() {
-  document.getElementById("addTask_headline_h1").classList.add("d_none");
-  document.getElementById("spaceholder").classList.add("d_none");
-  document.getElementById("addTask_form_container").classList.add("flex-direction");
-  document.getElementById("edit_scrolling").classList.add("scrolling");
-  document.getElementById("addTask_form_container").classList.add("height-unset");
-  document.getElementById("close_edit_task_overlay").classList.remove("d_none");
-  document.getElementById("addTask_form_container").classList.add("overflow-hidden");
-  document.getElementById("addTask_prio").classList.add("gap-8");
-}
-
-function currentInputFieldvalue(taskIndex) {
-  document.getElementById("titel_input").value = tasks[taskIndex].title;
-  document.getElementById("description_input").value = tasks[taskIndex].descripton;
-  document.getElementById("date_input").value = tasks[taskIndex].date;
-  checkPrio(taskIndex);
-  checkAssignedTo(taskIndex);
-  checkCategory(taskIndex);
-  checkSubtasks(taskIndex);
-  renderEditButton(taskIndex);
-}
-
-function renderEditButton(taskIndex) {
-  let formSubmit = document.getElementById("addTask_form");
-  let editButton = document.getElementById("edit_button");
-  let addButton = document.getElementById("add_button");
-  let clearButton = document.getElementById("clear_button");
-
-
-  clearButton.classList.add("d_none");
-  addButton.classList.add("d_none");
-  editButton.classList.remove("d_none");
-  formSubmit.removeAttribute("onsubmit")
-  formSubmit.setAttribute("onsubmit", `addEditedTask(${taskIndex}); return false`);
-}
-
-
-function checkSubtasks(taskIndex) {
-  let subtaskListRef = document.getElementById("sub_list");
-  let subtaskList = tasks[taskIndex].subtask;
-  subtaskIndex = subtaskList.length;
-  subtaskListRef.innerHTML = "";
-  for (let indexCheckSubtask = 0; indexCheckSubtask < subtaskList.length; indexCheckSubtask++) {
-    let subtaskCheckValue = subtaskList[indexCheckSubtask].subtaskName;
-    subtaskListRef.innerHTML += getSubtaskTemplate(indexCheckSubtask, subtaskCheckValue, taskIndex)
-  }
-}
-
-
-function checkCategory(taskIndex) {
-  let category = tasks[taskIndex].category;
-
-  selectCategory(category);
-}
-
-function checkPrio(taskIndex) {
-  let prio = tasks[taskIndex].priority;
-  let urgent = document.getElementById("prio_urgent");
-  let medium = document.getElementById("prio_medium");
-  let low = document.getElementById("prio_low");
-
-  if (prio === "urgent") {
-    urgent.checked = true
-    medium.checked = false;
-    low.checked = false;
-  }
-
-  if (prio === "medium") {
-    urgent.checked = false
-    medium.checked = true;
-    low.checked = false;
-  }
-
-  if (prio === "low") {
-    urgent.checked = false
-    medium.checked = false;
-    low.checked = true;
-  }
-}
-
-function checkAssignedTo(taskIndex) {
-  let checkedUsers = tasks[taskIndex].assignedTo;
-  let ids = [];
-
-  for (let index = 0; index < checkedUsers.length; index++) {
-    let username = tasks[taskIndex].assignedTo[index]
-    let user = contactsFirebase.indexOf(username)
-    ids.push(user);
-  }
-
-  for (let index = 0; index < ids.length; index++) {
-    const userIndex = ids[index];
-    let checkbox = document.getElementById("user_" + userIndex);
-    checkbox.checked = true;
-    addCheckedUsers(userIndex);
-
-  }
-}
-
-function addSubtaskChecked(indexSubtask, taskIndex) {
-  let subtask = document.getElementById("task_" + taskIndex + "_checkbox_" + indexSubtask);
-  let progressValue = document.getElementById("subtasks_user_" + taskIndex).value
-
-  if (subtask.checked) {
-    progressValue++;
-  } else if (!subtask.checked && progressValue > 0) {
-    progressValue--;
-  } else {
-    progressValue = 0;
-  }
-
-  saveCheckboxProcess(taskIndex, indexSubtask, subtask, progressValue)
-}
-
-function saveCheckboxProcess(taskIndex, indexSubtask, subtask, progressValue) {
-  let progressValueTextRef = document.getElementById("subtask_value_user_" + taskIndex);
-  let taskID = tasks[taskIndex].id;
-  let subtaskName = "subtask" + indexSubtask;
-  document.getElementById("subtasks_user_" + taskIndex).value = progressValue;
-  progressValueTextRef.innerHTML = progressValue;
-  tasks[taskIndex].subtask[indexSubtask].subtaskCheck = subtask.checked;
-
-  patchDataToServer(`join/tasks/${taskID}/subtask/${subtaskName}`, { checked: subtask.checked })
-}
-
-function checkedProgressValue(taskIndex, subtaskMax) {
-  subtaskProgress = 0;
-
-  for (let index = 0; index < subtaskMax; index++) {
-    let subtaskCkeck = tasks[taskIndex].subtask[index].subtaskCheck
-
-    if (subtaskCkeck) {
-      subtaskProgress++;
-    }
-  }
-  return subtaskProgress;
-}
-
-// Delete Task //
-
-async function deleteTaskOnOverlay(taskIndex) {
-  let task = tasks[taskIndex].id
-  let path = "join/tasks/";
-
-  try {
-    const response = await fetch(BASE_URL + path + task + ".json", {
-      method: 'DELETE', // Use the DELETE method
-      headers: {
-        'Content-Type': 'application/json' // Optional, but good practice
-      }
-      // No body needed for DELETE requests in this case
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    // DELETE requests often return an empty response or a simple success message
-    // If the API returns JSON, parse it; otherwise, just log a success message
-    if (response.status === 200) {
-      // Assuming 200 OK means success and the response is JSON null
-      console.log('Data deleted successfully!');
-    } else {
-      console.log('Data deletion successful. Response status:', response.status);
-    }
-
-  } catch (error) {
-    console.error('There was an error deleting the data:', error);
-  }
-
-  deleteTaskFromTaskArray(taskIndex)
-
-  renderTaskInToColumn();
-  closeOverlayTask()
-}
-
-
-function deleteTaskFromTaskArray(taskIndex) {
-  tasks.splice(taskIndex, 1)
-}
 
 
 // Search //
-
 
 function searchTask() {
   const inputField = document.getElementById("search_task");
@@ -431,8 +110,6 @@ function renderTaskInToColumn() {
   feedbackColumnRef.innerHTML = "";
   doneColumnRef.innerHTML = "";
 
-
-
   for (let taskIndex = 0; taskIndex < tasks.length; taskIndex++) {
     let taskCondition = tasks[taskIndex].condition;
 
@@ -456,6 +133,7 @@ function renderTaskInToColumn() {
   renderDragDropHighlights(toDoColumnRef, inProgColumnRef, feedbackColumnRef, doneColumnRef)
 }
 
+
 function renderDragDropHighlights(toDoColumnRef, inProgColumnRef, feedbackColumnRef, doneColumnRef) {
   toDoColumnRef.innerHTML += "<div id='empty_task_toDo' class='empty-task d_none'></div>";
   inProgColumnRef.innerHTML += "<div id='empty_task_inProg' class='empty-task d_none'></div>";
@@ -464,11 +142,6 @@ function renderDragDropHighlights(toDoColumnRef, inProgColumnRef, feedbackColumn
 
 }
 
-
-
-// const visibleChildren = Array.from(parent.children).filter(child => {
-//   return window.getComputedStyle(child).display !== 'none';
-// });
 
 function renderEmptyColumn() {
   let toDoColumnRef = document.getElementById("toDo_column");
@@ -481,6 +154,7 @@ function renderEmptyColumn() {
   checkAndRenderEmptyMessage(feedbackColumnRef, "No task waiting");
   checkAndRenderEmptyMessage(doneColumnRef, "No task is done");
 }
+
 
 function checkAndRenderEmptyMessage(columnRef, message) {
   const visibleTasks = Array.from(columnRef.children).filter(child =>
@@ -503,6 +177,7 @@ function checkAndRenderEmptyMessage(columnRef, message) {
     alreadyHasPlaceholder.remove();
   }
 }
+
 
 function renderCategoryColor(taskIndex) {
   let categoryRef = document.getElementById("task_category_" + taskIndex);
@@ -530,6 +205,7 @@ function renderPrio(taskIndex) {
 
 }
 
+
 function renderSubtasks(taskIndex) {
   let subtaskProgressBar = document.getElementById("subtasks_user_" + taskIndex);
   let subtaskMaxRef = document.getElementById("subtask_max_user_" + taskIndex);
@@ -548,21 +224,8 @@ function renderSubtasks(taskIndex) {
     subtaskProgressBar.setAttribute("value", subtaskValue);
     subtaskValueRef.innerHTML = subtaskValue;
   }
-
 }
 
-function checkedSubtaskChecked(taskIndex, subtaskMax) {
-  let subtaskProgress = 0;
-
-  for (let index = 0; index < subtaskMax; index++) {
-    let subtaskCkeck = tasks[taskIndex].subtask[index].subtaskCheck
-
-    if (subtaskCkeck) {
-      subtaskProgress++;
-    }
-  }
-  return subtaskProgress;
-}
 
 function renderAssignedTo(taskIndex) {
   let userListRef = document.getElementById("task_users_" + taskIndex);
@@ -579,111 +242,17 @@ function renderAssignedTo(taskIndex) {
     userListRef.innerHTML = "<span style='opacity: 0.2'>No User added</span>";
   }
   return userListRef.innerHTML
-
-}
-
-
-//   Drag and Drop  //
-
-function dragoverHandler(ev) {
-  ev.preventDefault();
-
-  const scrollZone = 30; // Abstand zum Rand
-  const scrollSpeed = 30;
-
-  // vertikal scrollen
-  if (ev.pageY < scrollZone) { // Scrollt, wenn Y-Position der Maus < 30px vom oberen Rand
-    window.scrollBy(0, -scrollSpeed);
-  } else if (window.innerHeight - ev.pageY < scrollZone) { // Scrollt, wenn Y-Position der Maus < 30px vom unteren Rand
-    window.scrollBy(0, scrollSpeed);
-  }
-
-  // // optional: horizontal scrollen
-  // if (ev.clientX < scrollZone) {
-  //   window.scrollBy(-scrollSpeed, 0);
-  // } else if (window.innerWidth - ev.clientX < scrollZone) {
-  //   window.scrollBy(scrollSpeed, 0);
-  // }
-}
-
-function startDragging(taskIndex) {
-  currentDraggableTask = taskIndex;
-  // document.querySelector('.board-distribution').classList.add('lock-layout');
-}
-
-function moveTo(condition) {
-  tasks[currentDraggableTask].condition = condition;
-  saveCondition(condition);
-  renderTaskInToColumn();
-}
-
-function saveCondition(condition) {
-  let taskID = tasks[currentDraggableTask].id;
-  let toCondition = { condition: condition }
-  patchDataToServer(`/join/tasks/${taskID}`, toCondition)
-}
-
-
-async function patchDataToServer(path = "", data) {
-  try {
-    const response = await fetch(BASE_URL + path + ".json", {
-      method: 'PATCH', // Ändere PUT zu PATCH
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const responseData = await response.json();
-    console.log('Data updated successfully:', responseData);
-
-  } catch (error) {
-    console.error('There was an error updating the data:', error);
-  }
-}
-
-
-function addHighlight() {
-
-  // if (tasks[currentDraggableTask].condition == "ToDo") {
-  //   document.getElementById("empty_task_inProg").classList.remove("d_none");
-  // } else if (tasks[currentDraggableTask].condition == "inProgress") {
-  //   document.getElementById("empty_task_toDo").classList.remove("d_none");
-  //   document.getElementById("empty_task_feedback").classList.remove("d_none");
-  // } else if (tasks[currentDraggableTask].condition == "feedback") {
-  //   document.getElementById("empty_task_inProg").classList.remove("d_none");
-  //   document.getElementById("empty_task_done").classList.remove("d_none");
-  // } else if (tasks[currentDraggableTask].condition == "done") {
-  //   document.getElementById("empty_task_feedback").classList.remove("d_none");
-  // }
-}
-
-
-function removeHighlight() {
-  // document.querySelector('.board-distribution').classList.remove('lock-layout');
-  // document.getElementById("empty_task_toDo").classList.add("d_none");
-  // document.getElementById("empty_task_inProg").classList.add("d_none");
-  // document.getElementById("empty_task_feedback").classList.add("d_none");
-  // document.getElementById("empty_task_done").classList.add("d_none");
 }
 
 //  Get Data //
 //ANCHOR - Get Data
 
-
 async function getDataFromServer(path = "") {
   await loadContactsFromFirebase();
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
-  console.log(responseToJson);
-
 
   let tasksKeysArray = Object.keys(responseToJson)
-
 
   for (let index = 0; index < tasksKeysArray.length; index++) {
     let assignedUsers = arrayAssignedTo(index, responseToJson, tasksKeysArray);
@@ -704,9 +273,7 @@ async function getDataFromServer(path = "") {
     )
   }
   renderTaskInToColumn();
-  await deleteNotFoundedUserFromTask()
-  console.log(tasks);
-
+  await deleteNotFoundedUserFromTask();
 }
 
 async function deleteNotFoundedUserFromTask() {
@@ -741,24 +308,6 @@ function arraySubtasks(index, responseToJson, tasksKeysArray) {
 
   return subtasks;
 }
-
-// function arrayAssignedTo(index, responseToJson, tasksKeysArray) {
-//   let usersArray = [];
-//   if (responseToJson[tasksKeysArray[index]].assignedTo) {
-//     let usersKeysArray = Object.keys(responseToJson[tasksKeysArray[index]].assignedTo);
-
-//     console.log(usersKeysArray);
-
-//     for (let userIndex = 0; userIndex < usersKeysArray.length; userIndex++) {
-//       let username = responseToJson[tasksKeysArray[index]].assignedTo[usersKeysArray[userIndex]]  
-//       let user = contactsFirebase.find(user => username === user.username)
-//       usersArray.push(user)
-//     }
-//     console.log(usersArray);
-//   }
-//   return usersArray;
-// }
-
 
 
 function arrayAssignedTo(index, responseToJson, tasksKeysArray) {
