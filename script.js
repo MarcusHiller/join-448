@@ -207,7 +207,12 @@ function enableLoginButtons() {
  * Also sets up cookie banner visibility and back arrow behavior.
  */
 window.addEventListener("DOMContentLoaded", async () => {
-    localStorage.removeItem("layout");
+    // Nur auf externen Seiten layout löschen
+    if (window.location.pathname.includes("privacy_policy.html") ||
+        window.location.pathname.includes("legal_notice.html")) {
+        localStorage.removeItem("layout");
+    }
+
     await loadHTML("/html/rotate_warning.html", "rotate-warning-placeholder");
     checkOrientation();
 
