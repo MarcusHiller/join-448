@@ -205,15 +205,14 @@ async function editTaskOnOverlay(taskIndex) {
 }
 
 function fitEditTaskToContainer() {
-  document.getElementById("addTask_headline").classList.add("d_none");
+  document.getElementById("addTask_headline_h1").classList.add("d_none");
   document.getElementById("spaceholder").classList.add("d_none");
   document.getElementById("addTask_form_container").classList.add("flex-direction");
   document.getElementById("edit_scrolling").classList.add("scrolling");
   document.querySelectorAll(".prio-label").forEach(prioClass => {
-    prioClass.classList.add("prio-label-fit")
-    
-  });
-
+    prioClass.classList.add("prio-label-fit")})
+  document.getElementById("addTask_form_container").classList.add("height-unset");
+  document.getElementById("close_edit_task_overlay").classList.remove("d_none");
 }
 
 function currentInputFieldvalue(taskIndex) {
