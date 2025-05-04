@@ -2,7 +2,6 @@ let = userFirebase = [];
 let textPasswdError = "Ups! your password don't match.";
 let textEmailError = "The e-mail already exists. Please select another e-mail."
 
-
 /* Sign UP */
 
 async function addUser() {
@@ -47,7 +46,6 @@ function createUserForContacts(n, e) {
     };
     contactsFirebase.push(newContact);
 }
-
 
 
 function checkSamePasswd(a, b) {

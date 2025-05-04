@@ -26,14 +26,13 @@ async function login() {
     let email = document.getElementById('email');
     let passwd = document.getElementById('passwd');
     await loadUserData();
+    spinningLoaderEnd();
     let user = userFirebase.find(user => user.email == email.value && user.password == passwd.value);
     if (user) {
-        spinningLoaderEnd();
         window.location.href = `html/summary.html?name=${encodeURIComponent(user.username)}&login=true`;
         resetUserArray();
         usrerIsLoggedIn();
     } else {
-        spinningLoaderEnd();
         displayErrorLogin();
     }
 }
@@ -88,10 +87,4 @@ function togglePasswordVisibility() {
 
 function usrerIsLoggedIn() {
     localStorage.setItem("loggedIn", "true");
-}
-
-
-function logOut() {
-    localStorage.setItem("loggedIn", "false");
-    window.location.href = "index.html";
 }

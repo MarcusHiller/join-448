@@ -76,19 +76,24 @@
     .info-initial {
         align-self: flex-start;
     }
+
     .overlay-main-container {
         padding: 45px 24px;
         gap: 20px;
     }
+
     .overlay-cover {
         padding: 45px 24px;
     }
+
     .input-container {
         width: 350px;
     }
+
     .info-initial-overlay {
         align-self: center;
     }
+
     .submit-container {
         gap: 15px;
     }
@@ -116,10 +121,12 @@
         flex-direction: column;
         align-items: flex-start;
     }
+
     .overlay-main-container {
         padding: 45px 16px;
         gap: 10px;
     }
+
     .overlay-cover {
         padding: 45px 16px;
     }
@@ -140,6 +147,7 @@
     box-shadow: 0px 4px 4px 0px #00000040;
 }
 
+
 .contact-img {
     width: 32px;
     height: 32px;
@@ -157,6 +165,7 @@
     opacity: 0;
 }
 
+
 .add-btn-resp:hover {
     background-color: #29ABE2;
     cursor: pointer;
@@ -168,6 +177,7 @@
     background-color: #D1D1D1;
     cursor: pointer;
 }
+
 
 .tools-overlay-Container {
     position: absolute;
@@ -194,6 +204,7 @@
     transition: transform 0.2s ease;
 }
 
+
 .tools-resp-active {
     transform: translate(0);
 }
@@ -202,6 +213,7 @@
 .editing-tools-resp div {
     padding: 8px;
 }
+
 
 .tools-resp:hover {
     background-color: #D1D1D1;
@@ -251,6 +263,7 @@
     }
 
     /* overlay */
+
     .card-title h5 {
         font-size: 47px;
     }
@@ -269,30 +282,38 @@
         align-items: start;
         gap: 16px;
     }
+
     .user-contact-info {
         margin-block: 15px;
     }
+
     .headline {
         margin-bottom: 10px;
     }
+
     .headline h2 {
         margin-top: 10px;
         font-size: 48px;
     }
+
     .add-btn-resp {
         bottom: 110px;
         right: 25px;
     }
+
     .back-btn-resp {
         top: 130px;
         right: 25px;
     }
+
     .overlay-contact-resp {
         width: 100% !important;
     }
+
     .overlay-cover-resp {
         width: 100% !important;
     }
+
     .overlay-main-container-resp {
         width: 100% !important;
     }
@@ -303,6 +324,7 @@
     .input-container-resp {
         width: 300px;
     }
+    
     .contact-info {
         overflow: hidden;
     }

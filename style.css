@@ -20,10 +20,6 @@ main {
   display: none !important;
 }
 
-.d-none {
-  display: none !important;
-}
-
 .rotate-warning-overlay {
   position: fixed;
   top: 0;
@@ -115,6 +111,18 @@ header {
 
 .logo-small-repeat {
   display: inherit;
+}
+
+.d-none {
+  display: none !important;
+}
+
+.d-block {
+  display: block !important;
+}
+
+.d-opacity {
+  opacity: 1 !important;
 }
 
 /* Burger menu */

@@ -100,6 +100,7 @@ async function loadContactsFromFirebase() {
   }
 }
 
+
 function renderAvatar() {
   contactsFirebase.forEach(contact => {
     contact.avatar = contact.username
@@ -173,4 +174,3 @@ async function patchDataToServer(path = "", data) {
     console.error('There was an error updating the data:', error);
   }
 }
-

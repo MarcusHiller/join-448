@@ -177,6 +177,7 @@ h3 {
     border: 3px solid white;
 }
 
+
 strong {
     font-weight: 400;
     font-size: 20px;
@@ -191,6 +192,7 @@ strong {
     align-items: center;
     margin-block: 100px 40px;
 }
+
 
 .headline hr {
     height: 59px;
@@ -350,5 +352,3 @@ h4 {
     color: #007CEE;
     text-decoration: none;
 }
-
-
