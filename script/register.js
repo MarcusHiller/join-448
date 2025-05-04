@@ -56,6 +56,7 @@ function checkSamePasswd(a, b) {
     labelPassw.classList.remove('input-field-error');
     poppinError.classList.add('opacity');
     if (a !== b) {
+        spinningLoaderEnd();
         labelPassw.classList.add('input-field-error');
         poppinError.classList.remove('opacity');
         poppinError.innerHTML = textPasswdError;
@@ -86,7 +87,7 @@ function prepareEmailValidationUI() {
 
 
 async function loadUsersFromFirebase() {
-    const response = await fetch(BASE_URL + "/users.json");
+    const response = await fetch(BASE_URL + "/join/users.json");
     return await response.json();
 }
 
@@ -94,6 +95,7 @@ async function loadUsersFromFirebase() {
 function checkIfEmailExists(data, email) {
     for (const id in data) {
         if (data[id].email === email) {
+            spinningLoaderEnd();
             showEmailExistsError();
             resetUserArray();
             return true;
@@ -114,22 +116,6 @@ function showEmailExistsError() {
 
 function createUserObject(username, email, password) {
     return { username, email, password };
-}
-
-
-async function saveUsersToFirebase() {
-    const usersAsObject = {};
-    userFirebase.forEach((user, index) => { usersAsObject[index] = { ...user } });
-    try {
-        await fetch(BASE_URL + "/users.json", {
-            method: 'PUT',
-            body: JSON.stringify(usersAsObject),
-            headers: { 'Content-Type': 'application/json' }
-        });
-    } catch (error) {
-        console.error("Error when saving:", error.message);
-        resetUserArray();
-    }
 }
 
 

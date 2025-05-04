@@ -22,15 +22,18 @@ if (msg) {
 
 
 async function login() {
+    spinningLoaderStart();
     let email = document.getElementById('email');
     let passwd = document.getElementById('passwd');
     await loadUserData();
     let user = userFirebase.find(user => user.email == email.value && user.password == passwd.value);
     if (user) {
+        spinningLoaderEnd();
         window.location.href = `html/summary.html?name=${encodeURIComponent(user.username)}&login=true`;
         resetUserArray();
         usrerIsLoggedIn();
     } else {
+        spinningLoaderEnd();
         displayErrorLogin();
     }
 }

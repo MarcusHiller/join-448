@@ -124,6 +124,22 @@ async function saveContactsToFirebase() {
   });
 }
 
+
+async function saveUsersToFirebase() {
+    const usersAsObject = {};
+    userFirebase.forEach((user, index) => { usersAsObject[index] = { ...user } });
+    try {
+        await fetch(BASE_URL + "/join/users.json", {
+            method: 'PUT',
+            body: JSON.stringify(usersAsObject),
+            headers: { 'Content-Type': 'application/json' }
+        });
+    } catch (error) {
+        console.error("Error when saving:", error.message);
+        resetUserArray();
+    }
+}
+
 // Save Task (Edit/Add) //
 
 async function putDataToServer(path = "", data) {
