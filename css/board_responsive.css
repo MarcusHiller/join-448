@@ -1,8 +1,32 @@
 @media(max-width: 1500px) {
     .row {
-        flex-wrap: wrap;
-        gap: 24px;
+        gap: 12px;
     }
+
+}
+
+@media(max-width: 1380px) {
+ 
+
+    .content {
+        padding: 20px 20px;
+    }
+}
+
+@media(max-width: 1333px) {
+   
+    .column {
+        width: 200px;
+    }
+
+    .column-headline {
+        width: unset;
+    }
+
+    .progress progress {
+        width: 60px;
+    }
+
 }
 
 @media(max-width: 1000px) {
@@ -10,13 +34,49 @@
         flex-direction: column;
         align-items: flex-start;
     }
+
+    .column {
+        width: 160px;
+    }
+
+    .subtask-text {
+        display: none;
+    }
+
+    .column-headline h3 {
+        font-size: 16px !important;
+    }
+
+    .progress progress {
+        width: 100px;
+    }
 }
 
 
-
 @media(max-width: 900px) {
+
+    .column-headline {
+        width: 100%;
+    }
+
+    .progress progress {
+        width: 128px;
+    }
+
+    .subtask {
+        display: flex;
+    }
+
+    .subtask-text {
+        display: block;
+    }
+
     .mobile-button {
         display: block;
+    }
+
+    .row {
+        flex-direction: column;
     }
 
     .add-task-button {
@@ -50,15 +110,12 @@
         flex-direction: row !important;
     }
 
-    .column-headline {
-        width: 100%;
-    }
-
 
     .column-container {
         flex-direction: row;
         overflow-x: auto;
         width: 100%;
+        padding: 12px 0 12px 10px;
     }
 
     .task {

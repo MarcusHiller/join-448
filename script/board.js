@@ -385,7 +385,7 @@ function renderTextDone() {
 
 
 function openMoveToDialog() {
-  document.getElementById("board_overlay").classList.remove("d_none");
+  document.getElementById("moveTo_overlay").classList.remove("d_none");
   document.getElementById("mobile_nav").classList.remove("d_none");
   setTimeout(() => { document.getElementById("mobile_nav").classList.remove("overlay-container-sliding") }, 1);
   document.getElementById("body").classList.add("overflow-hidden");
@@ -394,19 +394,20 @@ function openMoveToDialog() {
 
 
 function closeMoveToDialog() {
+  
   document.getElementById("mobile_nav").classList.add("overlay-container-sliding");
   setTimeout(() => {
-      document.getElementById("board_overlay").classList.add("d_none"),
+      document.getElementById("moveTo_overlay").classList.add("d_none"),
           document.getElementById("mobile_nav").classList.add("d_none");
   }, 100);
   document.getElementById("body").classList.remove("overflow-hidden");
   document.getElementById(`task_index_${currentDraggableTask}`).classList.remove('dragging');
-  resetDisaplyMovtoDialog();
+  resetDisplayMovtoDialog();
   
 }
 
 
-function resetDisaplyMovtoDialog() {
+function resetDisplayMovtoDialog() {
   document.getElementById("move_to_arrow_up").classList.add("d_none");
   document.getElementById("move_to_arrow_down").classList.add("d_none");
 

@@ -9,9 +9,19 @@ function addClearButtonToThePage() {
 
 
 function openUserDropMenu() {
-  document.getElementById("dropdown_menu_arrow").classList.toggle("rotate-img");
-  document.getElementById("assigned_select").classList.toggle("blue-border");
-  document.getElementById("add_user_list").classList.toggle("dropdown-animation-user");
+  document.getElementById("dropdown_menu_arrow").classList.add("rotate-img");
+  document.getElementById("assigned_select").classList.add("blue-border");
+  document.getElementById("add_user_list").classList.add("dropdown-animation-user");
+  document.getElementById("assigned_select").classList.add("border-radius-custom");
+  document.getElementById("list_overlay").classList.remove("d_none");
+}
+
+function closeUserDropMenu() {
+  document.getElementById("dropdown_menu_arrow").classList.remove("rotate-img");
+  document.getElementById("assigned_select").classList.remove("blue-border");
+  document.getElementById("add_user_list").classList.remove("dropdown-animation-user");
+  document.getElementById("assigned_select").classList.remove("border-radius-custom");
+  document.getElementById("list_overlay").classList.add("d_none");
 }
 
 
@@ -24,7 +34,7 @@ function resortUserlist() {
 
 function renderUserList() {
   resortUserlist();
-  let usersListRef = document.getElementById("user_list_dropdown");
+  let usersListRef = document.getElementById("add_user_list");
   usersListRef.innerHTML = "";
 
   for (let indexUsers = 0; indexUsers < contactsFirebase.length; indexUsers++) {
@@ -33,6 +43,7 @@ function renderUserList() {
   }
 }
 
+
 function addCheckedUsers(indexUsers) {
   let avatarList = document.getElementById("user_logo_after_seleceted");
   let userCheckbox = document.getElementById("user_" + indexUsers);
@@ -40,9 +51,11 @@ function addCheckedUsers(indexUsers) {
 
   if (userCheckbox.checked) {
     avatarList.innerHTML += getCheckedAvatar(indexUsers);
+    document.getElementById("user_" + indexUsers + "_label").classList.remove("user-dropmenu-hover-effekt")
   }
   if (!userCheckbox.checked) {
     userAvatar.remove();
+    document.getElementById("user_" + indexUsers + "_label").classList.add("user-dropmenu-hover-effekt")
   }
 }
 
@@ -194,11 +207,6 @@ function removeSubtask(indexSubTask, taskIndex) {
 }
 
 
-function searchContactToTask() {  // not avalieble yet
-  let input = document.getElementById("assigned_select_input").value;
-}
-
-
 function clearAddTaskField() {
   document.getElementById("titel_input").value = "";
   document.getElementById("description_input").value = "";
@@ -246,4 +254,66 @@ function userFeedback() {
     setTimeout(() => { success.classList.remove('show-successful'); }, 1510);
     setTimeout(() => { success.classList.add('d-none'); }, 1730);
   }, 200);
+}
+
+
+function searchContactToTask() {
+  let input = document.getElementById("assigned_select_input").value.toLowerCase().replace(/\s+/g, "");
+  let list = document.getElementById("add_user_list");
+  let userFoundCounter = 0;
+
+  for (let index = 0; index < contactsFirebase.length; index++) {
+    let user = document.getElementById("user_" + index + "_label");
+    if (!user) continue;
+    let name = contactsFirebase[index].username.toLowerCase().replace(/\s+/g, "")
+    if (input === "") {
+      user.classList.remove("d_none");
+    } else {
+      const isMatch = name.includes(input);
+      if (isMatch) {
+        user.classList.remove("d_none");
+        userFoundCounter--;
+      } else {
+        user.classList.add("d_none");
+        userFoundCounter++;
+      }
+    }
+  }
+  checkUserFound(input, userFoundCounter, list);
+}
+
+
+function checkUserFound(input, userFoundCounter, list) {
+  let existingFeedback = document.getElementById("no_user_feedback");
+
+  if (userFoundCounter === contactsFirebase.length && input !== "") {
+    const message = `No user found: "${input}"`;
+    if (!existingFeedback) {
+      const feedback = createNoUserFeedback(message);
+      list.appendChild(feedback);
+    } else {
+      existingFeedback.textContent = message;
+    }
+  } else {
+    if (existingFeedback) {
+      existingFeedback.remove();
+    }
+  }
+}
+
+
+function createNoUserFeedback(message) {
+  const feedback = document.createElement("div");
+  feedback.id = "no_user_feedback";
+  feedback.textContent = message;
+  Object.assign(feedback.style, {
+    fontStyle: "italic",
+    color: "#888",
+    padding: "6px 10px"
+  });
+  return feedback;
+}
+
+function checkedStyle(taskIndex) {
+  document.getElementById("user_" + taskIndex + "_label").classList.toggle("user-dropmenu-hover-effekt")
 }
