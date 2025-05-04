@@ -26,9 +26,9 @@ async function saveUsers() {
 
 
 let users = [
-  { 'username': 'Max Mustermann', 'email': 'maxmustermann@email.de', 'password': 'test' },
-  { 'username': 'Rainer Zufall', 'email': 'rainerzufall@email.de', 'password': 'test' },
-  { 'username': 'Beate Baum', 'email': 'beatebaum@email.de', 'password': 'test' }
+  { 'username': 'Max Mustermann', 'email': 'maxmustermann@email.de', 'password': 'test1234' },
+  { 'username': 'Rainer Zufall', 'email': 'rainerzufall@email.de', 'password': 'test1234' },
+  { 'username': 'Beate Baum', 'email': 'beatebaum@email.de', 'password': 'test1234' }
 ];
 
 
