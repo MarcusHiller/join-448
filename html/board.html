@@ -40,7 +40,8 @@
         <div id="success" class="overlay-successful-addTask d-none">
         </div>
         <div class="content">
-            <div id="board_overlay" class="board-overlay d_none" onclick="closeOverlayTask(); closeAddTask(); closeMoveToDialog()">
+            <div id="board_overlay" class="board-overlay d_none"
+                onclick="closeOverlayTask(); closeAddTask()">
 
                 <!-- Add Overlay -->
                 <div id="add_container" class="add-container overlay-container-sliding d_none"
@@ -52,6 +53,9 @@
                     onclick="event.stopPropagation()">
                 </div>
 
+
+            </div>
+            <div id="moveTo_overlay" class="board-overlay d_none" onclick="closeMoveToDialog()">
                 <!-- Mobile Nav -->
                 <div class="mobile-nav d_none overlay-container-sliding" id="mobile_nav">
                     <div class="move-to-head">Move to</div>

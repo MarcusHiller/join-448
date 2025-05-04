@@ -8,7 +8,7 @@ function getTaskTemplate(taskIndex) {
                 <div class="task-description"><span>${tasks[taskIndex].descripton}</span></div>
                 <div class="progress">
                     <progress id="subtasks_user_${taskIndex}" max="" value="0"></progress>
-                        <span id="subtask_text_user_${taskIndex}"><span id="subtask_value_user_${taskIndex}">0</span>/<span id="subtask_max_user_${taskIndex}">0</span> Subtasks</span>
+                        <span class="subtask" id="subtask_text_user_${taskIndex}"><span id="subtask_value_user_${taskIndex}">0</span>/<span id="subtask_max_user_${taskIndex}">0</span><span class="subtask-text">&nbsp;Subtasks</span></span>
                 </div>
                 <div class="task-footer">
                     <div id="task_users_${taskIndex}" onload="renderAssignedTo(${taskIndex})"class="task-users">
@@ -53,7 +53,7 @@ function getSubtaskTemplate(indexSubTask, subtaskValue, taskIndex) {
 }
 
 function getUserListTemplate(indexUsers) {
-    return `<label for="user_${indexUsers}" class="user-dropmenu">
+    return `<label for="user_${indexUsers}" id="user_${indexUsers}_label" class="user-dropmenu" onclick="checkedStyle(${indexUsers})">
                 <div class="user-logo-container">
                     <div id="avatar_user_${indexUsers}" class="user-logo-small" style="background-color:${contactsFirebase[indexUsers].color}">${contactsFirebase[indexUsers].avatar}</div>
                     <span>${contactsFirebase[indexUsers].username}</span>
