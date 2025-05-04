@@ -6,11 +6,8 @@
  * @param {string} page - The ID of the page being initialized (e.g., 'summary_page').
  */
 async function init(page) {
-    await Promise.all([
-        loadHTML("header.html", "header-placeholder"),
-        loadHTML("navbar.html", "navbar-section")
-    ]);
-
+    await loadHTML("header.html", "header-placeholder");
+    await loadHTML("navbar.html", "navbar-section");
     activePageHiglight(page);
 
     if (page === 'summary_page') {
