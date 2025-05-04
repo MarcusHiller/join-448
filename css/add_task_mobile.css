@@ -47,6 +47,15 @@
         margin: 0 8px;
     }
 
+    .create-task-button {
+        padding: 16px !important;
+        height: 56px !important;
+    }
+
+    .content {
+        padding: 12px 12px;
+    }
+
 }
 
 

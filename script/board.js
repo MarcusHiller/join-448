@@ -316,27 +316,101 @@ function arrayAssignedTo(index, responseToJson, tasksKeysArray) {
 }
 
 
-// Touch Function // 
+// Touch Function Open and Close // 
 
 
 function mobileNavigator(taskIndex, condition) {
   document.getElementById("mobile_nav").classList.remove("d_none");
+  currentDraggableTask = taskIndex;
 
-  if(condition === "ToDo") {
-    moveToProg(taskIndex, condition)
+  if (condition === "ToDo") {
+    renderTextProg()
   }
 
-  if(condition === "inProgress") {
-    moveToFeedback(taskItaskIndex, conditionndex)
+  if (condition === "inProgress") {
+    renderTextFeedback()
   }
 
-  if(condition === "feedback") {
-    moveToDone(taskIndex, condition)
+  if (condition === "feedback") {
+    renderTextDone()
   }
 
-  if(condition === "done") {
-    moveToBackFeedback(taskIndex, condition)
+  if (condition === "done") {
+    renderTextBackFeedback()
   }
 
 
 }
+
+
+function renderTextProg() {
+  document.getElementById("arrow_down_text").innerHTML = "in Progress";
+  document.getElementById("move_to_arrow_down").classList.remove("d_none");
+  document.getElementById("move_to_arrow_down").setAttribute("onclick", "moveTo('inProgress')");
+  
+  openMoveToDialog();
+}
+
+function renderTextFeedback() {
+  document.getElementById("arrow_down_text").innerHTML = "Feedback";
+  document.getElementById("arrow_up_text").innerHTML = "To-Do";
+  document.getElementById("move_to_arrow_up").classList.remove("d_none");
+  document.getElementById("move_to_arrow_down").classList.remove("d_none");
+  document.getElementById("move_to_arrow_down").setAttribute("onclick", "moveTo('feedback')");
+  document.getElementById("move_to_arrow_up").setAttribute("onclick", "moveTo('ToDo')");
+  openMoveToDialog();
+}
+
+function renderTextBackFeedback() {
+  document.getElementById("arrow_up_text").innerHTML = "Feedback";
+  document.getElementById("move_to_arrow_up").classList.remove("d_none");
+  document.getElementById("move_to_arrow_up").setAttribute("onclick", "moveTo('feedback')");
+  openMoveToDialog();
+}
+
+
+function renderTextDone() {
+  document.getElementById("arrow_down_text").innerHTML = "Done";
+  document.getElementById("arrow_up_text").innerHTML = "in Progress";
+  document.getElementById("move_to_arrow_up").classList.remove("d_none");
+  document.getElementById("move_to_arrow_down").classList.remove("d_none");
+  document.getElementById("move_to_arrow_down").setAttribute("onclick", "moveTo('done')");
+  document.getElementById("move_to_arrow_up").setAttribute("onclick", "moveTo('inProgress')");
+  openMoveToDialog();
+}
+
+
+
+
+
+
+function openMoveToDialog() {
+  document.getElementById("board_overlay").classList.remove("d_none");
+  document.getElementById("mobile_nav").classList.remove("d_none");
+  setTimeout(() => { document.getElementById("mobile_nav").classList.remove("overlay-container-sliding") }, 1);
+  document.getElementById("body").classList.add("overflow-hidden");
+  document.getElementById(`task_index_${currentDraggableTask}`).classList.add('dragging');
+}
+
+
+function closeMoveToDialog() {
+  document.getElementById("mobile_nav").classList.add("overlay-container-sliding");
+  setTimeout(() => {
+      document.getElementById("board_overlay").classList.add("d_none"),
+          document.getElementById("mobile_nav").classList.add("d_none");
+  }, 100);
+  document.getElementById("body").classList.remove("overflow-hidden");
+  document.getElementById(`task_index_${currentDraggableTask}`).classList.remove('dragging');
+  resetDisaplyMovtoDialog();
+  
+}
+
+
+function resetDisaplyMovtoDialog() {
+  document.getElementById("move_to_arrow_up").classList.add("d_none");
+  document.getElementById("move_to_arrow_down").classList.add("d_none");
+
+}
+
+
+// Move to functions //
