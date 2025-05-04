@@ -1,10 +1,10 @@
 .content {
-    padding-left: 32px;
-    padding-right: 32px;
+  padding: 80px 40px;
     background-color: #F6F7F8;
     max-width: 1920px;
     overflow-x: hidden;
     font-family: Inter;
+
 }
 
 h1 {
@@ -105,7 +105,7 @@ body {
     padding: 8px 16px;
     display: flex;
     align-items: center;
-    border-radius: 8px;
+    border-radius: 10px;
     height: 48px;
     gap: 8px;
     font-weight: bold;
@@ -141,18 +141,18 @@ body {
 }
 
 .column {
-    width: 256px;
+    width: 252px;
     margin-bottom: 24px;
 }
 
 .empty-task {
     border: 1px dashed #A8A8A8;
-    border-radius: 10px;
+    border-radius: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #A8A8A8;
-    height: 256px;
+    height: 200px;
     min-width: 100px;
 }
 
@@ -176,13 +176,14 @@ body {
     gap: 16px;
     position: relative;
     min-height: 54px;
+    height: 100%;
 }
 
 .task {
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.08);
     text-wrap: wrap;
     background-color: white;
-    border-radius: 8px;
+    border-radius: 24px;
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -285,7 +286,6 @@ body {
     display: flex;
 }
 
-
 .user {
     width: 32px;
     height: 32px;
@@ -297,6 +297,7 @@ body {
     border-radius: 50%;
     margin-left: -8px;
     font-size: 12px;
+    border: solid 1px white;
 }
 
 .height-unset {
@@ -312,7 +313,6 @@ body {
 .gap-8 {
     gap: 8px !important;
 }
-
 
 .mobile-nav {
     width: 140px;
@@ -351,16 +351,35 @@ body {
     margin-bottom: 8px;
 }
 
-
 .dragging {
     transform: rotate(5deg);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
-
 
 .lock-layout {
     min-width: 1000px;
     /* oder was dein Layout braucht */
+}
+
+.scroll-fade-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
+    pointer-events: none;
+    z-index: 99;
+}
+
+.scroll-fade-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2), transparent);
+    pointer-events: none;
+    z-index: 99;
 }
 
 @media (max-width: 600px) {

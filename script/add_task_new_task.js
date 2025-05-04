@@ -1,14 +1,28 @@
 let searchedTasks = [];
+const currentPage = window.location.pathname.split("/").pop();
 
 // Add Task //
 
 
-function addTask(condition = "") {
+function addTask() {
     let newTask;
     let hasError = checkInputFields();
     if (hasError) return;
     newTask = getNewTask();
+    tasks.push(newTask);
     putDataToServer(`/join/tasks/${newTask.id}`, newTask);
+    if (currentPage === "board.html") {
+        let taskIndex = getIndex();
+        getSubtasksArrayAfterEdit(taskIndex);
+        getAssignedToArrayAfterEdit(taskIndex);
+        renderTaskInToColumn();
+        closeAddTask();
+
+    }
+}
+
+function getIndex(){
+    return tasks.length - 1;
 }
 
 function getNewTask() {
@@ -220,39 +234,39 @@ function selectConditionForSingleTask(taskIndex) {
 function addSubtaskChecked(indexSubtask, taskIndex) {
     let subtask = document.getElementById("task_" + taskIndex + "_checkbox_" + indexSubtask);
     let progressValue = document.getElementById("subtasks_user_" + taskIndex).value
-  
+
     if (subtask.checked) {
-      progressValue++;
+        progressValue++;
     } else if (!subtask.checked && progressValue > 0) {
-      progressValue--;
+        progressValue--;
     } else {
-      progressValue = 0;
+        progressValue = 0;
     }
     saveCheckboxProcess(taskIndex, indexSubtask, subtask, progressValue)
-  }
-  
-  function saveCheckboxProcess(taskIndex, indexSubtask, subtask, progressValue) {
+}
+
+function saveCheckboxProcess(taskIndex, indexSubtask, subtask, progressValue) {
     let progressValueTextRef = document.getElementById("subtask_value_user_" + taskIndex);
     let taskID = tasks[taskIndex].id;
     let subtaskName = "subtask" + indexSubtask;
     document.getElementById("subtasks_user_" + taskIndex).value = progressValue;
     progressValueTextRef.innerHTML = progressValue;
     tasks[taskIndex].subtask[indexSubtask].subtaskCheck = subtask.checked;
-  
+
     patchDataToServer(`join/tasks/${taskID}/subtask/${subtaskName}`, { checked: subtask.checked })
-  }
+}
 
 
-  function checkedSubtaskChecked(taskIndex, subtaskMax) {
+function checkedSubtaskChecked(taskIndex, subtaskMax) {
     let subtaskProgress = 0;
-  
+
     for (let index = 0; index < subtaskMax; index++) {
-      let subtaskCkeck = tasks[taskIndex].subtask[index].subtaskCheck
-  
-      if (subtaskCkeck) {
-        subtaskProgress++;
-      }
+        let subtaskCkeck = tasks[taskIndex].subtask[index].subtaskCheck
+
+        if (subtaskCkeck) {
+            subtaskProgress++;
+        }
     }
     return subtaskProgress;
-  }
-  
+}
+

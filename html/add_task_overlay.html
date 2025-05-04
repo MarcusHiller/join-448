@@ -45,15 +45,14 @@
                             class="assigned-select-input" value="" placeholder="Select contacts to assign"><img
                             id="dropdown_menu_arrow" src="/assets/img/icon/arrow_drop_down.svg" alt="">
                     </label>
+                    <div id="list_overlay" class="list-overlay d_none" onclick="closeUserDropMenu()"></div>
                     <div id="add_user_list" class="add-user-list">
-                        <div id="user_list_dropdown" class="scrollable-list">
-                        </div>
                     </div>
                 </div>
                 <div id="user_logo_after_seleceted" class="user-logo-after-seleceted">
                 </div>
                 <label for="" class="addTask-label">Category<span class="required-star">&#42</span></label>
-                <div class="assigned-select-dropdown-menu">
+                <div id="assigned_select_dropdown_menu" class="assigned-select-dropdown-menu">
                     <div>
                         <label for="" id="category_input" class="assigned-select z-index-7">
                             <input type="text" id="category_select_input" onclick="openCatDropMenu()"

@@ -16,7 +16,7 @@
 
 .overlay-container {
     width: 525px;
-    height: 80%;
+    height: 90%;
     background-color: white;
     border-radius: 20px;
     padding: 48px 40px;
@@ -161,14 +161,6 @@
     margin-right: 8px;
 }
 
-.checkbox[type="checkbox"] {
-   display: none;
-}
-
-.checkbox[type="checkbox"]:checked + div img  {
-    content: url(/assets/img/icon/checkbox_checked.svg);
-}
-
 .subtasks img {
     cursor: pointer;
 }
@@ -215,6 +207,17 @@
 
 #task_overlay_subtask_list {
     margin-top: 8px;
+}
+
+.list-overlay {
+    z-index: 8;
+    position: fixed;
+    background: transparent;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 @media(max-width: 900px) {
