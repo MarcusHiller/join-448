@@ -22,7 +22,7 @@ window.addEventListener("resize", updateDraggableState);
 function dragoverHandler(ev) {
     ev.preventDefault();
 
-    const scrollZone = 30; // Abstand zum Rand
+    const scrollZone = 100; // Abstand zum Rand
     const scrollSpeed = 30;
 
     // vertikal scrollen
@@ -67,6 +67,7 @@ function addHighlight() {
     } else if (tasks[currentDraggableTask].condition == "done") {
         document.getElementById("empty_task_feedback").classList.remove("d_none");
     }
+    document.getElementById("scroll-highlight").classList.remove("d_none");
 }
 
 
@@ -77,4 +78,5 @@ function removeHighlight() {
     document.getElementById("empty_task_inProg").classList.add("d_none");
     document.getElementById("empty_task_feedback").classList.add("d_none");
     document.getElementById("empty_task_done").classList.add("d_none");
+    document.getElementById("scroll-highlight").classList.add("d_none");
 }
