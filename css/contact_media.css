@@ -52,9 +52,6 @@
 
 
 @media (max-width: 1120px) {
-    .headline {
-        margin-top: 5px;
-    }
     .user-container {
         width: 428px;
     }
@@ -92,6 +89,9 @@
     .info-initial-overlay {
         align-self: center;
     }
+    .submit-container {
+        gap: 15px;
+    }
 }
 
 
@@ -115,6 +115,13 @@
     .contact {
         flex-direction: column;
         align-items: flex-start;
+    }
+    .overlay-main-container {
+        padding: 45px 16px;
+        gap: 10px;
+    }
+    .overlay-cover {
+        padding: 45px 16px;
     }
 }
 
@@ -250,6 +257,9 @@
     .card-title .motivation-text {
         font-size: 20px;
     }
+    .submit-container {
+        gap: 35px;
+    }
 }
 
 
@@ -292,6 +302,9 @@
 @media (max-width: 400px) {
     .input-container-resp {
         width: 300px;
+    }
+    .contact-info {
+        overflow: hidden;
     }
 }
 

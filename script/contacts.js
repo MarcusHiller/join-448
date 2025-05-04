@@ -62,7 +62,7 @@ function showUserInformation(contact, initials) {
     return `
         <div class="contact" id="contact${contact.id}" onclick="chooseContact(${contact.id}); showRespUserInfo()">
             <div class="avatar flex-box-center-center" style="background-color: ${contact.color}">${initials}</div>
-            <div class="info">
+            <div class="contact-info">
                 <strong>${contact.username}</strong>
                 <p class="accessibility">${contact.email}</p>
             </div>
@@ -137,11 +137,15 @@ function showContact(individualContact) {
                 <div>
                     <p class="user-contact-info">Contact Information</p>
                 </div>
-                <div>
-                    <p class="accessibility-description">Email</p>
-                    <a class="accessibility" href="mailto:${individualContact.email}"> ${individualContact.email}</a>
-                    <p class="accessibility-description">Phone</p>
-                    <a class="accessibility" href="tel:${individualContact.phone}">${individualContact.phone}</a>
+                <div class="contact-box">
+                    <div class="contact-info-box">
+                        <p class="accessibility-description">Email</p>
+                        <a class="accessibility" href="mailto:${individualContact.email}"> ${individualContact.email}</a>
+                    </div>
+                    <div class="contact-info-box">
+                        <p class="accessibility-description">Phone</p>
+                        <a class="accessibility" href="tel:${individualContact.phone}">${individualContact.phone}</a>
+                    </div>
                 </div>
             </div>
         </div>

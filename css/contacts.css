@@ -1,13 +1,9 @@
-* {
-    box-sizing: border-box;
-    
-}
 
 
-.resp-over-screen {
+/* .resp-over-screen {
     padding: 0px max(0px, calc(50% - 960px));
     background-image: linear-gradient(to right, #2a3647fa 50%, #f6f7f8ca 50%);
-}
+} */
 
 
 .flex-box-center-center {
@@ -140,10 +136,16 @@
 }
 
 
+.tab hr {
+    margin-block: 8px;
+}
+
+
 h3 {
     font-weight: 400;
     font-size: 20px;
     line-height: 120%;
+    margin-block: 20px;
 }
 
 
@@ -159,6 +161,13 @@ h3 {
 
 .contact:hover {
     background: linear-gradient(180deg, #F9F9F9, #F0F0F0);
+}
+
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 
@@ -187,7 +196,7 @@ strong {
 .headline {
     display: flex;
     align-items: center;
-    margin-top: 100px;
+    margin-block: 100px 40px;
 }
 
 .headline hr {
@@ -250,7 +259,6 @@ h2 {
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    font-family: Inter;
     font-size: 47px;
     line-height: 120%;
     color: white;
@@ -319,6 +327,20 @@ h4 {
 }
 
 
+.contact-box {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+
+.contact-info-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+
 .accessibility-description {
     font-weight: 700;
     font-size: 16px;
@@ -327,7 +349,6 @@ h4 {
 
 
 .accessibility {
-    font-family: Inter;
     font-weight: 400;
     font-size: 16px;
     line-height: 120%;
