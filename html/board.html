@@ -21,10 +21,13 @@
     <script src="/script/board.js"></script>
     <script src="/script/templates.js"></script>
     <script src="/script/add_task_overlay.js"></script>
+    <script src="/script/add_task_new_task.js"></script>
+    <script src="/script/board_ticket_overlay.js"></script>
+    <script src="/script/drag_and_drop.js"></script>
     <script src="/script/db.js"></script>
-
-
 </head>
+
+
 
 <body onload="init('board_page'); getTaskOverlayHTML(); getDataFromServer('join/tasks')" id="body">
 
@@ -35,10 +38,9 @@
         <header id="header-placeholder"></header>
 
         <div id="success" class="overlay-successful-addTask d-none">
-            <p>Contact successfully created </p>
         </div>
         <div class="content">
-            <div id="board_overlay" class="board-overlay d_none" onclick="closeOverlayTask(); closeAddTask()">
+            <div id="board_overlay" class="board-overlay d_none" onclick="closeOverlayTask(); closeAddTask(); closeMoveToDialog()">
 
                 <!-- Add Overlay -->
                 <div id="add_container" class="add-container overlay-container-sliding d_none"
@@ -48,9 +50,23 @@
                 <!-- Task Overlay -->
                 <div id="overlay_container" class="overlay-container overlay-container-sliding d_none"
                     onclick="event.stopPropagation()">
+                </div>
 
+                <!-- Mobile Nav -->
+                <div class="mobile-nav d_none overlay-container-sliding" id="mobile_nav">
+                    <div class="move-to-head">Move to</div>
+                    <div class="move-to-arrow d_none" id="move_to_arrow_up">
+                        <img id="arrow_up" src="/assets/img/icon/arrow_upward.svg" alt="">
+                        <p id="arrow_up_text"></p>
+                    </div>
+                    <div class="move-to-arrow d_none" id="move_to_arrow_down">
+                        <img id="arrow_down" src="/assets/img/icon/arrow_downward.svg" alt="">
+                        <p id="arrow_down_text"></p>
+                    </div>
                 </div>
             </div>
+
+
 
             <!-- Board -->
             <div class="board-headline">
@@ -134,15 +150,8 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
         </div>
     </main>
-
 </body>
 
 </html>

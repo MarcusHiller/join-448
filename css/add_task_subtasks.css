@@ -54,6 +54,7 @@
 .subtasks-container {
     max-height: 240px;
     overflow: auto;
+    min-height: 100px;
 }
 
 .list-element-div input {
