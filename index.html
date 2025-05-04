@@ -18,7 +18,7 @@
 </head>
 
 <body>
-<div id="rotate-warning-placeholder"></div>
+    <div id="rotate-warning-placeholder"></div>
     <div class="cover-container">
         <img class="cover" src="./assets/img/logo/cover_join.svg" alt="">
         <img class="cover cover-white" src="./assets/img/logo/cover_join_white.svg" alt="">
@@ -43,8 +43,10 @@
                 <div class="dpl-fl-colu gap-small">
                     <label id="labelPasswd" class="input-field">
                         <div class="input-content">
-                            <input id="passwd" type="password" placeholder="Password" minlength="6" required oninput="updatePasswdIcon()">
-                            <img id="passwdIcon" class="input-icon" src="./assets/img/icon/lock.svg" alt="" onclick="togglePasswordVisibility()">
+                            <input id="passwd" type="password" placeholder="Password" minlength="6" required
+                                oninput="updatePasswdIcon()">
+                            <img id="passwdIcon" class="input-icon" src="./assets/img/icon/lock.svg" alt=""
+                                onclick="togglePasswordVisibility()">
                         </div>
                     </label>
                     <p id="poppin" class="poppins opacity"></p>
@@ -56,8 +58,10 @@
             </div>
         </form>
         <div class="info-pri-pol-container">
-            <a href="#" class="privacy-legal-index" onclick="setLayoutAndRedirect('extern', '/html/privacy_policy.html')">Privacy Policy</a>
-            <a href="#" class="privacy-legal-index" onclick="setLayoutAndRedirect('extern', '/html/legal_notice.html')">Legal Notice</a>        
+            <a href="#" class="privacy-legal-index"
+                onclick="setLayoutAndRedirect('extern', '/html/privacy_policy.html')">Privacy Policy</a>
+            <a href="#" class="privacy-legal-index"
+                onclick="setLayoutAndRedirect('extern', '/html/legal_notice.html')">Legal Notice</a>
         </div>
         <div id="cookieBanner" class="cookie-banner d-none">
             <p>This website uses cookies to ensure you get the best experience. <a href="#">Learn more</a></p>
@@ -65,4 +69,5 @@
         </div>
     </div>
 </body>
+
 </html>

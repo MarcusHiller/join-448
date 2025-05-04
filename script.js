@@ -287,3 +287,15 @@ function checkOrientation() {
 window.addEventListener("load", checkOrientation);
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("orientationchange", checkOrientation);
+
+
+function spinningLoaderStart() {
+    let spinner = document.getElementById('spinnerOverLay');
+    spinner.classList.remove('d-none');
+}
+
+
+function spinningLoaderEnd() {
+    let spinner = document.getElementById('spinnerOverLay');
+    spinner.classList.add('d-none');
+}

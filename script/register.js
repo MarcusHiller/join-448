@@ -1,4 +1,3 @@
-//const BASE_URL = "https://join-2c200-default-rtdb.europe-west1.firebasedatabase.app/";
 let = userFirebase = [];
 let textPasswdError = "Ups! your password don't match.";
 let textEmailError = "The e-mail already exists. Please select another e-mail."
@@ -7,18 +6,26 @@ let textEmailError = "The e-mail already exists. Please select another e-mail."
 /* Sign UP */
 
 async function addUser() {
-    const username = document.getElementById('username');
-    const email = document.getElementById('emailSignUp');
-    const password = document.getElementById('passwordReg');
-    const confirm = document.getElementById('passwordConf');
-    if (!checkSamePasswd(password.value, confirm.value)) return;
-    const emailExists = await checkUserExists(email.value);
-    if (emailExists) return;
-    const newUser = createUserObject(username.value, email.value, password.value);
+    spinningLoaderStart();
+    const userInput = getFormElements();
+    if (!checkSamePasswd(userInput.password.value, userInput.confirm.value)) return;
+    if (await checkUserExists(userInput.email.value)) return;
+    const newUser = createUserObject(userInput.username.value, userInput.email.value, userInput.password.value);
     userFirebase.push(newUser);
     await saveUsersToFirebase();
-    await addUserToContacts(username, email);
+    await addUserToContacts(userInput.username, userInput.email);
+    spinningLoaderEnd();
     showOverlaySuccessful();
+}
+
+
+function getFormElements() {
+    return {
+        username: document.getElementById('username'),
+        email: document.getElementById('emailSignUp'),
+        password: document.getElementById('passwordReg'),
+        confirm: document.getElementById('passwordConf')
+    };
 }
 
 
