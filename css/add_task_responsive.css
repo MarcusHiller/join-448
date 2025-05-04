@@ -1,13 +1,9 @@
-@media(max-width: 1180px) {
+@media(max-width: 1196px) {
     .add-container {
         margin: 40px;
         min-height: 0;
         height: 90%;
         width: 90%;
-    }
-
-    .content {
-        padding: 24px !important;
     }
 
     .addTask-prio {
@@ -51,4 +47,22 @@
     .add-container {
         display: none;
     }
+
+    .list-element-div input {
+        width: 160px;
+    }
+
+    .list-subtask-element {
+        padding-left: 0 !important;
+    }
+
+    .addTask-input-container {
+        font-size: 16px;
+        padding: 12px 8px;
+    }
+
+    .assigned-select-input {
+        font-size: 16px;
+    }
+     
 }

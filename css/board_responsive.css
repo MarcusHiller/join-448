@@ -15,6 +15,9 @@
 
 
 @media(max-width: 900px) {
+    .mobile-button {
+        display: block;
+    }
 
     .add-task-button {
         display: none;

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: script.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: script.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Initializes the page by loading header and navbar, and triggers greeting logic on the summary page.
+ * 
+ * @async
+ * @function init
+ * @param {string} page - The ID of the page being initialized (e.g., 'summary_page').
+ */
+async function init(page) {
+    await Promise.all([
+        loadHTML("header.html", "header-placeholder"),
+        loadHTML("navbar.html", "navbar-section")
+    ]);
+
+    activePageHiglight(page);
+
+    if (page === 'summary_page') {
+        initGreeting();
+        initGreetingRepeat();
+    }
+}
+
+/**
+ * Checks if the user is logged in and redirects to the start page if not.
+ * 
+ * @function isUserLoged
+ */
+function isUserLoged() {
+    let statusLogIn = localStorage.getItem("loggedIn");
+    if (statusLogIn === "false") {
+        window.location.href = "../index.html";
+    }
+}
+
+/**
+ * Logs the user out by clearing login state and redirecting to the login page.
+ * 
+ * @function logOut
+ */
+function logOut() {
+    localStorage.setItem("loggedIn", "false");
+    localStorage.removeItem("layout");
+    window.location.href = "../index.html";
+}
+
+/**
+ * Loads an HTML snippet into a target DOM element.
+ * 
+ * @async
+ * @function loadHTML
+ * @param {string} file - Path to the HTML file.
+ * @param {string} elementId - ID of the target container element.
+ */
+async function loadHTML(file, elementId) {
+    let response = await fetch(file);
+    let html = await response.text();
+    let container = document.getElementById(elementId);
+    if (container) container.innerHTML = html;
+}
+
+/**
+ * Highlights the currently active page in the navigation menu.
+ * 
+ * @function activePageHiglight
+ * @param {string} page - ID of the currently active menu element.
+ */
+function activePageHiglight(page) {
+    const ids = ["summary_page", "add_task_page", "board_page", "contact_page", "help_page"];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove("active-menu");
+    });
+    const current = document.getElementById(page);
+    if (current) current.classList.add("active-menu");
+}
+
+/**
+ * Toggles the burger menu's slide animation on mobile devices.
+ * 
+ * @function burgerMenuSliding
+ */
+function burgerMenuSliding() {
+    document.getElementById("burger_menu").classList.toggle("burger-menu-transition");
+}
+
+/**
+ * Stores layout preference and redirects to a new page.
+ * 
+ * @function setLayoutAndRedirect
+ * @param {string} layout - Either 'intern' or 'extern'.
+ * @param {string} url - Destination URL to redirect to.
+ */
+function setLayoutAndRedirect(layout, url) {
+    localStorage.removeItem('layout');
+    localStorage.setItem('layout', layout);
+    window.location.href = url;
+}
+
+/**
+ * Loads the internal header and navbar for authenticated users.
+ * 
+ * @async
+ * @function loadHeaderNavbarIntern
+ */
+async function loadHeaderNavbarIntern() {
+    await Promise.all([
+        loadHTML("/html/header.html", "header-placeholder"),
+        loadHTML("/html/navbar.html", "navbar-section")
+    ]);
+    markLegalPrivacyActiveLink();
+}
+
+/**
+ * Loads the external header and navbar for guests.
+ * 
+ * @async
+ * @function loadHeaderNavbarExtern
+ */
+async function loadHeaderNavbarExtern() {
+    await Promise.all([
+        loadHTML("/html/header_extern.html", "header-placeholder"),
+        loadHTML("/html/navbar_extern.html", "navbar-section")
+    ]);
+}
+
+/**
+ * Marks the current page in the navbar as active for legal/privacy pages.
+ * 
+ * @function markLegalPrivacyActiveLink
+ */
+function markLegalPrivacyActiveLink() {
+    let path = window.location.pathname;
+    if (path.includes("privacy_policy.html")) {
+        let el = document.getElementById("privacy_page");
+        if (el) el.classList.add("active-menu");
+    }
+    if (path.includes("legal_notice.html")) {
+        let el = document.getElementById("legal_notice_page");
+        if (el) el.classList.add("active-menu");
+    }
+}
+
+/**
+ * Accepts cookies and enables the login area and buttons.
+ * Saves the acceptance time in localStorage.
+ * 
+ * @function acceptCookies
+ */
+function acceptCookies() {
+    let now = new Date().getTime();
+    localStorage.setItem("cookiesAcceptedAt", now);
+    document.getElementById("cookieBanner").classList.add("d-none");
+    enableLogin();
+    enableLoginButtons();
+}
+
+/**
+ * Checks whether the cookie acceptance is still valid (within 1 year).
+ * 
+ * @function cookiesStillValid
+ * @returns {boolean} True if cookies are still valid, false otherwise.
+ */
+function cookiesStillValid() {
+    let timestamp = localStorage.getItem("cookiesAcceptedAt");
+    if (!timestamp) return false;
+    let acceptedAt = parseInt(timestamp);
+    let now = new Date().getTime();
+    let oneYear = 1000 * 60 * 60 * 24 * 365;
+    return now - acceptedAt &lt; oneYear;
+}
+
+/**
+ * Shows the login area.
+ * 
+ * @function enableLogin
+ */
+function enableLogin() {
+    let loginArea = document.getElementById("loginArea");
+    if (loginArea) loginArea.classList.remove("d-none");
+}
+
+/**
+ * Disables the login and guest login buttons.
+ * 
+ * @function disableLoginButtons
+ */
+function disableLoginButtons() {
+    let logInBtn = document.getElementById("logIn");
+    let guestBtn = document.getElementById("guestLogIn");
+    if (logInBtn) logInBtn.disabled = true;
+    if (guestBtn) guestBtn.disabled = true;
+}
+
+/**
+ * Enables the login and guest login buttons.
+ * 
+ * @function enableLoginButtons
+ */
+function enableLoginButtons() {
+    let logInBtn = document.getElementById("logIn");
+    let guestBtn = document.getElementById("guestLogIn");
+    if (logInBtn) logInBtn.disabled = false;
+    if (guestBtn) guestBtn.disabled = false;
+}
+
+/**
+ * Handles layout and login state based on localStorage on page load.
+ * Also sets up cookie banner visibility and back arrow behavior.
+ */
+window.addEventListener("DOMContentLoaded", async () => {
+    // Nur auf externen Seiten layout löschen
+    if (window.location.pathname.includes("privacy_policy.html") ||
+        window.location.pathname.includes("legal_notice.html")) {
+        localStorage.removeItem("layout");
+    }
+
+    await loadHTML("/html/rotate_warning.html", "rotate-warning-placeholder");
+    checkOrientation();
+
+    let layout = localStorage.getItem("layout");
+    let loggedIn = localStorage.getItem("loggedIn");
+
+    if (!layout &amp;&amp; loggedIn === "true") {
+        layout = "intern";
+        localStorage.setItem("layout", "intern");
+    }
+
+    if (layout === "intern") {
+        await loadHeaderNavbarIntern();
+    } else {
+        await loadHeaderNavbarExtern();
+    }
+
+    let stillValid = cookiesStillValid();
+    let acceptBtn = document.getElementById("acceptCookiesBtn");
+    let banner = document.getElementById("cookieBanner");
+    let loginArea = document.getElementById("loginArea");
+
+    if (!stillValid) {
+        if (banner) banner.classList.remove("d-none");
+        if (loginArea) loginArea.classList.remove("d-none");
+        disableLoginButtons();
+    } else {
+        if (banner) banner.classList.add("d-none");
+        if (loginArea) loginArea.classList.remove("d-none");
+        enableLoginButtons();
+    }
+
+    if (acceptBtn) {
+        acceptBtn.addEventListener("click", acceptCookies);
+    }
+
+    let backClick = document.getElementById("backArrow");
+    if (backClick) {
+        backClick.addEventListener("click", () => history.back());
+    }
+});
+
+/**
+ * Checks the device orientation and toggles a fullscreen warning overlay.
+ * Only active on mobile-sized screens in landscape mode.
+ * 
+ * @function checkOrientation
+ */
+function checkOrientation() {
+    const warning = document.getElementById("rotateWarning");
+    if (!warning) return;
+
+    const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+    const isMobile = Math.min(window.innerWidth, window.innerHeight) &lt;= 800;
+
+    warning.style.display = (isMobile &amp;&amp; isLandscape) ? "flex" : "none";
+}
+
+window.addEventListener("load", checkOrientation);
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("orientationchange", checkOrientation);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#acceptCookies">acceptCookies</a></li><li><a href="global.html#activePageHiglight">activePageHiglight</a></li><li><a href="global.html#burgerMenuSliding">burgerMenuSliding</a></li><li><a href="global.html#checkOrientation">checkOrientation</a></li><li><a href="global.html#cookiesStillValid">cookiesStillValid</a></li><li><a href="global.html#disableLoginButtons">disableLoginButtons</a></li><li><a href="global.html#enableLogin">enableLogin</a></li><li><a href="global.html#enableLoginButtons">enableLoginButtons</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isUserLoged">isUserLoged</a></li><li><a href="global.html#loadHTML">loadHTML</a></li><li><a href="global.html#loadHeaderNavbarExtern">loadHeaderNavbarExtern</a></li><li><a href="global.html#loadHeaderNavbarIntern">loadHeaderNavbarIntern</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#markLegalPrivacyActiveLink">markLegalPrivacyActiveLink</a></li><li><a href="global.html#setLayoutAndRedirect">setLayoutAndRedirect</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat May 03 2025 20:44:43 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

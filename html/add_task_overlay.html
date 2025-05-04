@@ -1,6 +1,9 @@
 <div id="addTask_headline" class="addTask-headline" onload="addClearButtonToThePage()">
-    <h2>Add Task</h2>
-    <div><img id="close_add_task_overlay" class="close-icon d_none" onclick="closeAddTask()"
+    <h2 id="addTask_headline_h1">Add Task</h2>
+    <div>
+        <img id="close_add_task_overlay" class="close-icon d_none" onclick="closeAddTask()"
+            src="/assets/img/icon/close.svg" alt=""></div>
+        <img id="close_edit_task_overlay" class="close-icon d_none" onclick="closeAddTask(); closeOverlayTask()"
             src="/assets/img/icon/close.svg" alt=""></div>
 </div>
 <form id="addTask_form" class="addTask-form" onsubmit="addTask(); return false">
@@ -9,17 +12,17 @@
             <div class="addTask-left-side">
                 <label for="" class="addTask-label">Title<span class="required-star">&#42</span></label>
                 <input id="titel_input" class="addTask-input" placeholder="Enter a title">
-                <p class="error-message">This field is required</p>
+                <p class="error-message" id="error-title">This field is required</p>
                 <label for="" class="addTask-label">Description</label>
                 <textarea id="description_input" class="addTask-textarea" placeholder="Enter a Description"></textarea>
                 <label for="" class="addTask-label">Due date<span class="required-star">&#42</span></label>
                 <input id="date_input" class="addTask-input" type="date" placeholder="dd/mm/yyyy">
-                <p class="error-message">This field is required</p>
+                <p class="error-message" id="error-date">This field is required</p>
             </div>
             <div id="spaceholder" class="placeholder-addTask"></div>
             <div class="addTask-right-side">
                 <label for="" class="addTask-label">Priority</label>
-                <div class="addTask-prio">
+                <div id="addTask_prio" class="addTask-prio">
                     <input value="urgent" name="prio" class="prio-urgent d_none" id="prio_urgent" type="radio">
                     <label class="prio-urgent-label" for="prio_urgent">
                         <div class="prio-label">Urgent<img src="/assets/img/icon/prio_urgent.svg">
@@ -65,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="error-message">This field is required</p>
+                <p class="error-message" id="error-cat">This field is required</p>
                 <label for="" class="addTask-label">Subtasks</label>
                 <label for="subtask_input" id="subtask_input_label" class="addTask-input-container">
                     <input class="subtask-input" id="subtask_input" type="text" placeholder="Add new subtask"
@@ -85,9 +88,9 @@
         </div>
         </div>
         <div class="addTask-footer footer-desktop">
-            <span><span class="required-star">&#42</span>This field is required</span>
+            <span class="required-field"><span class="required-star">&#42</span>This field is required</span>
             <div class="addTask-footer-buttons">
-                <div id="cancel_button" class="cancel-task-button d_none" onclick="clearAddTaskField(); closeAddTask()">
+                <div id="cancel_button" class="cancel-task-button d_none" onclick="closeAddTask()">
                     <span class="add-task-text ">Cancel</span>
                     <img src="/assets/img/icon/close.svg" alt="plus">
                 </div>

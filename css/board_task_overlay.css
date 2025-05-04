@@ -6,7 +6,7 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.25);
-    z-index: 10;
+    z-index: 99;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -15,7 +15,7 @@
 
 
 .overlay-container {
-    width: 445px;
+    width: 525px;
     height: 80%;
     background-color: white;
     border-radius: 20px;
@@ -25,13 +25,13 @@
     flex-direction: column;
     justify-content: space-between;
     max-height: 1200px;
-
 }
 
 .overlay-container-sliding {
     transform: translateX(100vh);
     transition-duration: 0.1s;
 }
+
 
 .empty-column {
     background-color: #E7E7E7;
@@ -43,6 +43,7 @@
     color: #A8A8A8;
     width: 100%;
     box-sizing: border-box;
+    height: 48px;
 }
 
 .overlay-headline {
@@ -239,15 +240,26 @@
         height: 500px;
     }
 
-}
+    .addTask-footer span {
+        font-size: 16px !important;
+    }
 
-@media(max-width: 400px) {
+    .create-task-button{
+        padding: 8px !important;
+        height: 36px !important;
+    }
+
+    .required-field {
+        font-size: 16px;
+    }
+
     .overlay-container {
         padding: 8px;
-        width: 280px;
+        width: 300px;
     }
 
     .overlay-titel h2 {
         font-size: 20px;
     }
+
 }

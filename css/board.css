@@ -19,6 +19,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 48px;
 }
 
 .add-task-button-mobile {
@@ -141,7 +142,7 @@ body {
 
 .column {
     width: 256px;
-
+    margin-bottom: 24px;
 }
 
 .empty-task {
@@ -152,6 +153,7 @@ body {
     align-items: center;
     color: #A8A8A8;
     height: 256px;
+    min-width: 100px;
 }
 
 .column-headline {
@@ -159,6 +161,7 @@ body {
     width: 256px;
     justify-content: space-between;
     color: #2A3647;
+    margin-bottom: 12px;
 }
 
 .column-headline img:hover {
@@ -185,7 +188,9 @@ body {
     flex-direction: column;
     cursor: pointer;
     user-select: none;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
+
 
 .task-cat-user {
     margin-bottom: 24px;
@@ -193,7 +198,7 @@ body {
 
 .task-cat-user p {
     background-color: #0038FF;
-    padding: 4px 16px;
+    padding: 4px 24px;
     border-radius: 8px;
     color: white;
     width: fit-content;
@@ -202,6 +207,14 @@ body {
 
 .task-cat-technical {
     margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mobile-button {
+    width: 28px;
+    height: 28px;
+    display: none;
 }
 
 .task-cat-technical p {
@@ -285,6 +298,65 @@ body {
     margin-left: -8px;
     font-size: 12px;
 }
+
+.height-unset {
+    height: unset !important;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.gap-8 {
+    gap: 8px !important;
+}
+
+
+.mobile-nav {
+    width: 140px;
+    min-height: 100px;
+    background-color: #2A3647;
+    border-radius: 20px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-wrap: nowrap;
+    transition-duration: 0.1s;
+    padding: 12px 0;
+}
+
+.move-to-arrow {
+    display: flex;
+    width: 124px;
+    cursor: pointer;
+    padding: 8px 12px;
+}
+
+.move-to-arrow:hover {
+    background-color: #2A3D59;
+    border-radius: 10px;
+}
+
+.move-to-arrow img {
+    margin-right: 6px;
+}
+
+.move-to-head {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+
+.dragging {
+    transform: rotate(5deg);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
 
 .lock-layout {
     min-width: 1000px;

@@ -5,6 +5,8 @@
 
     .addTask-form-container {
         flex-direction: column;
+        height: unset;
+        overflow: visible;
     }
 
     .placeholder-addTask {
@@ -24,6 +26,36 @@
         width: 15px;
         object-fit: contain;
     }
+
+    .addTask-footer {
+        margin-top: 40px;
+    }
+    
+    .required-field {
+        font-size: 16px;
+    }
+
+    .subtasks-container {
+        max-height: unset;
+        overflow: unset;
+    }
+
+    .delete-and-add-icon img {
+        width: 16px;
+        height: 16px;
+        object-fit: contain;
+        margin: 0 8px;
+    }
+
+    .create-task-button {
+        padding: 16px !important;
+        height: 56px !important;
+    }
+
+    .content {
+        padding: 12px 12px;
+    }
+
 }
 
 
@@ -35,15 +67,19 @@
     }
 
     .addTask-footer-buttons {
-        margin-top: 80px;
+        margin-top: 40px;
     }
 
     .addTask-form {
         padding-bottom: 24px;
     }
+
+    .user-dropmenu {
+        font-size: 16px;
+    }
 }
 
-@media(max-width: 400px) {
+@media(max-width: 420px) {
     .addTask-prio {
         flex-direction: column;
         align-items: center;

@@ -2,6 +2,7 @@ function getTaskTemplate(taskIndex) {
     return `<div draggable="true" id="task_index_${taskIndex}" class="task" ondragstart="startDragging(${taskIndex}); addHighlight()" ondragend="removeHighlight()" onclick="openOverlayTask(${taskIndex})">
                 <div class="task-cat-technical">
                     <p id="task_category_${taskIndex}">${tasks[taskIndex].category}</p>
+                    <img class="mobile-button" src="/assets/img/icon/mobile_button.svg" onclick="event.stopPropagation(); mobileNavigator(${taskIndex}, '${tasks[taskIndex].condition}')">
                 </div>
                 <div class="task-title"><span class="task-title">${tasks[taskIndex].title}</span></div>
                 <div class="task-description"><span>${tasks[taskIndex].descripton}</span></div>
@@ -47,7 +48,7 @@ function getUserInTaskTemplate(indexUser, userList) {
 }
 
 function getSubtaskTemplate(indexSubTask, subtaskValue, taskIndex) {
-    return `<div id="subtask_${indexSubTask}" class="list-element-div" onmouseover="showEditIcons(${indexSubTask})" onmouseout="blindEditIcons(${indexSubTask})"><div class="list-subtask-element"><div>&#x1F784 <input id="editable_input_${indexSubTask}" readonly onchange="emptySubtaskDelete(${indexSubTask})" onblur="editSubmit(${indexSubTask})" value="${subtaskValue}"></div><div id="edit_and_delete_icons_${indexSubTask}"  class="delete-and-add-icon d_none"><img src="/assets/img/icon/edit.svg" onclick="editSubtask(${indexSubTask})">
+    return `<div id="subtask_${indexSubTask}" class="list-element-div" onmouseover="showEditIcons(${indexSubTask})" onmouseout="blindEditIcons(${indexSubTask})"><div class="list-subtask-element"><div>&#x1F784 <input id="editable_input_${indexSubTask}" readonly onchange="emptySubtaskDelete(${indexSubTask})" onblur="editSubmit(${indexSubTask})" value="${subtaskValue}"></div><div id="edit_and_delete_icons_${indexSubTask}"  class="delete-and-add-icon d_none margin-left"><img src="/assets/img/icon/edit.svg" onclick="editSubtask(${indexSubTask})">
     <div class="placholder-for-icons"></div><img src="/assets/img/icon/delete.svg" onclick="removeSubtask(${indexSubTask}, ${taskIndex})" alt=""></div></div></div>`
 }
 
@@ -83,4 +84,21 @@ function getTaskSubtaskOverlayTemplate(taskIndex, indexSubtask) {
             
                 <div class="subtask-label">${tasks[taskIndex].subtask[indexSubtask].subtaskName}</div>
             </label>`  
+}
+
+
+function showSuccessfulClear() {
+    return `<p>Task successfully cleared! </p><img src="/assets/img/icon/close_white.svg">`;
+}
+
+function showSuccessfulAddedTask() {
+    return `<p>Task added to board! </p><img class="feedback-img" src="/assets/img/icon/board_icon.svg">`;
+}
+
+function showErrorAddedTask() {
+    return `<p>There was an error saving the data</p><img class="feedback-img" src="/assets/img/icon/close_white.svg">`;
+}
+
+function showTaskDeleted() {
+    return `<p>Task deleted successfully!</p><img class="feedback-img" src="/assets/img/icon/delete.svg">`;
 }

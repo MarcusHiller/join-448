@@ -8,29 +8,34 @@
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/css/board_task_overlay.css">
     <link rel="stylesheet" href="/css/add_task.css">
-    <link rel="stylesheet" href="/css/add_task_mobile.css">
+
     <link rel="stylesheet" href="/css/add_task_checkbox_custom.css">
     <link rel="stylesheet" href="/css/add_task_responsive.css">
     <link rel="stylesheet" href="/css/add_task_subtasks.css">
+    <link rel="stylesheet" href="/css/add_task_mobile.css">
     <script src="/script/templates.js"></script>
     <script src="/script.js"></script>
     <script src="/script/board.js"></script>
     <script src="/script/add_task_overlay.js"></script>
     <script src="/script/add_task.js"></script>
+    <script src="/script/add_task_new_task.js"></script>
     <script src="/script/db.js"></script>
     <title>Add Task</title>
 </head>
 
-<body onload="init('add_task_page'); getAddTaskHTML(); ">
+<body onload="init('add_task_page'); getAddTaskHTML()" id="body">
 
     <nav id="navbar-section" class="navbar-section"></nav>
 
     <main>
         <header id="header-placeholder"></header>
+        <div id="success" class="overlay-successful-addTask d-none">
+        </div>
         <div class="content">
             <div id="addTask_container" class="addTask-container height-fit-content">
             </div>
         </div>
     </main>
 </body>
+
 </html>
