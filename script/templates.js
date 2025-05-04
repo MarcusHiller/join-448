@@ -217,7 +217,7 @@ function overlayEditContact(individualUser) {
             </div>
             <div class="overlay-main-container flex-box-center-center">
                 <div class="info-initial info-initial-overlay flex-box-center-center" style="background-color: ${individualUser.color}">${individualUser.username.split(" ").map(n => n[0]).join("")}</div>
-                <form onsubmit="return false">
+                <form onsubmit="saveContact(${individualUser.id}); return false">
                     <div class="dpl-fl-colu input-container">
                         <label class="input-field">
                             <div class="input-content">
@@ -239,8 +239,8 @@ function overlayEditContact(individualUser) {
                         </label>
                     </div>
                     <div class="submit-container">
-                        <button class="blue-white-btn" onclick="deleteContact(${individualUser.id})">Delete</button>
-                        <button class="white-blue-btn" onclick="saveContact(${individualUser.id})">Save</button>
+                        <button class="blue-white-btn" onclick="deleteContact(event, ${individualUser.id})">Delete</button>
+                        <button class="white-blue-btn">Save</button>
                     </div>
                 </form>
             </div>
@@ -330,7 +330,7 @@ function showOverlayEditResp(individualContact) {
             </div>
             <div class="overlay-main-container-resp">
                 <div class="profil-img-container flex-box-center-center profil-img-resp" style="background-color: ${individualContact.color}">${individualContact.username.split(" ").map(n => n[0]).join("")}</div>
-                <form onsubmit="return false">
+                <form onsubmit="saveContact(${individualContact.id}); return false">
                     <div class="dpl-fl-colu input-container-resp">
                         <label class="input-field input-field-resp">
                             <div class="input-content-resp">
@@ -352,8 +352,8 @@ function showOverlayEditResp(individualContact) {
                         </label>
                     </div>
                     <div class="submit-container submit-container-resp">
-                        <button class="blue-white-btn" onclick="deleteContact(${individualContact.id})">Delete</button>
-                        <button class="white-blue-btn white-blue-btn-resp" onclick="saveContact(${individualContact.id})">Save</button>
+                        <button class="blue-white-btn" onclick="deleteContact(event, ${individualContact.id})">Delete</button>
+                        <button class="white-blue-btn white-blue-btn-resp">Save</button>
                     </div>
                 </form>
             </div>

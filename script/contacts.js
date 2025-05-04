@@ -113,9 +113,7 @@ function openOverlay() {
 
 
 function closeOverlay(event) {
-    if (event) {
-        event.preventDefault();
-    }
+    suppressActionEvent(event);
     document.getElementById('overlay').classList.remove('slide');
     setTimeout(() => {
         document.getElementById('overlay').classList.add('d-none');
@@ -124,6 +122,13 @@ function closeOverlay(event) {
         document.getElementById('overlayContact').classList.add('d-none');
     }, 100);
 }
+
+
+function suppressActionEvent(event) {
+    if (event) {
+        event.preventDefault();
+    }
+} 
 
 
 function addContact() {
@@ -224,10 +229,12 @@ function getContactColorById(id) {
 
 /* Delete Contact */
 
-async function deleteContact(id) {
+async function deleteContact(event, id) {
+    suppressActionEvent(event)
     deleteUserData(id);
     reSortUser();
     await saveContactsToFirebase();
+    closeOverlay();
     renderContacts();
     clearMainContact();
     clearSuccessfulContainer();
