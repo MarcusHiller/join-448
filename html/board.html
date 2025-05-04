@@ -40,7 +40,7 @@
         <div id="success" class="overlay-successful-addTask d-none">
         </div>
         <div class="content">
-            <div id="board_overlay" class="board-overlay d_none" onclick="closeOverlayTask(); closeAddTask()">
+            <div id="board_overlay" class="board-overlay d_none" onclick="closeOverlayTask(); closeAddTask(); closeMoveToDialog()">
 
                 <!-- Add Overlay -->
                 <div id="add_container" class="add-container overlay-container-sliding d_none"
@@ -53,15 +53,15 @@
                 </div>
 
                 <!-- Mobile Nav -->
-                <div class="mobile-nav d_none" id="mobile_nav">
+                <div class="mobile-nav d_none overlay-container-sliding" id="mobile_nav">
                     <div class="move-to-head">Move to</div>
-                    <div class="move-to-arrow">
-                        <img src="/assets/img/icon/arrow_upward.svg" alt="">
-                        <p>To-do</p>
+                    <div class="move-to-arrow d_none" id="move_to_arrow_up">
+                        <img id="arrow_up" src="/assets/img/icon/arrow_upward.svg" alt="">
+                        <p id="arrow_up_text"></p>
                     </div>
-                    <div class="move-to-arrow">
-                        <img src="/assets/img/icon/arrow_downward.svg" alt="">
-                        <p>Review</p>
+                    <div class="move-to-arrow d_none" id="move_to_arrow_down">
+                        <img id="arrow_down" src="/assets/img/icon/arrow_downward.svg" alt="">
+                        <p id="arrow_down_text"></p>
                     </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@ function getTaskTemplate(taskIndex) {
     return `<div draggable="true" id="task_index_${taskIndex}" class="task" ondragstart="startDragging(${taskIndex}); addHighlight()" ondragend="removeHighlight()" onclick="openOverlayTask(${taskIndex})">
                 <div class="task-cat-technical">
                     <p id="task_category_${taskIndex}">${tasks[taskIndex].category}</p>
-                    <img class="mobile-button" src="/assets/img/icon/mobile_button.svg" onclick="event.stopPropagation(); mobileNavigator(${taskIndex}, ${tasks[taskIndex].condition})">
+                    <img class="mobile-button" src="/assets/img/icon/mobile_button.svg" onclick="event.stopPropagation(); mobileNavigator(${taskIndex}, '${tasks[taskIndex].condition}')">
                 </div>
                 <div class="task-title"><span class="task-title">${tasks[taskIndex].title}</span></div>
                 <div class="task-description"><span>${tasks[taskIndex].descripton}</span></div>

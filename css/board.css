@@ -188,7 +188,9 @@ body {
     flex-direction: column;
     cursor: pointer;
     user-select: none;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
+
 
 .task-cat-user {
     margin-bottom: 24px;
@@ -212,6 +214,7 @@ body {
 .mobile-button {
     width: 28px;
     height: 28px;
+    display: none;
 }
 
 .task-cat-technical p {
@@ -312,30 +315,46 @@ body {
 
 
 .mobile-nav {
-    width: 106px;
-    height: 113px;
+    width: 140px;
+    min-height: 100px;
     background-color: #2A3647;
-    border-radius: 0 20px 20px 20px;
+    border-radius: 20px 20px 20px 20px;
     display: flex;
     flex-direction: column;
     color: white;
     align-items: center;
     justify-content: center;
     gap: 8px;
+    text-wrap: nowrap;
+    transition-duration: 0.1s;
+    padding: 12px 0;
 }
 
 .move-to-arrow {
     display: flex;
-    width: 80px;
+    width: 124px;
+    cursor: pointer;
+    padding: 8px 12px;
+}
+
+.move-to-arrow:hover {
+    background-color: #2A3D59;
+    border-radius: 10px;
 }
 
 .move-to-arrow img {
-    margin-right: 4px;
+    margin-right: 6px;
 }
 
 .move-to-head {
     font-weight: bold;
     margin-bottom: 8px;
+}
+
+
+.dragging {
+    transform: rotate(5deg);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 
