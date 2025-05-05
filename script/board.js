@@ -339,7 +339,7 @@ function firbaseObject(index, responseToJson, tasksKeysArray) {
  */
 async function deleteNotFoundedUserFromTask() {
   for (let del of usersToDeleteFromFirebase) {
-    await fetch(`${BASE_URL}/tasks/${del.taskKey}/assignedTo/${del.userKey}.json`, {
+    await fetch(`${BASE_URL}/join/tasks/${del.taskKey}/assignedTo/${del.userKey}.json`, {
       method: "DELETE"
     });
     console.log(`Gelöscht nach dem Laden: ${del.username} (Key: ${del.userKey})`);
