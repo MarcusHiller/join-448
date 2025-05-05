@@ -297,6 +297,20 @@ function clearAddTaskField() {
 }
 
 /**
+ * Clears all input fields for adding a task after add a new task.
+ */
+function clearAddTaskAfterAdd() {
+  document.getElementById("titel_input").value = "";
+  document.getElementById("description_input").value = "";
+  document.getElementById("date_input").value = "";
+  document.getElementById("prio_medium").checked = true;
+  unsetCheckbox();
+  document.getElementById("user_logo_after_seleceted").innerHTML = "";
+  document.getElementById("category_select_input").value = "";
+  clearSubtaskInput();
+}
+
+/**
  * Clears the subtask input and list.
  */
 function clearSubtaskInput() {
@@ -414,4 +428,12 @@ function createNoUserFeedback(message) {
  */
 function checkedStyle(taskIndex) {
   document.getElementById("user_" + taskIndex + "_label").classList.toggle("user-dropmenu-hover-effekt")
+}
+
+
+function checkEnter(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    addSubtask();
+  }
 }

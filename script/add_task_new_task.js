@@ -34,6 +34,10 @@ function addTask() {
         renderTaskInToColumn();
         closeAddTask();
     }
+
+    if (currentPage === "add_task.html") {
+        clearAddTaskAfterAdd()
+    }
 }
 
 /**

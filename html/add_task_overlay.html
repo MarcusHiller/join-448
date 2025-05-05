@@ -11,12 +11,12 @@
         <div id="addTask_form_container" class="addTask-form-container">
             <div class="addTask-left-side">
                 <label for="" class="addTask-label">Title<span class="required-star">&#42</span></label>
-                <input id="titel_input" class="addTask-input" placeholder="Enter a title">
+                <input id="titel_input" class="addTask-input" placeholder="Enter a title" onkeydown="event.preventDefault()">
                 <p class="error-message" id="error-title">This field is required</p>
                 <label for="" class="addTask-label">Description</label>
                 <textarea id="description_input" class="addTask-textarea" placeholder="Enter a Description"></textarea>
                 <label for="" class="addTask-label">Due date<span class="required-star">&#42</span></label>
-                <input id="date_input" class="addTask-input" type="date" placeholder="dd/mm/yyyy">
+                <input id="date_input" class="addTask-input" type="date" placeholder="dd/mm/yyyy" onkeydown="event.preventDefault()">
                 <p class="error-message" id="error-date">This field is required</p>
             </div>
             <div id="spaceholder" class="placeholder-addTask"></div>
@@ -41,7 +41,7 @@
                 <label for="" class="addTask-label">Assigned to</label>
                 <div class="assigned-select-dropdown-menu">
                     <label for="assigned_select_input" id="assigned_select" class="assigned-select">
-                        <input id="assigned_select_input" oninput="searchContactToTask()" onclick="openUserDropMenu()"
+                        <input id="assigned_select_input" oninput="searchContactToTask()" onclick="openUserDropMenu()" onkeydown="event.preventDefault()"
                             class="assigned-select-input" value="" placeholder="Select contacts to assign"><img
                             id="dropdown_menu_arrow" src="../assets/img/icon/arrow_drop_down.svg" alt="">
                     </label>
@@ -71,7 +71,7 @@
                 <label for="" class="addTask-label">Subtasks</label>
                 <label for="subtask_input" id="subtask_input_label" class="addTask-input-container">
                     <input class="subtask-input" id="subtask_input" type="text" placeholder="Add new subtask"
-                        oninput="showAddSubtaskButton()" onfocus="addBorder()" onblur="removeBorder()">
+                        oninput="showAddSubtaskButton()" onfocus="addBorder()" onblur="removeBorder()" onkeydown="checkEnter(event)">
                     <img id="subtask_plus_icon" class="subtask-plus-icon" src="../assets/img/icon/add.svg" alt="">
                     <div id="delete_and_add_icon" class="delete-and-add-icon d_none">
                         <div class="circle-padding-icon"><img src="../assets/img/icon/delete.svg" alt=""
