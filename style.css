@@ -134,9 +134,18 @@ header {
   background-color: #2a3647;
   border-radius: 20px 0 20px 20px;
   padding: 16px;
-  display: flex;
   flex-direction: column;
   align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  display: flex;
+  /* Damit Layout nicht kaputt geht */
+}
+
+.burger-menu.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .burger-menu a {
@@ -153,11 +162,6 @@ header {
   background-color: #091931;
   color: white;
   border-radius: 20px;
-}
-
-.burger-menu-transition {
-  transform: translateX(200px);
-  display: none;
 }
 
 /* Navbar */

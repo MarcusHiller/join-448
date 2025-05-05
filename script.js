@@ -10,6 +10,8 @@ async function init(page) {
     await loadHTML("header.html", "header-placeholder");
     await loadHTML("navbar.html", "navbar-section");
     activePageHiglight(page);
+    setUserCircleInitials(); // <-- hier aufrufen, nicht in initGreeting
+
 
     if (page === 'summary_page') {
         initGreeting();
@@ -75,14 +77,30 @@ function activePageHiglight(page) {
 }
 
 /**
- * Toggles the visibility and animation of the burger menu
- * for responsive navigation on mobile devices.
- *
- * @function burgerMenuSliding
+ * Toggles the burger menu open/close with fade animation.
  */
 function burgerMenuSliding() {
-    document.getElementById("burger_menu").classList.toggle("burger-menu-transition");
+    const menu = document.getElementById("burger_menu");
+    menu.classList.toggle("visible");
 }
+
+/**
+ * Closes the burger menu when clicking outside of it.
+ */
+document.addEventListener("click", function (event) {
+    const menu = document.getElementById("burger_menu");
+    const userLogo = document.querySelector(".user-logo");
+
+    if (!menu.classList.contains("visible")) return;
+
+    const clickedInsideMenu = menu.contains(event.target);
+    const clickedUserLogo = userLogo.contains(event.target);
+
+    if (!clickedInsideMenu && !clickedUserLogo) {
+        menu.classList.remove("visible");
+    }
+});
+
 
 /**
  * Stores the layout type (internal or external) in localStorage
@@ -299,4 +317,30 @@ function spinningLoaderStart() {
 function spinningLoaderEnd() {
     let spinner = document.getElementById('spinnerOverLay');
     spinner.classList.add('d-none');
+}
+
+
+/**
+ * Sets the user's initials in the header circle, or 'G' if it's a guest login.
+ * Should be called after the header is loaded.
+ */
+function setUserCircleInitials() {
+    const userCircle = document.querySelector('.user-logo-text');
+
+    if (!userCircle) return;
+
+    // Hol dir den Namen aus der URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('name');
+
+    // Wenn Name existiert und nicht Gast ist → Initialen generieren
+    if (name && name.toLowerCase() !== "guest") {
+        const initials = name
+            .split(" ")
+            .map(part => part.charAt(0).toUpperCase())
+            .join("");
+        userCircle.textContent = initials;
+    } else {
+        userCircle.textContent = "G";
+    }
 }

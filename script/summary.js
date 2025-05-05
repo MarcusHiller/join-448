@@ -190,3 +190,4 @@ function initGreetingRepeat() {
     let greetingRepeatText = document.querySelector(".greeting-text-repeat");
     setGreetingText(greetingRepeatText, greetsName);
 }
+
