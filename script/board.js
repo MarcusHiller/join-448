@@ -86,29 +86,28 @@ function closeAddTask() {
   document.getElementById("body").classList.remove("overflow-hidden");
 }
 
+
 /**
- * Clears the task search field and filters tasks based on the current input.
+ * Filters tasks based on search input and toggles visibility.
  */
 function searchTask() {
-  const input = document.getElementById("search_task");
-  const inputValue = input.value.toLowerCase().trim();
-
-  input.blur();
-  document.activeElement.blur();
+  const inputValue = document.getElementById("search_task").value.toLowerCase();
 
   for (let indexTask = 0; indexTask < tasks.length; indexTask++) {
     const task = document.getElementById("task_index_" + indexTask);
     if (!task) continue;
-
     const title = tasks[indexTask].title.toLowerCase();
     const descripton = tasks[indexTask].descripton.toLowerCase();
-    const isMatch = title.includes(inputValue) || descripton.includes(inputValue);
-
-    task.classList.toggle("d_none", inputValue !== "" && !isMatch);
+    if (inputValue === "") {
+      task.classList.remove("d_none");
+    } else {
+      const isMatch = title.includes(inputValue) || descripton.includes(inputValue);
+      task.classList.toggle("d_none", !isMatch);
+    }
   }
-
   renderEmptyColumn();
 }
+
 
 /**
  * Renders all tasks into their corresponding status columns.
