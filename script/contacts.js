@@ -319,7 +319,6 @@ async function deleteContact(event, id) {
     deleteUserData(id);
     reSortUser();
     await saveContactsToFirebase();
-    closeOverlay();
     renderContacts();
     clearMainContact();
     clearSuccessfulContainer();
