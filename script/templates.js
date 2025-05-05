@@ -129,7 +129,7 @@ function showContact(individualContact) {
                     <h4>${individualContact.username}</h4>
                     <div class="container-editing-tools">
                         <div class="dpl-fl-al-cetr tools" onclick="editContact(${individualContact.id})"><img class="icon tools-edit" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
-                        <div class="dpl-fl-al-cetr tools" onclick="deleteContact(${individualContact.id})"><img class="icon tools-delete" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
+                        <div class="dpl-fl-al-cetr tools" onclick="deleteContact(event, ${individualContact.id})"><img class="icon tools-delete" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
                     </div>
                 </div>
             </div>
