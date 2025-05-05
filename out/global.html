@@ -112,8 +112,8 @@
 
 
 <div class="description">
-    Accepts cookies and enables the login area and buttons.
-Saves the acceptance time in localStorage.
+    Accepts cookies, stores the acceptance timestamp in localStorage,
+hides the cookie banner, and enables the login buttons.
 </div>
 
 
@@ -157,7 +157,7 @@ Saves the acceptance time in localStorage.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line149">line 149</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line147">line 147</a>
     </li></ul></dd>
     
 
@@ -201,7 +201,8 @@ Saves the acceptance time in localStorage.
 
 
 <div class="description">
-    Highlights the currently active page in the navigation menu.
+    Highlights the currently active page by adding an "active-menu" class
+to the relevant navigation element and removing it from all others.
 </div>
 
 
@@ -253,7 +254,7 @@ Saves the acceptance time in localStorage.
 
             
 
-            <td class="description last">ID of the currently active menu element.</td>
+            <td class="description last">The ID of the current active page.</td>
         </tr>
 
     
@@ -294,7 +295,7 @@ Saves the acceptance time in localStorage.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line61">line 61</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line60">line 60</a>
     </li></ul></dd>
     
 
@@ -338,7 +339,8 @@ Saves the acceptance time in localStorage.
 
 
 <div class="description">
-    Toggles the burger menu's slide animation on mobile devices.
+    Toggles the visibility and animation of the burger menu
+for responsive navigation on mobile devices.
 </div>
 
 
@@ -382,7 +384,7 @@ Saves the acceptance time in localStorage.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line78">line 78</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line77">line 77</a>
     </li></ul></dd>
     
 
@@ -426,8 +428,8 @@ Saves the acceptance time in localStorage.
 
 
 <div class="description">
-    Checks the device orientation and toggles a fullscreen warning overlay.
-Only active on mobile-sized screens in landscape mode.
+    Checks the current orientation of the user's device.
+If on a mobile device in landscape mode, shows a fullscreen warning overlay.
 </div>
 
 
@@ -471,7 +473,7 @@ Only active on mobile-sized screens in landscape mode.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line270">line 270</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line263">line 263</a>
     </li></ul></dd>
     
 
@@ -515,7 +517,8 @@ Only active on mobile-sized screens in landscape mode.
 
 
 <div class="description">
-    Checks whether the cookie acceptance is still valid (within 1 year).
+    Validates whether the user's cookie acceptance is still valid
+by checking if it occurred within the past year.
 </div>
 
 
@@ -559,7 +562,7 @@ Only active on mobile-sized screens in landscape mode.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line164">line 164</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line161">line 161</a>
     </li></ul></dd>
     
 
@@ -588,7 +591,7 @@ Only active on mobile-sized screens in landscape mode.
 
         
 <div class="param-desc">
-    True if cookies are still valid, false otherwise.
+    True if still valid, otherwise false.
 </div>
 
 
@@ -625,7 +628,7 @@ Only active on mobile-sized screens in landscape mode.
 
 
 <div class="description">
-    Disables the login and guest login buttons.
+    Disables both the standard login and guest login buttons.
 </div>
 
 
@@ -669,7 +672,7 @@ Only active on mobile-sized screens in landscape mode.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line191">line 191</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line187">line 187</a>
     </li></ul></dd>
     
 
@@ -713,7 +716,7 @@ Only active on mobile-sized screens in landscape mode.
 
 
 <div class="description">
-    Shows the login area.
+    Makes the login area visible.
 </div>
 
 
@@ -757,7 +760,7 @@ Only active on mobile-sized screens in landscape mode.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line180">line 180</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line177">line 177</a>
     </li></ul></dd>
     
 
@@ -801,7 +804,7 @@ Only active on mobile-sized screens in landscape mode.
 
 
 <div class="description">
-    Enables the login and guest login buttons.
+    Enables both the standard login and guest login buttons.
 </div>
 
 
@@ -845,7 +848,7 @@ Only active on mobile-sized screens in landscape mode.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line204">line 204</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line199">line 199</a>
     </li></ul></dd>
     
 
@@ -889,7 +892,8 @@ Only active on mobile-sized screens in landscape mode.
 
 
 <div class="description">
-    Initializes the page by loading header and navbar, and triggers greeting logic on the summary page.
+    Initializes the application layout by loading the header and navbar,
+and triggers the greeting functionality if the user is on the summary page.
 </div>
 
 
@@ -941,7 +945,7 @@ Only active on mobile-sized screens in landscape mode.
 
             
 
-            <td class="description last">The ID of the page being initialized (e.g., 'summary_page').</td>
+            <td class="description last">The ID of the current page (e.g., 'summary_page').</td>
         </tr>
 
     
@@ -1026,7 +1030,8 @@ Only active on mobile-sized screens in landscape mode.
 
 
 <div class="description">
-    Checks if the user is logged in and redirects to the start page if not.
+    Checks the login status stored in localStorage.
+If the user is not logged in, redirects them to the index (login) page.
 </div>
 
 
@@ -1114,7 +1119,7 @@ Only active on mobile-sized screens in landscape mode.
 
 
 <div class="description">
-    Loads an HTML snippet into a target DOM element.
+    Loads an external HTML file and injects it into a specified container element on the page.
 </div>
 
 
@@ -1166,7 +1171,7 @@ Only active on mobile-sized screens in landscape mode.
 
             
 
-            <td class="description last">Path to the HTML file.</td>
+            <td class="description last">The path to the HTML file.</td>
         </tr>
 
     
@@ -1189,7 +1194,7 @@ Only active on mobile-sized screens in landscape mode.
 
             
 
-            <td class="description last">ID of the target container element.</td>
+            <td class="description last">The ID of the target container element to load content into.</td>
         </tr>
 
     
@@ -1274,7 +1279,7 @@ Only active on mobile-sized screens in landscape mode.
 
 
 <div class="description">
-    Loads the external header and navbar for guests.
+    Loads the external header and navbar for guest (unauthenticated) users.
 </div>
 
 
@@ -1318,7 +1323,7 @@ Only active on mobile-sized screens in landscape mode.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line117">line 117</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line116">line 116</a>
     </li></ul></dd>
     
 
@@ -1363,6 +1368,7 @@ Only active on mobile-sized screens in landscape mode.
 
 <div class="description">
     Loads the internal header and navbar for authenticated users.
+Also highlights the current page for legal/privacy pages.
 </div>
 
 
@@ -1406,7 +1412,7 @@ Only active on mobile-sized screens in landscape mode.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line102">line 102</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line101">line 101</a>
     </li></ul></dd>
     
 
@@ -1450,7 +1456,8 @@ Only active on mobile-sized screens in landscape mode.
 
 
 <div class="description">
-    Logs the user out by clearing login state and redirecting to the login page.
+    Logs the user out by resetting the login and layout information in localStorage.
+Redirects to the index (login) page afterwards.
 </div>
 
 
@@ -1538,7 +1545,8 @@ Only active on mobile-sized screens in landscape mode.
 
 
 <div class="description">
-    Marks the current page in the navbar as active for legal/privacy pages.
+    Adds the 'active-menu' class to the correct navigation item
+on legal and privacy policy pages.
 </div>
 
 
@@ -1582,7 +1590,7 @@ Only active on mobile-sized screens in landscape mode.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line131">line 131</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line129">line 129</a>
     </li></ul></dd>
     
 
@@ -1626,7 +1634,8 @@ Only active on mobile-sized screens in landscape mode.
 
 
 <div class="description">
-    Stores layout preference and redirects to a new page.
+    Stores the layout type (internal or external) in localStorage
+and redirects the user to a given URL.
 </div>
 
 
@@ -1678,7 +1687,7 @@ Only active on mobile-sized screens in landscape mode.
 
             
 
-            <td class="description last">Either 'intern' or 'extern'.</td>
+            <td class="description last">The layout type ('intern' or 'extern').</td>
         </tr>
 
     
@@ -1701,7 +1710,7 @@ Only active on mobile-sized screens in landscape mode.
 
             
 
-            <td class="description last">Destination URL to redirect to.</td>
+            <td class="description last">The destination URL to redirect the user to.</td>
         </tr>
 
     
@@ -1742,7 +1751,183 @@ Only active on mobile-sized screens in landscape mode.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line88">line 88</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line87">line 87</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="spinningLoaderEnd"><span class="type-signature"></span>spinningLoaderEnd<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Hides the full-screen loading spinner overlay.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line294">line 294</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="spinningLoaderStart"><span class="type-signature"></span>spinningLoaderStart<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Displays the full-screen loading spinner overlay.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line284">line 284</a>
     </li></ul></dd>
     
 
@@ -1788,13 +1973,13 @@ Only active on mobile-sized screens in landscape mode.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#acceptCookies">acceptCookies</a></li><li><a href="global.html#activePageHiglight">activePageHiglight</a></li><li><a href="global.html#burgerMenuSliding">burgerMenuSliding</a></li><li><a href="global.html#checkOrientation">checkOrientation</a></li><li><a href="global.html#cookiesStillValid">cookiesStillValid</a></li><li><a href="global.html#disableLoginButtons">disableLoginButtons</a></li><li><a href="global.html#enableLogin">enableLogin</a></li><li><a href="global.html#enableLoginButtons">enableLoginButtons</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isUserLoged">isUserLoged</a></li><li><a href="global.html#loadHTML">loadHTML</a></li><li><a href="global.html#loadHeaderNavbarExtern">loadHeaderNavbarExtern</a></li><li><a href="global.html#loadHeaderNavbarIntern">loadHeaderNavbarIntern</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#markLegalPrivacyActiveLink">markLegalPrivacyActiveLink</a></li><li><a href="global.html#setLayoutAndRedirect">setLayoutAndRedirect</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#acceptCookies">acceptCookies</a></li><li><a href="global.html#activePageHiglight">activePageHiglight</a></li><li><a href="global.html#burgerMenuSliding">burgerMenuSliding</a></li><li><a href="global.html#checkOrientation">checkOrientation</a></li><li><a href="global.html#cookiesStillValid">cookiesStillValid</a></li><li><a href="global.html#disableLoginButtons">disableLoginButtons</a></li><li><a href="global.html#enableLogin">enableLogin</a></li><li><a href="global.html#enableLoginButtons">enableLoginButtons</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isUserLoged">isUserLoged</a></li><li><a href="global.html#loadHTML">loadHTML</a></li><li><a href="global.html#loadHeaderNavbarExtern">loadHeaderNavbarExtern</a></li><li><a href="global.html#loadHeaderNavbarIntern">loadHeaderNavbarIntern</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#markLegalPrivacyActiveLink">markLegalPrivacyActiveLink</a></li><li><a href="global.html#setLayoutAndRedirect">setLayoutAndRedirect</a></li><li><a href="global.html#spinningLoaderEnd">spinningLoaderEnd</a></li><li><a href="global.html#spinningLoaderStart">spinningLoaderStart</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon May 05 2025 11:56:28 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon May 05 2025 15:16:52 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>

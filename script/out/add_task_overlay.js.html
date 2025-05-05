@@ -1,4 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: add_task_overlay.js</title>
 
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: add_task_overlay.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
 /**
  * Next available task ID for new tasks.
  * @type {number}
@@ -62,7 +90,7 @@ function renderUserList() {
   resortUserlist();
   const usersListRef = document.getElementById("add_user_list");
   usersListRef.innerHTML = "";
-  for (let i = 0; i < contactsFirebase.length; i++) {
+  for (let i = 0; i &lt; contactsFirebase.length; i++) {
     usersListRef.innerHTML += getUserListTemplate(i);
   }
 }
@@ -138,7 +166,7 @@ function addTaskButton() {
 
 /**
  * Checks for required inputs and returns field info.
- * @returns {Array<{id: string, errorId: string}>} Required fields.
+ * @returns {Array&lt;{id: string, errorId: string}>} Required fields.
  */
 function checkRequiredInputsField() {
   const fields = [
@@ -308,7 +336,7 @@ function clearSubtaskInput() {
  * Unchecks all user checkboxes in the user list.
  */
 function unsetCheckbox() {
-  for (let userIndex = 0; userIndex < contactsFirebase.length; userIndex++) {
+  for (let userIndex = 0; userIndex &lt; contactsFirebase.length; userIndex++) {
     document.getElementById("user_" + userIndex).checked = false
   }
 }
@@ -350,7 +378,7 @@ function searchContactToTask() {
   let list = document.getElementById("add_user_list");
   let userFoundCounter = 0;
 
-  for (let index = 0; index < contactsFirebase.length; index++) {
+  for (let index = 0; index &lt; contactsFirebase.length; index++) {
     let user = document.getElementById("user_" + index + "_label");
     if (!user) continue;
     let name = contactsFirebase[index].username.toLowerCase().replace(/\s+/g, "")
@@ -376,7 +404,7 @@ function searchContactToTask() {
 function checkUserFound(input, userFoundCounter, list) {
   let existingFeedback = document.getElementById("no_user_feedback");
 
-  if (userFoundCounter === contactsFirebase.length && input !== "") {
+  if (userFoundCounter === contactsFirebase.length &amp;&amp; input !== "") {
     const message = `No user found: "${input}"`;
     if (!existingFeedback) {
       const feedback = createNoUserFeedback(message);
@@ -414,4 +442,26 @@ function createNoUserFeedback(message) {
  */
 function checkedStyle(taskIndex) {
   document.getElementById("user_" + taskIndex + "_label").classList.toggle("user-dropmenu-hover-effekt")
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addBorder">addBorder</a></li><li><a href="global.html#addCheckedUsers">addCheckedUsers</a></li><li><a href="global.html#addClearButtonToThePage">addClearButtonToThePage</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addTaskButton">addTaskButton</a></li><li><a href="global.html#blindEditIcons">blindEditIcons</a></li><li><a href="global.html#checkRequiredInputsField">checkRequiredInputsField</a></li><li><a href="global.html#checkUserFound">checkUserFound</a></li><li><a href="global.html#checkedStyle">checkedStyle</a></li><li><a href="global.html#clearAddTaskField">clearAddTaskField</a></li><li><a href="global.html#clearSubtaskInput">clearSubtaskInput</a></li><li><a href="global.html#closeOpenCatDropMenu">closeOpenCatDropMenu</a></li><li><a href="global.html#closeUserDropMenu">closeUserDropMenu</a></li><li><a href="global.html#createNoUserFeedback">createNoUserFeedback</a></li><li><a href="global.html#editSubmit">editSubmit</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#emptySubtaskDelete">emptySubtaskDelete</a></li><li><a href="global.html#extractSubtask">extractSubtask</a></li><li><a href="global.html#getCheckStatus">getCheckStatus</a></li><li><a href="global.html#nextTaskId">nextTaskId</a></li><li><a href="global.html#openCatDropMenu">openCatDropMenu</a></li><li><a href="global.html#openUserDropMenu">openUserDropMenu</a></li><li><a href="global.html#removeBorder">removeBorder</a></li><li><a href="global.html#removeErrorMsg">removeErrorMsg</a></li><li><a href="global.html#removeSubtask">removeSubtask</a></li><li><a href="global.html#renderUserList">renderUserList</a></li><li><a href="global.html#resortUserlist">resortUserlist</a></li><li><a href="global.html#searchContactToTask">searchContactToTask</a></li><li><a href="global.html#selectCategory">selectCategory</a></li><li><a href="global.html#showAddSubtaskButton">showAddSubtaskButton</a></li><li><a href="global.html#showEditIcons">showEditIcons</a></li><li><a href="global.html#subtaskIndex">subtaskIndex</a></li><li><a href="global.html#subtasks">subtasks</a></li><li><a href="global.html#successfulAddedTask">successfulAddedTask</a></li><li><a href="global.html#successfulClearTask">successfulClearTask</a></li><li><a href="global.html#unsetCheckbox">unsetCheckbox</a></li><li><a href="global.html#userFeedback">userFeedback</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon May 05 2025 15:41:50 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
