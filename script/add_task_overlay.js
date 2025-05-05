@@ -1,13 +1,32 @@
+
+/**
+ * Next available task ID for new tasks.
+ * @type {number}
+ */
 let nextTaskId = 5;
+
+/**
+ * List of current subtasks.
+ * @type {Array}
+ */
 let subtasks = [];
+
+/**
+ * Global index tracker for subtasks.
+ * @type {number}
+ */
 let subtaskIndex = -1;
 
-
+/**
+ * Shows the clear button on the form.
+ */
 function addClearButtonToThePage() {
   document.getElementById("clear_button").classList.remove("d_none");
 }
 
-
+/**
+ * Opens the user selection dropdown menu.
+ */
 function openUserDropMenu() {
   document.getElementById("dropdown_menu_arrow").classList.add("rotate-img");
   document.getElementById("assigned_select").classList.add("blue-border");
@@ -16,6 +35,9 @@ function openUserDropMenu() {
   document.getElementById("list_overlay").classList.remove("d_none");
 }
 
+/**
+ * Closes the user selection dropdown menu.
+ */
 function closeUserDropMenu() {
   document.getElementById("dropdown_menu_arrow").classList.remove("rotate-img");
   document.getElementById("assigned_select").classList.remove("blue-border");
@@ -24,56 +46,67 @@ function closeUserDropMenu() {
   document.getElementById("list_overlay").classList.add("d_none");
 }
 
-
+/**
+ * Sorts the user list alphabetically by username.
+ */
 function resortUserlist() {
-  contactsFirebase.sort((a, b) => {
-    return a.username.localeCompare(b.username, 'de', { sensitivity: 'base' });
-  });
+  contactsFirebase.sort((a, b) =>
+    a.username.localeCompare(b.username, 'de', { sensitivity: 'base' })
+  );
 }
 
-
+/**
+ * Renders the user list into the dropdown menu.
+ */
 function renderUserList() {
   resortUserlist();
-  let usersListRef = document.getElementById("add_user_list");
+  const usersListRef = document.getElementById("add_user_list");
   usersListRef.innerHTML = "";
-
-  for (let indexUsers = 0; indexUsers < contactsFirebase.length; indexUsers++) {
-    usersListRef.innerHTML += getUserListTemplate(indexUsers);
-
+  for (let i = 0; i < contactsFirebase.length; i++) {
+    usersListRef.innerHTML += getUserListTemplate(i);
   }
 }
 
-
+/**
+ * Adds or removes a user's avatar after selection.
+ * @param {number} indexUsers - Index of the selected user.
+ */
 function addCheckedUsers(indexUsers) {
-  let avatarList = document.getElementById("user_logo_after_seleceted");
-  let userCheckbox = document.getElementById("user_" + indexUsers);
-  let userAvatar = document.getElementById("user_checked_" + indexUsers);
+  const avatarList = document.getElementById("user_logo_after_seleceted");
+  const userCheckbox = document.getElementById("user_" + indexUsers);
+  const userAvatar = document.getElementById("user_checked_" + indexUsers);
 
   if (userCheckbox.checked) {
     avatarList.innerHTML += getCheckedAvatar(indexUsers);
-    document.getElementById("user_" + indexUsers + "_label").classList.remove("user-dropmenu-hover-effekt")
-  }
-  if (!userCheckbox.checked) {
-    userAvatar.remove();
-    document.getElementById("user_" + indexUsers + "_label").classList.add("user-dropmenu-hover-effekt")
+    document.getElementById("user_" + indexUsers + "_label").classList.remove("user-dropmenu-hover-effekt");
+  } else {
+    userAvatar?.remove();
+    document.getElementById("user_" + indexUsers + "_label").classList.add("user-dropmenu-hover-effekt");
   }
 }
 
-
+/**
+ * Toggles the category dropdown open/closed.
+ */
 function openCatDropMenu() {
   document.getElementById("dropdown_menu_arrow_select").classList.toggle("rotate-img");
   document.getElementById("category_input").classList.toggle("blue-border");
   document.getElementById("category_list").classList.toggle("dropdown-animation");
 }
 
-
+/**
+ * Closes the category dropdown menu.
+ */
 function closeOpenCatDropMenu() {
   document.getElementById("dropdown_menu_arrow_select").classList.remove("rotate-img");
   document.getElementById("category_input").classList.remove("blue-border");
   document.getElementById("category_list").classList.remove("dropdown-animation");
 }
 
-
+/**
+ * Sets the selected category and closes dropdown.
+ * @param {string} category - The selected category.
+ */
 function selectCategory(category) {
   const input = document.getElementById("category_select_input");
   input.value = category;
@@ -82,22 +115,31 @@ function selectCategory(category) {
   closeOpenCatDropMenu();
 }
 
-
+/**
+ * Adds highlight border to subtask input.
+ */
 function addBorder() {
   document.getElementById("subtask_input_label").classList.add("blue-border");
 }
 
-
+/**
+ * Removes highlight border from subtask input.
+ */
 function removeBorder() {
   document.getElementById("subtask_input_label").classList.remove("blue-border");
 }
 
-
+/**
+ * Adds event listener to the task form submission.
+ */
 function addTaskButton() {
-  document.getElementsById("addTask_form").addEventListener("submit", addTask(condition = ""))
+  document.getElementById("addTask_form").addEventListener("submit", addTask(condition = ""));
 }
 
-
+/**
+ * Checks for required inputs and returns field info.
+ * @returns {Array<{id: string, errorId: string}>} Required fields.
+ */
 function checkRequiredInputsField() {
   const fields = [
     { id: 'titel_input', errorId: 'error-title' },
@@ -108,26 +150,38 @@ function checkRequiredInputsField() {
   return fields;
 }
 
-
+/**
+ * Removes all visible error messages and styling.
+ */
 function removeErrorMsg() {
   document.querySelectorAll('.error-message').forEach(e => e.classList.remove('visible'));
   document.querySelectorAll('.error-border').forEach(e => e.classList.remove('error-border'));
   document.querySelectorAll('.error-label-border').forEach(e => e.classList.remove('error-label-border'));
 }
 
-
+/**
+ * Returns the checked status of a subtask.
+ * @param {number} taskIndex - Index of the task.
+ * @param {number} subtaskIndex - Index of the subtask.
+ * @returns {boolean} True if checked.
+ */
 function getCheckStatus(taskIndex, subtaskIndex) {
   const task = tasks?.[taskIndex];
   const subtask = task?.subtask?.[subtaskIndex];
   return !!subtask?.subtaskCheck;
 }
 
-
+/**
+ * Extracts a subtask object from the input field.
+ * @param {string} inputId - ID of the input field.
+ * @param {number} taskIndex - Task index.
+ * @param {number} i - Subtask index.
+ * @returns {{name: string, checked: boolean}|null} Subtask object.
+ */
 function extractSubtask(inputId, taskIndex, i) {
   const input = document.getElementById(inputId);
   const value = input ? input.value.trim() : "";
   if (!value) return null;
-
   return {
     name: value,
     checked: getCheckStatus(taskIndex, i)
@@ -135,6 +189,10 @@ function extractSubtask(inputId, taskIndex, i) {
 }
 
 
+
+/**
+ * Toggles visibility of subtask icons depending on input presence.
+ */
 function showAddSubtaskButton() {
   let subtask = document.getElementById("subtask_input");
 
@@ -147,12 +205,16 @@ function showAddSubtaskButton() {
   }
 }
 
-
+/**
+ * Clears only the subtask input field content (text).
+ */
 function clearSubtaskInput() {
   document.getElementById("subtask_input").innerHTML = "";
 }
 
-
+/**
+ * Adds a new subtask to the subtask list in the UI.
+ */
 function addSubtask() {
   let subtask = document.getElementById("subtask_input");
   let listRef = document.getElementById("sub_list");
@@ -167,17 +229,26 @@ function addSubtask() {
   }
 }
 
-
+/**
+ * Shows edit/delete icons for a given subtask on hover/focus.
+ * @param {number} indexSubTask - Index of the subtask.
+ */
 function showEditIcons(indexSubTask) {
   document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.remove("d_none")
 }
 
-
+/**
+ * Hides edit/delete icons for a given subtask.
+ * @param {number} indexSubTask - Index of the subtask.
+ */
 function blindEditIcons(indexSubTask) {
   document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.add("d_none")
 }
 
-
+/**
+ * Enables editing of a subtask input field.
+ * @param {number} indexSubTask - Index of the subtask.
+ */
 function editSubtask(indexSubTask) {
   let input = document.getElementById("editable_input_" + indexSubTask);
   const len = input.value.length;
@@ -187,7 +258,10 @@ function editSubtask(indexSubTask) {
   input.focus();
 }
 
-
+/**
+ * Deletes a subtask if its content is empty.
+ * @param {number} indexSubTask - Index of the subtask.
+ */
 function emptySubtaskDelete(indexSubTask) {
   let input = document.getElementById("editable_input_" + indexSubTask).value;
 
@@ -196,17 +270,26 @@ function emptySubtaskDelete(indexSubTask) {
   }
 }
 
-
+/**
+ * Finalizes the subtask input after editing.
+ * @param {number} indexSubTask - Index of the subtask.
+ */
 function editSubmit(indexSubTask) {
   document.getElementById("editable_input_" + indexSubTask).readOnly = true;
 }
 
-
+/**
+ * Removes a subtask from the DOM.
+ * @param {number} indexSubTask - Index of the subtask.
+ * @param {number} taskIndex - (Optional) Task index (not used).
+ */
 function removeSubtask(indexSubTask, taskIndex) {
   document.getElementById("subtask_" + indexSubTask).remove();
 }
 
-
+/**
+ * Clears all input fields for adding a task.
+ */
 function clearAddTaskField() {
   document.getElementById("titel_input").value = "";
   document.getElementById("description_input").value = "";
@@ -220,32 +303,42 @@ function clearAddTaskField() {
   userFeedback();
 }
 
-
+/**
+ * Clears the subtask input and list.
+ */
 function clearSubtaskInput() {
   document.getElementById("subtask_input").value = "";
   document.getElementById("sub_list").innerHTML = "";
 }
 
-
+/**
+ * Unchecks all user checkboxes in the user list.
+ */
 function unsetCheckbox() {
   for (let userIndex = 0; userIndex < contactsFirebase.length; userIndex++) {
     document.getElementById("user_" + userIndex).checked = false
   }
 }
 
-
+/**
+ * Shows success message after clearing the task form.
+ */
 function successfulClearTask() {
   let success = document.getElementById('success');
   success.innerHTML = showSuccessfulClear();
 }
 
-
+/**
+ * Shows success message after a task was added.
+ */
 function successfulAddedTask() {
   let success = document.getElementById('success');
   success.innerHTML = showSuccessfulAddedTask();
 }
 
-
+/**
+ * Animates a temporary success message to the user.
+ */
 function userFeedback() {
   setTimeout(() => {
     let success = document.getElementById('success');
@@ -256,7 +349,9 @@ function userFeedback() {
   }, 200);
 }
 
-
+/**
+ * Filters the user list by input and shows/hides matching users.
+ */
 function searchContactToTask() {
   let input = document.getElementById("assigned_select_input").value.toLowerCase().replace(/\s+/g, "");
   let list = document.getElementById("add_user_list");
@@ -282,7 +377,9 @@ function searchContactToTask() {
   checkUserFound(input, userFoundCounter, list);
 }
 
-
+/**
+ * Shows or removes a feedback message if no users were found.
+ */
 function checkUserFound(input, userFoundCounter, list) {
   let existingFeedback = document.getElementById("no_user_feedback");
 
@@ -301,7 +398,11 @@ function checkUserFound(input, userFoundCounter, list) {
   }
 }
 
-
+/**
+ * Creates a styled feedback element when no user is found.
+ * @param {string} message - Message to show.
+ * @returns {HTMLElement} Feedback element.
+ */
 function createNoUserFeedback(message) {
   const feedback = document.createElement("div");
   feedback.id = "no_user_feedback";
@@ -314,6 +415,10 @@ function createNoUserFeedback(message) {
   return feedback;
 }
 
+/**
+ * Toggles the style of a user label to indicate selection.
+ * @param {number} taskIndex - Index of the user.
+ */
 function checkedStyle(taskIndex) {
   document.getElementById("user_" + taskIndex + "_label").classList.toggle("user-dropmenu-hover-effekt")
 }
