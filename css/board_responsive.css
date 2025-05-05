@@ -126,6 +126,7 @@
 
     .content {
         padding: 0 8px;
+        overflow: hidden;
     }
 
     .search-task {
