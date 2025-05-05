@@ -34,11 +34,8 @@
  * @param {string} page - The ID of the page being initialized (e.g., 'summary_page').
  */
 async function init(page) {
-    await Promise.all([
-        loadHTML("header.html", "header-placeholder"),
-        loadHTML("navbar.html", "navbar-section")
-    ]);
-
+    await loadHTML("header.html", "header-placeholder");
+    await loadHTML("navbar.html", "navbar-section");
     activePageHiglight(page);
 
     if (page === 'summary_page') {
@@ -46,6 +43,7 @@ async function init(page) {
         initGreetingRepeat();
     }
 }
+
 
 /**
  * Checks if the user is logged in and redirects to the start page if not.
@@ -59,6 +57,7 @@ function isUserLoged() {
     }
 }
 
+
 /**
  * Logs the user out by clearing login state and redirecting to the login page.
  * 
@@ -69,6 +68,7 @@ function logOut() {
     localStorage.removeItem("layout");
     window.location.href = "../index.html";
 }
+
 
 /**
  * Loads an HTML snippet into a target DOM element.
@@ -84,6 +84,7 @@ async function loadHTML(file, elementId) {
     let container = document.getElementById(elementId);
     if (container) container.innerHTML = html;
 }
+
 
 /**
  * Highlights the currently active page in the navigation menu.
@@ -101,6 +102,7 @@ function activePageHiglight(page) {
     if (current) current.classList.add("active-menu");
 }
 
+
 /**
  * Toggles the burger menu's slide animation on mobile devices.
  * 
@@ -109,6 +111,7 @@ function activePageHiglight(page) {
 function burgerMenuSliding() {
     document.getElementById("burger_menu").classList.toggle("burger-menu-transition");
 }
+
 
 /**
  * Stores layout preference and redirects to a new page.
@@ -122,6 +125,7 @@ function setLayoutAndRedirect(layout, url) {
     localStorage.setItem('layout', layout);
     window.location.href = url;
 }
+
 
 /**
  * Loads the internal header and navbar for authenticated users.
@@ -137,6 +141,7 @@ async function loadHeaderNavbarIntern() {
     markLegalPrivacyActiveLink();
 }
 
+
 /**
  * Loads the external header and navbar for guests.
  * 
@@ -149,6 +154,7 @@ async function loadHeaderNavbarExtern() {
         loadHTML("/html/navbar_extern.html", "navbar-section")
     ]);
 }
+
 
 /**
  * Marks the current page in the navbar as active for legal/privacy pages.
@@ -167,6 +173,7 @@ function markLegalPrivacyActiveLink() {
     }
 }
 
+
 /**
  * Accepts cookies and enables the login area and buttons.
  * Saves the acceptance time in localStorage.
@@ -180,6 +187,7 @@ function acceptCookies() {
     enableLogin();
     enableLoginButtons();
 }
+
 
 /**
  * Checks whether the cookie acceptance is still valid (within 1 year).
@@ -196,6 +204,7 @@ function cookiesStillValid() {
     return now - acceptedAt &lt; oneYear;
 }
 
+
 /**
  * Shows the login area.
  * 
@@ -205,6 +214,7 @@ function enableLogin() {
     let loginArea = document.getElementById("loginArea");
     if (loginArea) loginArea.classList.remove("d-none");
 }
+
 
 /**
  * Disables the login and guest login buttons.
@@ -218,6 +228,7 @@ function disableLoginButtons() {
     if (guestBtn) guestBtn.disabled = true;
 }
 
+
 /**
  * Enables the login and guest login buttons.
  * 
@@ -230,12 +241,12 @@ function enableLoginButtons() {
     if (guestBtn) guestBtn.disabled = false;
 }
 
+
 /**
  * Handles layout and login state based on localStorage on page load.
  * Also sets up cookie banner visibility and back arrow behavior.
  */
 window.addEventListener("DOMContentLoaded", async () => {
-    // Nur auf externen Seiten layout löschen
     if (window.location.pathname.includes("privacy_policy.html") ||
         window.location.pathname.includes("legal_notice.html")) {
         localStorage.removeItem("layout");
@@ -283,6 +294,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
+
 /**
  * Checks the device orientation and toggles a fullscreen warning overlay.
  * Only active on mobile-sized screens in landscape mode.
@@ -294,15 +306,27 @@ function checkOrientation() {
     if (!warning) return;
 
     const isLandscape = window.matchMedia("(orientation: landscape)").matches;
-    const isMobile = Math.min(window.innerWidth, window.innerHeight) &lt;= 800;
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    const smallScreen = Math.min(window.innerWidth, window.innerHeight) &lt;= 800;
 
-    warning.style.display = (isMobile &amp;&amp; isLandscape) ? "flex" : "none";
+    warning.style.display = (isMobile &amp;&amp; smallScreen &amp;&amp; isLandscape) ? "flex" : "none";
 }
 
 window.addEventListener("load", checkOrientation);
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("orientationchange", checkOrientation);
-</code></pre>
+
+
+function spinningLoaderStart() {
+    let spinner = document.getElementById('spinnerOverLay');
+    spinner.classList.remove('d-none');
+}
+
+
+function spinningLoaderEnd() {
+    let spinner = document.getElementById('spinnerOverLay');
+    spinner.classList.add('d-none');
+}</code></pre>
         </article>
     </section>
 
@@ -318,7 +342,7 @@ window.addEventListener("orientationchange", checkOrientation);
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat May 03 2025 20:44:43 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon May 05 2025 11:56:28 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>

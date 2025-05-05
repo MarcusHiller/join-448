@@ -1,9 +1,10 @@
 /**
- * Initializes the page by loading header and navbar, and triggers greeting logic on the summary page.
- * 
+ * Initializes the application layout by loading the header and navbar,
+ * and triggers the greeting functionality if the user is on the summary page.
+ *
  * @async
  * @function init
- * @param {string} page - The ID of the page being initialized (e.g., 'summary_page').
+ * @param {string} page - The ID of the current page (e.g., 'summary_page').
  */
 async function init(page) {
     await loadHTML("header.html", "header-placeholder");
@@ -16,10 +17,10 @@ async function init(page) {
     }
 }
 
-
 /**
- * Checks if the user is logged in and redirects to the start page if not.
- * 
+ * Checks the login status stored in localStorage.
+ * If the user is not logged in, redirects them to the index (login) page.
+ *
  * @function isUserLoged
  */
 function isUserLoged() {
@@ -29,10 +30,10 @@ function isUserLoged() {
     }
 }
 
-
 /**
- * Logs the user out by clearing login state and redirecting to the login page.
- * 
+ * Logs the user out by resetting the login and layout information in localStorage.
+ * Redirects to the index (login) page afterwards.
+ *
  * @function logOut
  */
 function logOut() {
@@ -41,14 +42,13 @@ function logOut() {
     window.location.href = "../index.html";
 }
 
-
 /**
- * Loads an HTML snippet into a target DOM element.
- * 
+ * Loads an external HTML file and injects it into a specified container element on the page.
+ *
  * @async
  * @function loadHTML
- * @param {string} file - Path to the HTML file.
- * @param {string} elementId - ID of the target container element.
+ * @param {string} file - The path to the HTML file.
+ * @param {string} elementId - The ID of the target container element to load content into.
  */
 async function loadHTML(file, elementId) {
     let response = await fetch(file);
@@ -57,12 +57,12 @@ async function loadHTML(file, elementId) {
     if (container) container.innerHTML = html;
 }
 
-
 /**
- * Highlights the currently active page in the navigation menu.
- * 
+ * Highlights the currently active page by adding an "active-menu" class
+ * to the relevant navigation element and removing it from all others.
+ *
  * @function activePageHiglight
- * @param {string} page - ID of the currently active menu element.
+ * @param {string} page - The ID of the current active page.
  */
 function activePageHiglight(page) {
     const ids = ["summary_page", "add_task_page", "board_page", "contact_page", "help_page"];
@@ -74,23 +74,23 @@ function activePageHiglight(page) {
     if (current) current.classList.add("active-menu");
 }
 
-
 /**
- * Toggles the burger menu's slide animation on mobile devices.
- * 
+ * Toggles the visibility and animation of the burger menu
+ * for responsive navigation on mobile devices.
+ *
  * @function burgerMenuSliding
  */
 function burgerMenuSliding() {
     document.getElementById("burger_menu").classList.toggle("burger-menu-transition");
 }
 
-
 /**
- * Stores layout preference and redirects to a new page.
- * 
+ * Stores the layout type (internal or external) in localStorage
+ * and redirects the user to a given URL.
+ *
  * @function setLayoutAndRedirect
- * @param {string} layout - Either 'intern' or 'extern'.
- * @param {string} url - Destination URL to redirect to.
+ * @param {string} layout - The layout type ('intern' or 'extern').
+ * @param {string} url - The destination URL to redirect the user to.
  */
 function setLayoutAndRedirect(layout, url) {
     localStorage.removeItem('layout');
@@ -98,10 +98,10 @@ function setLayoutAndRedirect(layout, url) {
     window.location.href = url;
 }
 
-
 /**
  * Loads the internal header and navbar for authenticated users.
- * 
+ * Also highlights the current page for legal/privacy pages.
+ *
  * @async
  * @function loadHeaderNavbarIntern
  */
@@ -113,10 +113,9 @@ async function loadHeaderNavbarIntern() {
     markLegalPrivacyActiveLink();
 }
 
-
 /**
- * Loads the external header and navbar for guests.
- * 
+ * Loads the external header and navbar for guest (unauthenticated) users.
+ *
  * @async
  * @function loadHeaderNavbarExtern
  */
@@ -127,10 +126,10 @@ async function loadHeaderNavbarExtern() {
     ]);
 }
 
-
 /**
- * Marks the current page in the navbar as active for legal/privacy pages.
- * 
+ * Adds the 'active-menu' class to the correct navigation item
+ * on legal and privacy policy pages.
+ *
  * @function markLegalPrivacyActiveLink
  */
 function markLegalPrivacyActiveLink() {
@@ -145,11 +144,10 @@ function markLegalPrivacyActiveLink() {
     }
 }
 
-
 /**
- * Accepts cookies and enables the login area and buttons.
- * Saves the acceptance time in localStorage.
- * 
+ * Accepts cookies, stores the acceptance timestamp in localStorage,
+ * hides the cookie banner, and enables the login buttons.
+ *
  * @function acceptCookies
  */
 function acceptCookies() {
@@ -160,12 +158,12 @@ function acceptCookies() {
     enableLoginButtons();
 }
 
-
 /**
- * Checks whether the cookie acceptance is still valid (within 1 year).
- * 
+ * Validates whether the user's cookie acceptance is still valid
+ * by checking if it occurred within the past year.
+ *
  * @function cookiesStillValid
- * @returns {boolean} True if cookies are still valid, false otherwise.
+ * @returns {boolean} True if still valid, otherwise false.
  */
 function cookiesStillValid() {
     let timestamp = localStorage.getItem("cookiesAcceptedAt");
@@ -176,10 +174,9 @@ function cookiesStillValid() {
     return now - acceptedAt < oneYear;
 }
 
-
 /**
- * Shows the login area.
- * 
+ * Makes the login area visible.
+ *
  * @function enableLogin
  */
 function enableLogin() {
@@ -187,10 +184,9 @@ function enableLogin() {
     if (loginArea) loginArea.classList.remove("d-none");
 }
 
-
 /**
- * Disables the login and guest login buttons.
- * 
+ * Disables both the standard login and guest login buttons.
+ *
  * @function disableLoginButtons
  */
 function disableLoginButtons() {
@@ -200,10 +196,9 @@ function disableLoginButtons() {
     if (guestBtn) guestBtn.disabled = true;
 }
 
-
 /**
- * Enables the login and guest login buttons.
- * 
+ * Enables both the standard login and guest login buttons.
+ *
  * @function enableLoginButtons
  */
 function enableLoginButtons() {
@@ -213,10 +208,9 @@ function enableLoginButtons() {
     if (guestBtn) guestBtn.disabled = false;
 }
 
-
 /**
- * Handles layout and login state based on localStorage on page load.
- * Also sets up cookie banner visibility and back arrow behavior.
+ * Runs once the DOM has fully loaded.
+ * Handles layout rendering, cookie logic, and back button behavior.
  */
 window.addEventListener("DOMContentLoaded", async () => {
     if (window.location.pathname.includes("privacy_policy.html") ||
@@ -266,11 +260,10 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-
 /**
- * Checks the device orientation and toggles a fullscreen warning overlay.
- * Only active on mobile-sized screens in landscape mode.
- * 
+ * Checks the current orientation of the user's device.
+ * If on a mobile device in landscape mode, shows a fullscreen warning overlay.
+ *
  * @function checkOrientation
  */
 function checkOrientation() {
@@ -288,13 +281,21 @@ window.addEventListener("load", checkOrientation);
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("orientationchange", checkOrientation);
 
-
+/**
+ * Displays the full-screen loading spinner overlay.
+ *
+ * @function spinningLoaderStart
+ */
 function spinningLoaderStart() {
     let spinner = document.getElementById('spinnerOverLay');
     spinner.classList.remove('d-none');
 }
 
-
+/**
+ * Hides the full-screen loading spinner overlay.
+ *
+ * @function spinningLoaderEnd
+ */
 function spinningLoaderEnd() {
     let spinner = document.getElementById('spinnerOverLay');
     spinner.classList.add('d-none');
