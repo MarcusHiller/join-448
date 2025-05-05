@@ -122,3 +122,158 @@ function closeOverlayTask() {
     document.getElementById("body").classList.remove("overflow-hidden");
     getTaskOverlayHTML();
 }
+/**
+ * Opens the edit form overlay for a specific task.
+ * @async
+ * @param {number} taskIndex - The index of the task to edit.
+ */
+async function editTaskOnOverlay(taskIndex) {
+    document.getElementById("add_container").innerHTML = "";
+    await getEditTaskHTML();
+    fitEditTaskToContainer();
+    renderUserList();
+    currentInputFieldvalue(taskIndex);
+}
+
+/**
+ * Adjusts the edit task form layout for the overlay.
+ */
+function fitEditTaskToContainer() {
+    document.getElementById("addTask_headline_h1").classList.add("d_none");
+    document.getElementById("spaceholder").classList.add("d_none");
+    document.getElementById("addTask_form_container").classList.add("flex-direction");
+    document.getElementById("edit_scrolling").classList.add("scrolling");
+    document.getElementById("addTask_form_container").classList.add("height-unset");
+    document.getElementById("close_edit_task_overlay").classList.remove("d_none");
+    document.getElementById("addTask_form_container").classList.add("overflow-hidden");
+    document.getElementById("addTask_prio").classList.add("gap-8");
+    document.getElementById("assigned_select_dropdown_menu").classList.add("unclickable");
+}
+
+/**
+ * Fills the edit form fields with the current task data.
+ * @param {number} taskIndex - Index of the task to populate.
+ */
+function currentInputFieldvalue(taskIndex) {
+    document.getElementById("titel_input").value = tasks[taskIndex].title;
+    document.getElementById("description_input").value = tasks[taskIndex].descripton;
+    document.getElementById("date_input").value = tasks[taskIndex].date;
+    checkPrio(taskIndex);
+    checkAssignedTo(taskIndex);
+    checkCategory(taskIndex);
+    checkSubtasks(taskIndex);
+    renderEditButton(taskIndex);
+}
+
+/**
+ * Configures the form to handle task editing instead of adding.
+ * @param {number} taskIndex - Index of the task being edited.
+ */
+function renderEditButton(taskIndex) {
+    let formSubmit = document.getElementById("addTask_form");
+    let editButton = document.getElementById("edit_button");
+    let addButton = document.getElementById("add_button");
+    let clearButton = document.getElementById("clear_button");
+
+    clearButton.classList.add("d_none");
+    addButton.classList.add("d_none");
+    editButton.classList.remove("d_none");
+    formSubmit.removeAttribute("onsubmit")
+    formSubmit.setAttribute("onsubmit", `addEditedTask(${taskIndex}); return false`);
+}
+
+/**
+ * Displays existing subtasks in the edit form.
+ * @param {number} taskIndex - Index of the task.
+ */
+function checkSubtasks(taskIndex) {
+    let subtaskListRef = document.getElementById("sub_list");
+    let subtaskList = tasks[taskIndex].subtask;
+    subtaskIndex = subtaskList.length;
+    subtaskListRef.innerHTML = "";
+    for (let indexCheckSubtask = 0; indexCheckSubtask < subtaskList.length; indexCheckSubtask++) {
+        let subtaskCheckValue = subtaskList[indexCheckSubtask].subtaskName;
+        subtaskListRef.innerHTML += getSubtaskTemplate(indexCheckSubtask, subtaskCheckValue, taskIndex)
+    }
+}
+
+/**
+ * Selects the task's category in the dropdown.
+ * @param {number} taskIndex - Index of the task.
+ */
+function checkCategory(taskIndex) {
+    let category = tasks[taskIndex].category;
+    selectCategory(category);
+}
+
+/**
+ * Checks the corresponding priority radio button.
+ * @param {number} taskIndex - Index of the task.
+ */
+function checkPrio(taskIndex) {
+    const prio = tasks[taskIndex].priority;
+    const prioIds = ["urgent", "medium", "low"];
+
+    prioIds.forEach(level => {
+        document.getElementById(`prio_${level}`).checked = (level === prio);
+    });
+}
+
+/**
+ * Checks assigned users and highlights them in the dropdown.
+ * @param {number} taskIndex - Index of the task.
+ */
+function checkAssignedTo(taskIndex) {
+    let checkedUsers = tasks[taskIndex].assignedTo;
+    let ids = [];
+
+    for (let index = 0; index < checkedUsers.length; index++) {
+        let username = tasks[taskIndex].assignedTo[index]
+        let user = contactsFirebase.indexOf(username)
+        ids.push(user);
+    }
+    for (let index = 0; index < ids.length; index++) {
+        const userIndex = ids[index];
+        let checkbox = document.getElementById("user_" + userIndex);
+        checkbox.checked = true;
+        addCheckedUsers(userIndex);
+    }
+}
+
+/**
+ * Deletes a task from Firebase and updates the UI.
+ * @async
+ * @param {number} taskIndex - Index of the task to delete.
+ */
+async function deleteTaskOnOverlay(taskIndex) {
+    let task = tasks[taskIndex].id
+    let path = "join/tasks/";
+    await fetch(BASE_URL + path + task + ".json", {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    deleteTaskFromTaskArray(taskIndex)
+    renderTaskInToColumn();
+    closeOverlayTask();
+    successfulTaskDeleted();
+    userFeedback();
+}
+
+/**
+ * Shows a visual success message after deleting a task.
+ */
+function successfulTaskDeleted() {
+    let success = document.getElementById('success');
+    success.innerHTML = showTaskDeleted();
+}
+
+/**
+ * Removes the task from the local array.
+ * @param {number} taskIndex - Index of the task to remove.
+ */
+function deleteTaskFromTaskArray(taskIndex) {
+    tasks.splice(taskIndex, 1);
+}
