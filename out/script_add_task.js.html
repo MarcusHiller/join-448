@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: script/add_task.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,35 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: script/add_task.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Loads the HTML and data needed to display the add-task overlay.
+ * 
+ * - Loads the HTML content for the task overlay.
+ * - Loads contact data from Firebase.
+ * - Renders the user list in the overlay.
+ * 
+ * @async
+ * @function getAddTaskHTML
+ */
+async function getAddTaskHTML() {
+  await Promise.all([
+    loadHTML("add_task_overlay.html", "addTask_container"),
+  ]);
+  await loadContactsFromFirebase();
+  renderUserList();
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
