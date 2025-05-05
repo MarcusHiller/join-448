@@ -37,13 +37,15 @@ async function login() {
     );
 
     if (user) {
+        localStorage.setItem("username", user.username); // ✅ Speichert Namen für Initialen
+        localStorage.setItem("loggedIn", "true");         // Optional: gleich hier setzen
         window.location.href = `html/summary.html?name=${encodeURIComponent(user.username)}&login=true`;
         resetUserArray();
-        usrerIsLoggedIn();
     } else {
         displayErrorLogin();
     }
 }
+
 
 /**
  * Displays an error message if login fails.
@@ -74,9 +76,11 @@ function guestLogin(event) {
     event.preventDefault();
     document.getElementById('email').removeAttribute('required');
     document.getElementById('passwd').removeAttribute('required');
+    localStorage.setItem("username", "Guest");     // 👈 Auch hier speichern!
+    localStorage.setItem("loggedIn", "true");
     window.location.href = "html/summary.html?name=Guest&login=true";
-    usrerIsLoggedIn();
 }
+
 
 /**
  * Updates the password input icon depending on whether input is present and visible.

@@ -10,7 +10,7 @@ async function init(page) {
     await loadHTML("header.html", "header-placeholder");
     await loadHTML("navbar.html", "navbar-section");
     activePageHiglight(page);
-    setUserCircleInitials(); // <-- hier aufrufen, nicht in initGreeting
+    setUserCircleInitials(); 
 
 
     if (page === 'summary_page') {
@@ -19,6 +19,7 @@ async function init(page) {
     }
 }
 
+
 /**
  * Checks the login status stored in localStorage.
  * If the user is not logged in, redirects them to the index (login) page.
@@ -26,10 +27,12 @@ async function init(page) {
  * @function isUserLoged
  */
 function isUserLoged() {
-    let statusLogIn = localStorage.getItem("loggedIn");
-    if (statusLogIn === "false") {
+    const isLoggedIn = localStorage.getItem("loggedIn");
+    if (isLoggedIn !== "true") {
         window.location.href = "../index.html";
-    }
+    } else {
+    setUserCircleInitials();
+}
 }
 
 /**
@@ -41,6 +44,7 @@ function isUserLoged() {
 function logOut() {
     localStorage.setItem("loggedIn", "false");
     localStorage.removeItem("layout");
+    localStorage.removeItem("username");
     window.location.href = "../index.html";
 }
 
@@ -127,8 +131,11 @@ async function loadHeaderNavbarIntern() {
     await Promise.all([
         loadHTML("/html/header.html", "header-placeholder"),
         loadHTML("/html/navbar.html", "navbar-section")
+        
     ]);
     markLegalPrivacyActiveLink();
+    setUserCircleInitials(); 
+
 }
 
 /**
@@ -321,19 +328,18 @@ function spinningLoaderEnd() {
 
 
 /**
- * Sets the user's initials in the header circle, or 'G' if it's a guest login.
- * Should be called after the header is loaded.
+ * Sets the user's initials inside the circle in the header.
+ * If the user is a guest, it shows "G".
+ * This function should be called after the header has been injected into the DOM.
+ *
+ * @function setUserCircleInitials
  */
 function setUserCircleInitials() {
     const userCircle = document.querySelector('.user-logo-text');
-
     if (!userCircle) return;
 
-    // Hol dir den Namen aus der URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get('name');
+    const name = localStorage.getItem('username') || "Guest";
 
-    // Wenn Name existiert und nicht Gast ist → Initialen generieren
     if (name && name.toLowerCase() !== "guest") {
         const initials = name
             .split(" ")
