@@ -190,7 +190,7 @@ strong {
 .headline {
     display: flex;
     align-items: center;
-    margin-block: 100px 40px;
+    margin-block: 80px 40px;
 }
 
 
@@ -326,6 +326,7 @@ h4 {
     display: flex;
     flex-direction: column;
     gap: 22px;
+    padding-bottom: 20px;
 }
 
 
