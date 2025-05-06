@@ -47,10 +47,10 @@ const contacts = [
  */
 async function saveUsers() {
   const usersAsObject = {};
-  users.forEach((user, index) => {
+  contacts.forEach((user, index) => {
     usersAsObject[index] = user;
   });
-  const response = await fetch(BASE_URL + "/join/users.json", {
+  const response = await fetch(BASE_URL + "/join/contacts.json", {
     method: "PUT",
     body: JSON.stringify(usersAsObject)
   });

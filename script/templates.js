@@ -152,7 +152,7 @@ function showContact(individualContact) {
     </div>
     <div id="toolsRespContainer" class="tools-overlay-Container d-none" onclick="closeToolsresp()">
         <div id="toolsResp" class="editing-tools-resp d-none">
-            <div class="dpl-fl-al-cetr tools tools-resp" onclick="editRespContact(event, ${individualContact.id})"><img class="icon tools-edit" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
+            <div class="dpl-fl-al-cetr tools tools-resp" onclick="editRespContact(${individualContact.id})"><img class="icon tools-edit" src="../assets/img/icon/edit.svg" alt=""><span>edit</span></div>
             <div class="dpl-fl-al-cetr tools tools-resp" onclick="deleteContact(event, ${individualContact.id})"><img class="icon tools-delete" src="../assets/img/icon/delete.svg" alt=""><span>delete</span></div>
         </div>
     </div>

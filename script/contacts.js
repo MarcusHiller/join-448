@@ -269,6 +269,7 @@ function openEditRespContact(id) {
 async function saveContact(id) {
     updateUserData(id);
     await saveContactsToFirebase();
+    showRespContactList();
     renderContacts();
     clearMainContact();
     closeOverlay();
@@ -319,6 +320,7 @@ async function deleteContact(event, id) {
     deleteUserData(id);
     reSortUser();
     await saveContactsToFirebase();
+    showRespContactList();
     renderContacts();
     clearMainContact();
     clearSuccessfulContainer();
@@ -488,7 +490,9 @@ function removeBackBtn() {
  * Returns to contact list view in responsive layout.
  */
 function showRespContactList() {
-    document.getElementById('contactContainer').classList.remove('d-none');
+    let container = document.getElementById('contactContainer');
+    if (!container.classList == 'd-none') return;
+    container.classList.remove('d-none');
     document.getElementById('contactInfoContainer').classList.remove('d-block');
     removeBackBtn();
     cleanContainerBtn();
