@@ -29,9 +29,10 @@
     box-sizing: border-box;
     height: 30px;
     margin-bottom: 12px;
+    padding-right: 14px;
 }
 
-.list-subtask-element:hover {
+.list-subtask-element-hover:hover {
     background-color: #D1D1D1;
     border-radius: 10px;
 }
@@ -62,6 +63,8 @@
     font-size: 16px;
     border: none;
     cursor: pointer;
+    width: 100%;
+    user-select: none;
 }
 
 .list-element-div input:focus {
@@ -71,6 +74,7 @@
 .delete-and-add-icon {
     display: flex;
     align-items: center;
+    opacity: 1;
 }
 
 .delete-and-add-icon img {
@@ -105,5 +109,29 @@
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
 }
 
+.opacity-null {
+    opacity: 0 !important;
+}
+
+.disc-with-input {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+.disc-with-input span {
+    font-size: 8px;
+}
 
 
+.edit-subtask-style {
+    background-color: white;
+    border-bottom: 1px solid #29ABE2;
+}
+
+
+@media (max-width: 900px) {
+    .list-subtask-element {
+        padding: 0;
+    }
+}

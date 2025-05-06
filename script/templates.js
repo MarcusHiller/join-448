@@ -48,7 +48,7 @@ function getUserInTaskTemplate(indexUser, userList) {
 }
 
 function getSubtaskTemplate(indexSubTask, subtaskValue, taskIndex) {
-    return `<div id="subtask_${indexSubTask}" class="list-element-div" onmouseover="showEditIcons(${indexSubTask})" onmouseout="blindEditIcons(${indexSubTask})"><div class="list-subtask-element"><div>&#x1F784 <input id="editable_input_${indexSubTask}" readonly onchange="emptySubtaskDelete(${indexSubTask})" onblur="editSubmit(${indexSubTask})" value="${subtaskValue}"></div><div id="edit_and_delete_icons_${indexSubTask}"  class="delete-and-add-icon d_none margin-left"><img src="/assets/img/icon/edit.svg" onclick="editSubtask(${indexSubTask})">
+    return `<div id="subtask_${indexSubTask}" class="list-element-div" onmouseover="showEditIcons(${indexSubTask})" onmouseout="blindEditIcons(${indexSubTask})"><div class="list-subtask-element list-subtask-element-hover" id="list_subtask_element_${indexSubTask}"><div class="disc-with-input"><span id="disc_${indexSubTask}">&#9679;</span> <input id="editable_input_${indexSubTask}" readonly onchange="emptySubtaskDelete(${indexSubTask})" onblur="editSubmit(${indexSubTask})" value="${subtaskValue}"></div><div id="edit_and_delete_icons_${indexSubTask}"  class="delete-and-add-icon opacity-null margin-left"><img src="/assets/img/icon/edit.svg" id="edit_subtask_icon_${indexSubTask}" onclick="editSubtask(${indexSubTask})"><img id="confirm_edit_icon_${indexSubTask}" src="/assets/img/icon/check_subtask.svg" class="d_none" onclick="editSubmit(${indexSubTask})">
     <div class="placholder-for-icons"></div><img src="/assets/img/icon/delete.svg" onclick="removeSubtask(${indexSubTask}, ${taskIndex})" alt=""></div></div></div>`
 }
 

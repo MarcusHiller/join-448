@@ -227,7 +227,7 @@ function addSubtask() {
  * @param {number} indexSubTask - Index of the subtask.
  */
 function showEditIcons(indexSubTask) {
-  document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.remove("d_none")
+  document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.remove("opacity-null")
 }
 
 /**
@@ -235,7 +235,7 @@ function showEditIcons(indexSubTask) {
  * @param {number} indexSubTask - Index of the subtask.
  */
 function blindEditIcons(indexSubTask) {
-  document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.add("d_none")
+  document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.add("opacity-null")
 }
 
 /**
@@ -249,6 +249,23 @@ function editSubtask(indexSubTask) {
   input.readOnly = false;
   input.setSelectionRange(len, len);
   input.focus();
+  editSubtaskStyle(indexSubTask, input);
+}
+
+function editSubtaskStyle(indexSubTask, input) {
+  let inputSubtask = document.getElementById("subtask_" + indexSubTask);
+  let inputSubtaskChild = document.getElementById("list_subtask_element_" + indexSubTask);
+  let editIcon = document.getElementById("edit_subtask_icon_" + indexSubTask);
+  let editConfirmIcon = document.getElementById("confirm_edit_icon_" + indexSubTask);
+
+  inputSubtaskChild.classList.add("edit-subtask-style");
+  editIcon.classList.add("d_none");
+  editConfirmIcon.classList.remove("d_none");
+  inputSubtask.removeAttribute("onmouseover");
+  inputSubtask.removeAttribute("onmouseout");
+  inputSubtaskChild.classList.remove("list-subtask-element-hover");
+  document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.remove("opacity-null");
+  document.getElementById("disc_" + indexSubTask).classList.add("d_none");
 }
 
 /**
@@ -269,6 +286,24 @@ function emptySubtaskDelete(indexSubTask) {
  */
 function editSubmit(indexSubTask) {
   document.getElementById("editable_input_" + indexSubTask).readOnly = true;
+  removeEditSubtaskStyle(indexSubTask);
+  
+}
+
+function removeEditSubtaskStyle(indexSubTask) {
+  let inputSubtask = document.getElementById("subtask_" + indexSubTask);
+  let inputSubtaskChild = document.getElementById("list_subtask_element_" + indexSubTask);
+  let editIcon = document.getElementById("edit_subtask_icon_" + indexSubTask);
+  let editConfirmIcon = document.getElementById("confirm_edit_icon_" + indexSubTask);
+
+  inputSubtaskChild.classList.remove("edit-subtask-style");
+  editIcon.classList.remove("d_none");
+  editConfirmIcon.classList.add("d_none");
+  inputSubtask.setAttribute("onmouseover", `showEditIcons(${indexSubTask})`);
+  inputSubtask.setAttribute("onmouseout", `blindEditIcons(${indexSubTask})`);
+  inputSubtaskChild.classList.add("list-subtask-element-hover");
+  document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.add("opacity-null")
+  document.getElementById("disc_" + indexSubTask).classList.remove("d_none");
 }
 
 /**
