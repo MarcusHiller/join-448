@@ -27,7 +27,7 @@ async function init(page) {
  * @function isUserLoged
  */
 function isUserLoged() {
-    const isLoggedIn = localStorage.getItem("loggedIn");
+    let isLoggedIn = localStorage.getItem("loggedIn");
     if (isLoggedIn !== "true") {
         window.location.href = "../index.html";
     } else {
@@ -71,12 +71,12 @@ async function loadHTML(file, elementId) {
  * @param {string} page - The ID of the current active page.
  */
 function activePageHiglight(page) {
-    const ids = ["summary_page", "add_task_page", "board_page", "contact_page", "help_page"];
+    let ids = ["summary_page", "add_task_page", "board_page", "contact_page", "help_page"];
     ids.forEach(id => {
-        const el = document.getElementById(id);
+        let el = document.getElementById(id);
         if (el) el.classList.remove("active-menu");
     });
-    const current = document.getElementById(page);
+    let current = document.getElementById(page);
     if (current) current.classList.add("active-menu");
 }
 
@@ -84,26 +84,29 @@ function activePageHiglight(page) {
  * Toggles the burger menu open/close with fade animation.
  */
 function burgerMenuSliding() {
-    const menu = document.getElementById("burger_menu");
+    let menu = document.getElementById("burger_menu");
     menu.classList.toggle("visible");
 }
+
 
 /**
  * Closes the burger menu when clicking outside of it.
  */
 document.addEventListener("click", function (event) {
-    const menu = document.getElementById("burger_menu");
-    const userLogo = document.querySelector(".user-logo");
+    let menu = document.getElementById("burger_menu");
+    let userLogo = document.querySelector(".user-logo");
 
-    if (!menu.classList.contains("visible")) return;
+    // Abbrechen, wenn das Menü gar nicht existiert oder nicht sichtbar ist
+    if (!menu || !menu.classList.contains("visible")) return;
 
-    const clickedInsideMenu = menu.contains(event.target);
-    const clickedUserLogo = userLogo.contains(event.target);
+    let clickedInsideMenu = menu.contains(event.target);
+    let clickedUserLogo = userLogo && userLogo.contains(event.target);
 
     if (!clickedInsideMenu && !clickedUserLogo) {
         menu.classList.remove("visible");
     }
 });
+
 
 
 /**
@@ -235,16 +238,38 @@ function enableLoginButtons() {
 
 /**
  * Runs once the DOM has fully loaded.
- * Handles layout rendering, cookie logic, and back button behavior.
+ * Initializes rotate warning, layout loading, cookie logic, and back button.
  */
 window.addEventListener("DOMContentLoaded", async () => {
-    if (window.location.pathname.includes("privacy_policy.html") ||
-        window.location.pathname.includes("legal_notice.html")) {
+    await loadRotateWarning();
+    initLayout();
+    initCookies();
+    initBackButton();
+    checkOrientation();
+});
+
+/**
+ * Loads the rotate warning overlay into the DOM.
+ *
+ * @async
+ * @function loadRotateWarning
+ */
+async function loadRotateWarning() {
+    await loadHTML("/html/rotate_warning.html", "rotate-warning-placeholder");
+}
+
+/**
+ * Initializes the layout based on login status and page type.
+ * Loads the appropriate header and navbar.
+ *
+ * @function initLayout
+ */
+function initLayout() {
+    let isLegalPage = window.location.pathname.includes("privacy_policy.html") ||
+        window.location.pathname.includes("legal_notice.html");
+    if (isLegalPage) {
         localStorage.removeItem("layout");
     }
-
-    await loadHTML("/html/rotate_warning.html", "rotate-warning-placeholder");
-    checkOrientation();
 
     let layout = localStorage.getItem("layout");
     let loggedIn = localStorage.getItem("loggedIn");
@@ -255,13 +280,19 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 
     if (layout === "intern") {
-        await loadHeaderNavbarIntern();
+        loadHeaderNavbarIntern();
     } else {
-        await loadHeaderNavbarExtern();
+        loadHeaderNavbarExtern();
     }
+}
 
+/**
+ * Handles cookie banner logic and login button availability.
+ *
+ * @function initCookies
+ */
+function initCookies() {
     let stillValid = cookiesStillValid();
-    let acceptBtn = document.getElementById("acceptCookiesBtn");
     let banner = document.getElementById("cookieBanner");
     let loginArea = document.getElementById("loginArea");
 
@@ -275,15 +306,24 @@ window.addEventListener("DOMContentLoaded", async () => {
         enableLoginButtons();
     }
 
+    let acceptBtn = document.getElementById("acceptCookiesBtn");
     if (acceptBtn) {
         acceptBtn.addEventListener("click", acceptCookies);
     }
+}
 
+/**
+ * Attaches functionality to the back arrow to go to previous page.
+ *
+ * @function initBackButton
+ */
+function initBackButton() {
     let backClick = document.getElementById("backArrow");
     if (backClick) {
         backClick.addEventListener("click", () => history.back());
     }
-});
+}
+
 
 /**
  * Checks the current orientation of the user's device.
@@ -292,12 +332,12 @@ window.addEventListener("DOMContentLoaded", async () => {
  * @function checkOrientation
  */
 function checkOrientation() {
-    const warning = document.getElementById("rotateWarning");
+    let warning = document.getElementById("rotateWarning");
     if (!warning) return;
 
-    const isLandscape = window.matchMedia("(orientation: landscape)").matches;
-    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-    const smallScreen = Math.min(window.innerWidth, window.innerHeight) <= 800;
+    let isLandscape = window.matchMedia("(orientation: landscape)").matches;
+    let isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    let smallScreen = Math.min(window.innerWidth, window.innerHeight) <= 800;
 
     warning.style.display = (isMobile && smallScreen && isLandscape) ? "flex" : "none";
 }
@@ -335,13 +375,13 @@ function spinningLoaderEnd() {
  * @function setUserCircleInitials
  */
 function setUserCircleInitials() {
-    const userCircle = document.querySelector('.user-logo-text');
+    let userCircle = document.querySelector('.user-logo-text');
     if (!userCircle) return;
 
-    const name = localStorage.getItem('username') || "Guest";
+    let name = localStorage.getItem('username') || "Guest";
 
     if (name && name.toLowerCase() !== "guest") {
-        const initials = name
+        let initials = name
             .split(" ")
             .map(part => part.charAt(0).toUpperCase())
             .join("");
