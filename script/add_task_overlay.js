@@ -1,4 +1,3 @@
-
 /**
  * Next available task ID for new tasks.
  * @type {number}
@@ -254,6 +253,13 @@ function editSubtask(indexSubTask) {
   editSubtaskStyle(indexSubTask, input);
 }
 
+/**
+ * Applies styling to a subtask when entering edit mode.
+ * Hides standard icons and shows the confirm icon.
+ * 
+ * @param {number} indexSubTask - Index of the subtask being edited.
+ * @param {HTMLInputElement} input - The input element of the subtask.
+ */
 function editSubtaskStyle(indexSubTask, input) {
   let inputSubtask = document.getElementById("subtask_" + indexSubTask);
   let inputSubtaskChild = document.getElementById("list_subtask_element_" + indexSubTask);
@@ -271,27 +277,20 @@ function editSubtaskStyle(indexSubTask, input) {
 }
 
 /**
- * Deletes a subtask if its content is empty.
- * @param {number} indexSubTask - Index of the subtask.
- */
-function emptySubtaskDelete(indexSubTask) {
-  let input = document.getElementById("editable_input_" + indexSubTask).value;
-
-  if (!input) {
-    removeSubtask(indexSubTask);
-  }
-}
-
-/**
  * Finalizes the subtask input after editing.
  * @param {number} indexSubTask - Index of the subtask.
  */
 function editSubmit(indexSubTask) {
   document.getElementById("editable_input_" + indexSubTask).readOnly = true;
   removeEditSubtaskStyle(indexSubTask);
-  
 }
 
+/**
+ * Removes editing styles from a subtask after editing is confirmed.
+ * Restores default hover behavior and icon visibility.
+ * 
+ * @param {number} indexSubTask - Index of the subtask.
+ */
 function removeEditSubtaskStyle(indexSubTask) {
   let inputSubtask = document.getElementById("subtask_" + indexSubTask);
   let inputSubtaskChild = document.getElementById("list_subtask_element_" + indexSubTask);
@@ -304,170 +303,15 @@ function removeEditSubtaskStyle(indexSubTask) {
   inputSubtask.setAttribute("onmouseover", `showEditIcons(${indexSubTask})`);
   inputSubtask.setAttribute("onmouseout", `blindEditIcons(${indexSubTask})`);
   inputSubtaskChild.classList.add("list-subtask-element-hover");
-  document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.add("opacity-null")
+  document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.add("opacity-null");
   document.getElementById("disc_" + indexSubTask).classList.remove("d_none");
 }
 
 /**
- * Removes a subtask from the DOM.
- * @param {number} indexSubTask - Index of the subtask.
- * @param {number} taskIndex - (Optional) Task index (not used).
+ * Handles Enter key press on the subtask input field and adds the subtask.
+ * 
+ * @param {KeyboardEvent} event - The key press event.
  */
-function removeSubtask(indexSubTask, taskIndex) {
-  document.getElementById("subtask_" + indexSubTask).remove();
-}
-
-/**
- * Clears all input fields for adding a task.
- */
-function clearAddTaskField() {
-  document.getElementById("titel_input").value = "";
-  document.getElementById("description_input").value = "";
-  document.getElementById("date_input").value = "";
-  document.getElementById("prio_medium").checked = true;
-  unsetCheckbox();
-  document.getElementById("user_logo_after_seleceted").innerHTML = "";
-  document.getElementById("category_select_input").value = "";
-  clearSubtaskInput();
-  successfulClearTask()
-  userFeedback();
-}
-
-/**
- * Clears all input fields for adding a task after add a new task.
- */
-function clearAddTaskAfterAdd() {
-  document.getElementById("titel_input").value = "";
-  document.getElementById("description_input").value = "";
-  document.getElementById("date_input").value = "";
-  document.getElementById("prio_medium").checked = true;
-  unsetCheckbox();
-  document.getElementById("user_logo_after_seleceted").innerHTML = "";
-  document.getElementById("category_select_input").value = "";
-  clearSubtaskInput();
-}
-
-/**
- * Clears the subtask input and list.
- */
-function clearSubtaskInput() {
-  document.getElementById("subtask_input").value = "";
-  document.getElementById("sub_list").innerHTML = "";
-}
-
-/**
- * Unchecks all user checkboxes in the user list.
- */
-function unsetCheckbox() {
-  for (let userIndex = 0; userIndex < contactsFirebase.length; userIndex++) {
-    document.getElementById("user_" + userIndex).checked = false
-  }
-}
-
-/**
- * Shows success message after clearing the task form.
- */
-function successfulClearTask() {
-  let success = document.getElementById('success');
-  success.innerHTML = showSuccessfulClear();
-}
-
-/**
- * Shows success message after a task was added.
- */
-function successfulAddedTask() {
-  let success = document.getElementById('success');
-  success.innerHTML = showSuccessfulAddedTask();
-}
-
-/**
- * Animates a temporary success message to the user.
- */
-function userFeedback() {
-  setTimeout(() => {
-    let success = document.getElementById('success');
-    success.classList.remove('d-none');
-    setTimeout(() => { success.classList.add('show-successful'); }, 1);
-    setTimeout(() => { success.classList.remove('show-successful'); }, 1510);
-    setTimeout(() => { success.classList.add('d-none'); }, 1730);
-  }, 200);
-}
-
-/**
- * Filters the user list by input and shows/hides matching users.
- */
-function searchContactToTask() {
-  let input = document.getElementById("assigned_select_input").value.toLowerCase().replace(/\s+/g, "");
-  let list = document.getElementById("add_user_list");
-  let userFoundCounter = 0;
-
-  for (let index = 0; index < contactsFirebase.length; index++) {
-    let user = document.getElementById("user_" + index + "_label");
-    if (!user) continue;
-    let name = contactsFirebase[index].username.toLowerCase().replace(/\s+/g, "")
-    if (input === "") {
-      user.classList.remove("d_none");
-    } else {
-      const isMatch = name.includes(input);
-      if (isMatch) {
-        user.classList.remove("d_none");
-        userFoundCounter--;
-      } else {
-        user.classList.add("d_none");
-        userFoundCounter++;
-      }
-    }
-  }
-  checkUserFound(input, userFoundCounter, list);
-}
-
-/**
- * Shows or removes a feedback message if no users were found.
- */
-function checkUserFound(input, userFoundCounter, list) {
-  let existingFeedback = document.getElementById("no_user_feedback");
-
-  if (userFoundCounter === contactsFirebase.length && input !== "") {
-    const message = `No user found: "${input}"`;
-    if (!existingFeedback) {
-      const feedback = createNoUserFeedback(message);
-      list.appendChild(feedback);
-    } else {
-      existingFeedback.textContent = message;
-    }
-  } else {
-    if (existingFeedback) {
-      existingFeedback.remove();
-    }
-  }
-}
-
-/**
- * Creates a styled feedback element when no user is found.
- * @param {string} message - Message to show.
- * @returns {HTMLElement} Feedback element.
- */
-function createNoUserFeedback(message) {
-  const feedback = document.createElement("div");
-  feedback.id = "no_user_feedback";
-  feedback.textContent = message;
-  Object.assign(feedback.style, {
-    fontStyle: "italic",
-    color: "#888",
-    padding: "6px 10px"
-  });
-  return feedback;
-}
-
-/**
- * Toggles the style of a user label to indicate selection.
- * @param {number} indexUsers - Index of the user.
- */
-function checkedStyle(indexUsers) {
-  document.getElementById("user_" + indexUsers + "_label").classList.toggle("user-dropmenu-hover-effekt")
-}
-
-
 function checkEnterAddSubtask(event) {
   if (event.key === 'Enter') {
     event.preventDefault();
@@ -475,13 +319,24 @@ function checkEnterAddSubtask(event) {
   }
 }
 
+/**
+ * Handles Enter key press during subtask editing and submits the change.
+ * 
+ * @param {KeyboardEvent} event - The key press event.
+ * @param {number} indexSubTask - Index of the subtask being edited.
+ */
 function checkEnterEditSubtask(event, indexSubTask) {
   if (event.key === 'Enter') {
     event.preventDefault();
-    editSubmit(indexSubTask)
+    editSubmit(indexSubTask);
   }
 }
 
+/**
+ * Prevents default behavior when Enter is pressed in non-submission contexts.
+ * 
+ * @param {KeyboardEvent} event - The key press event.
+ */
 function checkEnter(event) {
   if (event.key === 'Enter') {
     event.preventDefault();
