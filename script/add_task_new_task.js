@@ -126,6 +126,18 @@ function checkInputFields() {
                 input.classList.add('error-border');
             }
             hasError = true;
+        } else if (id === 'date_input') {
+            const enteredDate = new Date(input.value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            enteredDate.setHours(0, 0, 0, 0);
+
+            if (enteredDate < today) {
+                document.getElementById("error-date").innerHTML = "Datum darf nicht in der Vergangenheit liegen.";
+                error.classList.add('visible');
+                input.classList.add('error-border');
+                hasError = true;
+            }
         }
     });
     return hasError;
@@ -151,6 +163,20 @@ function getPriority() {
     }
     return priority;
 }
+
+/**
+ * Checks for required inputs and returns field info.
+ * @returns {Array<{id: string, errorId: string}>} Required fields.
+ */
+function checkRequiredInputsField() {
+    const fields = [
+      { id: 'titel_input', errorId: 'error-title' },
+      { id: 'date_input', errorId: 'error-date' },
+      { id: 'category_select_input', errorId: 'error-cat' }
+    ];
+    removeErrorMsg();
+    return fields;
+  }
 
 /**
  * Generates a unique ID for each task using the current timestamp.

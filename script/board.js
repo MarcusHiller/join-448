@@ -286,16 +286,31 @@ function checkSubtaskLenght(taskIndex, subtaskMax) {
 function renderAssignedTo(taskIndex) {
   let userListRef = document.getElementById("task_users_" + taskIndex);
   let userList = tasks[taskIndex].assignedTo;
-  userListRef.innerHTML = "";
+  userCounterFromTask = userList.length
 
-  if (userList.length) {
+  if (userCounterFromTask < 4 && userCounterFromTask !=0 ) {
     for (let indexUser = 0; indexUser < userList.length; indexUser++) {
       userListRef.innerHTML += getUserInTaskTemplate(indexUser, userList);
     }
+  } else if (userCounterFromTask > 4) {
+    for (let indexUser = 0; indexUser < 3; indexUser++) {
+      userListRef.innerHTML += getUserInTaskTemplate(indexUser, userList);
+    }
+    renderCounterElement(userListRef, userCounterFromTask);
   } else {
     userListRef.innerHTML = "<span style='opacity: 0.2'>No User added</span>";
   }
   return userListRef.innerHTML;
+}
+
+
+function renderCounterElement(userListRef, userCounterFromTask) {
+  const remaining = userCounterFromTask - 3;
+  const counterDiv = document.createElement("div");
+  counterDiv.classList.add("user");
+  counterDiv.innerHTML = `<span>+${remaining}</span>`;
+  counterDiv.style.color = "rgb(121, 121, 121)";
+  userListRef.appendChild(counterDiv);
 }
 
 //  Get Data //
@@ -349,7 +364,6 @@ async function deleteNotFoundedUserFromTask() {
     await fetch(`${BASE_URL}/join/tasks/${del.taskKey}/assignedTo/${del.userKey}.json`, {
       method: "DELETE"
     });
-    console.log(`Gelöscht nach dem Laden: ${del.username} (Key: ${del.userKey})`);
   }
 }
 

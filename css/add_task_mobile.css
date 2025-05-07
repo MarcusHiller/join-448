@@ -1,5 +1,16 @@
+@media (max-width: 1200px) {
+    .addTask-prio {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+}
+
+
 @media(max-width: 900px) {
     .addTask-prio {
+        flex-direction: row;
+        justify-content: space-evenly;
         flex-wrap: nowrap;
     }
 
@@ -19,7 +30,7 @@
 
     .prio-label {
         padding: 8px;
-        width: 100px;
+        width: 120px;
     }
 
     .prio-label img {
@@ -64,6 +75,11 @@
         flex-direction: column;
         position: inherit;
         align-items: flex-start;
+    }
+
+    .prio-label {
+        padding: 4px;
+        width: 100px;
     }
 
     .addTask-footer-buttons {

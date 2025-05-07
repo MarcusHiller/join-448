@@ -103,6 +103,7 @@
     font-size: 20px;
     cursor: pointer;
     user-select: none;
+    margin-bottom: 1px;
 }
 
 .z-index-7 {
@@ -152,4 +153,16 @@
 
 .margin-left-24 {
     margin-left:24px;
+}
+
+.user-counter {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D1D1D1;
+    color: rgb(121, 121, 121);
+    border-radius: 50%;
+    font-size: 12px;
 }
