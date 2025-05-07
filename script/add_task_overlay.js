@@ -1,8 +1,8 @@
 /**
- * Next available task ID for new tasks.
+ * Available added user for new tasks.
  * @type {number}
  */
-let nextTaskId = 5;
+let userCounter = 0;
 
 /**
  * List of current subtasks.
@@ -15,6 +15,7 @@ let subtasks = [];
  * @type {number}
  */
 let subtaskIndex = -1;
+
 
 /**
  * Shows the clear button on the form.
@@ -79,13 +80,34 @@ function addCheckedUsers(indexUsers) {
   const avatarList = document.getElementById("user_logo_after_seleceted");
   const userCheckbox = document.getElementById("user_" + indexUsers);
   const userAvatar = document.getElementById("user_checked_" + indexUsers);
+  const userCounterRef = document.getElementById("user_counter");
 
   if (userCheckbox.checked) {
-    avatarList.innerHTML += getCheckedAvatar(indexUsers);
+    userCounter++;
     document.getElementById("user_" + indexUsers + "_label").classList.remove("user-dropmenu-hover-effekt");
+    if (checkAvatarAmount(avatarList)) return
+    const avatarElement = document.createElement("div");
+    avatarElement.innerHTML = getCheckedAvatar(indexUsers);
+    avatarList.insertBefore(avatarElement.firstChild, userCounterRef);
   } else {
+    userCounter--;
     userAvatar?.remove();
     document.getElementById("user_" + indexUsers + "_label").classList.add("user-dropmenu-hover-effekt");
+    checkAvatarAmount(avatarList)
+  }
+}
+
+
+function checkAvatarAmount() {
+  let userCounterRef = document.getElementById("user_counter");
+  if (userCounter > 4) {
+    let avatarCounter = (userCounter - 4)
+    userCounterRef.classList.remove("d_none");
+    userCounterRef.innerHTML = `<span>+${avatarCounter}`
+    return true
+  } else {
+    userCounterRef.classList.add("d_none");
+    return false
   }
 }
 
@@ -147,22 +169,6 @@ function removeBorder() {
 function addTaskButton() {
   document.getElementById("addTask_form").addEventListener("submit", addTask(condition = ""));
 }
-
-
-/**
- * Checks for required inputs and returns field info.
- * @returns {Array<{id: string, errorId: string}>} Required fields.
- */
-function checkRequiredInputsField() {
-  const fields = [
-    { id: 'titel_input', errorId: 'error-title' },
-    { id: 'date_input', errorId: 'error-date' },
-    { id: 'category_select_input', errorId: 'error-cat' }
-  ];
-  removeErrorMsg();
-  return fields;
-}
-
 
 /**
  * Removes all visible error messages and styling.
@@ -352,16 +358,18 @@ function removeSubtask(indexSubTask, taskIndex) {
  * Clears all input fields for adding a task.
  */
 function clearAddTaskField() {
+  userCounter = 0;
   document.getElementById("titel_input").value = "";
   document.getElementById("description_input").value = "";
   document.getElementById("date_input").value = "";
   document.getElementById("prio_medium").checked = true;
   unsetCheckbox();
-  document.getElementById("user_logo_after_seleceted").innerHTML = "";
+  document.getElementById("user_logo_after_seleceted").innerHTML = '<div class="user-counter d_none" id="user_counter"></div>';
   document.getElementById("category_select_input").value = "";
   clearSubtaskInput();
   successfulClearTask();
   userFeedback();
+  renderUserList();
 }
 
 
@@ -369,14 +377,16 @@ function clearAddTaskField() {
  * Clears all input fields for adding a task after a new task has been added.
  */
 function clearAddTaskAfterAdd() {
+  userCounter = 0;
   document.getElementById("titel_input").value = "";
   document.getElementById("description_input").value = "";
   document.getElementById("date_input").value = "";
   document.getElementById("prio_medium").checked = true;
   unsetCheckbox();
-  document.getElementById("user_logo_after_seleceted").innerHTML = "";
+  document.getElementById("user_logo_after_seleceted").innerHTML = '<div class="user-counter d_none" id="user_counter"></div>';
   document.getElementById("category_select_input").value = "";
   clearSubtaskInput();
+  renderUserList();
 }
 
 
@@ -544,4 +554,10 @@ function checkEnter(event) {
   if (event.key === 'Enter') {
     event.preventDefault();
   }
+}
+
+
+function showDateToday() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('date_input').setAttribute('min', today);
 }

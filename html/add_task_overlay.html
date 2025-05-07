@@ -16,7 +16,7 @@
                 <label for="" class="addTask-label">Description</label>
                 <textarea id="description_input" class="addTask-textarea" placeholder="Enter a Description"></textarea>
                 <label for="" class="addTask-label">Due date<span class="required-star">&#42</span></label>
-                <input id="date_input" class="addTask-input" type="date" placeholder="dd/mm/yyyy" onkeydown="checkEnter(event)">
+                <input id="date_input" class="addTask-input" type="date" onkeydown="checkEnter(event)" onclick="showDateToday()">
                 <p class="error-message" id="error-date">This field is required</p>
             </div>
             <div id="spaceholder" class="placeholder-addTask"></div>
@@ -50,6 +50,7 @@
                     </div>
                 </div>
                 <div id="user_logo_after_seleceted" class="user-logo-after-seleceted">
+                    <div class="user-counter d_none" id="user_counter"></div>
                 </div>
                 <label for="" class="addTask-label">Category<span class="required-star">&#42</span></label>
                 <div id="assigned_select_dropdown_menu" class="assigned-select-dropdown-menu">
