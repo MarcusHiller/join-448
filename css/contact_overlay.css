@@ -183,6 +183,11 @@ button {
 }
 
 
+.opacity {
+    opacity: 0;
+}
+
+
 input {
     border: unset;
     outline: none;
@@ -212,7 +217,7 @@ label:hover {
 
 
 .input-field-error {
-    border-color: red;
+    border-color: red !important;
 }
 
 

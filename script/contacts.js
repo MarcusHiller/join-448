@@ -349,6 +349,7 @@ function reSortUser() {
  * @function createNewContact
  */
 async function createNewContact() {
+    if (checkValueInput()) return;
     pushNewContact();
     await saveContactsToFirebase();
     renderContacts();
@@ -504,4 +505,76 @@ function showRespContactList() {
  */
 function changeOfAddPersoneBtn() {
     document.getElementById('addBtnResp').innerHTML = changeAddBtnPerson();
+}
+
+
+function inputError(inputLabel) {
+    let info = document.getElementById('poppin');
+    info.classList.remove('opacity');
+    info.innerHTML = errorMessage(inputLabel);
+    errorInputField(inputLabel);
+}
+
+
+function removeErrorText() {
+    const labels = ["Contactname", "Email", "Phone"];
+    const info = document.getElementById('poppin');
+    info.classList.add('opacity');
+    info.innerHTML = "";
+    labels.forEach(label => {
+        const inputLabel = document.getElementById('label' + label);
+        if (inputLabel) {
+            inputLabel.classList.remove('input-field-error');
+        }
+    });
+}
+
+
+function errorMessage(key) {
+    const messages = {
+        "Contactname": "Please check your name entry!",
+        "Email": "Please check your email entry!",
+        "Phone": "Please check your phonenumber entry!"
+    };
+    return messages[key] || "Unknown error!";
+}
+
+
+function errorInputField(inputLabel) {
+    const label = document.getElementById('label' + inputLabel);
+    if (label) {
+        label.classList.add('input-field-error');
+    }
+}
+
+
+function checkEmptyInput(value) {
+    return value.trim() === "";
+}
+
+
+function readsTheInputValues() {
+    return {
+        n: document.getElementById('contactname').value,
+        e: document.getElementById('email').value,
+        p: document.getElementById('phone').value
+    }; 
+}
+
+
+function checkValues() {
+    let {n, e, p} = readsTheInputValues();
+    if (checkEmptyInput(n) || !/^[a-zA-ZäöüÄÖÜß\s]+$/.test(n)) return "Contactname";
+    if (checkEmptyInput(e) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) return "Email"; 
+    if (!checkEmptyInput(p) && !/^\d+$/.test(p)) return "Phone";
+}
+
+
+function checkValueInput() {
+    let input = checkValues();
+    if (input) {
+        inputError(input);
+        return true
+    }
+    return false;
 }

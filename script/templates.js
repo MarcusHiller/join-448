@@ -175,24 +175,25 @@ function showOverlayAddContact() {
                 <div class="profil-img-container flex-box-center-center"><img class="profil-img" src="../assets/img/icon/person.svg" alt=""></div>
                 <form onsubmit="createNewContact(); return false">
                     <div class="dpl-fl-colu input-container">
-                        <label class="input-field">
+                        <label id="labelContactname" class="input-field">
                             <div class="input-content">
-                                <input id="contactname" type="text" placeholder="Name" required>
+                                <input id="contactname" type="text" placeholder="Name">
                                 <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
                             </div>
                         </label>
-                        <label class="input-field">
+                        <label id="labelEmail" class="input-field">
                             <div class="input-content">
-                                <input id="email" type="email" placeholder="E-mail">
+                                <input id="email" type="text" placeholder="E-mail">
                                 <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
                             </div>
                         </label>
-                        <label class="input-field">
+                        <label id="labelPhone" class="input-field">
                             <div class="input-content">
                                 <input id="phone" type="tel" placeholder="Phone">
                                 <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
                             </div>
                         </label>
+                        <p id="poppin" class="poppins opacity"></p>
                     </div>
                     <div class="submit-container">
                         <button class="blue-white-btn cancel" onclick="closeOverlay(event)">Cancel</button>
