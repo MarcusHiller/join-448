@@ -237,7 +237,7 @@
     }
 
     .user-list {
-        height: calc(100vh - 101px);
+        height: calc(100vh - 181px);
         padding: 32px 24px 40px 24px;
     }
 
