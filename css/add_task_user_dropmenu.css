@@ -1,0 +1,152 @@
+.assigned-select {
+    cursor: pointer;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: #D1D1D1;
+    padding: 12px 21px;
+    position: relative;
+    z-index: 9;
+}
+
+.assigned-select:hover {
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);;
+}
+
+.assigned-select-dropdown-menu {
+    position: relative;
+}
+
+.assigned-select-input {
+    width: 100%;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.assigned-select-input:focus {
+    outline: none;
+}
+
+.assigned-select-input::placeholder {
+    color: black;
+}
+
+.blue-border {
+    border-color: #29ABE2 !important;
+}
+
+.rotate-img {
+    transform: rotate(0.5turn);
+}
+
+.add-user-list {
+    background-color: white;
+    border-radius: 0 0 10px 10px;
+    z-index: 8;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    max-height: 0;
+    transition: max-height 0.1s;
+    margin-bottom: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #bbb transparent;
+    box-sizing: content-box;
+}
+
+.border-radius-custom {
+    border-radius: 10px 10px 0 0;
+}
+
+.add-user-list::-webkit-scrollbar-button {
+    background: blue;
+}
+
+.add-user-list::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .add-user-list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .add-user-list::-webkit-scrollbar-thumb {
+    background-color: #bbb;
+    border-radius: 10px;
+  }
+  
+  .add-user-list::-webkit-scrollbar-thumb:hover {
+    background-color: #999;
+  }
+  
+  /*Firefox */
+  .add-user-list {
+    scrollbar-width: thin;      
+    scrollbar-color: #bbb transparent;
+  }
+
+.dropdown-animation-user {
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+    max-height: 300px;
+    overflow: auto;
+}
+
+.user-dropmenu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.z-index-7 {
+    z-index: 7;
+}
+
+.user-dropmenu:hover {
+    background-color: rgba(42, 54, 71, 0.1);
+    border-radius: 10px;
+}
+
+.user-dropmenu-hover-effekt {
+    background-color: #2A3647;
+    color: white;
+    border-radius: 10px;
+}
+
+.user-dropmenu-hover-effekt:hover {
+    background-color: #091931;
+    border-radius: 10px;
+
+}
+
+.user-logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.user-logo-small {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    margin-right: 24px;
+}
+
+.user-logo-after-seleceted {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}

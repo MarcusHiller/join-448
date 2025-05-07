@@ -89,18 +89,20 @@ function addCheckedUsers(indexUsers) {
  * Toggles the category dropdown open/closed.
  */
 function openCatDropMenu() {
-  document.getElementById("dropdown_menu_arrow_select").classList.toggle("rotate-img");
-  document.getElementById("category_input").classList.toggle("blue-border");
-  document.getElementById("category_list").classList.toggle("dropdown-animation");
+  document.getElementById("dropdown_menu_arrow_select").classList.add("rotate-img");
+  document.getElementById("category_input").classList.add("blue-border");
+  document.getElementById("category_list").classList.add("dropdown-animation");
+  document.getElementById("overlay_category").classList.remove("d_none");
 }
 
 /**
  * Closes the category dropdown menu.
  */
-function closeOpenCatDropMenu() {
+function closeCatDropMenu() {
   document.getElementById("dropdown_menu_arrow_select").classList.remove("rotate-img");
   document.getElementById("category_input").classList.remove("blue-border");
   document.getElementById("category_list").classList.remove("dropdown-animation");
+  document.getElementById("overlay_category").classList.add("d_none");
 }
 
 /**
@@ -112,7 +114,7 @@ function selectCategory(category) {
   input.value = category;
   input.parentElement.classList.remove("error-label-border");
   document.getElementById("error-cat").classList.remove("visible");
-  closeOpenCatDropMenu();
+  closeCatDropMenu();
 }
 
 /**
@@ -466,9 +468,22 @@ function checkedStyle(taskIndex) {
 }
 
 
-function checkEnter(event) {
+function checkEnterAddSubtask(event) {
   if (event.key === 'Enter') {
     event.preventDefault();
     addSubtask();
+  }
+}
+
+function checkEnterEditSubtask(event, indexSubTask) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    editSubmit(indexSubTask)
+  }
+}
+
+function checkEnter(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
   }
 }
