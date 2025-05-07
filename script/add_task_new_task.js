@@ -285,6 +285,8 @@ function renderSingleTaskInToColumn(taskIndex) {
     renderCategoryColor(taskIndex);
 }
 
+
+
 /**
  * Selects the correct column for a task and sets its HTML content.
  * 

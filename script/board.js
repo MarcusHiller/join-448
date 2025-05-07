@@ -260,7 +260,6 @@ function renderSubtasks(taskIndex) {
   let subtaskValueRef = document.getElementById("subtask_value_user_" + taskIndex);
   let subtaskValue = subtaskProgressBar.value;
   subtaskProgressBar.setAttribute("max", subtaskMax);
-
   if (subtaskMax) {
     subtaskMaxRef.innerHTML = subtaskMax;
   }
@@ -269,7 +268,15 @@ function renderSubtasks(taskIndex) {
     subtaskProgressBar.setAttribute("value", subtaskValue);
     subtaskValueRef.innerHTML = subtaskValue;
   }
+  checkSubtaskLenght(taskIndex, subtaskMax)
 }
+
+function checkSubtaskLenght(taskIndex, subtaskMax) {
+  if (!subtaskMax) {
+    document.getElementById("progress_container_" + taskIndex).innerHTML= "";
+  }
+}
+
 
 /**
  * Renders avatars or user labels assigned to a task.

@@ -232,14 +232,18 @@ function checkAssignedTo(taskIndex) {
         let username = tasks[taskIndex].assignedTo[index]
         let user = contactsFirebase.indexOf(username)
         ids.push(user);
+        ;
     }
     for (let index = 0; index < ids.length; index++) {
         const userIndex = ids[index];
         let checkbox = document.getElementById("user_" + userIndex);
         checkbox.checked = true;
         addCheckedUsers(userIndex);
+        checkedStyle(userIndex);
     }
 }
+
+
 
 /**
  * Deletes a task from Firebase and updates the UI.

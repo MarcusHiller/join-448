@@ -461,10 +461,10 @@ function createNoUserFeedback(message) {
 
 /**
  * Toggles the style of a user label to indicate selection.
- * @param {number} taskIndex - Index of the user.
+ * @param {number} indexUsers - Index of the user.
  */
-function checkedStyle(taskIndex) {
-  document.getElementById("user_" + taskIndex + "_label").classList.toggle("user-dropmenu-hover-effekt")
+function checkedStyle(indexUsers) {
+  document.getElementById("user_" + indexUsers + "_label").classList.toggle("user-dropmenu-hover-effekt")
 }
 
 

@@ -6,7 +6,7 @@ function getTaskTemplate(taskIndex) {
                 </div>
                 <div class="task-title"><span class="task-title">${tasks[taskIndex].title}</span></div>
                 <div class="task-description"><span>${tasks[taskIndex].descripton}</span></div>
-                <div class="progress">
+                <div class="progress" id="progress_container_${taskIndex}">
                     <progress id="subtasks_user_${taskIndex}" max="" value="0"></progress>
                         <span class="subtask" id="subtask_text_user_${taskIndex}"><span id="subtask_value_user_${taskIndex}">0</span>/<span id="subtask_max_user_${taskIndex}">0</span><span class="subtask-text">&nbsp;Subtasks</span></span>
                 </div>
@@ -28,7 +28,7 @@ function getSingleTaskAfterEdit(taskIndex) {
                 </div>
                 <div class="task-title"><span class="task-title">${tasks[taskIndex].title}</span></div>
                 <div class="task-description"><span>${tasks[taskIndex].descripton}</span></div>
-                <div class="progress">
+                <div class="progress" id="progress_container_${taskIndex}">
                     <progress id="subtasks_user_${taskIndex}" max="" value="0"></progress>
                         <span id="subtask_text_user_${taskIndex}"><span id="subtask_value_user_${taskIndex}">0</span>/<span id="subtask_max_user_${taskIndex}">0</span> Subtasks</span>
                 </div>
@@ -56,7 +56,7 @@ function getUserListTemplate(indexUsers) {
     return `<label for="user_${indexUsers}" id="user_${indexUsers}_label" class="user-dropmenu" onclick="checkedStyle(${indexUsers})">
                 <div class="user-logo-container">
                     <div id="avatar_user_${indexUsers}" class="user-logo-small" style="background-color:${contactsFirebase[indexUsers].color}">${contactsFirebase[indexUsers].avatar}</div>
-                    <span>${contactsFirebase[indexUsers].username}</span>
+                    <span class="margin-left-24">${contactsFirebase[indexUsers].username}</span>
                 </div>
                 <input id="user_${indexUsers}" type="checkbox" class="checkbox" onclick="addCheckedUsers(${indexUsers})">
                 <label for="user_${indexUsers}"><img src="/assets/img/icon/checkbox.svg" alt=""></label>
