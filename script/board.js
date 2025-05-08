@@ -72,6 +72,7 @@ async function openAddTask(condition = "") {
   }, 1);
   document.getElementById("body").classList.add("overflow-hidden");
   renderUserList();
+  datepicker();
 }
 
 /**

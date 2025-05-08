@@ -76,6 +76,7 @@
     border-radius: 10px;
     border: 1px solid #D1D1D1;
     cursor: pointer;
+    width: 100%;
 }
 
 .addTask-input[type="date"]::-webkit-calendar-picker-indicator {
@@ -330,4 +331,14 @@
     font-size: 12px;
     margin: 0;
     user-select: none;
+}
+
+.custom-calender-icon {
+    position: absolute;
+    right: 21px;
+    top: 13px;
+}
+
+.custom-calender {
+    position: relative;
 }

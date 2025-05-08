@@ -171,7 +171,7 @@ function getPriority() {
 function checkRequiredInputsField() {
     const fields = [
       { id: 'titel_input', errorId: 'error-title' },
-      { id: 'date_input', errorId: 'error-date' },
+      { id: 'date_input_test', errorId: 'error-date' },
       { id: 'category_select_input', errorId: 'error-cat' }
     ];
     removeErrorMsg();
@@ -370,5 +370,17 @@ function checkedSubtaskChecked(taskIndex, subtaskMax) {
     return count;
 }
 
-
-
+function datepicker() {
+    flatpickrInstance = flatpickr("#date_input_test", {
+      locale: "en",
+      dateFormat: "d/m/Y",
+      minDate: "today",
+      onChange: function(selectedDates, dateStr, instance) {
+       
+        const [day, month, year] = dateStr.split("/");
+        const isoDate = `${year}-${month}-${day}`;
+        
+        
+        document.getElementById("date_input").value = isoDate;
+    }});
+  }
