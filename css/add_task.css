@@ -324,3 +324,10 @@
 .z-index-6 {
     z-index: 6;
 }
+
+.user-feedback {
+    color: rgb(136, 136, 136);
+    font-size: 12px;
+    margin: 0;
+    user-select: none;
+}
