@@ -220,24 +220,25 @@ function overlayEditContact(individualUser) {
                 <div class="info-initial info-initial-overlay flex-box-center-center" style="background-color: ${individualUser.color}">${individualUser.username.split(" ").map(n => n[0]).join("")}</div>
                 <form onsubmit="saveContact(${individualUser.id}); return false">
                     <div class="dpl-fl-colu input-container">
-                        <label class="input-field">
+                        <label id="labelContactname" class="input-field">
                             <div class="input-content">
-                                <input id="contactname" type="text" value="${individualUser.username}" placeholder="Name" required>
+                                <input id="contactname" type="text" value="${individualUser.username}" placeholder="Name">
                                 <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
                             </div>
                         </label>
-                        <label class="input-field">
+                        <label id="labelEmail" class="input-field">
                             <div class="input-content">
-                                <input id="email" type="email" value="${individualUser.email}" placeholder="E-mail">
+                                <input id="email" type="text" value="${individualUser.email}" placeholder="E-mail">
                                 <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
                             </div>
                         </label>
-                        <label class="input-field">
+                        <label id="labelPhone" class="input-field">
                             <div class="input-content">
                                 <input id="phone" type="tel" value="${individualUser.phone}" placeholder="Phone">
                                 <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
                             </div>
                         </label>
+                        <p id="poppin" class="poppins opacity"></p>
                     </div>
                     <div class="submit-container">
                         <button class="blue-white-btn" onclick="deleteContact(event, ${individualUser.id}); closeOverlay()">Delete</button>
@@ -291,24 +292,25 @@ function showOverlayAddResp() {
                 <div class="profil-img-container flex-box-center-center profil-img-resp"><img class="profil-img" src="../assets/img/icon/person.svg" alt=""></div>
                 <form onsubmit="createNewContact(); return false">
                     <div class="dpl-fl-colu input-container-resp">
-                        <label class="input-field input-field-resp">
+                        <label id="labelContactname" class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="contactname" type="text" placeholder="Name" required>
+                                <input id="contactname" type="text" placeholder="Name">
                                 <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
                             </div>
                         </label>
-                        <label class="input-field input-field-resp">
+                        <label id="labelEmail" class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="email" type="email" placeholder="E-mail">
+                                <input id="email" type="text" placeholder="E-mail">
                                 <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
                             </div>
                         </label>
-                        <label class="input-field input-field-resp">
+                        <label id="labelPhone" class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="phone" type="tel" placeholder="Phone" pattern="[0-9]+$" inputmode="numeric">
+                                <input id="phone" type="tel" placeholder="Phone" inputmode="numeric">
                                 <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
                             </div>
                         </label>
+                        <p id="poppin" class="poppins opacity"></p>
                     </div>
                     <div class="submit-container submit-container-resp">    
                         <button class="white-blue-btn white-blue-btn-resp">Create contact</button>
@@ -333,24 +335,25 @@ function showOverlayEditResp(individualContact) {
                 <div class="profil-img-container flex-box-center-center profil-img-resp" style="background-color: ${individualContact.color}">${individualContact.username.split(" ").map(n => n[0]).join("")}</div>
                 <form onsubmit="saveContact(${individualContact.id}); return false">
                     <div class="dpl-fl-colu input-container-resp">
-                        <label class="input-field input-field-resp">
+                        <label id="labelContactname" class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="contactname" type="text" value="${individualContact.username}" placeholder="Name" required>
+                                <input id="contactname" type="text" value="${individualContact.username}" placeholder="Name">
                                 <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
                             </div>
                         </label>
-                        <label class="input-field input-field-resp">
+                        <label id="labelEmail" class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="email" type="email" value="${individualContact.email}" placeholder="E-mail">
+                                <input id="email" type="text" value="${individualContact.email}" placeholder="E-mail">
                                 <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
                             </div>
                         </label>
-                        <label class="input-field input-field-resp">
+                        <label id="labelPhone" class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="phone" type="tel" value="${individualContact.phone}" placeholder="Phone" pattern="[0-9]+$" inputmode="numeric">
+                                <input id="phone" type="tel" value="${individualContact.phone}" placeholder="Phone" inputmode="numeric">
                                 <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
                             </div>
                         </label>
+                        <p id="poppin" class="poppins opacity"></p>
                     </div>
                     <div class="submit-container submit-container-resp">
                         <button class="blue-white-btn" onclick="deleteContact(event, ${individualContact.id}); closeOverlay()">Delete</button>

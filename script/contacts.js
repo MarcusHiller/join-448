@@ -267,6 +267,7 @@ function openEditRespContact(id) {
  * @param {string|number} id - Contact ID.
  */
 async function saveContact(id) {
+    if (checkValueInput()) return;
     updateUserData(id);
     await saveContactsToFirebase();
     showRespContactList();
@@ -566,7 +567,7 @@ function checkValues() {
     let {n, e, p} = readsTheInputValues();
     if (checkEmptyInput(n) || !/^[a-zA-ZäöüÄÖÜß\s]+$/.test(n)) return "Contactname";
     if (checkEmptyInput(e) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) return "Email"; 
-    if (!checkEmptyInput(p) && !/^\d+$/.test(p)) return "Phone";
+    if (checkEmptyInput(p) || !/^\d+$/.test(p)) return "Phone";
 }
 
 
