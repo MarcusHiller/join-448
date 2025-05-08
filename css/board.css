@@ -255,6 +255,8 @@ body {
     display: flex;
     justify-content: space-between;
     font-size: 12px;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
 .progress progress::-webkit-progress-bar {
@@ -269,7 +271,6 @@ body {
 
 .progress progress {
     width: 128px;
-    margin-bottom: 24px;
     -webkit-appearance: none;
     appearance: none;
     height: 8px;

@@ -11,7 +11,7 @@
         <div id="addTask_form_container" class="addTask-form-container">
             <div class="addTask-left-side">
                 <label for="titel_input" class="addTask-label">Title<span class="required-star">&#42</span></label>
-                <input id="titel_input" class="addTask-input" placeholder="Enter a title" onkeydown="checkEnter(event)">
+                <input id="titel_input" class="addTask-input" placeholder="Enter a title" onkeydown="checkEnter(event)" maxlength="40" oninput="maxChar()">
                 <p class="error-message" id="error-title">This field is required</p>
                 <label for="description_input" class="addTask-label">Description</label>
                 <textarea id="description_input" class="addTask-textarea" placeholder="Enter a Description"></textarea>
