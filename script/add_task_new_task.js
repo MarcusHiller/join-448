@@ -133,7 +133,7 @@ function checkInputFields() {
             enteredDate.setHours(0, 0, 0, 0);
 
             if (enteredDate < today) {
-                document.getElementById("error-date").innerHTML = "Datum darf nicht in der Vergangenheit liegen.";
+                document.getElementById("error-date").innerHTML = "The selected date cannot be in the past.";
                 error.classList.add('visible');
                 input.classList.add('error-border');
                 hasError = true;
