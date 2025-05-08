@@ -244,8 +244,6 @@ function checkAssignedTo(taskIndex) {
     }
 }
 
-
-
 /**
  * Deletes a task from Firebase and updates the UI.
  * @async
