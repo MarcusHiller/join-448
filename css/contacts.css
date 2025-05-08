@@ -183,6 +183,9 @@ strong {
     font-weight: 400;
     font-size: 20px;
     line-height: 120%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 
@@ -353,4 +356,7 @@ h4 {
     vertical-align: middle;
     color: #007CEE;
     text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
