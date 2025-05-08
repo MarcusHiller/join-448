@@ -26,6 +26,7 @@ if (msg) {
  * Redirects on success or shows an error message on failure.
  */
 async function login() {
+    if (checkValueInput()) return;
     spinningLoaderStart();
     let email = document.getElementById('email');
     let passwd = document.getElementById('passwd');
@@ -53,7 +54,7 @@ async function login() {
 function displayErrorLogin() {
     document.getElementById('labelPasswd').classList.add('input-field-error');
     info.classList.remove('opacity');
-    info.innerHTML = "Check your e-mail and password. Please try again.";
+    info.innerHTML = "Check your e-mail and password.<br> Please try again.";
 }
 
 /**
@@ -116,4 +117,59 @@ function togglePasswordVisibility() {
  */
 function usrerIsLoggedIn() {
     localStorage.setItem("loggedIn", "true");
+}
+
+
+function inputError(inputLabel) {
+    let info = document.getElementById('poppin');
+    info.classList.remove('opacity');
+    info.innerHTML = errorMessage(inputLabel);
+    errorInputField(inputLabel);
+}
+
+
+function errorMessage(key) {
+    const messages = {
+        "Email": "Please check your email entry!",
+        "Passwd": "Please use 6 - 15 characters!"
+    };
+    return messages[key] || "Unknown error!";
+}
+
+
+function errorInputField(inputLabel) {
+    const label = document.getElementById('label' + inputLabel);
+    if (label) {
+        label.classList.add('input-field-error');
+    }
+}
+
+
+function checkEmptyInput(value) {
+    return value.trim() === "";
+}
+
+
+function readsTheInputValues() {
+    return {
+        email: document.getElementById('email').value,
+        passwd: document.getElementById('passwd').value
+    }; 
+}
+
+
+function checkValues() {
+    let {email, passwd} = readsTheInputValues();
+    if (checkEmptyInput(email) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "Email"; 
+    if (checkEmptyInput(passwd) || !/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,15}$/.test(passwd)) return "Passwd";
+}
+
+
+function checkValueInput() {
+    let input = checkValues();
+    if (input) {
+        inputError(input);
+        return true
+    }
+    return false;
 }

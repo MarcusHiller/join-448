@@ -24,41 +24,37 @@
             <a href="../index.html"><img class="img-back" src="../assets/img/icon/arrow-left-line.svg" alt=""></a>
             <h2>Sign up</h2>
             <div class="dpl-fl-colu input-container-sgup">
-                <label class="input-field">
+                <label id="labelUsername" class="input-field">
                     <div class="input-content">
-                        <input type="name" placeholder="Name" id="username" required>
+                        <input type="name" placeholder="Name" id="username">
                         <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
                     </div>
                 </label>
                 <label class="input-field" id="labelEmailSignUp">
                     <div class="input-content">
-                        <input type="email" placeholder="E-mail" id="emailSignUp" required>
+                        <input type="text" placeholder="E-mail" id="emailSignUp">
                         <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
                     </div>
                 </label>
-                <label class="input-field">
+                <label id="labelPasswordReg" class="input-field">
                     <div class="input-content">
-                        <input type="password" placeholder="Password" id="passwordReg" minlength="6" required
-                            oninput="updateSignupIcon('passwordReg')">
-                        <img class="input-icon" id="icon-passwordReg" src="../assets/img/icon/lock.svg" alt=""
-                            onclick="toggleSignupVisibility('passwordReg')">
+                        <input type="password" placeholder="Password" id="passwordReg" oninput="updateSignupIcon('passwordReg')">
+                        <img class="input-icon" id="icon-passwordReg" src="../assets/img/icon/lock.svg" alt="" onclick="toggleSignupVisibility('passwordReg')">
                     </div>
                 </label>
                 <div class="dpl-fl-colu gap-small">
-                    <label class="input-field" id="labelPasswdConf">
+                    <label id="labelPasswdConf" class="input-field">
                         <div class="input-content">
-                            <input type="password" placeholder="Confirm Password" id="passwordConf" minlength="6"
-                                required oninput="updateSignupIcon('passwordConf')">
-                            <img class="input-icon" id="icon-passwordConf" src="../assets/img/icon/lock.svg" alt=""
-                                onclick="toggleSignupVisibility('passwordConf')">
+                            <input type="password" placeholder="Confirm Password" id="passwordConf" oninput="updateSignupIcon('passwordConf')">
+                            <img class="input-icon" id="icon-passwordConf" src="../assets/img/icon/lock.svg" alt="" onclick="toggleSignupVisibility('passwordConf')">
                         </div>
                     </label>
                     <p id="errorPoppin" class="poppins opacity">Ups! your password don't match.</p>
                 </div>
-                <label class="input-chebox" onclick="toggleCheckbox(event)" onmouseover="hoverImage(true, event)"
+                <label id="labelCheckbox" class="input-chebox" onclick="toggleCheckbox(event)" onmouseover="hoverImage(true, event)"
                     onmouseout="hoverImage(false, event)">
                     <img src="../assets/img/icon/rectangle.svg" alt="Unchecked" id="checkboxImg">
-                    <input type="checkbox" id="checkbox" required>
+                    <input type="checkbox" id="checkbox">
                     <p>I accept the <span>Privacy policy</span></p>
                 </label>
             </div>

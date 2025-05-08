@@ -20,6 +20,7 @@ let textEmailError = "The e-mail already exists. Please select another e-mail.";
  * Adds a new user from the sign-up form, saves to Firebase, and shows success overlay.
  */
 async function addUser() {
+    if (checkValueInput()) return;
     spinningLoaderStart();
     const userInput = getFormElements();
     if (!checkSamePasswd(userInput.password.value, userInput.confirm.value)) return;
@@ -187,3 +188,5 @@ function showOverlaySuccessful() {
 function resetUserArray() {
     userFirebase = [];
 }
+
+
