@@ -139,9 +139,3 @@ function checkValueInput() {
     }
     return false;
 }
-
-
-function datasetauslesen(params) {
-    let boolen =  document.getElementById('checkbox').dataset.checked;
-    console.log(boolen);
-}
