@@ -225,6 +225,7 @@ function checkPrio(taskIndex) {
  * @param {number} taskIndex - Index of the task.
  */
 function checkAssignedTo(taskIndex) {
+    userCounter = 0;
     let checkedUsers = tasks[taskIndex].assignedTo;
     let ids = [];
 
@@ -242,8 +243,6 @@ function checkAssignedTo(taskIndex) {
         checkedStyle(userIndex);
     }
 }
-
-
 
 /**
  * Deletes a task from Firebase and updates the UI.

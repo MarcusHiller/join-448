@@ -92,22 +92,36 @@ function closeAddTask() {
  */
 function searchTask() {
   const inputValue = document.getElementById("search_task").value.toLowerCase();
+  let matchFound = false;
 
   for (let indexTask = 0; indexTask < tasks.length; indexTask++) {
     const task = document.getElementById("task_index_" + indexTask);
     if (!task) continue;
+
     const title = tasks[indexTask].title.toLowerCase();
     const descripton = tasks[indexTask].descripton.toLowerCase();
+
     if (inputValue === "") {
       task.classList.remove("d_none");
+      matchFound = true;
     } else {
       const isMatch = title.includes(inputValue) || descripton.includes(inputValue);
       task.classList.toggle("d_none", !isMatch);
+      if (isMatch) matchFound = true;
     }
   }
+
+  // Feedback in #no_task_feedback einfügen
+  const feedbackContainer = document.getElementById("no_task_feedback");
+  feedbackContainer.innerHTML = ""; // vorherigen Text löschen
+
+  if (!matchFound && inputValue !== "") {
+    const msg = createFeedback(`No task found for: "${inputValue}"`, "absolute");
+    feedbackContainer.appendChild(msg);
+  }
+
   renderEmptyColumn();
 }
-
 
 /**
  * Renders all tasks into their corresponding status columns.
@@ -286,72 +300,33 @@ function checkSubtaskLenght(taskIndex, subtaskMax) {
 function renderAssignedTo(taskIndex) {
   let userListRef = document.getElementById("task_users_" + taskIndex);
   let userList = tasks[taskIndex].assignedTo;
-  userListRef.innerHTML = "";
+  userCounterFromTask = userList.length
 
-  if (userList.length) {
+  if (userCounterFromTask <= 4 && userCounterFromTask !=0 ) {
     for (let indexUser = 0; indexUser < userList.length; indexUser++) {
       userListRef.innerHTML += getUserInTaskTemplate(indexUser, userList);
     }
+  } else if (userCounterFromTask > 4) {
+    for (let indexUser = 0; indexUser < 3; indexUser++) {
+      userListRef.innerHTML += getUserInTaskTemplate(indexUser, userList);
+    }
+    renderCounterElement(userListRef, userCounterFromTask);
   } else {
     userListRef.innerHTML = "<span style='opacity: 0.2'>No User added</span>";
   }
   return userListRef.innerHTML;
 }
 
-//  Get Data //
-//ANCHOR - Get Data
 
-/**
- * Loads tasks from server, parses them, and updates the task list.
- * @async
- * @param {string} [path=""] - API endpoint path for tasks.
- */
-async function getDataFromServer(path = "") {
-  await loadContactsFromFirebase();
-  let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json();
-  let tasksKeysArray = Object.keys(responseToJson);
-
-  for (let index = 0; index < tasksKeysArray.length; index++) {
-    tasks.push(firbaseObject(index, responseToJson, tasksKeysArray));
-  }
-  renderTaskInToColumn();
-  await deleteNotFoundedUserFromTask();
+function renderCounterElement(userListRef, userCounterFromTask) {
+  const remaining = userCounterFromTask - 3;
+  const counterDiv = document.createElement("div");
+  counterDiv.classList.add("user");
+  counterDiv.innerHTML = `<span>+${remaining}</span>`;
+  counterDiv.style.color = "rgb(121, 121, 121)";
+  userListRef.appendChild(counterDiv);
 }
 
-/**
- * Constructs a task object from Firebase response data.
- * @param {number} index - Task index.
- * @param {Object} responseToJson - Parsed Firebase response.
- * @param {Array<string>} tasksKeysArray - Array of task keys.
- * @returns {Object} The constructed task object.
- */
-function firbaseObject(index, responseToJson, tasksKeysArray) {
-  return {
-    title: responseToJson[tasksKeysArray[index]].title,
-    descripton: responseToJson[tasksKeysArray[index]].descripton,
-    date: responseToJson[tasksKeysArray[index]].date,
-    category: responseToJson[tasksKeysArray[index]].category,
-    priority: responseToJson[tasksKeysArray[index]].priority,
-    subtask: arraySubtasks(index, responseToJson, tasksKeysArray),
-    assignedTo: arrayAssignedTo(index, responseToJson, tasksKeysArray),
-    id: tasksKeysArray[index],
-    condition: responseToJson[tasksKeysArray[index]].condition
-  };
-}
-
-/**
- * Deletes user entries from Firebase that no longer exist locally.
- * @async
- */
-async function deleteNotFoundedUserFromTask() {
-  for (let del of usersToDeleteFromFirebase) {
-    await fetch(`${BASE_URL}/join/tasks/${del.taskKey}/assignedTo/${del.userKey}.json`, {
-      method: "DELETE"
-    });
-    console.log(`Gelöscht nach dem Laden: ${del.username} (Key: ${del.userKey})`);
-  }
-}
 
 /**
  * Extracts subtask data from Firebase task object.

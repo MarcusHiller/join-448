@@ -48,7 +48,13 @@
     }
 
     .progress progress {
-        width: 100px;
+        width: 90px;
+    }
+}
+
+@media (max-width: 940px) {
+    .content {
+        padding: 20px 10px;
     }
 }
 

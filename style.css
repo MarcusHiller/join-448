@@ -3,6 +3,10 @@ body {
   overflow-x: hidden;
 }
 
+html {
+  background-color: #F6F7F8;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -67,8 +71,6 @@ header {
   align-items: center;
   box-shadow: 0px 1px 5px #80808069;
   z-index: 30;
-  /* overflow-x: hidden; */
-  max-width: 1920px;
   box-sizing: border-box;
   font-family: Inter;
 }

@@ -28,7 +28,7 @@
 }
 
 .overlay-container-sliding {
-    transform: translateX(100vh);
+    transform: translateX(150vh);
     transition-duration: 0.1s;
 }
 
@@ -188,8 +188,9 @@
     cursor: pointer;
     user-select: none;
     color: #2A3647;
- 
-
+    overflow-wrap: break-word;
+    overflow: hidden;
+    text-wrap: wrap;
 }
 
 .subtask-img {

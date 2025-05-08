@@ -119,3 +119,57 @@ async function patchDataToServer(path = "", data) {
     console.error('There was an error updating the data:', error);
   }
 }
+
+//  Get Data //
+//ANCHOR - Get Data
+
+/**
+ * Loads tasks from server, parses them, and updates the task list.
+ * @async
+ * @param {string} [path=""] - API endpoint path for tasks.
+ */
+async function getDataFromServer(path = "") {
+  await loadContactsFromFirebase();
+  let response = await fetch(BASE_URL + path + ".json");
+  let responseToJson = await response.json();
+  let tasksKeysArray = Object.keys(responseToJson);
+
+  for (let index = 0; index < tasksKeysArray.length; index++) {
+    tasks.push(firbaseObject(index, responseToJson, tasksKeysArray));
+  }
+  renderTaskInToColumn();
+  await deleteNotFoundedUserFromTask();
+}
+
+/**
+ * Constructs a task object from Firebase response data.
+ * @param {number} index - Task index.
+ * @param {Object} responseToJson - Parsed Firebase response.
+ * @param {Array<string>} tasksKeysArray - Array of task keys.
+ * @returns {Object} The constructed task object.
+ */
+function firbaseObject(index, responseToJson, tasksKeysArray) {
+  return {
+    title: responseToJson[tasksKeysArray[index]].title,
+    descripton: responseToJson[tasksKeysArray[index]].descripton,
+    date: responseToJson[tasksKeysArray[index]].date,
+    category: responseToJson[tasksKeysArray[index]].category,
+    priority: responseToJson[tasksKeysArray[index]].priority,
+    subtask: arraySubtasks(index, responseToJson, tasksKeysArray),
+    assignedTo: arrayAssignedTo(index, responseToJson, tasksKeysArray),
+    id: tasksKeysArray[index],
+    condition: responseToJson[tasksKeysArray[index]].condition
+  };
+}
+
+/**
+ * Deletes user entries from Firebase that no longer exist locally.
+ * @async
+ */
+async function deleteNotFoundedUserFromTask() {
+  for (let del of usersToDeleteFromFirebase) {
+    await fetch(`${BASE_URL}/join/tasks/${del.taskKey}/assignedTo/${del.userKey}.json`, {
+      method: "DELETE"
+    });
+  }
+}
