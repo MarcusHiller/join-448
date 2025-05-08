@@ -17,7 +17,12 @@
                 <label for="description_input" class="addTask-label">Description</label>
                 <textarea id="description_input" class="addTask-textarea" placeholder="Enter a Description"></textarea>
                 <label for="date_input" class="addTask-label">Due date<span class="required-star">&#42</span></label>
-                <input id="date_input" class="addTask-input" lang="en" type="date" onkeydown="checkEnter(event)" onclick="showDateToday()">
+                <input id="date_input" class="d_none" lang="en" type="date">
+                <div class="custom-calender">
+                    <input type="text" class="addTask-input" placeholder="dd/mm/yyyy" id="date_input_test">
+                    <img class="custom-calender-icon" src="/assets/img/icon/calendar.svg" alt="">
+                </div>
+                
                 <p class="error-message" id="error-date">This field is required</p>
             </div>
             <div id="spaceholder" class="placeholder-addTask"></div>

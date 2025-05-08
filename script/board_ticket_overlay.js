@@ -1,3 +1,5 @@
+let flatpickrInstance;
+
 /**
  * Opens the task overlay for the given task.
  * @param {number} taskIndex - Index of the task to display.
@@ -19,12 +21,13 @@ function openOverlayTask(taskIndex) {
 function creatOverlayFromTask(taskIndex) {
     document.getElementById("overlay_titel").innerHTML = tasks[taskIndex].title;
     document.getElementById("overlay_description").innerHTML = tasks[taskIndex].descripton;
-    document.getElementById("overlay_date").innerHTML = tasks[taskIndex].date;
+    document.getElementById("overlay_date").innerHTML = dateForm(taskIndex);
     renderUserIntoTaskOverlay(taskIndex);
     renderSubtaskIntoTaskOverlay(taskIndex);
     renderPrioIntoTaskOverlay(taskIndex);
     renderCategoryIntoTaskOverlay(taskIndex);
     renderButtons(taskIndex);
+
 }
 
 /**
@@ -133,6 +136,7 @@ async function editTaskOnOverlay(taskIndex) {
     await getEditTaskHTML();
     fitEditTaskToContainer();
     renderUserList();
+    datepicker();
     currentInputFieldvalue(taskIndex);
 }
 
@@ -158,13 +162,23 @@ function fitEditTaskToContainer() {
 function currentInputFieldvalue(taskIndex) {
     document.getElementById("titel_input").value = tasks[taskIndex].title;
     document.getElementById("description_input").value = tasks[taskIndex].descripton;
-    document.getElementById("date_input").value = tasks[taskIndex].date;
+    document.getElementById("date_input").value = getDate(taskIndex);
     checkPrio(taskIndex);
     checkAssignedTo(taskIndex);
     checkCategory(taskIndex);
     checkSubtasks(taskIndex);
     renderEditButton(taskIndex);
 }
+
+function getDate(taskIndex) {
+
+    const defaultDate = tasks[taskIndex].date;
+
+    if (flatpickrInstance) {
+        flatpickrInstance.setDate(new Date(defaultDate));
+    }
+}
+
 
 /**
  * Configures the form to handle task editing instead of adding.
@@ -280,4 +294,14 @@ function successfulTaskDeleted() {
  */
 function deleteTaskFromTaskArray(taskIndex) {
     tasks.splice(taskIndex, 1);
+}
+
+function dateForm(taskIndex) {
+    let firebaseDate = tasks[taskIndex].date
+    const [year, month, day] = firebaseDate.split("-");
+
+    const timeEl = document.getElementById("overlay_date");
+    timeEl.setAttribute("datetime", firebaseDate); // maschinenlesbar
+
+    return timeEl.textContent = `${day}/${month}/${year}`;
 }

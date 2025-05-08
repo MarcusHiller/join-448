@@ -81,16 +81,6 @@ function checkUserFound(input, userFoundCounter, list) {
     }
   }
   
-  /**
-   * Sets the minimum selectable date of the input field with ID 'date_input' to today's date.
-   * 
-   * This prevents users from selecting a past date in the date picker.
-   */
-  function showDateToday() {
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('date_input').setAttribute('min', today);
-  }
-  
   
   function maxChar() {
     let input = document.getElementById("titel_input");
