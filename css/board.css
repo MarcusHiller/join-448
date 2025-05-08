@@ -234,6 +234,7 @@ body {
 
 .task-title span {
     font-weight: bold;
+    word-break: break-word;
 
 }
 

@@ -350,6 +350,7 @@ function clearAddTaskField() {
   unsetCheckbox();
   document.getElementById("user_logo_after_seleceted").innerHTML = '<div class="user-counter d_none" id="user_counter"></div>';
   document.getElementById("category_select_input").value = "";
+  document.getElementById("error-long").classList.add("d_none");
   clearSubtaskInput();
   successfulClearTask();
   userFeedback();
@@ -368,6 +369,7 @@ function clearAddTaskAfterAdd() {
   unsetCheckbox();
   document.getElementById("user_logo_after_seleceted").innerHTML = '<div class="user-counter d_none" id="user_counter"></div>';
   document.getElementById("category_select_input").value = "";
+  document.getElementById("error-long").classList.add("d_none");
   clearSubtaskInput();
   renderUserList();
 }

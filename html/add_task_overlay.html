@@ -12,11 +12,12 @@
             <div class="addTask-left-side">
                 <label for="titel_input" class="addTask-label">Title<span class="required-star">&#42</span></label>
                 <input id="titel_input" class="addTask-input" placeholder="Enter a title" onkeydown="checkEnter(event)" maxlength="40" oninput="maxChar()">
+                <p class="user-feedback d_none" id="error-long">You have reached the maximum title length! (Max 40)</p>
                 <p class="error-message" id="error-title">This field is required</p>
                 <label for="description_input" class="addTask-label">Description</label>
                 <textarea id="description_input" class="addTask-textarea" placeholder="Enter a Description"></textarea>
                 <label for="date_input" class="addTask-label">Due date<span class="required-star">&#42</span></label>
-                <input id="date_input" class="addTask-input" type="date" onkeydown="checkEnter(event)" onclick="showDateToday()">
+                <input id="date_input" class="addTask-input" lang="en" type="date" onkeydown="checkEnter(event)" onclick="showDateToday()">
                 <p class="error-message" id="error-date">This field is required</p>
             </div>
             <div id="spaceholder" class="placeholder-addTask"></div>
