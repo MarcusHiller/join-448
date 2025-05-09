@@ -27,23 +27,21 @@ main,
 }
 
 /* Policy Pages */
-.policy-content,
 .policy-container,
 .legal-container,
 .help-container {
     display: flex;
     flex-direction: column;
-    padding: 32px;
     box-sizing: border-box;
     max-width: 1016px;
     flex: 1;
     height: 100%;
     overflow: hidden;
+    padding: 32px 24px;
 }
 
 .policy-container,
 .legal-container {
-    padding: 32px 24px;
     align-items: flex-start;
     text-align: left;
 }
