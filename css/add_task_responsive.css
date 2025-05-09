@@ -1,3 +1,12 @@
+.addTask-form-container {
+    height: unset !important;
+}
+
+.subtasks-container {
+    max-height: unset !important;
+}
+
+
 @media(max-width: 1196px) {
     .add-container {
         margin: 40px;
@@ -40,6 +49,10 @@
 
     .placeholder-addTask {
         margin: 0 12px;
+    }
+
+    .assigned-select-input {
+        font-size: 16px !important;
     }
 }
 
