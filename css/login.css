@@ -221,9 +221,6 @@ h2::after {
 
 .info-pri-pol-container {
     display: flex;
-    gap: 10px;
-    width: 246px;
-    height: 35px;
     bottom: 30px;
     position: absolute;
 }
@@ -401,7 +398,10 @@ h2::after {
     }
 
     .info-pri-pol-container {
-        bottom: 25px;
+        bottom: 5px;
+    }
+    h2::after{
+        width: 88px;
     }
 }
 

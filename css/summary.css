@@ -5,18 +5,22 @@
 
 body,
 html {
-    font-family: Inter;
-    background-color: #F6F7F8;
-    width: 100%;
-    height: 100vh;
+body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Inter, sans-serif;
+        background-color: #f6f7f8;
+        overflow-x: hidden;
+        min-height: 100vh;
+    }
 }
 
 .dashboard-container {
     display: flex;
     flex-direction: column;
     max-width: 1920px;
-    margin: 0 auto;
-    padding-left: 25px;
+    padding-left: 25px; 
 }
 
 .dashboard-header {
@@ -76,8 +80,6 @@ html {
     align-items: center;
     text-align: center;
     flex-direction: column;
-    height: 100vh;
-    margin-top: 164px;
 }
 
 .greeting-repeat {
@@ -85,6 +87,8 @@ html {
     align-items: center;
     text-align: center;
     flex-direction: column;
+    justify-content: center;
+    padding-left: 40px;
 }
 
 .greeting-name {
@@ -310,19 +314,14 @@ html {
 }
 
 @media (max-width: 990px) {
-    .dashboard-container{
-        padding: 0;
+    .greeting-text-repeat{
+        display: none;
     }
-    
     .dashboard-header {
         padding-top: 25px;
         display: flex;
         justify-content: flex-start;
         width: 100%;
-    }
-
-    .greeting-repeat {
-        display: none;
     }
 
     .metrics-grid {
@@ -333,11 +332,6 @@ html {
 
     .content-metric {
         margin-top: 0px;
-    }
-
-    .content {
-        display: flex;
-        padding: 0px 16px;
     }
 
     .metrics-grid.show-mobile {
@@ -448,6 +442,7 @@ html {
     }
 }
 
+
 @media (max-width: 400px) {
     .metrics-grid.show-mobile {
         width: 100%;
@@ -526,4 +521,78 @@ html {
         width: 96px;
         height: 96px;
     }
+}
+
+@keyframes fadeInGreeting {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOutGreeting {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+/* Animation für mobile Begrüßung */
+.greeting {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #f6f7f8;
+    z-index: 999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.greeting.fade-out {
+    animation: fadeOut 0.6s ease-in forwards;
+}
+
+@keyframes fadeInGreeting {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOutGreeting {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+.greeting.animate-in {
+    animation: fadeInGreeting 0.5s ease-out forwards;
+}
+
+.greeting.animate-out {
+    animation: fadeOutGreeting 0.4s ease-in forwards;
 }

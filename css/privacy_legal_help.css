@@ -35,8 +35,7 @@ main,
     flex-direction: column;
     padding: 32px;
     box-sizing: border-box;
-    max-width: 960px;
-    margin: 0 auto;
+    max-width: 1016px;
     flex: 1;
     height: 100%;
     overflow: hidden;
@@ -45,7 +44,6 @@ main,
 .policy-container,
 .legal-container {
     padding: 32px 24px;
-    padding-bottom: 120px;
     align-items: flex-start;
     text-align: left;
 }
@@ -81,7 +79,6 @@ main,
     flex: 1;
     overflow-y: auto;
     padding-right: 16px;
-    padding-bottom: 120px;
 }
 
 .font-strong {
@@ -236,6 +233,11 @@ a:hover {
     .legal-container,
     .help-container {
         padding-bottom: 160px;
+    }
+
+    .scrollable-content,
+    .help-content{
+        padding-bottom: 120px;
     }
 }
 
