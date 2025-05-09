@@ -173,10 +173,17 @@ function currentInputFieldvalue(taskIndex) {
 function getDate(taskIndex) {
 
     const defaultDate = tasks[taskIndex].date;
+    let today = new Date();
+    const formattedToday = today.toISOString().split("T")[0];
 
     if (flatpickrInstance) {
         flatpickrInstance.setDate(new Date(defaultDate));
     }
+
+    if (formattedToday > defaultDate) {
+        document.getElementById("expired_date").classList.remove("d_none");
+    }
+    
 }
 
 

@@ -380,8 +380,10 @@ function datepicker() {
        
         const [day, month, year] = dateStr.split("/");
         const isoDate = `${year}-${month}-${day}`;
-        
-        
+        let expiredDate = document.getElementById("expired_date");
+        if (expiredDate) {
+            expiredDate.classList.add("d_none");
+        }
         document.getElementById("date_input").value = isoDate;
     }});
   }
