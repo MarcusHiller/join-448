@@ -65,7 +65,7 @@
 }
 
 .task-cat-custom {
-    margin:0 !important;
+    margin: 0 !important;
     height: 36px;
     font-size: 23px;
 }
@@ -144,7 +144,8 @@
     background-color: white;
 }
 
-.delete-task, .edit-task {
+.delete-task,
+.edit-task {
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -152,11 +153,12 @@
     color: #2A3647;
 }
 
-.delete-task:hover, .edit-task:hover {
+.delete-task:hover,
+.edit-task:hover {
     filter: brightness(0) saturate(100%) invert(57%) sepia(96%) saturate(1284%) hue-rotate(165deg) brightness(93%) contrast(89%);
 }
 
-.edit-task-section img{
+.edit-task-section img {
     width: 16px;
     height: 16px;
     margin-right: 8px;
@@ -182,7 +184,7 @@
 
 .task_overlay_prio {
     display: flex;
-    
+
 }
 
 .subtask-label {
@@ -222,19 +224,9 @@
     right: 0;
 }
 
-@media(max-width: 900px) {
-    .overlay-container {
-        width: 300px;
-        border-radius: 20px;
-        padding: 24px 20px;
-    
-    }
+@media(max-width: 600px) {
 
-    .overlay-titel h2 {
-        font-size: 40px;
-        margin: 12px 0;
     
-    }
 
     .task-cat-custom {
         font-size: 16px;
@@ -245,7 +237,7 @@
         font-size: 16px !important;
     }
 
-    .create-task-button{
+    .create-task-button {
         padding: 8px !important;
         height: 36px !important;
     }
@@ -260,7 +252,18 @@
     }
 
     .overlay-titel h2 {
-        font-size: 20px;
+        font-size: 40px;
+        margin: 12px 0;
     }
 
+
+
+    /* .overlay-titel h2 {
+        font-size: 20px;
+    } */
+
+}
+
+@media (max-width: 600px) {
+    
 }

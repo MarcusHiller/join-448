@@ -375,6 +375,7 @@ function datepicker() {
       locale: "en",
       dateFormat: "d/m/Y",
       minDate: "today",
+      disableMobile: true,
       onChange: function(selectedDates, dateStr, instance) {
        
         const [day, month, year] = dateStr.split("/");
