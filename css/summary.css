@@ -335,7 +335,7 @@ html {
     justify-content: center;
     text-align: center;
 }
-@media (max-width: 1120px){
+@media (max-width: 1215px){
     .greeting-repeat {
             display: none;
         }
