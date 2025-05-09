@@ -282,6 +282,10 @@ header {
   border: 1px solid red !important;
 }
 
+.correct-input {
+  border: 1px solid green !important;
+}
+
 .poppins {
   color: red;
   font-size: 16px;

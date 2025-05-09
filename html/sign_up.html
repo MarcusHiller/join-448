@@ -26,26 +26,26 @@
             <div class="dpl-fl-colu input-container-sgup">
                 <label id="labelUsername" class="input-field">
                     <div class="input-content">
-                        <input type="name" placeholder="Name" id="username">
+                        <input type="name" placeholder="Name" id="username" onkeyup="correctedInput('labelUsername', 'username')" onblur="finishTheCorrection('labelUsername')">
                         <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
                     </div>
                 </label>
-                <label class="input-field" id="labelEmailSignUp">
+                <label id="labelEmailSignUp" class="input-field" id="labelEmailSignUp">
                     <div class="input-content">
-                        <input type="text" placeholder="E-mail" id="emailSignUp">
+                        <input type="text" placeholder="E-mail" id="emailSignUp" onkeyup="correctedInput('labelEmailSignUp', 'emailSignUp')" onblur="finishTheCorrection('labelEmailSignUp')">
                         <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
                     </div>
                 </label>
                 <label id="labelPasswordReg" class="input-field">
                     <div class="input-content">
-                        <input type="password" placeholder="Password" id="passwordReg" oninput="updateSignupIcon('passwordReg')">
+                        <input type="password" placeholder="Password" id="passwordReg" oninput="updateSignupIcon('passwordReg')" onkeyup="correctedInput('labelPasswordReg', 'passwordReg')" onblur="finishTheCorrection('labelPasswordReg')">
                         <img class="input-icon" id="icon-passwordReg" src="../assets/img/icon/lock.svg" alt="" onclick="toggleSignupVisibility('passwordReg')">
                     </div>
                 </label>
                 <div class="dpl-fl-colu gap-small">
                     <label id="labelPasswdConf" class="input-field">
                         <div class="input-content">
-                            <input type="password" placeholder="Confirm Password" id="passwordConf" oninput="updateSignupIcon('passwordConf')">
+                            <input type="password" placeholder="Confirm Password" id="passwordConf" oninput="updateSignupIcon('passwordConf')" onkeyup="correctedInput('labelPasswdConf', 'passwordConf')" onblur="finishTheCorrection('labelPasswdConf')">
                             <img class="input-icon" id="icon-passwordConf" src="../assets/img/icon/lock.svg" alt="" onclick="toggleSignupVisibility('passwordConf')">
                         </div>
                     </label>

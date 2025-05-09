@@ -83,11 +83,11 @@ function createUserForContacts(n, e) {
 function checkSamePasswd(a, b) {
     let labelPassw = document.getElementById('labelPasswdConf');
     let poppinError = document.getElementById('errorPoppin');
-    labelPassw.classList.remove('input-field-error');
+    labelPassw.classList.remove('error-border');
     poppinError.classList.add('opacity');
     if (a !== b) {
         spinningLoaderEnd();
-        labelPassw.classList.add('input-field-error');
+        labelPassw.classList.add('error-border');
         poppinError.classList.remove('opacity');
         poppinError.innerHTML = textPasswdError;
         return false;
@@ -117,7 +117,7 @@ async function checkUserExists(email) {
  * Clears previous email validation errors.
  */
 function prepareEmailValidationUI() {
-    document.getElementById('labelEmailSignUp').classList.remove('input-field-error');
+    document.getElementById('labelEmailSignUp').classList.remove('error-border');
     document.getElementById('errorPoppin').classList.add('opacity');
 }
 
@@ -154,7 +154,7 @@ function checkIfEmailExists(data, email) {
 function showEmailExistsError() {
     const label = document.getElementById('labelEmailSignUp');
     const errorMsg = document.getElementById('errorPoppin');
-    label.classList.add('input-field-error');
+    label.classList.add('error-border');
     errorMsg.classList.remove('opacity');
     errorMsg.innerHTML = textEmailError;
 }
