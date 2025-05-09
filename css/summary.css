@@ -108,7 +108,7 @@ html {
     text-align: center;
     flex-direction: column;
     justify-content: center;
-    padding-left: 40px;
+    width: 385px;
 }
 
 .greeting-name {
@@ -335,12 +335,13 @@ html {
     justify-content: center;
     text-align: center;
 }
+@media (max-width: 1120px){
+    .greeting-repeat {
+            display: none;
+        }
+}
 
 @media (max-width: 990px) {
-    .greeting-text-repeat {
-        display: none;
-    }
-
     .dashboard-header {
         padding-top: 25px;
         display: flex;
@@ -460,10 +461,9 @@ html {
         font-size: 36px;
         font-weight: 400;
     }
-
-    .greeting-name {
-        font-size: 47px;
-    }
+        .greeting-name {
+            font-size: 47px;
+        }
 }
 
 @media (max-width: 400px) {
