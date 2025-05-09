@@ -8,13 +8,13 @@ let userFirebase = [];
  * Password mismatch error text.
  * @type {string}
  */
-let textPasswdError = "Ups! your password don't match.";
+let textPasswdError = "Ups! your password don't match!";
 
 /**
  * Email already exists error text.
  * @type {string}
  */
-let textEmailError = "The e-mail already exists. Please select another e-mail.";
+let textEmailError = "The e-mail already exists!";
 
 /**
  * Adds a new user from the sign-up form, saves to Firebase, and shows success overlay.
