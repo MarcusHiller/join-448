@@ -120,6 +120,11 @@ function usrerIsLoggedIn() {
 }
 
 
+/**
+ * Displays an error message and highlights the input field in error.
+ * 
+ * @param {string} inputLabel - The key of the input field with the error.
+ */
 function inputError(inputLabel) {
     let info = document.getElementById('poppin');
     info.classList.remove('opacity');
@@ -127,7 +132,12 @@ function inputError(inputLabel) {
     errorInputField(inputLabel);
 }
 
-
+/**
+ * Returns a predefined error message for a given input key.
+ * 
+ * @param {string} key - Identifier for the input field (e.g., "Email", "Passwd").
+ * @returns {string} - Corresponding error message.
+ */
 function errorMessage(key) {
     const messages = {
         "Email": "Please check your email entry!",
@@ -136,7 +146,11 @@ function errorMessage(key) {
     return messages[key] || "Unknown error!";
 }
 
-
+/**
+ * Applies an error class to the label of the faulty input field.
+ * 
+ * @param {string} inputLabel - Identifier of the input field.
+ */
 function errorInputField(inputLabel) {
     const label = document.getElementById('label' + inputLabel);
     if (label) {
@@ -144,32 +158,49 @@ function errorInputField(inputLabel) {
     }
 }
 
-
+/**
+ * Checks whether the given input value is empty after trimming whitespace.
+ * 
+ * @param {string} value - Input value to validate.
+ * @returns {boolean} - True if empty, otherwise false.
+ */
 function checkEmptyInput(value) {
     return value.trim() === "";
 }
 
-
+/**
+ * Collects and returns input values from the login form.
+ * 
+ * @returns {Object} - Object with keys `email` and `passwd`.
+ */
 function readsTheInputValues() {
     return {
         email: document.getElementById('email').value,
         passwd: document.getElementById('passwd').value
-    }; 
+    };
 }
 
-
+/**
+ * Validates input values for email and password formats.
+ * 
+ * @returns {string|undefined} - Returns input key if invalid, otherwise undefined.
+ */
 function checkValues() {
-    let {email, passwd} = readsTheInputValues();
-    if (checkEmptyInput(email) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "Email"; 
+    let { email, passwd } = readsTheInputValues();
+    if (checkEmptyInput(email) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "Email";
     if (checkEmptyInput(passwd) || !/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,15}$/.test(passwd)) return "Passwd";
 }
 
-
+/**
+ * Initiates validation and error handling for login form inputs.
+ * 
+ * @returns {boolean} - True if error found, false if all inputs are valid.
+ */
 function checkValueInput() {
     let input = checkValues();
     if (input) {
         inputError(input);
-        return true
+        return true;
     }
     return false;
 }

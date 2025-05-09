@@ -13,20 +13,19 @@
     <script src="../script.js" defer></script>
 </head>
 
-<body onload="init('summary_page'); loadSummaryData(); isUserLoged();">
+<body onload="init('summary_page'); isUserLoged();">
 <div id="rotate-warning-placeholder"></div>
     <nav id="navbar-section" class="navbar-section"></nav>
     <main>
-        <div class="greeting" id="greetingMobile">
-            <div class="greeting-text">
-                <span class="greeting-name" id="greetingUser"></span>
-            </div>
-        </div>
-
         <header id="header-placeholder"></header>
         <div class="content">
-            <div class="dashboard-container">
-                <div class="dashboard-header">
+            <div class="greeting" id="greetingMobile">
+                <div class="greeting-text">
+                    <span class="greeting-name" id="greetingUser"></span>
+                </div>
+            </div>
+            <div class="dashboard-container hidden">
+                <div class="dashboard-header hidden ">
                     <div class="title-group">
                         <h1>Join 360</h1>
                         <div class="title-divider desktop-divider"></div>
@@ -36,7 +35,7 @@
                 </div>
                 <div class="devide-content">
                     <div class="content-metric">
-                        <div class="metrics-grid">
+                        <div class="metrics-grid hidden">
                             <div class="first-metric">
                                 <div class="metric-cards-up card-up" onclick="navigateTo('board.html', this)">
                                     <img class="frame-logo frame-logo-left" src="../assets/img/icon/Frame pencil.svg">

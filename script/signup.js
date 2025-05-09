@@ -77,6 +77,11 @@ document.getElementById('signup').addEventListener("submit", function (event) {
 });
 
 
+/**
+ * Displays an error message and highlights the input field with an error.
+ * 
+ * @param {string} inputLabel - The key identifying the input field with the error.
+ */
 function inputError(inputLabel) {
     let info = document.getElementById('errorPoppin');
     info.classList.remove('opacity');
@@ -84,7 +89,12 @@ function inputError(inputLabel) {
     errorInputField(inputLabel);
 }
 
-
+/**
+ * Returns a specific error message based on the input key.
+ * 
+ * @param {string} key - The key identifying the input type.
+ * @returns {string} - The corresponding error message.
+ */
 function errorMessage(key) {
     const messages = {
         "Username": "Please check your name entry!",
@@ -96,7 +106,11 @@ function errorMessage(key) {
     return messages[key] || "Unknown error!";
 }
 
-
+/**
+ * Highlights the label of the input field by adding an error class.
+ * 
+ * @param {string} inputLabel - The key of the input field to highlight.
+ */
 function errorInputField(inputLabel) {
     const label = document.getElementById('label' + inputLabel);
     if (label) {
@@ -104,12 +118,21 @@ function errorInputField(inputLabel) {
     }
 }
 
-
+/**
+ * Checks if the input value is empty after trimming whitespace.
+ * 
+ * @param {string} value - The input value to check.
+ * @returns {boolean} - True if the input is empty, otherwise false.
+ */
 function checkEmptyInput(value) {
     return value.trim() === "";
 }
 
-
+/**
+ * Reads values from input fields and returns them in an object.
+ * 
+ * @returns {Object} - An object containing all relevant input values.
+ */
 function readsTheInputValues() {
     return {
         username: document.getElementById('username').value,
@@ -117,25 +140,33 @@ function readsTheInputValues() {
         passwdReg: document.getElementById('passwordReg').value,
         passwdConf: document.getElementById('passwordConf').value,
         checkBox: document.getElementById('checkbox').dataset.checked
-    }; 
+    };
 }
 
-
+/**
+ * Validates all input values according to specified rules.
+ * 
+ * @returns {string|undefined} - The key of the invalid input or undefined if all are valid.
+ */
 function checkValues() {
-    let {username, email, passwdReg, passwdConf, checkBox} = readsTheInputValues();
+    let { username, email, passwdReg, passwdConf, checkBox } = readsTheInputValues();
     if (checkEmptyInput(username) || !/^[a-zA-ZäöüÄÖÜß\s]+$/.test(username)) return "Username";
-    if (checkEmptyInput(email) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "EmailSignUp"; 
-    if (checkEmptyInput(passwdReg) || !/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,15}$/.test(passwdReg)) return "PasswordReg"; 
+    if (checkEmptyInput(email) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "EmailSignUp";
+    if (checkEmptyInput(passwdReg) || !/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,15}$/.test(passwdReg)) return "PasswordReg";
     if (checkEmptyInput(passwdConf) || !/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,15}$/.test(passwdConf)) return "PasswdConf";
     if (checkBox !== "true") return "Checkbox";
 }
 
-
+/**
+ * Checks input values and triggers error handling if any input is invalid.
+ * 
+ * @returns {boolean} - True if an error is found, otherwise false.
+ */
 function checkValueInput() {
     let input = checkValues();
     if (input) {
         inputError(input);
-        return true
+        return true;
     }
     return false;
 }

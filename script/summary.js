@@ -41,6 +41,8 @@ function initGreeting() {
     let greetingText = document.querySelector(".greeting-text");
     let grid = document.querySelector(".metrics-grid");
     let header = document.querySelector(".dashboard-header");
+    let dashboard = document.querySelector(".dashboard-container");
+
 
     if (!greetingContainer || !greetingText || !grid || !header) return;
 
@@ -48,31 +50,35 @@ function initGreeting() {
 
     if (isLogin && window.innerWidth <= 990) {
         showGreetingWithTransition();
-
-        // Remove login parameter to avoid re-showing greeting on reload
         urlParams.delete("login");
         window.history.replaceState({}, document.title, `?${urlParams}`);
     } else {
-        greetingContainer.style.display = "none";
-        grid.style.display = "block";
-        header.style.display = "flex";
+        grid.classList.remove("hidden");
+        header.classList.remove("hidden");
+        dashboard.classList.remove("hidden");
+        loadSummaryData();
+
     }
 }
+
 
 /**
  * Shows the greeting with animation and fades it out automatically.
  */
 function showGreetingWithTransition() {
-    const greeting = document.querySelector(".greeting");
-    const grid = document.querySelector(".metrics-grid");
-    const header = document.querySelector(".dashboard-header");
+    let greeting = document.querySelector(".greeting");
+    let grid = document.querySelector(".metrics-grid");
+    let header = document.querySelector(".dashboard-header");
+    let dashboard = document.querySelector(".dashboard-container");
 
-    if (!greeting || !grid || !header) return;
+    if (!greeting || !grid || !header || !dashboard) return;
 
     greeting.style.display = "flex";
     greeting.classList.add("animate-in");
-    grid.style.display = "none";
-    header.style.display = "none";
+
+    grid.classList.add("hidden");
+    header.classList.add("hidden");
+    dashboard.classList.add("hidden");
 
     setTimeout(() => {
         greeting.classList.remove("animate-in");
@@ -80,11 +86,17 @@ function showGreetingWithTransition() {
 
         setTimeout(() => {
             greeting.style.display = "none";
-            grid.style.display = "block";
-            header.style.display = "flex";
+            greeting.classList.remove("animate-out");
+
+            grid.classList.remove("hidden");
+            header.classList.remove("hidden");
+            dashboard.classList.remove("hidden");
+
+            loadSummaryData();
         }, 400);
-    }, 850);
+    }, 2000);
 }
+
 
 /**
  * Re-applies the greeting text (e.g. when returning to the page from another view).

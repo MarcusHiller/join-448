@@ -27,10 +27,10 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Next available task ID for new tasks.
+ * Available added user for new tasks.
  * @type {number}
  */
-let nextTaskId = 5;
+let userCounter = 0;
 
 /**
  * List of current subtasks.
@@ -102,13 +102,43 @@ function addCheckedUsers(indexUsers) {
   const avatarList = document.getElementById("user_logo_after_seleceted");
   const userCheckbox = document.getElementById("user_" + indexUsers);
   const userAvatar = document.getElementById("user_checked_" + indexUsers);
+  const userCounterRef = document.getElementById("user_counter");
 
   if (userCheckbox.checked) {
-    avatarList.innerHTML += getCheckedAvatar(indexUsers);
+    userCounter++;
     document.getElementById("user_" + indexUsers + "_label").classList.remove("user-dropmenu-hover-effekt");
+    if (checkAvatarAmount(avatarList)) return
+    const avatarElement = document.createElement("div");
+    avatarElement.innerHTML = getCheckedAvatar(indexUsers);
+    avatarList.insertBefore(avatarElement.firstChild, userCounterRef);
   } else {
+    userCounter--;
     userAvatar?.remove();
     document.getElementById("user_" + indexUsers + "_label").classList.add("user-dropmenu-hover-effekt");
+    checkAvatarAmount(avatarList)
+  }
+}
+
+/**
+ * Displays a user counter if there are more than 4 avatars.
+ * 
+ * If the total number of users (userCounter) exceeds 4, the function shows
+ * a counter element (`user_counter`) indicating how many additional users exist.
+ * Otherwise, the counter is hidden.
+ * 
+ * @returns {boolean} Returns true if more than 4 users are present; otherwise false.
+ */
+function checkAvatarAmount() {
+  let userCounterRef = document.getElementById("user_counter");
+
+  if (userCounter > 4) {
+    let avatarCounter = (userCounter - 4);
+    userCounterRef.classList.remove("d_none");
+    userCounterRef.innerHTML = `&lt;span>+${avatarCounter}`;
+    return true;
+  } else {
+    userCounterRef.classList.add("d_none");
+    return false;
   }
 }
 
@@ -166,20 +196,6 @@ function addTaskButton() {
 }
 
 /**
- * Checks for required inputs and returns field info.
- * @returns {Array&lt;{id: string, errorId: string}>} Required fields.
- */
-function checkRequiredInputsField() {
-  const fields = [
-    { id: 'titel_input', errorId: 'error-title' },
-    { id: 'date_input', errorId: 'error-date' },
-    { id: 'category_select_input', errorId: 'error-cat' }
-  ];
-  removeErrorMsg();
-  return fields;
-}
-
-/**
  * Removes all visible error messages and styling.
  */
 function removeErrorMsg() {
@@ -216,8 +232,6 @@ function extractSubtask(inputId, taskIndex, i) {
     checked: getCheckStatus(taskIndex, i)
   };
 }
-
-
 
 /**
  * Toggles visibility of subtask icons depending on input presence.
@@ -282,11 +296,9 @@ function editSubtask(indexSubTask) {
 }
 
 /**
- * Applies styling to a subtask when entering edit mode.
- * Hides standard icons and shows the confirm icon.
- * 
- * @param {number} indexSubTask - Index of the subtask being edited.
- * @param {HTMLInputElement} input - The input element of the subtask.
+ * Applies styles for subtask editing mode.
+ * @param {number} indexSubTask - Index of the subtask.
+ * @param {HTMLInputElement} input - Input element of the subtask.
  */
 function editSubtaskStyle(indexSubTask, input) {
   let inputSubtask = document.getElementById("subtask_" + indexSubTask);
@@ -305,6 +317,18 @@ function editSubtaskStyle(indexSubTask, input) {
 }
 
 /**
+ * Deletes a subtask if its content is empty.
+ * @param {number} indexSubTask - Index of the subtask.
+ */
+function emptySubtaskDelete(indexSubTask) {
+  let input = document.getElementById("editable_input_" + indexSubTask).value;
+
+  if (!input) {
+    removeSubtask(indexSubTask);
+  }
+}
+
+/**
  * Finalizes the subtask input after editing.
  * @param {number} indexSubTask - Index of the subtask.
  */
@@ -314,9 +338,7 @@ function editSubmit(indexSubTask) {
 }
 
 /**
- * Removes editing styles from a subtask after editing is confirmed.
- * Restores default hover behavior and icon visibility.
- * 
+ * Restores original style after subtask editing is finished.
  * @param {number} indexSubTask - Index of the subtask.
  */
 function removeEditSubtaskStyle(indexSubTask) {
@@ -331,44 +353,122 @@ function removeEditSubtaskStyle(indexSubTask) {
   inputSubtask.setAttribute("onmouseover", `showEditIcons(${indexSubTask})`);
   inputSubtask.setAttribute("onmouseout", `blindEditIcons(${indexSubTask})`);
   inputSubtaskChild.classList.add("list-subtask-element-hover");
-  document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.add("opacity-null");
+  document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.add("opacity-null")
   document.getElementById("disc_" + indexSubTask).classList.remove("d_none");
 }
 
 /**
- * Handles Enter key press on the subtask input field and adds the subtask.
- * 
- * @param {KeyboardEvent} event - The key press event.
+ * Removes a subtask from the DOM.
+ * @param {number} indexSubTask - Index of the subtask.
+ * @param {number} taskIndex - (Optional) Task index (not used).
  */
-function checkEnterAddSubtask(event) {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    addSubtask();
+function removeSubtask(indexSubTask, taskIndex) {
+  document.getElementById("subtask_" + indexSubTask).remove();
+}
+
+/**
+ * Clears all input fields for adding a task.
+ */
+function clearAddTaskField() {
+  userCounter = 0;
+  document.getElementById("titel_input").value = "";
+  document.getElementById("description_input").value = "";
+  document.getElementById("date_input").value = "";
+  document.getElementById("prio_medium").checked = true;
+  unsetCheckbox();
+  document.getElementById("user_logo_after_seleceted").innerHTML = '&lt;div class="user-counter d_none" id="user_counter">&lt;/div>';
+  document.getElementById("category_select_input").value = "";
+  document.getElementById("error-long").classList.add("d_none");
+  clearSubtaskInput();
+  successfulClearTask();
+  userFeedback();
+  renderUserList();
+}
+
+/**
+ * Clears all input fields for adding a task after a new task has been added.
+ */
+function clearAddTaskAfterAdd() {
+  userCounter = 0;
+  document.getElementById("titel_input").value = "";
+  document.getElementById("description_input").value = "";
+  document.getElementById("date_input").value = "";
+  document.getElementById("prio_medium").checked = true;
+  unsetCheckbox();
+  document.getElementById("user_logo_after_seleceted").innerHTML = '&lt;div class="user-counter d_none" id="user_counter">&lt;/div>';
+  document.getElementById("category_select_input").value = "";
+  document.getElementById("error-long").classList.add("d_none");
+  clearSubtaskInput();
+  renderUserList();
+}
+
+/**
+ * Clears the subtask input field and subtask list.
+ */
+function clearSubtaskInput() {
+  document.getElementById("subtask_input").value = "";
+  document.getElementById("sub_list").innerHTML = "";
+}
+
+/**
+ * Clears the subtask input field.
+ */
+
+function clearSubtaskInputField() {
+  document.getElementById("subtask_input").value = "";
+}
+
+/**
+ * Unchecks all user checkboxes in the user list.
+ */
+function unsetCheckbox() {
+  for (let userIndex = 0; userIndex &lt; contactsFirebase.length; userIndex++) {
+    document.getElementById("user_" + userIndex).checked = false;
   }
 }
 
 /**
- * Handles Enter key press during subtask editing and submits the change.
- * 
- * @param {KeyboardEvent} event - The key press event.
- * @param {number} indexSubTask - Index of the subtask being edited.
+ * Shows success message after clearing the task form.
  */
-function checkEnterEditSubtask(event, indexSubTask) {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    editSubmit(indexSubTask);
-  }
+function successfulClearTask() {
+  let success = document.getElementById('success');
+  success.innerHTML = showSuccessfulClear();
 }
 
 /**
- * Prevents default behavior when Enter is pressed in non-submission contexts.
- * 
- * @param {KeyboardEvent} event - The key press event.
+ * Shows success message after a task was successfully added.
  */
-function checkEnter(event) {
-  if (event.key === 'Enter') {
-    event.preventDefault();
+function successfulAddedTask() {
+  let success = document.getElementById('success');
+  success.innerHTML = showSuccessfulAddedTask();
+}
+
+/**
+ * Filters the user list by input and shows or hides matching users.
+ */
+function searchContactToTask() {
+  let input = document.getElementById("assigned_select_input").value.toLowerCase().replace(/\s+/g, "");
+  let list = document.getElementById("add_user_list");
+  let userFoundCounter = 0;
+
+  for (let index = 0; index &lt; contactsFirebase.length; index++) {
+    let user = document.getElementById("user_" + index + "_label");
+    if (!user) continue;
+    let name = contactsFirebase[index].username.toLowerCase().replace(/\s+/g, "")
+    if (input === "") {
+      user.classList.remove("d_none");
+    } else {
+      const isMatch = name.includes(input);
+      if (isMatch) {
+        user.classList.remove("d_none");
+        userFoundCounter--;
+      } else {
+        user.classList.add("d_none");
+        userFoundCounter++;
+      }
+    }
   }
+  checkUserFound(input, userFoundCounter, list);
 }
 </code></pre>
         </article>
@@ -380,13 +480,13 @@ function checkEnter(event) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#BASE_URL">BASE_URL</a></li><li><a href="global.html#acceptCookies">acceptCookies</a></li><li><a href="global.html#activePageHiglight">activePageHiglight</a></li><li><a href="global.html#addBorder">addBorder</a></li><li><a href="global.html#addCheckedUsers">addCheckedUsers</a></li><li><a href="global.html#addClearButtonToThePage">addClearButtonToThePage</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addEditedTask">addEditedTask</a></li><li><a href="global.html#addHighlight">addHighlight</a></li><li><a href="global.html#addRespContact">addRespContact</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addSubtaskChecked">addSubtaskChecked</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addTaskButton">addTaskButton</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#addUserToContacts">addUserToContacts</a></li><li><a href="global.html#arrayAssignedTo">arrayAssignedTo</a></li><li><a href="global.html#arraySubtasks">arraySubtasks</a></li><li><a href="global.html#blindEditIcons">blindEditIcons</a></li><li><a href="global.html#burgerMenuSliding">burgerMenuSliding</a></li><li><a href="global.html#changeOfAddPersoneBtn">changeOfAddPersoneBtn</a></li><li><a href="global.html#changeOfMoreBtn">changeOfMoreBtn</a></li><li><a href="global.html#checkAndRenderEmptyMessage">checkAndRenderEmptyMessage</a></li><li><a href="global.html#checkAssignedTo">checkAssignedTo</a></li><li><a href="global.html#checkCategory">checkCategory</a></li><li><a href="global.html#checkCheckboxInOverlay">checkCheckboxInOverlay</a></li><li><a href="global.html#checkEnter">checkEnter</a></li><li><a href="global.html#checkEnterAddSubtask">checkEnterAddSubtask</a></li><li><a href="global.html#checkEnterEditSubtask">checkEnterEditSubtask</a></li><li><a href="global.html#checkIfEmailExists">checkIfEmailExists</a></li><li><a href="global.html#checkInputFields">checkInputFields</a></li><li><a href="global.html#checkOrientation">checkOrientation</a></li><li><a href="global.html#checkPrio">checkPrio</a></li><li><a href="global.html#checkRequiredInputsField">checkRequiredInputsField</a></li><li><a href="global.html#checkSamePasswd">checkSamePasswd</a></li><li><a href="global.html#checkSubtasks">checkSubtasks</a></li><li><a href="global.html#checkUserExists">checkUserExists</a></li><li><a href="global.html#checkedSubtaskChecked">checkedSubtaskChecked</a></li><li><a href="global.html#chooseContact">chooseContact</a></li><li><a href="global.html#cleanContactsList">cleanContactsList</a></li><li><a href="global.html#cleanContainerBtn">cleanContainerBtn</a></li><li><a href="global.html#clearColumn">clearColumn</a></li><li><a href="global.html#clearMainContact">clearMainContact</a></li><li><a href="global.html#clearOverlay">clearOverlay</a></li><li><a href="global.html#clearSuccessfulContainer">clearSuccessfulContainer</a></li><li><a href="global.html#clerOverlay">clerOverlay</a></li><li><a href="global.html#closeAddTask">closeAddTask</a></li><li><a href="global.html#closeCatDropMenu">closeCatDropMenu</a></li><li><a href="global.html#closeMoveToDialog">closeMoveToDialog</a></li><li><a href="global.html#closeOverlay">closeOverlay</a></li><li><a href="global.html#closeOverlayTask">closeOverlayTask</a></li><li><a href="global.html#closeToolsresp">closeToolsresp</a></li><li><a href="global.html#closeUserDropMenu">closeUserDropMenu</a></li><li><a href="global.html#contacts">contacts</a></li><li><a href="global.html#contactsFirebase">contactsFirebase</a></li><li><a href="global.html#cookiesStillValid">cookiesStillValid</a></li><li><a href="global.html#creatOverlayFromTask">creatOverlayFromTask</a></li><li><a href="global.html#createHTML">createHTML</a></li><li><a href="global.html#createNewContact">createNewContact</a></li><li><a href="global.html#createUserForContacts">createUserForContacts</a></li><li><a href="global.html#createUserObject">createUserObject</a></li><li><a href="global.html#currentCondition">currentCondition</a></li><li><a href="global.html#currentDraggableTask">currentDraggableTask</a></li><li><a href="global.html#currentInputFieldvalue">currentInputFieldvalue</a></li><li><a href="global.html#currentPage">currentPage</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteNotFoundedUserFromTask">deleteNotFoundedUserFromTask</a></li><li><a href="global.html#deleteTaskFromTaskArray">deleteTaskFromTaskArray</a></li><li><a href="global.html#deleteTaskOnOverlay">deleteTaskOnOverlay</a></li><li><a href="global.html#deleteUserData">deleteUserData</a></li><li><a href="global.html#disableLoginButtons">disableLoginButtons</a></li><li><a href="global.html#displayErrorLogin">displayErrorLogin</a></li><li><a href="global.html#dragoverHandler">dragoverHandler</a></li><li><a href="global.html#editContact">editContact</a></li><li><a href="global.html#editRespContact">editRespContact</a></li><li><a href="global.html#editSubmit">editSubmit</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#editSubtaskStyle">editSubtaskStyle</a></li><li><a href="global.html#editTaskOnOverlay">editTaskOnOverlay</a></li><li><a href="global.html#enableLogin">enableLogin</a></li><li><a href="global.html#enableLoginButtons">enableLoginButtons</a></li><li><a href="global.html#eventBubbling">eventBubbling</a></li><li><a href="global.html#extractSubtask">extractSubtask</a></li><li><a href="global.html#findContact">findContact</a></li><li><a href="global.html#firbaseObject">firbaseObject</a></li><li><a href="global.html#fitEditTaskToContainer">fitEditTaskToContainer</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#generateID">generateID</a></li><li><a href="global.html#getAddTaskHTML">getAddTaskHTML</a></li><li><a href="global.html#getAssignedTo">getAssignedTo</a></li><li><a href="global.html#getAssignedToArrayAfterEdit">getAssignedToArrayAfterEdit</a></li><li><a href="global.html#getCheckStatus">getCheckStatus</a></li><li><a href="global.html#getContactColorById">getContactColorById</a></li><li><a href="global.html#getDataFromServer">getDataFromServer</a></li><li><a href="global.html#getEditTaskHTML">getEditTaskHTML</a></li><li><a href="global.html#getEditedTask">getEditedTask</a></li><li><a href="global.html#getFormElements">getFormElements</a></li><li><a href="global.html#getIndex">getIndex</a></li><li><a href="global.html#getNewTask">getNewTask</a></li><li><a href="global.html#getPriority">getPriority</a></li><li><a href="global.html#getSubtasks">getSubtasks</a></li><li><a href="global.html#getSubtasksArrayAfterEdit">getSubtasksArrayAfterEdit</a></li><li><a href="global.html#getTaskOverlayHTML">getTaskOverlayHTML</a></li><li><a href="global.html#getUserID">getUserID</a></li><li><a href="global.html#getUserObject">getUserObject</a></li><li><a href="global.html#groupInitials">groupInitials</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#hoverImage">hoverImage</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBackButton">initBackButton</a></li><li><a href="global.html#initContactsPage">initContactsPage</a></li><li><a href="global.html#initCookies">initCookies</a></li><li><a href="global.html#initGreeting">initGreeting</a></li><li><a href="global.html#initGreetingRepeat">initGreetingRepeat</a></li><li><a href="global.html#initLayout">initLayout</a></li><li><a href="global.html#isUserLoged">isUserLoged</a></li><li><a href="global.html#loadContactsFromFirebase">loadContactsFromFirebase</a></li><li><a href="global.html#loadHTML">loadHTML</a></li><li><a href="global.html#loadHeaderNavbarExtern">loadHeaderNavbarExtern</a></li><li><a href="global.html#loadHeaderNavbarIntern">loadHeaderNavbarIntern</a></li><li><a href="global.html#loadRotateWarning">loadRotateWarning</a></li><li><a href="global.html#loadSummaryData">loadSummaryData</a></li><li><a href="global.html#loadUserData">loadUserData</a></li><li><a href="global.html#loadUsersFromFirebase">loadUsersFromFirebase</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#markLegalPrivacyActiveLink">markLegalPrivacyActiveLink</a></li><li><a href="global.html#mobileNavigator">mobileNavigator</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#navigateTo">navigateTo</a></li><li><a href="global.html#nextTaskId">nextTaskId</a></li><li><a href="global.html#openAddContact">openAddContact</a></li><li><a href="global.html#openAddRespContact">openAddRespContact</a></li><li><a href="global.html#openAddTask">openAddTask</a></li><li><a href="global.html#openCatDropMenu">openCatDropMenu</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#openEditRespContact">openEditRespContact</a></li><li><a href="global.html#openMoveToDialog">openMoveToDialog</a></li><li><a href="global.html#openOverlay">openOverlay</a></li><li><a href="global.html#openOverlayTask">openOverlayTask</a></li><li><a href="global.html#openToolsResp">openToolsResp</a></li><li><a href="global.html#openUserDropMenu">openUserDropMenu</a></li><li><a href="global.html#patchDataToServer">patchDataToServer</a></li><li><a href="global.html#prepareEmailValidationUI">prepareEmailValidationUI</a></li><li><a href="global.html#prepareSubtaskIDs">prepareSubtaskIDs</a></li><li><a href="global.html#pushNewContact">pushNewContact</a></li><li><a href="global.html#putDataToServer">putDataToServer</a></li><li><a href="global.html#reSortUser">reSortUser</a></li><li><a href="global.html#removeBackBtn">removeBackBtn</a></li><li><a href="global.html#removeBorder">removeBorder</a></li><li><a href="global.html#removeEditSubtaskStyle">removeEditSubtaskStyle</a></li><li><a href="global.html#removeErrorMsg">removeErrorMsg</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#renderAssignedTo">renderAssignedTo</a></li><li><a href="global.html#renderAvatar">renderAvatar</a></li><li><a href="global.html#renderButtons">renderButtons</a></li><li><a href="global.html#renderCategoryColor">renderCategoryColor</a></li><li><a href="global.html#renderCategoryIntoTaskOverlay">renderCategoryIntoTaskOverlay</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderDetails">renderDetails</a></li><li><a href="global.html#renderDragDropHighlights">renderDragDropHighlights</a></li><li><a href="global.html#renderEditButton">renderEditButton</a></li><li><a href="global.html#renderEmptyColumn">renderEmptyColumn</a></li><li><a href="global.html#renderPrio">renderPrio</a></li><li><a href="global.html#renderPrioIntoTaskOverlay">renderPrioIntoTaskOverlay</a></li><li><a href="global.html#renderSingleTaskInToColumn">renderSingleTaskInToColumn</a></li><li><a href="global.html#renderSubtaskIntoTaskOverlay">renderSubtaskIntoTaskOverlay</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#renderTaskInToColumn">renderTaskInToColumn</a></li><li><a href="global.html#renderTextBackFeedback">renderTextBackFeedback</a></li><li><a href="global.html#renderTextDone">renderTextDone</a></li><li><a href="global.html#renderTextFeedback">renderTextFeedback</a></li><li><a href="global.html#renderTextProg">renderTextProg</a></li><li><a href="global.html#renderUserIntoTaskOverlay">renderUserIntoTaskOverlay</a></li><li><a href="global.html#renderUserList">renderUserList</a></li><li><a href="global.html#resetClassChooseContact">resetClassChooseContact</a></li><li><a href="global.html#resetDisplayMovtoDialog">resetDisplayMovtoDialog</a></li><li><a href="global.html#resetUserArray">resetUserArray</a></li><li><a href="global.html#resortUserlist">resortUserlist</a></li><li><a href="global.html#saveCheckboxProcess">saveCheckboxProcess</a></li><li><a href="global.html#saveCondition">saveCondition</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#saveContactsToFirebase">saveContactsToFirebase</a></li><li><a href="global.html#saveUsers">saveUsers</a></li><li><a href="global.html#saveUsersToFirebase">saveUsersToFirebase</a></li><li><a href="global.html#searchTask">searchTask</a></li><li><a href="global.html#searchedTasks">searchedTasks</a></li><li><a href="global.html#selectCategory">selectCategory</a></li><li><a href="global.html#selectConditionForSingleTask">selectConditionForSingleTask</a></li><li><a href="global.html#setBackBtn">setBackBtn</a></li><li><a href="global.html#setClassChoooseContact">setClassChoooseContact</a></li><li><a href="global.html#setGreetingText">setGreetingText</a></li><li><a href="global.html#setLayoutAndRedirect">setLayoutAndRedirect</a></li><li><a href="global.html#setUserCircleInitials">setUserCircleInitials</a></li><li><a href="global.html#showAddSubtaskButton">showAddSubtaskButton</a></li><li><a href="global.html#showEditIcons">showEditIcons</a></li><li><a href="global.html#showEmailExistsError">showEmailExistsError</a></li><li><a href="global.html#showMetricsGrid">showMetricsGrid</a></li><li><a href="global.html#showOverlaySuccessful">showOverlaySuccessful</a></li><li><a href="global.html#showRespContactList">showRespContactList</a></li><li><a href="global.html#showRespUserInfo">showRespUserInfo</a></li><li><a href="global.html#slideIn">slideIn</a></li><li><a href="global.html#sortTask">sortTask</a></li><li><a href="global.html#spinningLoaderEnd">spinningLoaderEnd</a></li><li><a href="global.html#spinningLoaderStart">spinningLoaderStart</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#subtaskIndex">subtaskIndex</a></li><li><a href="global.html#subtasks">subtasks</a></li><li><a href="global.html#successChange">successChange</a></li><li><a href="global.html#successfulAddContact">successfulAddContact</a></li><li><a href="global.html#successfulDeleteContact">successfulDeleteContact</a></li><li><a href="global.html#successfulTaskDeleted">successfulTaskDeleted</a></li><li><a href="global.html#suppressActionEvent">suppressActionEvent</a></li><li><a href="global.html#tasks">tasks</a></li><li><a href="global.html#textEmailError">textEmailError</a></li><li><a href="global.html#textPasswdError">textPasswdError</a></li><li><a href="global.html#toggleCheckbox">toggleCheckbox</a></li><li><a href="global.html#togglePasswordVisibility">togglePasswordVisibility</a></li><li><a href="global.html#toggleSignupVisibility">toggleSignupVisibility</a></li><li><a href="global.html#updateDraggableState">updateDraggableState</a></li><li><a href="global.html#updatePasswdIcon">updatePasswdIcon</a></li><li><a href="global.html#updateSignupIcon">updateSignupIcon</a></li><li><a href="global.html#updateUserData">updateUserData</a></li><li><a href="global.html#urlParams">urlParams</a></li><li><a href="global.html#userData">userData</a></li><li><a href="global.html#userFirebase">userFirebase</a></li><li><a href="global.html#userInfo">userInfo</a></li><li><a href="global.html#users">users</a></li><li><a href="global.html#usersToDeleteFromFirebase">usersToDeleteFromFirebase</a></li><li><a href="global.html#usrerIsLoggedIn">usrerIsLoggedIn</a></li><li><a href="global.html#visiblePasswords">visiblePasswords</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#BASE_URL">BASE_URL</a></li><li><a href="global.html#acceptCookies">acceptCookies</a></li><li><a href="global.html#activePageHiglight">activePageHiglight</a></li><li><a href="global.html#addBorder">addBorder</a></li><li><a href="global.html#addCheckedUsers">addCheckedUsers</a></li><li><a href="global.html#addClearButtonToThePage">addClearButtonToThePage</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addEditedTask">addEditedTask</a></li><li><a href="global.html#addHighlight">addHighlight</a></li><li><a href="global.html#addRespContact">addRespContact</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addSubtaskChecked">addSubtaskChecked</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addTaskButton">addTaskButton</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#addUserToContacts">addUserToContacts</a></li><li><a href="global.html#arrayAssignedTo">arrayAssignedTo</a></li><li><a href="global.html#arraySubtasks">arraySubtasks</a></li><li><a href="global.html#blindEditIcons">blindEditIcons</a></li><li><a href="global.html#burgerMenuSliding">burgerMenuSliding</a></li><li><a href="global.html#changeOfAddPersoneBtn">changeOfAddPersoneBtn</a></li><li><a href="global.html#changeOfMoreBtn">changeOfMoreBtn</a></li><li><a href="global.html#checkAndRenderEmptyMessage">checkAndRenderEmptyMessage</a></li><li><a href="global.html#checkAssignedTo">checkAssignedTo</a></li><li><a href="global.html#checkAvatarAmount">checkAvatarAmount</a></li><li><a href="global.html#checkCategory">checkCategory</a></li><li><a href="global.html#checkCheckboxInOverlay">checkCheckboxInOverlay</a></li><li><a href="global.html#checkEmptyInput">checkEmptyInput</a></li><li><a href="global.html#checkEnter">checkEnter</a></li><li><a href="global.html#checkEnterAddSubtask">checkEnterAddSubtask</a></li><li><a href="global.html#checkEnterEditSubtask">checkEnterEditSubtask</a></li><li><a href="global.html#checkIfEmailExists">checkIfEmailExists</a></li><li><a href="global.html#checkInputFields">checkInputFields</a></li><li><a href="global.html#checkOrientation">checkOrientation</a></li><li><a href="global.html#checkPrio">checkPrio</a></li><li><a href="global.html#checkRequiredInputsField">checkRequiredInputsField</a></li><li><a href="global.html#checkSamePasswd">checkSamePasswd</a></li><li><a href="global.html#checkSubtasks">checkSubtasks</a></li><li><a href="global.html#checkUserExists">checkUserExists</a></li><li><a href="global.html#checkUserFound">checkUserFound</a></li><li><a href="global.html#checkValueInput">checkValueInput</a></li><li><a href="global.html#checkValues">checkValues</a></li><li><a href="global.html#checkedStyle">checkedStyle</a></li><li><a href="global.html#checkedSubtaskChecked">checkedSubtaskChecked</a></li><li><a href="global.html#chooseContact">chooseContact</a></li><li><a href="global.html#cleanContactsList">cleanContactsList</a></li><li><a href="global.html#cleanContainerBtn">cleanContainerBtn</a></li><li><a href="global.html#clearAddTaskAfterAdd">clearAddTaskAfterAdd</a></li><li><a href="global.html#clearAddTaskField">clearAddTaskField</a></li><li><a href="global.html#clearColumn">clearColumn</a></li><li><a href="global.html#clearMainContact">clearMainContact</a></li><li><a href="global.html#clearOverlay">clearOverlay</a></li><li><a href="global.html#clearSubtaskInput">clearSubtaskInput</a></li><li><a href="global.html#clearSubtaskInputField">clearSubtaskInputField</a></li><li><a href="global.html#clearSuccessfulContainer">clearSuccessfulContainer</a></li><li><a href="global.html#clerOverlay">clerOverlay</a></li><li><a href="global.html#closeAddTask">closeAddTask</a></li><li><a href="global.html#closeCatDropMenu">closeCatDropMenu</a></li><li><a href="global.html#closeMoveToDialog">closeMoveToDialog</a></li><li><a href="global.html#closeOverlay">closeOverlay</a></li><li><a href="global.html#closeOverlayTask">closeOverlayTask</a></li><li><a href="global.html#closeToolsresp">closeToolsresp</a></li><li><a href="global.html#closeUserDropMenu">closeUserDropMenu</a></li><li><a href="global.html#contactsFirebase">contactsFirebase</a></li><li><a href="global.html#cookiesStillValid">cookiesStillValid</a></li><li><a href="global.html#creatOverlayFromTask">creatOverlayFromTask</a></li><li><a href="global.html#createFeedback">createFeedback</a></li><li><a href="global.html#createHTML">createHTML</a></li><li><a href="global.html#createNewContact">createNewContact</a></li><li><a href="global.html#createUserForContacts">createUserForContacts</a></li><li><a href="global.html#createUserObject">createUserObject</a></li><li><a href="global.html#currentCondition">currentCondition</a></li><li><a href="global.html#currentDraggableTask">currentDraggableTask</a></li><li><a href="global.html#currentInputFieldvalue">currentInputFieldvalue</a></li><li><a href="global.html#currentPage">currentPage</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteNotFoundedUserFromTask">deleteNotFoundedUserFromTask</a></li><li><a href="global.html#deleteTaskFromTaskArray">deleteTaskFromTaskArray</a></li><li><a href="global.html#deleteTaskOnOverlay">deleteTaskOnOverlay</a></li><li><a href="global.html#deleteUserData">deleteUserData</a></li><li><a href="global.html#disableLoginButtons">disableLoginButtons</a></li><li><a href="global.html#displayErrorLogin">displayErrorLogin</a></li><li><a href="global.html#dragoverHandler">dragoverHandler</a></li><li><a href="global.html#editContact">editContact</a></li><li><a href="global.html#editRespContact">editRespContact</a></li><li><a href="global.html#editSubmit">editSubmit</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#editSubtaskStyle">editSubtaskStyle</a></li><li><a href="global.html#editTaskOnOverlay">editTaskOnOverlay</a></li><li><a href="global.html#emptySubtaskDelete">emptySubtaskDelete</a></li><li><a href="global.html#enableLogin">enableLogin</a></li><li><a href="global.html#enableLoginButtons">enableLoginButtons</a></li><li><a href="global.html#errorInputField">errorInputField</a></li><li><a href="global.html#errorMessage">errorMessage</a></li><li><a href="global.html#eventBubbling">eventBubbling</a></li><li><a href="global.html#extractSubtask">extractSubtask</a></li><li><a href="global.html#findContact">findContact</a></li><li><a href="global.html#firbaseObject">firbaseObject</a></li><li><a href="global.html#fitEditTaskToContainer">fitEditTaskToContainer</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#generateID">generateID</a></li><li><a href="global.html#getAddTaskHTML">getAddTaskHTML</a></li><li><a href="global.html#getAssignedTo">getAssignedTo</a></li><li><a href="global.html#getAssignedToArrayAfterEdit">getAssignedToArrayAfterEdit</a></li><li><a href="global.html#getCheckStatus">getCheckStatus</a></li><li><a href="global.html#getContactColorById">getContactColorById</a></li><li><a href="global.html#getDataFromServer">getDataFromServer</a></li><li><a href="global.html#getEditTaskHTML">getEditTaskHTML</a></li><li><a href="global.html#getEditedTask">getEditedTask</a></li><li><a href="global.html#getFormElements">getFormElements</a></li><li><a href="global.html#getGreetingPhrase">getGreetingPhrase</a></li><li><a href="global.html#getIndex">getIndex</a></li><li><a href="global.html#getNewTask">getNewTask</a></li><li><a href="global.html#getPriority">getPriority</a></li><li><a href="global.html#getSubtasks">getSubtasks</a></li><li><a href="global.html#getSubtasksArrayAfterEdit">getSubtasksArrayAfterEdit</a></li><li><a href="global.html#getTaskOverlayHTML">getTaskOverlayHTML</a></li><li><a href="global.html#getUserID">getUserID</a></li><li><a href="global.html#getUserObject">getUserObject</a></li><li><a href="global.html#groupInitials">groupInitials</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#hoverImage">hoverImage</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBackButton">initBackButton</a></li><li><a href="global.html#initContactsPage">initContactsPage</a></li><li><a href="global.html#initCookies">initCookies</a></li><li><a href="global.html#initGreeting">initGreeting</a></li><li><a href="global.html#initGreetingRepeat">initGreetingRepeat</a></li><li><a href="global.html#initLayout">initLayout</a></li><li><a href="global.html#inputError">inputError</a></li><li><a href="global.html#isUserLoged">isUserLoged</a></li><li><a href="global.html#loadContactsFromFirebase">loadContactsFromFirebase</a></li><li><a href="global.html#loadHTML">loadHTML</a></li><li><a href="global.html#loadHeaderNavbarExtern">loadHeaderNavbarExtern</a></li><li><a href="global.html#loadHeaderNavbarIntern">loadHeaderNavbarIntern</a></li><li><a href="global.html#loadRotateWarning">loadRotateWarning</a></li><li><a href="global.html#loadSummaryData">loadSummaryData</a></li><li><a href="global.html#loadUserData">loadUserData</a></li><li><a href="global.html#loadUsersFromFirebase">loadUsersFromFirebase</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#markLegalPrivacyActiveLink">markLegalPrivacyActiveLink</a></li><li><a href="global.html#mobileNavigator">mobileNavigator</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#navigateTo">navigateTo</a></li><li><a href="global.html#openAddContact">openAddContact</a></li><li><a href="global.html#openAddRespContact">openAddRespContact</a></li><li><a href="global.html#openAddTask">openAddTask</a></li><li><a href="global.html#openCatDropMenu">openCatDropMenu</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#openEditRespContact">openEditRespContact</a></li><li><a href="global.html#openMoveToDialog">openMoveToDialog</a></li><li><a href="global.html#openOverlay">openOverlay</a></li><li><a href="global.html#openOverlayTask">openOverlayTask</a></li><li><a href="global.html#openToolsResp">openToolsResp</a></li><li><a href="global.html#openUserDropMenu">openUserDropMenu</a></li><li><a href="global.html#patchDataToServer">patchDataToServer</a></li><li><a href="global.html#prepareEmailValidationUI">prepareEmailValidationUI</a></li><li><a href="global.html#prepareSubtaskIDs">prepareSubtaskIDs</a></li><li><a href="global.html#pushNewContact">pushNewContact</a></li><li><a href="global.html#putDataToServer">putDataToServer</a></li><li><a href="global.html#reSortUser">reSortUser</a></li><li><a href="global.html#readsTheInputValues">readsTheInputValues</a></li><li><a href="global.html#removeBackBtn">removeBackBtn</a></li><li><a href="global.html#removeBorder">removeBorder</a></li><li><a href="global.html#removeEditSubtaskStyle">removeEditSubtaskStyle</a></li><li><a href="global.html#removeErrorMsg">removeErrorMsg</a></li><li><a href="global.html#removeErrorText">removeErrorText</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#removeSubtask">removeSubtask</a></li><li><a href="global.html#renderAssignedTo">renderAssignedTo</a></li><li><a href="global.html#renderAvatar">renderAvatar</a></li><li><a href="global.html#renderButtons">renderButtons</a></li><li><a href="global.html#renderCategoryColor">renderCategoryColor</a></li><li><a href="global.html#renderCategoryIntoTaskOverlay">renderCategoryIntoTaskOverlay</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderDetails">renderDetails</a></li><li><a href="global.html#renderDragDropHighlights">renderDragDropHighlights</a></li><li><a href="global.html#renderEditButton">renderEditButton</a></li><li><a href="global.html#renderEmptyColumn">renderEmptyColumn</a></li><li><a href="global.html#renderPrio">renderPrio</a></li><li><a href="global.html#renderPrioIntoTaskOverlay">renderPrioIntoTaskOverlay</a></li><li><a href="global.html#renderSingleTaskInToColumn">renderSingleTaskInToColumn</a></li><li><a href="global.html#renderSubtaskIntoTaskOverlay">renderSubtaskIntoTaskOverlay</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#renderTaskInToColumn">renderTaskInToColumn</a></li><li><a href="global.html#renderTextBackFeedback">renderTextBackFeedback</a></li><li><a href="global.html#renderTextDone">renderTextDone</a></li><li><a href="global.html#renderTextFeedback">renderTextFeedback</a></li><li><a href="global.html#renderTextProg">renderTextProg</a></li><li><a href="global.html#renderUserIntoTaskOverlay">renderUserIntoTaskOverlay</a></li><li><a href="global.html#renderUserList">renderUserList</a></li><li><a href="global.html#resetClassChooseContact">resetClassChooseContact</a></li><li><a href="global.html#resetDisplayMovtoDialog">resetDisplayMovtoDialog</a></li><li><a href="global.html#resetUserArray">resetUserArray</a></li><li><a href="global.html#resortUserlist">resortUserlist</a></li><li><a href="global.html#saveCheckboxProcess">saveCheckboxProcess</a></li><li><a href="global.html#saveCondition">saveCondition</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#saveContactsToFirebase">saveContactsToFirebase</a></li><li><a href="global.html#saveUsersToFirebase">saveUsersToFirebase</a></li><li><a href="global.html#searchContactToTask">searchContactToTask</a></li><li><a href="global.html#searchTask">searchTask</a></li><li><a href="global.html#searchedTasks">searchedTasks</a></li><li><a href="global.html#selectCategory">selectCategory</a></li><li><a href="global.html#selectConditionForSingleTask">selectConditionForSingleTask</a></li><li><a href="global.html#setBackBtn">setBackBtn</a></li><li><a href="global.html#setClassChoooseContact">setClassChoooseContact</a></li><li><a href="global.html#setGreetingText">setGreetingText</a></li><li><a href="global.html#setLayoutAndRedirect">setLayoutAndRedirect</a></li><li><a href="global.html#setUserCircleInitials">setUserCircleInitials</a></li><li><a href="global.html#showAddSubtaskButton">showAddSubtaskButton</a></li><li><a href="global.html#showEditIcons">showEditIcons</a></li><li><a href="global.html#showEmailExistsError">showEmailExistsError</a></li><li><a href="global.html#showGreetingWithTransition">showGreetingWithTransition</a></li><li><a href="global.html#showOverlaySuccessful">showOverlaySuccessful</a></li><li><a href="global.html#showRespContactList">showRespContactList</a></li><li><a href="global.html#showRespUserInfo">showRespUserInfo</a></li><li><a href="global.html#slideIn">slideIn</a></li><li><a href="global.html#sortTask">sortTask</a></li><li><a href="global.html#spinningLoaderEnd">spinningLoaderEnd</a></li><li><a href="global.html#spinningLoaderStart">spinningLoaderStart</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#subtaskIndex">subtaskIndex</a></li><li><a href="global.html#subtasks">subtasks</a></li><li><a href="global.html#successChange">successChange</a></li><li><a href="global.html#successfulAddContact">successfulAddContact</a></li><li><a href="global.html#successfulAddedTask">successfulAddedTask</a></li><li><a href="global.html#successfulClearTask">successfulClearTask</a></li><li><a href="global.html#successfulDeleteContact">successfulDeleteContact</a></li><li><a href="global.html#successfulTaskDeleted">successfulTaskDeleted</a></li><li><a href="global.html#suppressActionEvent">suppressActionEvent</a></li><li><a href="global.html#tasks">tasks</a></li><li><a href="global.html#textEmailError">textEmailError</a></li><li><a href="global.html#textPasswdError">textPasswdError</a></li><li><a href="global.html#toggleCheckbox">toggleCheckbox</a></li><li><a href="global.html#togglePasswordVisibility">togglePasswordVisibility</a></li><li><a href="global.html#toggleSignupVisibility">toggleSignupVisibility</a></li><li><a href="global.html#unsetCheckbox">unsetCheckbox</a></li><li><a href="global.html#updateDraggableState">updateDraggableState</a></li><li><a href="global.html#updatePasswdIcon">updatePasswdIcon</a></li><li><a href="global.html#updateSignupIcon">updateSignupIcon</a></li><li><a href="global.html#updateUserData">updateUserData</a></li><li><a href="global.html#urlParams">urlParams</a></li><li><a href="global.html#userCounter">userCounter</a></li><li><a href="global.html#userData">userData</a></li><li><a href="global.html#userFeedback">userFeedback</a></li><li><a href="global.html#userFirebase">userFirebase</a></li><li><a href="global.html#userInfo">userInfo</a></li><li><a href="global.html#usersToDeleteFromFirebase">usersToDeleteFromFirebase</a></li><li><a href="global.html#usrerIsLoggedIn">usrerIsLoggedIn</a></li><li><a href="global.html#visiblePasswords">visiblePasswords</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed May 07 2025 14:35:00 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri May 09 2025 13:20:28 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>

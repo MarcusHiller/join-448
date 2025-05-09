@@ -509,6 +509,11 @@ function changeOfAddPersoneBtn() {
 }
 
 
+/**
+ * Displays an error message and highlights the input field with an error.
+ * 
+ * @param {string} inputLabel - Key of the input field to highlight.
+ */
 function inputError(inputLabel) {
     let info = document.getElementById('poppin');
     info.classList.remove('opacity');
@@ -516,7 +521,9 @@ function inputError(inputLabel) {
     errorInputField(inputLabel);
 }
 
-
+/**
+ * Removes all visible error messages and resets input field highlights.
+ */
 function removeErrorText() {
     const labels = ["Contactname", "Email", "Phone"];
     const info = document.getElementById('poppin');
@@ -530,7 +537,12 @@ function removeErrorText() {
     });
 }
 
-
+/**
+ * Returns the error message for a given input key.
+ * 
+ * @param {string} key - Input identifier (e.g., "Email", "Phone").
+ * @returns {string} - Corresponding error message.
+ */
 function errorMessage(key) {
     const messages = {
         "Contactname": "Please check your name entry!",
@@ -540,7 +552,11 @@ function errorMessage(key) {
     return messages[key] || "Unknown error!";
 }
 
-
+/**
+ * Adds an error class to the label element of a specified input.
+ * 
+ * @param {string} inputLabel - Identifier of the input label to highlight.
+ */
 function errorInputField(inputLabel) {
     const label = document.getElementById('label' + inputLabel);
     if (label) {
@@ -548,34 +564,51 @@ function errorInputField(inputLabel) {
     }
 }
 
-
+/**
+ * Checks whether a given string is empty after trimming whitespace.
+ * 
+ * @param {string} value - The input string to check.
+ * @returns {boolean} - True if empty, false otherwise.
+ */
 function checkEmptyInput(value) {
     return value.trim() === "";
 }
 
-
+/**
+ * Reads values from the input fields and returns them.
+ * 
+ * @returns {{n: string, e: string, p: string}} - Name, email, and phone values.
+ */
 function readsTheInputValues() {
     return {
         n: document.getElementById('contactname').value,
         e: document.getElementById('email').value,
         p: document.getElementById('phone').value
-    }; 
+    };
 }
 
-
+/**
+ * Validates each input value and returns the key of the first invalid field.
+ * 
+ * @returns {string|undefined} - Field key with invalid input, or undefined if all valid.
+ */
 function checkValues() {
-    let {n, e, p} = readsTheInputValues();
+    let { n, e, p } = readsTheInputValues();
     if (checkEmptyInput(n) || !/^[a-zA-ZäöüÄÖÜß\s]+$/.test(n)) return "Contactname";
-    if (checkEmptyInput(e) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) return "Email"; 
+    if (checkEmptyInput(e) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) return "Email";
     if (checkEmptyInput(p) || !/^\d+$/.test(p)) return "Phone";
 }
 
-
+/**
+ * Performs overall input validation and triggers error display if necessary.
+ * 
+ * @returns {boolean} - True if an error was found, otherwise false.
+ */
 function checkValueInput() {
     let input = checkValues();
     if (input) {
         inputError(input);
-        return true
+        return true;
     }
     return false;
 }
