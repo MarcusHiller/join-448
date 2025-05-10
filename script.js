@@ -392,20 +392,34 @@ function setUserCircleInitials() {
 }
 
 
+/**
+ * Returns a set of regular expression patterns used to validate input fields.
+ * 
+ * @function inputValidations
+ * @returns {Object} An object containing validation regex for username, email, password, and phoneNumber.
+ */
 function inputValidations() {
     return {
         username: /^[a-zA-ZäöüÄÖÜß\s]+$/,
         email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         password: /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,15}$/,
         phoneNumber: /^\d+$/,
-    }
+    };
 }
 
-
+/**
+ * Validates the input value based on its ID and updates the label style accordingly.
+ * Removes the error class and adds a success class if validation passes.
+ * 
+ * @function correctedInput
+ * @param {string} labelID - The ID of the label element to modify.
+ * @param {string} inputID - The ID of the input element to validate.
+ */
 function correctedInput(labelID, inputID) {
     const label = document.getElementById(labelID);
     const input = document.getElementById(inputID);
     const validation = inputValidations();
+
     if (label.classList.contains("error-border")) {
         let validationKey = validationType(inputID);
         let pattern = validation[validationKey];
@@ -416,22 +430,36 @@ function correctedInput(labelID, inputID) {
     }
 }
 
-
+/**
+ * Determines the validation type (e.g., username, email, etc.) based on the input ID.
+ * 
+ * @function validationType
+ * @param {string} inputID - The ID of the input element to analyze.
+ * @returns {string} The corresponding validation type key.
+ */
 function validationType(inputID) {
     let validationType = "";
-    if (inputID.toLowerCase().includes("name")) {
+    const lowerID = inputID.toLowerCase();
+
+    if (lowerID.includes("name")) {
         validationType = "username";
-    } else if (inputID.toLowerCase().includes("email")) {
+    } else if (lowerID.includes("email")) {
         validationType = "email";
-    } else if (inputID.toLowerCase().includes("password")) {
+    } else if (lowerID.includes("password")) {
         validationType = "password";
-    } else if (inputID.toLowerCase().includes("phone")) {
+    } else if (lowerID.includes("phone")) {
         validationType = "phoneNumber";
     }
+
     return validationType;
 }
 
-
+/**
+ * Removes the success styling from a label, used to reset the state after input was corrected.
+ * 
+ * @function finishTheCorrection
+ * @param {string} labelID - The ID of the label element to reset.
+ */
 function finishTheCorrection(labelID) {
     const label = document.getElementById(labelID);
     if (label.classList.contains("correct-input")) {
