@@ -81,7 +81,7 @@ function createUserForContacts(n, e) {
  * @returns {boolean} True if match, false otherwise.
  */
 function checkSamePasswd(a, b) {
-    let labelPassw = document.getElementById('labelPasswdConf');
+    let labelPassw = document.getElementById('labelPasswordConf');
     let poppinError = document.getElementById('errorPoppin');
     labelPassw.classList.remove('error-border');
     poppinError.classList.add('opacity');
