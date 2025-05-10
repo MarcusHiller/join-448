@@ -246,12 +246,19 @@ window.addEventListener("DOMContentLoaded", async () => {
     } catch (err) {
         console.warn("⚠️ rotate_warning.html konnte nicht geladen werden:", err);
     }
+        const path = window.location.pathname;
+        const isLegalPage = path.includes("privacy_policy.html") || path.includes("legal_notice.html");
 
-    initLayout();          // ✅ wird jetzt immer aufgerufen
-    initCookies();
-    initBackButton();
-    checkOrientation();
-});
+        if (isLegalPage) {
+            await initLayout(); // ✅ Nur auf diesen Seiten ausführen
+        }
+
+        initCookies();
+        initBackButton();
+        checkOrientation();
+    });
+
+
 
 
 /**
