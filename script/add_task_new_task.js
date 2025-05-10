@@ -224,6 +224,7 @@ function getUserObject(userID) {
     return userID.map((name, index) => [`user${index}`, name]);
 }
 
+
 /**
  * Extracts subtask data from the DOM and returns it as an object.
  * 
@@ -246,6 +247,7 @@ function getSubtasks(taskIndex) {
     return { subtasks: subtasksObject };
 }
 
+
 /**
  * Assigns unique IDs to subtask input fields.
  */
@@ -257,6 +259,7 @@ function prepareSubtaskIDs() {
         if (input) input.id = `editable_input_${i}`;
     });
 }
+
 
 /**
  * Converts the assignedTo object into an array of user objects from Firebase.
@@ -273,6 +276,7 @@ function getAssignedToArrayAfterEdit(taskIndex) {
     return tasks[taskIndex].assignedTo = usersArray;
 }
 
+
 /**
  * Converts the subtasks object into an array of structured subtasks.
  * 
@@ -288,6 +292,7 @@ function getSubtasksArrayAfterEdit(taskIndex) {
     return tasks[taskIndex].subtask = subtasks;
 }
 
+
 /**
  * Reloads the task overlay by fetching its HTML content.
  * 
@@ -297,6 +302,7 @@ function getSubtasksArrayAfterEdit(taskIndex) {
 async function clearOverlay() {
     await getTaskOverlayHTML();
 }
+
 
 /**
  * Renders a single edited task into the correct column in the board view.
@@ -312,7 +318,6 @@ function renderSingleTaskInToColumn(taskIndex) {
 }
 
 
-
 /**
  * Selects the correct column for a task and sets its HTML content.
  * 
@@ -322,6 +327,7 @@ function selectConditionForSingleTask(taskIndex) {
     const taskRef = document.getElementById(`task_index_${taskIndex}`);
     taskRef.innerHTML = getSingleTaskAfterEdit(taskIndex);
 }
+
 
 /**
  * Handles checking or unchecking a subtask and updating the progress bar.
@@ -336,6 +342,7 @@ function addSubtaskChecked(indexSubtask, taskIndex) {
     subtask.checked ? progress++ : progress > 0 ? progress-- : progress = 0;
     saveCheckboxProcess(taskIndex, indexSubtask, subtask, progress);
 }
+
 
 /**
  * Updates the subtask progress, both in the DOM and on the server.
@@ -355,6 +362,7 @@ function saveCheckboxProcess(taskIndex, indexSubtask, subtask, progressValue) {
     patchDataToServer(`join/tasks/${taskID}/subtask/${subtaskName}`, { checked: subtask.checked });
 }
 
+
 /**
  * Counts how many subtasks are checked.
  * 
@@ -370,19 +378,30 @@ function checkedSubtaskChecked(taskIndex, subtaskMax) {
     return count;
 }
 
+
+/**
+ * Initializes a flatpickr date picker on the element with ID "date_input_picker".
+ * Sets locale to English, enforces "day/month/year" format, disables past dates, 
+ * and ensures mobile-friendly behavior is turned off. On date selection, the value 
+ * is transformed to ISO format and assigned to a hidden input.
+ * 
+ * @function datepicker
+ */
 function datepicker() {
     flatpickrInstance = flatpickr("#date_input_picker", {
-      locale: "en",
-      dateFormat: "d/m/Y",
-      minDate: "today",
-      disableMobile: true,
-      onChange: function(selectedDates, dateStr, instance) {
-        const [day, month, year] = dateStr.split("/");
-        const isoDate = `${year}-${month}-${day}`;
-        let expiredDate = document.getElementById("expired_date");
-        if (expiredDate) {
-            expiredDate.classList.add("d_none");
+        locale: "en",
+        dateFormat: "d/m/Y",
+        minDate: "today",
+        disableMobile: true,
+        onChange: function (selectedDates, dateStr, instance) {
+            const [day, month, year] = dateStr.split("/");
+            const isoDate = `${year}-${month}-${day}`;
+            let expiredDate = document.getElementById("expired_date");
+            if (expiredDate) {
+                expiredDate.classList.add("d_none");
+            }
+            document.getElementById("date_input").value = isoDate;
         }
-        document.getElementById("date_input").value = isoDate;
-    }});
-  }
+    });
+}
+

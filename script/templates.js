@@ -1,3 +1,9 @@
+/**
+ * Generates the full HTML template for a draggable task card.
+ * 
+ * @param {number} taskIndex - Index of the task in the task list.
+ * @returns {string} - HTML string for the task card.
+ */
 function getTaskTemplate(taskIndex) {
     return `<div draggable="true" id="task_index_${taskIndex}" class="task" ondragstart="startDragging(${taskIndex}); addHighlight()" ondragend="removeHighlight()" onclick="openOverlayTask(${taskIndex})">
                 <div class="task-cat-technical">
@@ -22,6 +28,13 @@ function getTaskTemplate(taskIndex) {
             </div>`
 }
 
+
+/**
+ * Returns the HTML structure of a task after it has been edited.
+ * 
+ * @param {number} taskIndex - Index of the task to render.
+ * @returns {string} - HTML string for the updated task.
+ */
 function getSingleTaskAfterEdit(taskIndex) {
     return `<div class="task-cat-technical">
                     <p id="task_category_${taskIndex}">${tasks[taskIndex].category}</p>
@@ -43,15 +56,38 @@ function getSingleTaskAfterEdit(taskIndex) {
                 </div>`
 }
 
+
+/**
+ * Returns the HTML for a user avatar inside a task.
+ * 
+ * @param {number} indexUser - Index of the user in the user list.
+ * @param {Array} userList - List of user objects.
+ * @returns {string} - HTML string for user avatar.
+ */
 function getUserInTaskTemplate(indexUser, userList) {
     return `<div class="user" style="background-color:${userList[indexUser].color}">${userList[indexUser].avatar}</div>`
 }
 
+/**
+ * Generates the HTML for an individual subtask inside a task.
+ * 
+ * @param {number} indexSubTask - Index of the subtask.
+ * @param {string} subtaskValue - Text content of the subtask.
+ * @param {number} taskIndex - Index of the parent task.
+ * @returns {string} - HTML string for the subtask.
+ */
 function getSubtaskTemplate(indexSubTask, subtaskValue, taskIndex) {
     return `<div id="subtask_${indexSubTask}" class="list-element-div" ondblclick="editSubtask(${indexSubTask})" onmouseover="showEditIcons(${indexSubTask})" onmouseout="blindEditIcons(${indexSubTask})"><div class="list-subtask-element list-subtask-element-hover" id="list_subtask_element_${indexSubTask}"><div class="disc-with-input"><span style="margin-right: 8px" id="disc_${indexSubTask}">&#9679;</span> <input id="editable_input_${indexSubTask}" readonly onkeydown="checkEnterEditSubtask(event, ${indexSubTask})" onchange="emptySubtaskDelete(${indexSubTask})" onblur="editSubmit(${indexSubTask})" value="${subtaskValue}"></div><div id="edit_and_delete_icons_${indexSubTask}"  class="delete-and-add-icon opacity-null margin-left"><img src="/assets/img/icon/edit.svg" ondblclick="event.stopPropagation()" id="edit_subtask_icon_${indexSubTask}" onclick="editSubtask(${indexSubTask})"><img id="confirm_edit_icon_${indexSubTask}" src="/assets/img/icon/check_subtask.svg" class="d_none" ondblclick="event.stopPropagation()" onclick="editSubmit(${indexSubTask})">
     <div class="placholder-for-icons"></div><img src="/assets/img/icon/delete.svg" ondblclick="event.stopPropagation()" onclick="removeSubtask(${indexSubTask}, ${taskIndex})" alt=""></div></div></div>`
 }
 
+
+/**
+ * Generates the HTML for a user selection item in the user dropdown.
+ * 
+ * @param {number} indexUsers - Index of the user in the contacts list.
+ * @returns {string} - HTML string for the user dropdown item.
+ */
 function getUserListTemplate(indexUsers) {
     return `<label for="user_${indexUsers}" id="user_${indexUsers}_label" class="user-dropmenu" onclick="checkedStyle(${indexUsers})">
                 <div class="user-logo-container">
@@ -63,11 +99,26 @@ function getUserListTemplate(indexUsers) {
             </label>`
 }
 
+
+/**
+ * Returns the HTML for a checked avatar in the selected user list.
+ * 
+ * @param {number} indexUsers - Index of the user in the contacts list.
+ * @returns {string} - HTML string for the avatar.
+ */
 function getCheckedAvatar(indexUsers) {
     return `<div id="user_checked_${indexUsers}" class="user-logo-small no-margin" style="background-color:${contactsFirebase[indexUsers].color}">${contactsFirebase[indexUsers].avatar}</div>`
     
 }
 
+
+/**
+ * Generates HTML for a user in the task overlay view.
+ * 
+ * @param {number} taskIndex - Index of the task.
+ * @param {number} indexUser - Index of the assigned user.
+ * @returns {string} - HTML string for the user row.
+ */
 function getTaskUsersOverlayTemplate(taskIndex, indexUser) {
     return `<tr>
                 <td>
@@ -77,6 +128,14 @@ function getTaskUsersOverlayTemplate(taskIndex, indexUser) {
             </tr>`
 }
 
+
+/**
+ * Returns the HTML structure of a subtask shown in the overlay.
+ * 
+ * @param {number} taskIndex - Index of the task.
+ * @param {number} indexSubtask - Index of the subtask.
+ * @returns {string} - HTML string for the subtask with a checkbox.
+ */
 function getTaskSubtaskOverlayTemplate(taskIndex, indexSubtask) {
     return `<label for="task_${taskIndex}_checkbox_${indexSubtask}" class="subtask-overlay">
                 <input type="checkbox" class="checkbox" id="task_${taskIndex}_checkbox_${indexSubtask}" onclick="addSubtaskChecked(${indexSubtask}, ${taskIndex})" >
@@ -87,17 +146,40 @@ function getTaskSubtaskOverlayTemplate(taskIndex, indexSubtask) {
 }
 
 
+/**
+ * Displays feedback when a task has been cleared successfully.
+ * 
+ * @returns {string} - HTML string for the feedback.
+ */
 function showSuccessfulClear() {
     return `<p>Task successfully cleared! </p><img src="/assets/img/icon/close_white.svg">`;
 }
 
+
+/**
+ * Displays feedback when a task is added successfully.
+ * 
+ * @returns {string} - HTML string for the feedback.
+ */
 function showSuccessfulAddedTask() {
     return `<p>Task added to board! </p><img class="feedback-img" src="/assets/img/icon/board_icon.svg">`;
 }
 
+/**
+ * Displays feedback when there is an error adding a task.
+ * 
+ * @returns {string} - HTML string for the error feedback.
+ */
 function showErrorAddedTask() {
     return `<p>There was an error saving the data</p><img class="feedback-img" src="/assets/img/icon/close_white.svg">`;
 }
+
+
+/**
+ * Displays feedback when a task is deleted.
+ * 
+ * @returns {string} - HTML string for the feedback.
+ */
 
 function showTaskDeleted() {
     return `<p>Task deleted successfully!</p><img class="feedback-img" src="/assets/img/icon/delete.svg">`;
@@ -106,7 +188,13 @@ function showTaskDeleted() {
 
 /* contact page */
 
-
+/**
+ * Generates a contact list item shown on the contacts page.
+ * 
+ * @param {Object} contact - The contact object.
+ * @param {string} initials - Initials to show in the avatar.
+ * @returns {string} - HTML string for the contact list entry.
+ */
 function showUserInformation(contact, initials) {
     return `
         <div class="contact" id="contact${contact.id}" onclick="chooseContact(${contact.id}); showRespUserInfo()">
@@ -120,6 +208,12 @@ function showUserInformation(contact, initials) {
 }
 
 
+/**
+ * Displays the full contact details panel.
+ * 
+ * @param {Object} individualContact - The selected contact object.
+ * @returns {string} - HTML string for the contact detail panel.
+ */
 function showContact(individualContact) {
     return `
     <div id="slide" class="user-slide-in">
@@ -159,6 +253,12 @@ function showContact(individualContact) {
     `;
 }
 
+
+/**
+ * Returns the HTML for the overlay used to add a new contact.
+ * 
+ * @returns {string} - HTML string for the add contact overlay.
+ */
 
 function showOverlayAddContact() {
     return `
@@ -205,6 +305,12 @@ function showOverlayAddContact() {
 }
 
 
+/**
+ * Generates the overlay HTML template to edit a specific contact.
+ * 
+ * @param {Object} individualUser - The contact object to edit.
+ * @returns {string} - HTML string for the edit contact overlay.
+ */
 function overlayEditContact(individualUser) {
     return `
         <div id="overlay" class="overlay-contact flex-box-center-center d-none" onclick="eventBubbling(event)">
@@ -250,16 +356,31 @@ function overlayEditContact(individualUser) {
 }
 
 
+/**
+ * Displays a message when a contact is successfully created.
+ * 
+ * @returns {string} - HTML feedback message.
+ */
 function showSuccessfulCreated() {
     return `<p>Contact successfully created </p>`;
 }
 
 
+/**
+ * Displays a message when a contact is successfully deleted.
+ * 
+ * @returns {string} - HTML feedback message.
+ */
 function showSuccessfulDeleted() {
     return `<p>Contact successfully deleted </p>`;
 }
 
 
+/**
+ * Returns a button with a vertical dot icon to open the responsive tools menu.
+ * 
+ * @returns {string} - HTML string for the responsive menu button.
+ */
 function changeBtnMore() {
     return `
         <div class="add-btn-resp" onclick="openToolsResp()">
@@ -268,7 +389,11 @@ function changeBtnMore() {
 }
 
 
-
+/**
+ * Returns a button with a person add icon to open the responsive contact form.
+ * 
+ * @returns {string} - HTML string for the add contact button.
+ */
 function changeAddBtnPerson() {
     return `
         <div class="add-btn-resp" onclick="addRespContact()">
@@ -277,7 +402,11 @@ function changeAddBtnPerson() {
 }
 
 
-
+/**
+ * Returns the overlay HTML for adding a contact in responsive view.
+ * 
+ * @returns {string} - HTML string for the add contact overlay (responsive).
+ */
 function showOverlayAddResp() {
     return `
     <div id="overlay" class="overlay-contact overlay-contact-resp d-none" onclick="eventBubbling(event)">
@@ -321,6 +450,12 @@ function showOverlayAddResp() {
 }
 
 
+/**
+ * Returns the overlay HTML for editing a contact in responsive view.
+ * 
+ * @param {Object} individualContact - The contact object to edit.
+ * @returns {string} - HTML string for the edit contact overlay (responsive).
+ */
 function showOverlayEditResp(individualContact) {
     return `
     <div id="overlay" class="overlay-contact overlay-contact-resp" onclick="eventBubbling(event)">

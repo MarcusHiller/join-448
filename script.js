@@ -278,9 +278,6 @@ async function loadRotateWarning() {
  * @function initLayout
  */
 async function initLayout() {
-    console.log("initLayout läuft...");
-
-    const isLegalPage =
         window.location.pathname.includes("privacy_policy.html") ||
         window.location.pathname.includes("legal_notice.html");
 
@@ -293,11 +290,8 @@ async function initLayout() {
     } else {
         await loadHeaderNavbarExtern();
     }
-
-    // ✅ Jetzt sicher löschen – NACHDEM der Header geladen wurde
     localStorage.removeItem("layout");
 }
-
 
 
 /**

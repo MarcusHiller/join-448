@@ -81,17 +81,23 @@ function checkUserFound(input, userFoundCounter, list) {
     }
   }
   
-  
-  function maxChar() {
-    let input = document.getElementById("titel_input");
-    let errorField =  document.getElementById("error-long");
-  
-    if (input.value.length === 40) {
-      errorField.classList.remove('d_none');
-    } else {
-      errorField.classList.add('d_none');
-    }
+/**
+ * Validates the length of the task title input and shows or hides an error message
+ * when the maximum allowed characters (40) is reached.
+ * 
+ * @function maxChar
+ */
+function maxChar() {
+  let input = document.getElementById("titel_input");
+  let errorField = document.getElementById("error-long");
+
+  if (input.value.length === 40) {
+    errorField.classList.remove('d_none');
+  } else {
+    errorField.classList.add('d_none');
   }
+}
+
 
   /**
  * Animates a temporary success message to the user.
