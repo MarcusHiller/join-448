@@ -113,7 +113,6 @@ async function loadSummaryData() {
     try {
         let response = await fetch(FIREBASE_URL);
         let tasks = await response.json();
-
         let todo = 0;
         let done = 0;
         let inProgress = 0;

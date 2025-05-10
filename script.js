@@ -19,7 +19,6 @@ async function init(page) {
     }
 }
 
-
 /**
  * Checks the login status stored in localStorage.
  * If the user is not logged in, redirects them to the index (login) page.
@@ -88,7 +87,6 @@ function burgerMenuSliding() {
     menu.classList.toggle("visible");
 }
 
-
 /**
  * Closes the burger menu when clicking outside of it.
  */
@@ -106,8 +104,6 @@ document.addEventListener("click", function (event) {
         menu.classList.remove("visible");
     }
 });
-
-
 
 /**
  * Stores the layout type (internal or external) in localStorage
@@ -241,25 +237,16 @@ function enableLoginButtons() {
  * Initializes rotate warning, layout loading, cookie logic, and back button.
  */
 window.addEventListener("DOMContentLoaded", async () => {
-    try {
         await loadRotateWarning();
-    } catch (err) {
-        console.warn("⚠️ rotate_warning.html konnte nicht geladen werden:", err);
-    }
-        const path = window.location.pathname;
-        const isLegalPage = path.includes("privacy_policy.html") || path.includes("legal_notice.html");
-
+        let path = window.location.pathname;
+        let isLegalPage = path.includes("privacy_policy.html") || path.includes("legal_notice.html");
         if (isLegalPage) {
-            await initLayout(); // ✅ Nur auf diesen Seiten ausführen
+            await initLayout();
         }
-
         initCookies();
         initBackButton();
         checkOrientation();
     });
-
-
-
 
 /**
  * Loads the rotate warning overlay into the DOM.
@@ -278,13 +265,11 @@ async function loadRotateWarning() {
  * @function initLayout
  */
 async function initLayout() {
-        window.location.pathname.includes("privacy_policy.html") ||
-        window.location.pathname.includes("legal_notice.html");
-
-    const isLoggedIn = localStorage.getItem("loggedIn") === "true";
-    const hasUsername = !!localStorage.getItem("username");
-    const layout = localStorage.getItem("layout");
-
+    window.location.pathname.includes("privacy_policy.html") ||
+    window.location.pathname.includes("legal_notice.html");
+    let isLoggedIn = localStorage.getItem("loggedIn") === "true";
+    let hasUsername = !!localStorage.getItem("username");
+    let layout = localStorage.getItem("layout");
     if ((isLoggedIn || hasUsername) && layout === "intern") {
         await loadHeaderNavbarIntern();
     } else {
@@ -303,7 +288,6 @@ function initCookies() {
     let stillValid = cookiesStillValid();
     let banner = document.getElementById("cookieBanner");
     let loginArea = document.getElementById("loginArea");
-
     if (!stillValid) {
         if (banner) banner.classList.remove("d-none");
         if (loginArea) loginArea.classList.remove("d-none");
@@ -313,7 +297,6 @@ function initCookies() {
         if (loginArea) loginArea.classList.remove("d-none");
         enableLoginButtons();
     }
-
     let acceptBtn = document.getElementById("acceptCookiesBtn");
     if (acceptBtn) {
         acceptBtn.addEventListener("click", acceptCookies);
@@ -424,9 +407,9 @@ function inputValidations() {
  * @param {string} inputID - The ID of the input element to validate.
  */
 function correctedInput(labelID, inputID) {
-    const label = document.getElementById(labelID);
-    const input = document.getElementById(inputID);
-    const validation = inputValidations();
+    let label = document.getElementById(labelID);
+    let input = document.getElementById(inputID);
+    let validation = inputValidations();
 
     if (label.classList.contains("error-border")) {
         let validationKey = validationType(inputID);
@@ -447,7 +430,7 @@ function correctedInput(labelID, inputID) {
  */
 function validationType(inputID) {
     let validationType = "";
-    const lowerID = inputID.toLowerCase();
+    let lowerID = inputID.toLowerCase();
 
     if (lowerID.includes("name")) {
         validationType = "username";
@@ -469,7 +452,7 @@ function validationType(inputID) {
  * @param {string} labelID - The ID of the label element to reset.
  */
 function finishTheCorrection(labelID) {
-    const label = document.getElementById(labelID);
+    let label = document.getElementById(labelID);
     if (label.classList.contains("correct-input")) {
         label.classList.remove("correct-input");
     }
