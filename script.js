@@ -241,12 +241,18 @@ function enableLoginButtons() {
  * Initializes rotate warning, layout loading, cookie logic, and back button.
  */
 window.addEventListener("DOMContentLoaded", async () => {
-    await loadRotateWarning();
-    initLayout();
+    try {
+        await loadRotateWarning();
+    } catch (err) {
+        console.warn("⚠️ rotate_warning.html konnte nicht geladen werden:", err);
+    }
+
+    initLayout();          // ✅ wird jetzt immer aufgerufen
     initCookies();
     initBackButton();
     checkOrientation();
 });
+
 
 /**
  * Loads the rotate warning overlay into the DOM.
@@ -259,31 +265,32 @@ async function loadRotateWarning() {
 }
 
 /**
- * Initializes the layout based on login status and page type.
- * Loads the appropriate header and navbar.
- *
- * @function initLayout
- */
-/**
  * Initializes the layout based on login status and current page.
  * Resets layout value every time to ensure clean state.
  *
  * @function initLayout
  */
-function initLayout() {
-    localStorage.removeItem("layout");
+async function initLayout() {
+    console.log("initLayout läuft...");
+
     const isLegalPage =
         window.location.pathname.includes("privacy_policy.html") ||
         window.location.pathname.includes("legal_notice.html");
+
     const isLoggedIn = localStorage.getItem("loggedIn") === "true";
-    if (!isLoggedIn || isLegalPage) {
-        localStorage.setItem("layout", "extern");
-        loadHeaderNavbarExtern();
+    const hasUsername = !!localStorage.getItem("username");
+    const layout = localStorage.getItem("layout");
+
+    if ((isLoggedIn || hasUsername) && layout === "intern") {
+        await loadHeaderNavbarIntern();
     } else {
-        localStorage.setItem("layout", "intern");
-        loadHeaderNavbarIntern();
+        await loadHeaderNavbarExtern();
     }
+
+    // ✅ Jetzt sicher löschen – NACHDEM der Header geladen wurde
+    localStorage.removeItem("layout");
 }
+
 
 
 /**

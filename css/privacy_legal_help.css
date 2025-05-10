@@ -194,6 +194,7 @@ a:hover {
     background-color: #091931;
     opacity: 1;
     border-radius: 8px;
+    width: 100%;
 }
 
 @media (max-width: 900px) {
