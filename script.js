@@ -264,27 +264,27 @@ async function loadRotateWarning() {
  *
  * @function initLayout
  */
+/**
+ * Initializes the layout based on login status and current page.
+ * Resets layout value every time to ensure clean state.
+ *
+ * @function initLayout
+ */
 function initLayout() {
-    let isLegalPage = window.location.pathname.includes("privacy_policy.html") ||
+    localStorage.removeItem("layout");
+    const isLegalPage =
+        window.location.pathname.includes("privacy_policy.html") ||
         window.location.pathname.includes("legal_notice.html");
-    if (isLegalPage) {
-        localStorage.removeItem("layout");
-    }
-
-    let layout = localStorage.getItem("layout");
-    let loggedIn = localStorage.getItem("loggedIn");
-
-    if (!layout && loggedIn === "true") {
-        layout = "intern";
-        localStorage.setItem("layout", "intern");
-    }
-
-    if (layout === "intern") {
-        loadHeaderNavbarIntern();
-    } else {
+    const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+    if (!isLoggedIn || isLegalPage) {
+        localStorage.setItem("layout", "extern");
         loadHeaderNavbarExtern();
+    } else {
+        localStorage.setItem("layout", "intern");
+        loadHeaderNavbarIntern();
     }
 }
+
 
 /**
  * Handles cookie banner logic and login button availability.
