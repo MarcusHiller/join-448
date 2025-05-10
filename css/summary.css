@@ -347,6 +347,7 @@ html {
         display: flex;
         justify-content: flex-start;
         width: 100%;
+        padding-left: 20px;
     }
 
     .metrics-grid {
@@ -466,7 +467,11 @@ html {
         }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 430px) {
+    .dashboard-container{
+        align-items: center;
+        padding-left: 0px;
+    }
     .metrics-grid.show-mobile {
         width: 100%;
         max-width: 300px;
