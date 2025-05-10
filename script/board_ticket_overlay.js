@@ -1,5 +1,6 @@
 let flatpickrInstance;
 
+
 /**
  * Opens the task overlay for the given task.
  * @param {number} taskIndex - Index of the task to display.
@@ -13,6 +14,7 @@ function openOverlayTask(taskIndex) {
     document.getElementById("body").classList.add("overflow-hidden");
     creatOverlayFromTask(taskIndex);
 }
+
 
 /**
  * Populates the overlay with task details.
@@ -30,6 +32,7 @@ function creatOverlayFromTask(taskIndex) {
 
 }
 
+
 /**
  * Adds edit and delete handlers to the overlay buttons.
  * @param {number} taskIndex - Task index.
@@ -40,6 +43,7 @@ function renderButtons(taskIndex) {
     deleteTask.setAttribute("onclick", `deleteTaskOnOverlay(${taskIndex})`);
     editTask.setAttribute("onclick", `editTaskOnOverlay(${taskIndex})`);
 }
+
 
 /**
  * Displays the category in the overlay and applies color coding.
@@ -52,6 +56,7 @@ function renderCategoryIntoTaskOverlay(taskIndex) {
     categoryRef.style.backgroundColor = category === "Technical Task" ? "#1FD7C1" : "#0038FF";
 }
 
+
 /**
  * Displays the task priority and its corresponding icon.
  * @param {number} taskIndex - Task index.
@@ -63,6 +68,7 @@ function renderPrioIntoTaskOverlay(taskIndex) {
     prioTask.innerHTML = prio;
     prioImg.src = `/assets/img/icon/prio_${prio}.svg`;
 }
+
 
 /**
  * Displays the subtasks list in the overlay.
@@ -84,6 +90,7 @@ function renderSubtaskIntoTaskOverlay(taskIndex) {
     checkCheckboxInOverlay(taskIndex, subtaskList);
 }
 
+
 /**
  * Applies checked state to subtask checkboxes in overlay.
  * @param {number} taskIndex - Task index.
@@ -94,6 +101,7 @@ function checkCheckboxInOverlay(taskIndex, subtaskList) {
         document.getElementById(`task_${taskIndex}_checkbox_${i}`).checked = !!subtaskList[i].subtaskCheck;
     }
 }
+
 
 /**
  * Renders assigned users into the task overlay.
@@ -113,6 +121,7 @@ function renderUserIntoTaskOverlay(taskIndex) {
     }
 }
 
+
 /**
  * Closes the task overlay with animation and resets scroll.
  */
@@ -125,6 +134,7 @@ function closeOverlayTask() {
     document.getElementById("body").classList.remove("overflow-hidden");
     getTaskOverlayHTML();
 }
+
 
 /**
  * Opens the edit form overlay for a specific task.
@@ -140,6 +150,7 @@ async function editTaskOnOverlay(taskIndex) {
     currentInputFieldvalue(taskIndex);
 }
 
+
 /**
  * Adjusts the edit task form layout for the overlay.
  */
@@ -154,6 +165,7 @@ function fitEditTaskToContainer() {
     document.getElementById("addTask_prio").classList.add("gap-8");
     document.getElementById("assigned_select_dropdown_menu").classList.add("unclickable");
 }
+
 
 /**
  * Fills the edit form fields with the current task data.
@@ -219,6 +231,7 @@ function renderEditButton(taskIndex) {
     formSubmit.setAttribute("onsubmit", `addEditedTask(${taskIndex}); return false`);
 }
 
+
 /**
  * Displays existing subtasks in the edit form.
  * @param {number} taskIndex - Index of the task.
@@ -234,6 +247,7 @@ function checkSubtasks(taskIndex) {
     }
 }
 
+
 /**
  * Selects the task's category in the dropdown.
  * @param {number} taskIndex - Index of the task.
@@ -242,6 +256,7 @@ function checkCategory(taskIndex) {
     let category = tasks[taskIndex].category;
     selectCategory(category);
 }
+
 
 /**
  * Checks the corresponding priority radio button.
@@ -255,6 +270,7 @@ function checkPrio(taskIndex) {
         document.getElementById(`prio_${level}`).checked = (level === prio);
     });
 }
+
 
 /**
  * Checks assigned users and highlights them in the dropdown.
@@ -280,6 +296,7 @@ function checkAssignedTo(taskIndex) {
     }
 }
 
+
 /**
  * Deletes a task from Firebase and updates the UI.
  * @async
@@ -302,6 +319,7 @@ async function deleteTaskOnOverlay(taskIndex) {
     userFeedback();
 }
 
+
 /**
  * Shows a visual success message after deleting a task.
  */
@@ -310,6 +328,7 @@ function successfulTaskDeleted() {
     success.innerHTML = showTaskDeleted();
 }
 
+
 /**
  * Removes the task from the local array.
  * @param {number} taskIndex - Index of the task to remove.
@@ -317,6 +336,7 @@ function successfulTaskDeleted() {
 function deleteTaskFromTaskArray(taskIndex) {
     tasks.splice(taskIndex, 1);
 }
+
 
 function dateForm(taskIndex) {
     let firebaseDate = tasks[taskIndex].date

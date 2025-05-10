@@ -7,6 +7,7 @@ let visiblePasswords = {
     passwordConf: false,
 };
 
+
 /**
  * Updates the icon for password input fields based on visibility and input content.
  * @param {string} id - The ID of the password input field.
@@ -21,6 +22,7 @@ function updateSignupIcon(id) {
     }
 }
 
+
 /**
  * Toggles password visibility for a given input field and updates the icon.
  * @param {string} id - The ID of the password input field.
@@ -32,6 +34,7 @@ function toggleSignupVisibility(id) {
     input.type = visiblePasswords[id] ? 'text' : 'password';
     icon.src = visiblePasswords[id] ? '../assets/img/icon/visibility.svg' : '../assets/img/icon/visibility_off.svg';
 }
+
 
 /**
  * Toggles the state of the checkbox and updates its image.
@@ -47,6 +50,7 @@ function toggleCheckbox(event) {
     checkbox.checked = isChecked;
     checkboxImage.src = checkbox.checked ? "../assets/img/icon/checked.svg" : "../assets/img/icon/rectangle.svg";
 }
+
 
 /**
  * Handles hover state over the checkbox image and updates the icon accordingly.
@@ -64,6 +68,7 @@ function hoverImage(isHover, event) {
         checkboxImage.src = isHover ? "../assets/img/icon/checked.svg" : "../assets/img/icon/rectangle.svg";
     }
 }
+
 
 /**
  * Prevents form submission if the checkbox is not checked.
@@ -89,6 +94,7 @@ function inputError(inputLabel) {
     errorInputField(inputLabel);
 }
 
+
 /**
  * Returns a specific error message based on the input key.
  * 
@@ -106,6 +112,7 @@ function errorMessage(key) {
     return messages[key] || "Unknown error!";
 }
 
+
 /**
  * Highlights the label of the input field by adding an error class.
  * 
@@ -120,6 +127,7 @@ function errorInputField(inputLabel) {
     }
 }
 
+
 /**
  * Checks if the input value is empty after trimming whitespace.
  * 
@@ -129,6 +137,7 @@ function errorInputField(inputLabel) {
 function checkEmptyInput(value) {
     return value.trim() === "";
 }
+
 
 /**
  * Reads values from input fields and returns them in an object.
@@ -145,6 +154,7 @@ function readsTheInputValues() {
     };
 }
 
+
 /**
  * Validates all input values according to specified rules.
  * 
@@ -158,6 +168,7 @@ function checkValues() {
     if (checkEmptyInput(passwdConf) || !/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,15}$/.test(passwdConf)) return "PasswordConf";
     if (checkBox !== "true") return "Checkbox";
 }
+
 
 /**
  * Checks input values and triggers error handling if any input is invalid.

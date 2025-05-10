@@ -4,17 +4,20 @@
  */
 let userFirebase = [];
 
+
 /**
  * Password mismatch error text.
  * @type {string}
  */
 let textPasswdError = "Ups! your password don't match!";
 
+
 /**
  * Email already exists error text.
  * @type {string}
  */
 let textEmailError = "The e-mail already exists!";
+
 
 /**
  * Adds a new user from the sign-up form, saves to Firebase, and shows success overlay.
@@ -33,6 +36,7 @@ async function addUser() {
     showOverlaySuccessful();
 }
 
+
 /**
  * Retrieves form field elements.
  * @returns {{username: HTMLElement, email: HTMLElement, password: HTMLElement, confirm: HTMLElement}}
@@ -46,6 +50,7 @@ function getFormElements() {
     };
 }
 
+
 /**
  * Adds a new user also to the contacts list.
  * @param {HTMLElement} username - Username field element.
@@ -57,6 +62,7 @@ async function addUserToContacts(username, email) {
     await saveContactsToFirebase();
     contactsFirebase = [];
 }
+
 
 /**
  * Pushes new contact data into contactsFirebase array.
@@ -73,6 +79,7 @@ function createUserForContacts(n, e) {
     };
     contactsFirebase.push(newContact);
 }
+
 
 /**
  * Checks if the password and confirmation match.
@@ -95,6 +102,7 @@ function checkSamePasswd(a, b) {
     return true;
 }
 
+
 /**
  * Checks if an email is already in use in Firebase.
  * @param {string} email - Email address to check.
@@ -113,6 +121,7 @@ async function checkUserExists(email) {
     }
 }
 
+
 /**
  * Clears previous email validation errors.
  */
@@ -129,6 +138,7 @@ async function loadUsersFromFirebase() {
     const response = await fetch(BASE_URL + "/join/users.json");
     return await response.json();
 }
+
 
 /**
  * Checks if the email already exists in user data.
@@ -148,6 +158,7 @@ function checkIfEmailExists(data, email) {
     return false;
 }
 
+
 /**
  * Displays an error when email already exists.
  */
@@ -159,6 +170,7 @@ function showEmailExistsError() {
     errorMsg.innerHTML = textEmailError;
 }
 
+
 /**
  * Creates a new user object.
  * @param {string} username - The username.
@@ -169,6 +181,7 @@ function showEmailExistsError() {
 function createUserObject(username, email, password) {
     return { username, email, password };
 }
+
 
 /**
  * Shows success overlay and redirects after registration.
@@ -182,11 +195,10 @@ function showOverlaySuccessful() {
     }, 1500);
 }
 
+
 /**
  * Resets the `userFirebase` array.
  */
 function resetUserArray() {
     userFirebase = [];
 }
-
-

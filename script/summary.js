@@ -3,8 +3,10 @@ let urlParams = new URLSearchParams(window.location.search);
 let greetsName = urlParams.get("name");
 let isLogin = urlParams.get("login") === "true";
 
+
 // Firebase endpoint for retrieving task data
 let FIREBASE_URL = "https://join-4215a-default-rtdb.europe-west1.firebasedatabase.app/join/tasks.json";
+
 
 /**
  * Returns the appropriate greeting phrase based on the current time.
@@ -19,6 +21,7 @@ function getGreetingPhrase() {
                 "Good night";
 }
 
+
 /**
  * Sets the greeting text dynamically based on login state and user name.
  * @param {HTMLElement} element - The element to insert the greeting text into
@@ -31,6 +34,7 @@ function setGreetingText(element, name) {
         ? `${greetingPhrase}, <span class="greeting-name">${name}</span>`
         : `${greetingPhrase}!`;
 }
+
 
 /**
  * Initializes the greeting logic on page load.
@@ -106,6 +110,7 @@ function initGreetingRepeat() {
     setGreetingText(greetingRepeatText, greetsName);
 }
 
+
 /**
  * Fetches task data from Firebase and updates metrics.
  */
@@ -156,6 +161,7 @@ async function loadSummaryData() {
     }
 }
 
+
 /**
  * Formats ISO date string to readable format.
  * @param {string} dateString
@@ -169,6 +175,7 @@ function formatDate(dateString) {
         day: "numeric"
     });
 }
+
 
 /**
  * Handles metric tile click and visual feedback.

@@ -11,6 +11,7 @@ const BASE_URL = "https://join-4215a-default-rtdb.europe-west1.firebasedatabase.
  */
 let contactsFirebase = [];
 
+
 /**
  * Loads contacts from Firebase and assigns them to `contactsFirebase`.
  * @returns {Promise<void>}
@@ -26,6 +27,7 @@ async function loadContactsFromFirebase() {
   }
 }
 
+
 /**
  * Renders avatar initials from usernames into `contactsFirebase` objects.
  */
@@ -37,6 +39,7 @@ function renderAvatar() {
       .join("");
   });
 }
+
 
 /**
  * Saves `contactsFirebase` to Firebase.
@@ -55,6 +58,7 @@ async function saveContactsToFirebase() {
     }
   });
 }
+
 
 /**
  * Saves user data from `userFirebase` to Firebase.
@@ -78,6 +82,7 @@ async function saveUsersToFirebase() {
   }
 }
 
+
 /**
  * Sends a new or updated task to Firebase using PUT.
  * @param {string} path - Firebase path.
@@ -100,6 +105,7 @@ async function putDataToServer(path = "", data) {
   userFeedback();
 }
 
+
 /**
  * Sends partial updates to a task object using PATCH.
  * @param {string} path - Firebase path.
@@ -119,6 +125,7 @@ async function patchDataToServer(path = "", data) {
     console.error('There was an error updating the data:', error);
   }
 }
+
 
 //  Get Data //
 //ANCHOR - Get Data
@@ -141,6 +148,7 @@ async function getDataFromServer(path = "") {
   await deleteNotFoundedUserFromTask();
 }
 
+
 /**
  * Constructs a task object from Firebase response data.
  * @param {number} index - Task index.
@@ -161,6 +169,7 @@ function firbaseObject(index, responseToJson, tasksKeysArray) {
     condition: responseToJson[tasksKeysArray[index]].condition
   };
 }
+
 
 /**
  * Deletes user entries from Firebase that no longer exist locally.

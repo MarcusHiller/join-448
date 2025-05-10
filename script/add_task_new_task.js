@@ -6,12 +6,14 @@
  */
 const currentPage = window.location.pathname.split("/").pop();
 
+
 /**
  * Global array to store searched tasks (if needed elsewhere).
  * 
  * @type {Array}
  */
 let searchedTasks = [];
+
 
 /**
  * Adds a new task to the task list, validates inputs, and updates the server.
@@ -40,6 +42,7 @@ function addTask() {
     }
 }
 
+
 /**
  * Returns the index of the latest task in the `tasks` array.
  * 
@@ -48,6 +51,7 @@ function addTask() {
 function getIndex() {
     return tasks.length - 1;
 }
+
 
 /**
  * Gathers form input data and constructs a new task object.
@@ -66,6 +70,7 @@ function getNewTask() {
     let condition = currentCondition;
     return { title, descripton, date, category, priority, subtask, assignedTo, id, condition };
 }
+
 
 /**
  * Adds an edited task to the list by replacing an existing task and updating the server.
@@ -86,6 +91,7 @@ function addEditedTask(taskIndex) {
     clearOverlay();
 }
 
+
 /**
  * Constructs a task object using updated values from form inputs.
  * 
@@ -104,6 +110,7 @@ function getEditedTask(taskIndex) {
     let condition = tasks[taskIndex].condition;
     return { title, descripton, date, category, priority, subtask, assignedTo, id, condition };
 }
+
 
 /**
  * Validates all required input fields and highlights missing inputs.
@@ -143,6 +150,7 @@ function checkInputFields() {
     return hasError;
 }
 
+
 /**
  * Determines which priority option is selected.
  * 
@@ -164,6 +172,7 @@ function getPriority() {
     return priority;
 }
 
+
 /**
  * Checks for required inputs and returns field info.
  * @returns {Array<{id: string, errorId: string}>} Required fields.
@@ -176,7 +185,8 @@ function checkRequiredInputsField() {
     ];
     removeErrorMsg();
     return fields;
-  }
+}
+
 
 /**
  * Generates a unique ID for each task using the current timestamp.
@@ -186,6 +196,7 @@ function checkRequiredInputsField() {
 function generateID() {
     return (new Date()).getTime();
 }
+
 
 /**
  * Collects selected user IDs and converts them into an assignedTo object.
@@ -197,6 +208,7 @@ function getAssignedTo() {
     let allUsers = getUserObject(userID);
     return Object.fromEntries(allUsers);
 }
+
 
 /**
  * Retrieves an array of selected user IDs from checkboxes.
@@ -213,6 +225,7 @@ function getUserID() {
     }
     return userID;
 }
+
 
 /**
  * Converts an array of user IDs into key-value pairs.
