@@ -21,9 +21,23 @@ window.addEventListener("resize", updateDraggableState);
  * Handles dragover event, allowing drop and triggers auto-scroll when near window edge.
  * @param {DragEvent} ev - The drag event.
  */
-function dragoverHandler(ev) {
+const container = document.getElementById('body');
+
+  function dragoverHandler(ev) {
     ev.preventDefault();
-}
+
+    const bounds = container.getBoundingClientRect();
+    const topEdge = bounds.top + 150;
+    const bottomEdge = bounds.bottom - 150;
+
+    if (ev.clientY < topEdge) {
+        const speed = Math.max(1, (topEdge - ev.clientY) / 10);
+        container.scrollTop -= speed;
+      } else if (ev.clientY > bottomEdge) {
+        const speed = Math.max(1, (ev.clientY - bottomEdge) / 10);
+        container.scrollTop += speed;
+      }
+  }
 
 /**
  * Sets the currently dragged task by index and adds the visual dragging class.
