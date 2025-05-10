@@ -532,7 +532,7 @@ function removeErrorText() {
     labels.forEach(label => {
         const inputLabel = document.getElementById('label' + label);
         if (inputLabel) {
-            inputLabel.classList.remove('input-field-error');
+            inputLabel.classList.remove('error-border');
         }
     });
 }
@@ -560,7 +560,7 @@ function errorMessage(key) {
 function errorInputField(inputLabel) {
     const label = document.getElementById('label' + inputLabel);
     if (label) {
-        label.classList.add('input-field-error');
+        label.classList.add('error-border');
     }
 }
 

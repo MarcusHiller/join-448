@@ -100,7 +100,7 @@ function errorMessage(key) {
         "Username": "Please check your name entry!",
         "EmailSignUp": "Please check your email entry!",
         "PasswordReg": "Please use 6 - 15 characters!",
-        "PasswdConf": "Please use 6 - 15 characters!",
+        "PasswordConf": "Please use 6 - 15 characters!",
         "Checkbox": "Please accept the privacy policy!"
     };
     return messages[key] || "Unknown error!";
@@ -112,9 +112,11 @@ function errorMessage(key) {
  * @param {string} inputLabel - The key of the input field to highlight.
  */
 function errorInputField(inputLabel) {
-    const label = document.getElementById('label' + inputLabel);
-    if (label) {
-        label.classList.add('error-border');
+    if (inputLabel !== "Checkbox") {
+        const label = document.getElementById('label' + inputLabel);
+        if (label) {
+            label.classList.add('error-border');
+        }
     }
 }
 
@@ -153,7 +155,7 @@ function checkValues() {
     if (checkEmptyInput(username) || !/^[a-zA-ZäöüÄÖÜß\s]+$/.test(username)) return "Username";
     if (checkEmptyInput(email) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "EmailSignUp";
     if (checkEmptyInput(passwdReg) || !/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,15}$/.test(passwdReg)) return "PasswordReg";
-    if (checkEmptyInput(passwdConf) || !/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,15}$/.test(passwdConf)) return "PasswdConf";
+    if (checkEmptyInput(passwdConf) || !/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,15}$/.test(passwdConf)) return "PasswordConf";
     if (checkBox !== "true") return "Checkbox";
 }
 
@@ -171,52 +173,3 @@ function checkValueInput() {
     return false;
 }
 
-
-
-
-function inputValidations() {
-    return {
-        username: /^[a-zA-ZäöüÄÖÜß\s]+$/,
-        email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-        password: /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,15}$/,
-        phoneNumber: /^\d+$/,
-    }
-}
-
-
-function correctedInput(labelID, inputID) {
-    const label = document.getElementById(labelID);
-    const input = document.getElementById(inputID);
-    const validation = inputValidations();
-    if (label.classList.contains("error-border")) {
-        let validationKey = validationType(inputID);
-        let pattern = validation[validationKey];
-        if (pattern && pattern.test(input.value)) {
-            label.classList.remove("error-border");
-            label.classList.add("correct-input");
-        }
-    }
-}
-
-
-function validationType(inputID) {
-    let validationType = "";
-    if (inputID.toLowerCase().includes("username")) {
-        validationType = "username";
-    } else if (inputID.toLowerCase().includes("email")) {
-        validationType = "email";
-    } else if (inputID.toLowerCase().includes("password")) {
-        validationType = "password";
-    } else if (inputID.toLowerCase().includes("phone")) {
-        validationType = "phoneNumber";
-    }
-    return validationType;
-}
-
-
-function finishTheCorrection(labelID) {
-    const label = document.getElementById(labelID);
-    if (label.classList.contains("correct-input")) {
-        label.classList.remove("correct-input");
-    }
-}

@@ -29,7 +29,7 @@ async function login() {
     if (checkValueInput()) return;
     spinningLoaderStart();
     let email = document.getElementById('email');
-    let passwd = document.getElementById('passwd');
+    let passwd = document.getElementById('password');
     await loadUserData();
     spinningLoaderEnd();
 
@@ -52,7 +52,7 @@ async function login() {
  * Displays an error message if login fails.
  */
 function displayErrorLogin() {
-    document.getElementById('labelPasswd').classList.add('input-field-error');
+    document.getElementById('labelPassword').classList.add('error-border');
     info.classList.remove('opacity');
     info.innerHTML = "Check your e-mail and password.<br> Please try again.";
 }
@@ -76,7 +76,7 @@ async function loadUserData() {
 function guestLogin(event) {
     event.preventDefault();
     document.getElementById('email').removeAttribute('required');
-    document.getElementById('passwd').removeAttribute('required');
+    document.getElementById('password').removeAttribute('required');
     localStorage.setItem("username", "Guest");     // 👈 Auch hier speichern!
     localStorage.setItem("loggedIn", "true");
     window.location.href = "html/summary.html?name=Guest&login=true";
@@ -87,7 +87,7 @@ function guestLogin(event) {
  * Updates the password input icon depending on whether input is present and visible.
  */
 function updatePasswdIcon() {
-    const passwdInput = document.getElementById('passwd');
+    const passwdInput = document.getElementById('password');
     const passwdIcon = document.getElementById('passwdIcon');
 
     if (passwdInput.value.length > 0) {
@@ -103,7 +103,7 @@ function updatePasswdIcon() {
  * Toggles the password visibility in the input field and updates the icon accordingly.
  */
 function togglePasswordVisibility() {
-    const passwdInput = document.getElementById('passwd');
+    const passwdInput = document.getElementById('password');
     const passwdIcon = document.getElementById('passwdIcon');
     isPasswordVisible = !isPasswordVisible;
     passwdInput.type = isPasswordVisible ? 'text' : 'password';
@@ -135,13 +135,13 @@ function inputError(inputLabel) {
 /**
  * Returns a predefined error message for a given input key.
  * 
- * @param {string} key - Identifier for the input field (e.g., "Email", "Passwd").
+ * @param {string} key - Identifier for the input field (e.g., "Email", "Password").
  * @returns {string} - Corresponding error message.
  */
 function errorMessage(key) {
     const messages = {
         "Email": "Please check your email entry!",
-        "Passwd": "Please use 6 - 15 characters!"
+        "Password": "Please use 6 - 15 characters!"
     };
     return messages[key] || "Unknown error!";
 }
@@ -154,7 +154,7 @@ function errorMessage(key) {
 function errorInputField(inputLabel) {
     const label = document.getElementById('label' + inputLabel);
     if (label) {
-        label.classList.add('input-field-error');
+        label.classList.add('error-border');
     }
 }
 
@@ -171,12 +171,12 @@ function checkEmptyInput(value) {
 /**
  * Collects and returns input values from the login form.
  * 
- * @returns {Object} - Object with keys `email` and `passwd`.
+ * @returns {Object} - Object with keys `email` and `password`.
  */
 function readsTheInputValues() {
     return {
         email: document.getElementById('email').value,
-        passwd: document.getElementById('passwd').value
+        password: document.getElementById('password').value
     };
 }
 
@@ -186,9 +186,9 @@ function readsTheInputValues() {
  * @returns {string|undefined} - Returns input key if invalid, otherwise undefined.
  */
 function checkValues() {
-    let { email, passwd } = readsTheInputValues();
+    let { email, password } = readsTheInputValues();
     if (checkEmptyInput(email) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "Email";
-    if (checkEmptyInput(passwd) || !/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,15}$/.test(passwd)) return "Passwd";
+    if (checkEmptyInput(password) || !/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,15}$/.test(password)) return "Password";
 }
 
 /**

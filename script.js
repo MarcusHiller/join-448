@@ -390,3 +390,51 @@ function setUserCircleInitials() {
         userCircle.textContent = "G";
     }
 }
+
+
+function inputValidations() {
+    return {
+        username: /^[a-zA-ZäöüÄÖÜß\s]+$/,
+        email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        password: /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,15}$/,
+        phoneNumber: /^\d+$/,
+    }
+}
+
+
+function correctedInput(labelID, inputID) {
+    const label = document.getElementById(labelID);
+    const input = document.getElementById(inputID);
+    const validation = inputValidations();
+    if (label.classList.contains("error-border")) {
+        let validationKey = validationType(inputID);
+        let pattern = validation[validationKey];
+        if (pattern && pattern.test(input.value)) {
+            label.classList.remove("error-border");
+            label.classList.add("correct-input");
+        }
+    }
+}
+
+
+function validationType(inputID) {
+    let validationType = "";
+    if (inputID.toLowerCase().includes("username")) {
+        validationType = "username";
+    } else if (inputID.toLowerCase().includes("email")) {
+        validationType = "email";
+    } else if (inputID.toLowerCase().includes("password")) {
+        validationType = "password";
+    } else if (inputID.toLowerCase().includes("phone")) {
+        validationType = "phoneNumber";
+    }
+    return validationType;
+}
+
+
+function finishTheCorrection(labelID) {
+    const label = document.getElementById(labelID);
+    if (label.classList.contains("correct-input")) {
+        label.classList.remove("correct-input");
+    }
+}
