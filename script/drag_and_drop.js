@@ -23,15 +23,6 @@ window.addEventListener("resize", updateDraggableState);
  */
 function dragoverHandler(ev) {
     ev.preventDefault();
-
-    const scrollZone = 100;
-    const scrollSpeed = 30;
-
-    if (ev.pageY < scrollZone) {
-        window.scrollBy(0, -scrollSpeed);
-    } else if (window.innerHeight - ev.pageY < scrollZone) {
-        window.scrollBy(0, scrollSpeed);
-    }
 }
 
 /**
@@ -81,7 +72,6 @@ function addHighlight() {
         document.getElementById("empty_task_feedback").classList.remove("d_none");
     }
 
-    document.getElementById("scroll-highlight").classList.remove("d_none");
 }
 
 /**
@@ -95,5 +85,4 @@ function removeHighlight() {
     document.getElementById("empty_task_inProg").classList.add("d_none");
     document.getElementById("empty_task_feedback").classList.add("d_none");
     document.getElementById("empty_task_done").classList.add("d_none");
-    document.getElementById("scroll-highlight").classList.add("d_none");
 }
