@@ -170,13 +170,35 @@ function currentInputFieldvalue(taskIndex) {
     renderEditButton(taskIndex);
 }
 
-function getDate(taskIndex) {
 
+/**
+ * Fills the date form fields with the current date.
+ * @param {number} taskIndex - Index of the task to populate.
+ */
+function getDate(taskIndex) {
     const defaultDate = tasks[taskIndex].date;
+    const dateFromTask = new Date(defaultDate);
+    const today = new Date();
+    let hiddenInput = document.getElementById("date_input").value
+    
 
     if (flatpickrInstance) {
-        flatpickrInstance.setDate(new Date(defaultDate));
+        flatpickrInstance.setDate(dateFromTask, true);
+
+        let expiredDate = document.getElementById("expired_date");
+
+        if (expiredDate) {
+            expiredDate.classList.add("d_none");
+        }
+        
+        hiddenInput = defaultDate;
     }
+
+    if (dateFromTask < today) {
+        document.getElementById("expired_date").classList.remove("d_none");
+    }
+
+    return hiddenInput
 }
 
 

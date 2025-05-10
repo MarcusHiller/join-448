@@ -34,7 +34,7 @@
 
 .list-subtask-element-hover:hover {
     background-color: #D1D1D1;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .list-subtask-element img {
@@ -135,6 +135,6 @@
 
 @media (max-width: 900px) {
     .list-subtask-element {
-        padding: 0;
+        padding-left: 4px !important; 
     }
 }
