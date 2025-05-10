@@ -419,7 +419,7 @@ function correctedInput(labelID, inputID) {
 
 function validationType(inputID) {
     let validationType = "";
-    if (inputID.toLowerCase().includes("username")) {
+    if (inputID.toLowerCase().includes("name")) {
         validationType = "username";
     } else if (inputID.toLowerCase().includes("email")) {
         validationType = "email";

@@ -177,19 +177,19 @@ function showOverlayAddContact() {
                     <div class="dpl-fl-colu input-container">
                         <label id="labelContactname" class="input-field">
                             <div class="input-content">
-                                <input id="contactname" type="text" placeholder="Name">
+                                <input id="contactname" type="text" placeholder="Name" onkeyup="correctedInput('labelContactname', 'contactname')" onblur="finishTheCorrection('labelContactname')">
                                 <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
                             </div>
                         </label>
                         <label id="labelEmail" class="input-field">
                             <div class="input-content">
-                                <input id="email" type="text" placeholder="E-mail">
+                                <input id="email" type="text" placeholder="E-mail" onkeyup="correctedInput('labelEmail', 'email')" onblur="finishTheCorrection('labelEmail')">
                                 <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
                             </div>
                         </label>
                         <label id="labelPhone" class="input-field">
                             <div class="input-content">
-                                <input id="phone" type="tel" placeholder="Phone">
+                                <input id="phone" type="tel" placeholder="Phone" onkeyup="correctedInput('labelPhone', 'phone')" onblur="finishTheCorrection('labelPhone')">
                                 <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
                             </div>
                         </label>
@@ -222,19 +222,19 @@ function overlayEditContact(individualUser) {
                     <div class="dpl-fl-colu input-container">
                         <label id="labelContactname" class="input-field">
                             <div class="input-content">
-                                <input id="contactname" type="text" value="${individualUser.username}" placeholder="Name">
+                                <input id="contactname" type="text" value="${individualUser.username}" placeholder="Name" onkeyup="correctedInput('labelContactname', 'contactname')" onblur="finishTheCorrection('labelContactname')">
                                 <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
                             </div>
                         </label>
                         <label id="labelEmail" class="input-field">
                             <div class="input-content">
-                                <input id="email" type="text" value="${individualUser.email}" placeholder="E-mail">
+                                <input id="email" type="text" value="${individualUser.email}" placeholder="E-mail" onkeyup="correctedInput('labelEmail', 'email')" onblur="finishTheCorrection('labelEmail')">
                                 <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
                             </div>
                         </label>
                         <label id="labelPhone" class="input-field">
                             <div class="input-content">
-                                <input id="phone" type="tel" value="${individualUser.phone}" placeholder="Phone">
+                                <input id="phone" type="tel" value="${individualUser.phone}" placeholder="Phone" onkeyup="correctedInput('labelPhone', 'phone')" onblur="finishTheCorrection('labelPhone')">
                                 <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
                             </div>
                         </label>
@@ -294,19 +294,19 @@ function showOverlayAddResp() {
                     <div class="dpl-fl-colu input-container-resp">
                         <label id="labelContactname" class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="contactname" type="text" placeholder="Name">
+                                <input id="contactname" type="text" placeholder="Name" onkeyup="correctedInput('labelContactname', 'contactname')" onblur="finishTheCorrection('labelContactname')">
                                 <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
                             </div>
                         </label>
                         <label id="labelEmail" class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="email" type="text" placeholder="E-mail">
+                                <input id="email" type="text" placeholder="E-mail" onkeyup="correctedInput('labelEmail', 'email')" onblur="finishTheCorrection('labelEmail')">
                                 <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
                             </div>
                         </label>
                         <label id="labelPhone" class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="phone" type="tel" placeholder="Phone" inputmode="numeric">
+                                <input id="phone" type="tel" placeholder="Phone" inputmode="numeric" onkeyup="correctedInput('labelPhone', 'phone')" onblur="finishTheCorrection('labelPhone')">
                                 <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
                             </div>
                         </label>
@@ -337,19 +337,19 @@ function showOverlayEditResp(individualContact) {
                     <div class="dpl-fl-colu input-container-resp">
                         <label id="labelContactname" class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="contactname" type="text" value="${individualContact.username}" placeholder="Name">
+                                <input id="contactname" type="text" value="${individualContact.username}" placeholder="Name" onkeyup="correctedInput('labelContactname', 'contactname')" onblur="finishTheCorrection('labelContactname')">
                                 <img class="input-icon" src="../assets/img/icon/person.svg" alt="">
                             </div>
                         </label>
                         <label id="labelEmail" class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="email" type="text" value="${individualContact.email}" placeholder="E-mail">
+                                <input id="email" type="text" value="${individualContact.email}" placeholder="E-mail" onkeyup="correctedInput('labelEmail', 'email')" onblur="finishTheCorrection('labelEmail')">
                                 <img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
                             </div>
                         </label>
                         <label id="labelPhone" class="input-field input-field-resp">
                             <div class="input-content-resp">
-                                <input id="phone" type="tel" value="${individualContact.phone}" placeholder="Phone" inputmode="numeric">
+                                <input id="phone" type="tel" value="${individualContact.phone}" placeholder="Phone" inputmode="numeric" onkeyup="correctedInput('labelPhone', 'phone')" onblur="finishTheCorrection('labelPhone')">
                                 <img class="input-icon" src="../assets/img/icon/call.svg" alt="">
                             </div>
                         </label>
