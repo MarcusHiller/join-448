@@ -10,7 +10,7 @@ async function init(page) {
     await loadHTML("header.html", "header-placeholder");
     await loadHTML("navbar.html", "navbar-section");
     activePageHiglight(page);
-    setUserCircleInitials(); 
+    setUserCircleInitials();
 
 
     if (page === 'summary_page') {
@@ -31,9 +31,10 @@ function isUserLoged() {
     if (isLoggedIn !== "true") {
         window.location.href = "../index.html";
     } else {
-    setUserCircleInitials();
+        setUserCircleInitials();
+    }
 }
-}
+
 
 
 /**
@@ -48,6 +49,7 @@ function logOut() {
     localStorage.removeItem("username");
     window.location.href = "../index.html";
 }
+
 
 
 /**
@@ -66,6 +68,7 @@ async function loadHTML(file, elementId) {
 }
 
 
+
 /**
  * Highlights the currently active page by adding an "active-menu" class
  * to the relevant navigation element and removing it from all others.
@@ -82,6 +85,7 @@ function activePageHiglight(page) {
     let current = document.getElementById(page);
     if (current) current.classList.add("active-menu");
 }
+
 
 
 /**
@@ -127,6 +131,7 @@ function setLayoutAndRedirect(layout, url) {
 }
 
 
+
 /**
  * Loads the internal header and navbar for authenticated users.
  * Also highlights the current page for legal/privacy pages.
@@ -138,12 +143,13 @@ async function loadHeaderNavbarIntern() {
     await Promise.all([
         loadHTML("/html/header.html", "header-placeholder"),
         loadHTML("/html/navbar.html", "navbar-section")
-        
+
     ]);
     markLegalPrivacyActiveLink();
-    setUserCircleInitials(); 
+    setUserCircleInitials();
 
 }
+
 
 
 /**
@@ -158,6 +164,7 @@ async function loadHeaderNavbarExtern() {
         loadHTML("/html/navbar_extern.html", "navbar-section")
     ]);
 }
+
 
 
 /**
@@ -179,6 +186,7 @@ function markLegalPrivacyActiveLink() {
 }
 
 
+
 /**
  * Accepts cookies, stores the acceptance timestamp in localStorage,
  * hides the cookie banner, and enables the login buttons.
@@ -192,6 +200,7 @@ function acceptCookies() {
     enableLogin();
     enableLoginButtons();
 }
+
 
 
 /**
@@ -211,6 +220,7 @@ function cookiesStillValid() {
 }
 
 
+
 /**
  * Makes the login area visible.
  *
@@ -220,6 +230,7 @@ function enableLogin() {
     let loginArea = document.getElementById("loginArea");
     if (loginArea) loginArea.classList.remove("d-none");
 }
+
 
 
 /**
@@ -235,6 +246,7 @@ function disableLoginButtons() {
 }
 
 
+
 /**
  * Enables both the standard login and guest login buttons.
  *
@@ -248,21 +260,27 @@ function enableLoginButtons() {
 }
 
 
+
 /**
  * Runs once the DOM has fully loaded.
  * Initializes rotate warning, layout loading, cookie logic, and back button.
  */
 window.addEventListener("DOMContentLoaded", async () => {
         await loadRotateWarning();
-        let path = window.location.pathname;
-        let isLegalPage = path.includes("privacy_policy.html") || path.includes("legal_notice.html");
-        if (isLegalPage) {
-            await initLayout();
-        }
-        initCookies();
-        initBackButton();
-        checkOrientation();
-    });
+    } catch (err) {
+        console.warn("⚠️ rotate_warning.html konnte nicht geladen werden:", err);
+    }
+    const path = window.location.pathname;
+    const isLegalPage = path.includes("privacy_policy.html") || path.includes("legal_notice.html");
+
+    if (isLegalPage) {
+        await initLayout(); // ✅ Nur auf diesen Seiten ausführen
+    }
+
+    initCookies();
+    initBackButton();
+    checkOrientation();
+});
 
 
 /**
@@ -276,6 +294,7 @@ async function loadRotateWarning() {
 }
 
 
+
 /**
  * Initializes the layout based on login status and current page.
  * Resets layout value every time to ensure clean state.
@@ -284,10 +303,12 @@ async function loadRotateWarning() {
  */
 async function initLayout() {
     window.location.pathname.includes("privacy_policy.html") ||
-    window.location.pathname.includes("legal_notice.html");
-    let isLoggedIn = localStorage.getItem("loggedIn") === "true";
-    let hasUsername = !!localStorage.getItem("username");
-    let layout = localStorage.getItem("layout");
+        window.location.pathname.includes("legal_notice.html");
+
+    const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+    const hasUsername = !!localStorage.getItem("username");
+    const layout = localStorage.getItem("layout");
+
     if ((isLoggedIn || hasUsername) && layout === "intern") {
         await loadHeaderNavbarIntern();
     } else {
@@ -301,14 +322,24 @@ async function initLayout() {
  * Handles cookie banner visibility and login button state.
  */
 function initCookies() {
-    const stillValid = cookiesStillValid();
-    const banner = document.getElementById("cookieBanner");
-    const loginArea = document.getElementById("loginArea");
-    const acceptBtn = document.getElementById("acceptCookiesBtn");
-    banner?.classList.toggle("d-none", stillValid);
-    loginArea?.classList.remove("d-none");
-    stillValid ? enableLoginButtons() : disableLoginButtons();
-    acceptBtn?.addEventListener("click", acceptCookies);
+    let stillValid = cookiesStillValid();
+    let banner = document.getElementById("cookieBanner");
+    let loginArea = document.getElementById("loginArea");
+
+    if (!stillValid) {
+        if (banner) banner.classList.remove("d-none");
+        if (loginArea) loginArea.classList.remove("d-none");
+        disableLoginButtons();
+    } else {
+        if (banner) banner.classList.add("d-none");
+        if (loginArea) loginArea.classList.remove("d-none");
+        enableLoginButtons();
+    }
+
+    let acceptBtn = document.getElementById("acceptCookiesBtn");
+    if (acceptBtn) {
+        acceptBtn.addEventListener("click", acceptCookies);
+    }
 }
 
 
@@ -342,9 +373,11 @@ function checkOrientation() {
     warning.style.display = (isMobile && smallScreen && isLandscape) ? "flex" : "none";
 }
 
+
 window.addEventListener("load", checkOrientation);
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("orientationchange", checkOrientation);
+
 
 
 /**
@@ -356,6 +389,7 @@ function spinningLoaderStart() {
     let spinner = document.getElementById('spinnerOverLay');
     spinner.classList.remove('d-none');
 }
+
 
 
 /**
@@ -410,6 +444,7 @@ function inputValidations() {
 }
 
 
+
 /**
  * Validates the input value based on its ID and updates the label style accordingly.
  * Removes the error class and adds a success class if validation passes.
@@ -432,6 +467,7 @@ function correctedInput(labelID, inputID) {
         }
     }
 }
+
 
 
 /**
@@ -457,6 +493,7 @@ function validationType(inputID) {
 
     return validationType;
 }
+
 
 
 /**
