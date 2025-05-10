@@ -32,6 +32,7 @@ function openUserDropMenu() {
   document.getElementById("add_user_list").classList.add("dropdown-animation-user");
   document.getElementById("assigned_select").classList.add("border-radius-custom");
   document.getElementById("list_overlay").classList.remove("d_none");
+  document.getElementById("list_overlay").scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
 /**
@@ -346,6 +347,7 @@ function clearAddTaskField() {
   document.getElementById("titel_input").value = "";
   document.getElementById("description_input").value = "";
   document.getElementById("date_input").value = "";
+  document.getElementById("date_input_picker").value = "";
   document.getElementById("prio_medium").checked = true;
   unsetCheckbox();
   document.getElementById("user_logo_after_seleceted").innerHTML = '<div class="user-counter d_none" id="user_counter"></div>';
@@ -365,6 +367,7 @@ function clearAddTaskAfterAdd() {
   document.getElementById("titel_input").value = "";
   document.getElementById("description_input").value = "";
   document.getElementById("date_input").value = "";
+  document.getElementById("date_input_picker").value = "";
   document.getElementById("prio_medium").checked = true;
   unsetCheckbox();
   document.getElementById("user_logo_after_seleceted").innerHTML = '<div class="user-counter d_none" id="user_counter"></div>';

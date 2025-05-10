@@ -114,8 +114,8 @@
     .column {
         width: 100%;
         flex-direction: row !important;
+            margin-top: 24px;
     }
-
 
     .column-container {
         flex-direction: row;

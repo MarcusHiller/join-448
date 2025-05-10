@@ -171,7 +171,7 @@ function getPriority() {
 function checkRequiredInputsField() {
     const fields = [
       { id: 'titel_input', errorId: 'error-title' },
-      { id: 'date_input_test', errorId: 'error-date' },
+      { id: 'date_input_picker', errorId: 'error-date' },
       { id: 'category_select_input', errorId: 'error-cat' }
     ];
     removeErrorMsg();
@@ -371,13 +371,12 @@ function checkedSubtaskChecked(taskIndex, subtaskMax) {
 }
 
 function datepicker() {
-    flatpickrInstance = flatpickr("#date_input_test", {
+    flatpickrInstance = flatpickr("#date_input_picker", {
       locale: "en",
       dateFormat: "d/m/Y",
       minDate: "today",
       disableMobile: true,
       onChange: function(selectedDates, dateStr, instance) {
-       
         const [day, month, year] = dateStr.split("/");
         const isoDate = `${year}-${month}-${day}`;
         let expiredDate = document.getElementById("expired_date");

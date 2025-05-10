@@ -130,6 +130,7 @@
 .user-logo-container {
     display: flex;
     align-items: center;
+    overflow-x: hidden;
 }
 
 .user-logo-small {
@@ -152,7 +153,11 @@
 }
 
 .margin-left-24 {
-    margin-left:24px;
+    margin-left: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
 }
 
 .user-counter {
