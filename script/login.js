@@ -6,6 +6,7 @@ const msg = urlParams.get('msg');
 let info = document.getElementById('poppin');
 let isPasswordVisible = false;
 
+
 // Show logo after short delay
 setTimeout(() => {
     document.getElementById('logoImg').classList.remove('d-none');
@@ -20,6 +21,7 @@ if (msg) {
     info.classList.add('opacity');
     info.classList.remove('poppins-success');
 }
+
 
 /**
  * Attempts to log in with user credentials from the form inputs.
@@ -57,6 +59,7 @@ function displayErrorLogin() {
     info.innerHTML = "Check your e-mail and password.<br> Please try again.";
 }
 
+
 /**
  * Loads user data from Firebase and assigns to `userFirebase`.
  */
@@ -68,6 +71,7 @@ async function loadUserData() {
         console.error("Error loading user login function:", error);
     }
 }
+
 
 /**
  * Logs in a guest user by bypassing required fields and redirecting.
@@ -99,6 +103,7 @@ function updatePasswdIcon() {
     }
 }
 
+
 /**
  * Toggles the password visibility in the input field and updates the icon accordingly.
  */
@@ -111,6 +116,7 @@ function togglePasswordVisibility() {
         ? '../assets/img/icon/visibility.svg'
         : '../assets/img/icon/visibility_off.svg';
 }
+
 
 /**
  * Marks user as logged in by setting a flag in localStorage.
@@ -132,6 +138,7 @@ function inputError(inputLabel) {
     errorInputField(inputLabel);
 }
 
+
 /**
  * Returns a predefined error message for a given input key.
  * 
@@ -146,6 +153,7 @@ function errorMessage(key) {
     return messages[key] || "Unknown error!";
 }
 
+
 /**
  * Applies an error class to the label of the faulty input field.
  * 
@@ -158,6 +166,7 @@ function errorInputField(inputLabel) {
     }
 }
 
+
 /**
  * Checks whether the given input value is empty after trimming whitespace.
  * 
@@ -167,6 +176,7 @@ function errorInputField(inputLabel) {
 function checkEmptyInput(value) {
     return value.trim() === "";
 }
+
 
 /**
  * Collects and returns input values from the login form.
@@ -180,6 +190,7 @@ function readsTheInputValues() {
     };
 }
 
+
 /**
  * Validates input values for email and password formats.
  * 
@@ -190,6 +201,7 @@ function checkValues() {
     if (checkEmptyInput(email) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "Email";
     if (checkEmptyInput(password) || !/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,15}$/.test(password)) return "Password";
 }
+
 
 /**
  * Initiates validation and error handling for login form inputs.

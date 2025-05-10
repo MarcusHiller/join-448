@@ -4,11 +4,13 @@
  */
 let userCounter = 0;
 
+
 /**
  * List of current subtasks.
  * @type {Array}
  */
 let subtasks = [];
+
 
 /**
  * Global index tracker for subtasks.
@@ -16,12 +18,14 @@ let subtasks = [];
  */
 let subtaskIndex = -1;
 
+
 /**
  * Shows the clear button on the form.
  */
 function addClearButtonToThePage() {
   document.getElementById("clear_button").classList.remove("d_none");
 }
+
 
 /**
  * Opens the user selection dropdown menu.
@@ -35,6 +39,7 @@ function openUserDropMenu() {
   document.getElementById("list_overlay").scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
+
 /**
  * Closes the user selection dropdown menu.
  */
@@ -46,6 +51,7 @@ function closeUserDropMenu() {
   document.getElementById("list_overlay").classList.add("d_none");
 }
 
+
 /**
  * Sorts the user list alphabetically by username.
  */
@@ -54,6 +60,7 @@ function resortUserlist() {
     a.username.localeCompare(b.username, 'de', { sensitivity: 'base' })
   );
 }
+
 
 /**
  * Renders the user list into the dropdown menu.
@@ -66,6 +73,7 @@ function renderUserList() {
     usersListRef.innerHTML += getUserListTemplate(i);
   }
 }
+
 
 /**
  * Adds or removes a user's avatar after selection.
@@ -92,6 +100,7 @@ function addCheckedUsers(indexUsers) {
   }
 }
 
+
 /**
  * Displays a user counter if there are more than 4 avatars.
  * 
@@ -115,6 +124,7 @@ function checkAvatarAmount() {
   }
 }
 
+
 /**
  * Toggles the category dropdown open/closed.
  */
@@ -125,6 +135,7 @@ function openCatDropMenu() {
   document.getElementById("overlay_category").classList.remove("d_none");
 }
 
+
 /**
  * Closes the category dropdown menu.
  */
@@ -134,6 +145,7 @@ function closeCatDropMenu() {
   document.getElementById("category_list").classList.remove("dropdown-animation");
   document.getElementById("overlay_category").classList.add("d_none");
 }
+
 
 /**
  * Sets the selected category and closes dropdown.
@@ -147,12 +159,14 @@ function selectCategory(category) {
   closeCatDropMenu();
 }
 
+
 /**
  * Adds highlight border to subtask input.
  */
 function addBorder() {
   document.getElementById("subtask_input_label").classList.add("blue-border");
 }
+
 
 /**
  * Removes highlight border from subtask input.
@@ -161,12 +175,14 @@ function removeBorder() {
   document.getElementById("subtask_input_label").classList.remove("blue-border");
 }
 
+
 /**
  * Adds event listener to the task form submission.
  */
 function addTaskButton() {
   document.getElementById("addTask_form").addEventListener("submit", addTask(condition = ""));
 }
+
 
 /**
  * Removes all visible error messages and styling.
@@ -176,6 +192,7 @@ function removeErrorMsg() {
   document.querySelectorAll('.error-border').forEach(e => e.classList.remove('error-border'));
   document.querySelectorAll('.error-label-border').forEach(e => e.classList.remove('error-label-border'));
 }
+
 
 /**
  * Returns the checked status of a subtask.
@@ -188,6 +205,7 @@ function getCheckStatus(taskIndex, subtaskIndex) {
   const subtask = task?.subtask?.[subtaskIndex];
   return !!subtask?.subtaskCheck;
 }
+
 
 /**
  * Extracts a subtask object from the input field.
@@ -206,6 +224,7 @@ function extractSubtask(inputId, taskIndex, i) {
   };
 }
 
+
 /**
  * Toggles visibility of subtask icons depending on input presence.
  */
@@ -220,6 +239,7 @@ function showAddSubtaskButton() {
     document.getElementById("subtask_plus_icon").classList.remove("d_none");
   }
 }
+
 
 /**
  * Adds a new subtask to the subtask list in the UI.
@@ -238,6 +258,7 @@ function addSubtask() {
   }
 }
 
+
 /**
  * Shows edit/delete icons for a given subtask on hover/focus.
  * @param {number} indexSubTask - Index of the subtask.
@@ -246,6 +267,7 @@ function showEditIcons(indexSubTask) {
   document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.remove("opacity-null")
 }
 
+
 /**
  * Hides edit/delete icons for a given subtask.
  * @param {number} indexSubTask - Index of the subtask.
@@ -253,6 +275,7 @@ function showEditIcons(indexSubTask) {
 function blindEditIcons(indexSubTask) {
   document.getElementById("edit_and_delete_icons_" + indexSubTask).classList.add("opacity-null")
 }
+
 
 /**
  * Enables editing of a subtask input field.
@@ -267,6 +290,7 @@ function editSubtask(indexSubTask) {
   input.focus();
   editSubtaskStyle(indexSubTask, input);
 }
+
 
 /**
  * Applies styles for subtask editing mode.
@@ -289,6 +313,7 @@ function editSubtaskStyle(indexSubTask, input) {
   document.getElementById("disc_" + indexSubTask).classList.add("d_none");
 }
 
+
 /**
  * Deletes a subtask if its content is empty.
  * @param {number} indexSubTask - Index of the subtask.
@@ -301,6 +326,7 @@ function emptySubtaskDelete(indexSubTask) {
   }
 }
 
+
 /**
  * Finalizes the subtask input after editing.
  * @param {number} indexSubTask - Index of the subtask.
@@ -309,6 +335,7 @@ function editSubmit(indexSubTask) {
   document.getElementById("editable_input_" + indexSubTask).readOnly = true;
   removeEditSubtaskStyle(indexSubTask);
 }
+
 
 /**
  * Restores original style after subtask editing is finished.
@@ -330,6 +357,7 @@ function removeEditSubtaskStyle(indexSubTask) {
   document.getElementById("disc_" + indexSubTask).classList.remove("d_none");
 }
 
+
 /**
  * Removes a subtask from the DOM.
  * @param {number} indexSubTask - Index of the subtask.
@@ -338,6 +366,7 @@ function removeEditSubtaskStyle(indexSubTask) {
 function removeSubtask(indexSubTask, taskIndex) {
   document.getElementById("subtask_" + indexSubTask).remove();
 }
+
 
 /**
  * Clears all input fields for adding a task.
@@ -359,6 +388,7 @@ function clearAddTaskField() {
   renderUserList();
 }
 
+
 /**
  * Clears all input fields for adding a task after a new task has been added.
  */
@@ -377,6 +407,7 @@ function clearAddTaskAfterAdd() {
   renderUserList();
 }
 
+
 /**
  * Clears the subtask input field and subtask list.
  */
@@ -385,6 +416,7 @@ function clearSubtaskInput() {
   document.getElementById("sub_list").innerHTML = "";
 }
 
+
 /**
  * Clears the subtask input field.
  */
@@ -392,6 +424,7 @@ function clearSubtaskInput() {
 function clearSubtaskInputField() {
   document.getElementById("subtask_input").value = "";
 }
+
 
 /**
  * Unchecks all user checkboxes in the user list.
@@ -402,6 +435,7 @@ function unsetCheckbox() {
   }
 }
 
+
 /**
  * Shows success message after clearing the task form.
  */
@@ -410,6 +444,7 @@ function successfulClearTask() {
   success.innerHTML = showSuccessfulClear();
 }
 
+
 /**
  * Shows success message after a task was successfully added.
  */
@@ -417,6 +452,7 @@ function successfulAddedTask() {
   let success = document.getElementById('success');
   success.innerHTML = showSuccessfulAddedTask();
 }
+
 
 /**
  * Filters the user list by input and shows or hides matching users.

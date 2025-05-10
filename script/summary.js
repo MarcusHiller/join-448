@@ -3,8 +3,10 @@ let urlParams = new URLSearchParams(window.location.search);
 let greetsName = urlParams.get("name");
 let isLogin = urlParams.get("login") === "true";
 
+
 // Firebase endpoint for retrieving task data
 let FIREBASE_URL = "https://join-4215a-default-rtdb.europe-west1.firebasedatabase.app/join/tasks.json";
+
 
 
 /**
@@ -21,6 +23,7 @@ function getGreetingPhrase() {
 }
 
 
+
 /**
  * Sets the greeting text dynamically based on login state and user name.
  * @param {HTMLElement} element - The element to insert the greeting text into
@@ -33,6 +36,7 @@ function setGreetingText(element, name) {
         ? `${greetingPhrase}, <span class="greeting-name">${name}</span>`
         : `${greetingPhrase}!`;
 }
+
 
 /**
  * Initializes greeting logic on page load.
@@ -102,6 +106,7 @@ function initGreetingRepeat() {
 }
 
 
+
 /**
  * Fetches task data from Firebase and updates summary metrics in the DOM.
  */
@@ -128,34 +133,6 @@ async function loadSummaryData() {
 
 
 /**
- * Calculates task summary metrics from the given tasks.
- * 
- * @param {Object} tasks - The task data object from Firebase.
- * @returns {Object} Summary metrics including counts and upcoming date.
- */
-function computeTaskMetrics(tasks) {
-    let todo = 0, done = 0, inProgress = 0, awaitingFeedback = 0;
-    let urgent = 0, total = 0, upcomingDate = null;
-    for (let taskId in tasks) {
-        let task = tasks[taskId];
-        total++;
-        switch (task.condition) {
-            case "ToDo": todo++; break;
-            case "done": done++; break;
-            case "inProgress": inProgress++; break;
-            case "feedback": awaitingFeedback++; break;
-        }
-        if (task.priority === "urgent") urgent++;
-        let taskDate = new Date(task.date);
-        if (taskDate > new Date() && (!upcomingDate || taskDate < new Date(upcomingDate))) {
-            upcomingDate = task.date;
-        }
-    }
-    return { todo, done, inProgress, awaitingFeedback, urgent, total, upcomingDate };
-}
-
-
-/**
  * Formats ISO date string to readable format.
  * @param {string} dateString
  * @returns {string}
@@ -168,6 +145,7 @@ function formatDate(dateString) {
         day: "numeric"
     });
 }
+
 
 
 /**

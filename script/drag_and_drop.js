@@ -13,9 +13,11 @@ function updateDraggableState() {
     });
 }
 
+
 // Initialize draggable state on load and on resize
 window.addEventListener("DOMContentLoaded", updateDraggableState);
 window.addEventListener("resize", updateDraggableState);
+
 
 /**
  * Handles dragover event, allowing drop and triggers auto-scroll when near window edge.
@@ -23,7 +25,7 @@ window.addEventListener("resize", updateDraggableState);
  */
 const container = document.getElementById('body');
 
-  function dragoverHandler(ev) {
+function dragoverHandler(ev) {
     ev.preventDefault();
 
     const bounds = container.getBoundingClientRect();
@@ -33,11 +35,12 @@ const container = document.getElementById('body');
     if (ev.clientY < topEdge) {
         const speed = Math.max(1, (topEdge - ev.clientY) / 10);
         container.scrollTop -= speed;
-      } else if (ev.clientY > bottomEdge) {
+    } else if (ev.clientY > bottomEdge) {
         const speed = Math.max(1, (ev.clientY - bottomEdge) / 10);
         container.scrollTop += speed;
-      }
-  }
+    }
+}
+
 
 /**
  * Sets the currently dragged task by index and adds the visual dragging class.
@@ -47,6 +50,7 @@ function startDragging(taskIndex) {
     currentDraggableTask = taskIndex;
     document.getElementById(`task_index_${taskIndex}`).classList.add('dragging');
 }
+
 
 /**
  * Changes the condition (column) of the dragged task and re-renders board.
@@ -58,6 +62,7 @@ function moveTo(condition) {
     renderTaskInToColumn();
 }
 
+
 /**
  * Persists the new task condition to the backend (Firebase).
  * @param {string} condition - The new task condition.
@@ -67,6 +72,7 @@ function saveCondition(condition) {
     const toCondition = { condition };
     patchDataToServer(`/join/tasks/${taskID}`, toCondition);
 }
+
 
 /**
  * Highlights drop zones based on current task's condition.
@@ -87,6 +93,7 @@ function addHighlight() {
     }
 
 }
+
 
 /**
  * Removes all drag-and-drop visual highlights and resets layout.

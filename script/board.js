@@ -4,11 +4,13 @@
  */
 let currentDraggableTask;
 
+
 /**
  * Array storing all task objects.
  * @type {Array<Object>}
  */
 let tasks = [];
+
 
 /**
  * Current selected task condition (status/category).
@@ -16,11 +18,13 @@ let tasks = [];
  */
 let currentCondition = "ToDo";
 
+
 /**
  * List of users that need to be deleted from Firebase due to being unassigned or missing.
  * @type {Array<Object>}
  */
 let usersToDeleteFromFirebase = [];
+
 
 /**
  * Loads the Add Task overlay into the DOM.
@@ -32,6 +36,7 @@ async function getAddTaskHTML() {
   ]);
 }
 
+
 /**
  * Loads the Task Overlay into the DOM.
  * @async
@@ -42,6 +47,7 @@ async function getTaskOverlayHTML() {
   ]);
 }
 
+
 /**
  * Loads the Edit Task overlay into the DOM.
  * @async
@@ -51,6 +57,7 @@ async function getEditTaskHTML() {
     loadHTML("add_task_overlay.html", "overlay_container"),
   ]);
 }
+
 
 /**
  * Opens the Add Task overlay and sets condition if provided.
@@ -74,6 +81,7 @@ async function openAddTask(condition = "") {
   renderUserList();
   datepicker();
 }
+
 
 /**
  * Closes the Add Task overlay and restores scroll behavior.
@@ -124,6 +132,7 @@ function searchTask() {
   renderEmptyColumn();
 }
 
+
 /**
  * Renders all tasks into their corresponding status columns.
  */
@@ -133,6 +142,7 @@ function renderTaskInToColumn() {
   renderEmptyColumn();
   renderDragDropHighlights(columns);
 }
+
 
 /**
  * Sorts tasks by their condition and injects them into the correct columns.
@@ -154,6 +164,7 @@ function sortTask(columns) {
   }
 }
 
+
 /**
  * Calls sub-functions to render specific task details.
  * @param {number} taskIndex - Index of the task to render.
@@ -164,6 +175,7 @@ function renderDetails(taskIndex) {
   renderPrio(taskIndex);
   renderCategoryColor(taskIndex);
 }
+
 
 /**
  * Clears all task columns in the DOM.
@@ -182,6 +194,7 @@ function clearColumn() {
   return { toDoColumnRef, inProgColumnRef, feedbackColumnRef, doneColumnRef };
 }
 
+
 /**
  * Adds invisible drop targets to each column for drag-and-drop support.
  * @param {Object} columns - The task columns DOM references.
@@ -192,6 +205,7 @@ function renderDragDropHighlights(columns) {
   columns.feedbackColumnRef.innerHTML += "<div id='empty_task_feedback' class='empty-task d_none'></div>";
   columns.doneColumnRef.innerHTML += "<div id='empty_task_done' class='empty-task d_none'></div>";
 }
+
 
 /**
  * Renders empty placeholder messages for columns without visible tasks.
@@ -207,6 +221,7 @@ function renderEmptyColumn() {
   checkAndRenderEmptyMessage(feedbackColumnRef, "No task waiting");
   checkAndRenderEmptyMessage(doneColumnRef, "No task is done");
 }
+
 
 /**
  * Checks if a column is empty and inserts or removes the empty message accordingly.
@@ -232,6 +247,7 @@ function checkAndRenderEmptyMessage(columnRef, message) {
   }
 }
 
+
 /**
  * Renders the background color of a task based on its category.
  * @param {number} taskIndex - Index of the task.
@@ -246,6 +262,7 @@ function renderCategoryColor(taskIndex) {
     categoryRef.style.backgroundColor = "#0038FF";
   }
 }
+
 
 /**
  * Renders the priority icon for the task.
@@ -263,6 +280,7 @@ function renderPrio(taskIndex) {
     prioRef.src = "/assets/img/icon/prio_urgent.svg";
   }
 }
+
 
 /**
  * Renders the subtask progress bar and value for a task.
@@ -285,6 +303,7 @@ function renderSubtasks(taskIndex) {
   }
   checkSubtaskLenght(taskIndex, subtaskMax)
 }
+
 
 function checkSubtaskLenght(taskIndex, subtaskMax) {
   if (!subtaskMax) {
@@ -351,6 +370,7 @@ function arraySubtasks(index, responseToJson, tasksKeysArray) {
   return subtasks;
 }
 
+
 /**
  * Extracts and validates assigned users from Firebase task object.
  * @param {number} index - Task index.
@@ -383,6 +403,7 @@ function arrayAssignedTo(index, responseToJson, tasksKeysArray) {
   return usersArray;
 }
 
+
 /**
  * Opens the mobile navigation overlay and sets up the appropriate move options.
  * @param {number} taskIndex - Index of the selected task.
@@ -403,6 +424,7 @@ function mobileNavigator(taskIndex, condition) {
   }
 }
 
+
 /**
  * Sets up UI to move task from ToDo to inProgress.
  */
@@ -412,6 +434,7 @@ function renderTextProg() {
   document.getElementById("move_to_arrow_down").setAttribute("onclick", "moveTo('inProgress')");
   openMoveToDialog();
 }
+
 
 /**
  * Sets up UI to move task from inProgress to feedback or back to ToDo.
@@ -426,6 +449,7 @@ function renderTextFeedback() {
   openMoveToDialog();
 }
 
+
 /**
  * Sets up UI to move task from done to feedback.
  */
@@ -435,6 +459,7 @@ function renderTextBackFeedback() {
   document.getElementById("move_to_arrow_up").setAttribute("onclick", "moveTo('feedback')");
   openMoveToDialog();
 }
+
 
 /**
  * Sets up UI to move task from feedback to done or back to inProgress.
@@ -448,6 +473,7 @@ function renderTextDone() {
   document.getElementById("move_to_arrow_up").setAttribute("onclick", "moveTo('inProgress')");
   openMoveToDialog();
 }
+
 
 /**
  * Opens the move-to modal overlay for mobile navigation.
