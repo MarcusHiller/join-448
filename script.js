@@ -10,7 +10,7 @@ async function init(page) {
     await loadHTML("header.html", "header-placeholder");
     await loadHTML("navbar.html", "navbar-section");
     activePageHiglight(page);
-    setUserCircleInitials(); 
+    setUserCircleInitials();
 
 
     if (page === 'summary_page') {
@@ -31,9 +31,10 @@ function isUserLoged() {
     if (isLoggedIn !== "true") {
         window.location.href = "../index.html";
     } else {
-    setUserCircleInitials();
+        setUserCircleInitials();
+    }
 }
-}
+
 
 /**
  * Logs the user out by resetting the login and layout information in localStorage.
@@ -47,6 +48,7 @@ function logOut() {
     localStorage.removeItem("username");
     window.location.href = "../index.html";
 }
+
 
 /**
  * Loads an external HTML file and injects it into a specified container element on the page.
@@ -62,6 +64,7 @@ async function loadHTML(file, elementId) {
     let container = document.getElementById(elementId);
     if (container) container.innerHTML = html;
 }
+
 
 /**
  * Highlights the currently active page by adding an "active-menu" class
@@ -79,6 +82,7 @@ function activePageHiglight(page) {
     let current = document.getElementById(page);
     if (current) current.classList.add("active-menu");
 }
+
 
 /**
  * Toggles the burger menu open/close with fade animation.
@@ -123,6 +127,7 @@ function setLayoutAndRedirect(layout, url) {
     window.location.href = url;
 }
 
+
 /**
  * Loads the internal header and navbar for authenticated users.
  * Also highlights the current page for legal/privacy pages.
@@ -134,12 +139,13 @@ async function loadHeaderNavbarIntern() {
     await Promise.all([
         loadHTML("/html/header.html", "header-placeholder"),
         loadHTML("/html/navbar.html", "navbar-section")
-        
+
     ]);
     markLegalPrivacyActiveLink();
-    setUserCircleInitials(); 
+    setUserCircleInitials();
 
 }
+
 
 /**
  * Loads the external header and navbar for guest (unauthenticated) users.
@@ -153,6 +159,7 @@ async function loadHeaderNavbarExtern() {
         loadHTML("/html/navbar_extern.html", "navbar-section")
     ]);
 }
+
 
 /**
  * Adds the 'active-menu' class to the correct navigation item
@@ -172,6 +179,7 @@ function markLegalPrivacyActiveLink() {
     }
 }
 
+
 /**
  * Accepts cookies, stores the acceptance timestamp in localStorage,
  * hides the cookie banner, and enables the login buttons.
@@ -185,6 +193,7 @@ function acceptCookies() {
     enableLogin();
     enableLoginButtons();
 }
+
 
 /**
  * Validates whether the user's cookie acceptance is still valid
@@ -202,6 +211,7 @@ function cookiesStillValid() {
     return now - acceptedAt < oneYear;
 }
 
+
 /**
  * Makes the login area visible.
  *
@@ -211,6 +221,7 @@ function enableLogin() {
     let loginArea = document.getElementById("loginArea");
     if (loginArea) loginArea.classList.remove("d-none");
 }
+
 
 /**
  * Disables both the standard login and guest login buttons.
@@ -224,6 +235,7 @@ function disableLoginButtons() {
     if (guestBtn) guestBtn.disabled = true;
 }
 
+
 /**
  * Enables both the standard login and guest login buttons.
  *
@@ -236,6 +248,7 @@ function enableLoginButtons() {
     if (guestBtn) guestBtn.disabled = false;
 }
 
+
 /**
  * Runs once the DOM has fully loaded.
  * Initializes rotate warning, layout loading, cookie logic, and back button.
@@ -246,19 +259,17 @@ window.addEventListener("DOMContentLoaded", async () => {
     } catch (err) {
         console.warn("⚠️ rotate_warning.html konnte nicht geladen werden:", err);
     }
-        const path = window.location.pathname;
-        const isLegalPage = path.includes("privacy_policy.html") || path.includes("legal_notice.html");
+    const path = window.location.pathname;
+    const isLegalPage = path.includes("privacy_policy.html") || path.includes("legal_notice.html");
 
-        if (isLegalPage) {
-            await initLayout(); // ✅ Nur auf diesen Seiten ausführen
-        }
+    if (isLegalPage) {
+        await initLayout(); // ✅ Nur auf diesen Seiten ausführen
+    }
 
-        initCookies();
-        initBackButton();
-        checkOrientation();
-    });
-
-
+    initCookies();
+    initBackButton();
+    checkOrientation();
+});
 
 
 /**
@@ -271,6 +282,7 @@ async function loadRotateWarning() {
     await loadHTML("/html/rotate_warning.html", "rotate-warning-placeholder");
 }
 
+
 /**
  * Initializes the layout based on login status and current page.
  * Resets layout value every time to ensure clean state.
@@ -278,7 +290,7 @@ async function loadRotateWarning() {
  * @function initLayout
  */
 async function initLayout() {
-        window.location.pathname.includes("privacy_policy.html") ||
+    window.location.pathname.includes("privacy_policy.html") ||
         window.location.pathname.includes("legal_notice.html");
 
     const isLoggedIn = localStorage.getItem("loggedIn") === "true";
@@ -320,6 +332,7 @@ function initCookies() {
     }
 }
 
+
 /**
  * Attaches functionality to the back arrow to go to previous page.
  *
@@ -350,9 +363,11 @@ function checkOrientation() {
     warning.style.display = (isMobile && smallScreen && isLandscape) ? "flex" : "none";
 }
 
+
 window.addEventListener("load", checkOrientation);
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("orientationchange", checkOrientation);
+
 
 /**
  * Displays the full-screen loading spinner overlay.
@@ -363,6 +378,7 @@ function spinningLoaderStart() {
     let spinner = document.getElementById('spinnerOverLay');
     spinner.classList.remove('d-none');
 }
+
 
 /**
  * Hides the full-screen loading spinner overlay.
@@ -415,6 +431,7 @@ function inputValidations() {
     };
 }
 
+
 /**
  * Validates the input value based on its ID and updates the label style accordingly.
  * Removes the error class and adds a success class if validation passes.
@@ -437,6 +454,7 @@ function correctedInput(labelID, inputID) {
         }
     }
 }
+
 
 /**
  * Determines the validation type (e.g., username, email, etc.) based on the input ID.
@@ -461,6 +479,7 @@ function validationType(inputID) {
 
     return validationType;
 }
+
 
 /**
  * Removes the success styling from a label, used to reset the state after input was corrected.
