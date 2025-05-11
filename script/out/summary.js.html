@@ -31,8 +31,10 @@ let urlParams = new URLSearchParams(window.location.search);
 let greetsName = urlParams.get("name");
 let isLogin = urlParams.get("login") === "true";
 
+
 // Firebase endpoint for retrieving task data
 let FIREBASE_URL = "https://join-4215a-default-rtdb.europe-west1.firebasedatabase.app/join/tasks.json";
+
 
 /**
  * Returns the appropriate greeting phrase based on the current time.
@@ -47,6 +49,7 @@ function getGreetingPhrase() {
                 "Good night";
 }
 
+
 /**
  * Sets the greeting text dynamically based on login state and user name.
  * @param {HTMLElement} element - The element to insert the greeting text into
@@ -60,68 +63,62 @@ function setGreetingText(element, name) {
         : `${greetingPhrase}!`;
 }
 
+
 /**
- * Initializes the greeting logic on page load.
- * Shows animated greeting only once after login on mobile.
+ * Initializes greeting logic on page load.
+ * Triggers animated greeting once after login on mobile view.
  */
 function initGreeting() {
-    let greetingContainer = document.querySelector(".greeting");
+    let greeting = document.querySelector(".greeting");
     let greetingText = document.querySelector(".greeting-text");
     let grid = document.querySelector(".metrics-grid");
     let header = document.querySelector(".dashboard-header");
     let dashboard = document.querySelector(".dashboard-container");
-
-
-    if (!greetingContainer || !greetingText || !grid || !header) return;
-
+    if (!greeting || !greetingText || !grid || !header || !dashboard) return;
     setGreetingText(greetingText, greetsName);
-
     if (isLogin &amp;&amp; window.innerWidth &lt;= 990) {
         showGreetingWithTransition();
         urlParams.delete("login");
         window.history.replaceState({}, document.title, `?${urlParams}`);
     } else {
-        grid.classList.remove("hidden");
-        header.classList.remove("hidden");
-        dashboard.classList.remove("hidden");
+        [grid, header, dashboard].forEach(el => el.classList.remove("hidden"));
         loadSummaryData();
-
     }
 }
 
 
 /**
- * Shows the greeting with animation and fades it out automatically.
+ * Displays the greeting with transition and starts hiding logic.
  */
 function showGreetingWithTransition() {
     let greeting = document.querySelector(".greeting");
     let grid = document.querySelector(".metrics-grid");
     let header = document.querySelector(".dashboard-header");
     let dashboard = document.querySelector(".dashboard-container");
-
     if (!greeting || !grid || !header || !dashboard) return;
-
+    [grid, header, dashboard].forEach(el => el.classList.add("hidden"));
     greeting.style.display = "flex";
     greeting.classList.add("animate-in");
+    setGreetingHideTimeout(greeting, [grid, header, dashboard]);
+}
 
-    grid.classList.add("hidden");
-    header.classList.add("hidden");
-    dashboard.classList.add("hidden");
 
+/**
+ * Starts timeout to hide the greeting and show other elements.
+ * 
+ * @param {HTMLElement} greeting - The greeting element.
+ * @param {HTMLElement[]} toShow - Elements to show again after hiding greeting.
+ */
+function setGreetingHideTimeout(greeting, toShow) {
     setTimeout(() => {
-        greeting.classList.remove("animate-in");
-        greeting.classList.add("animate-out");
-
+        greeting.classList.replace("animate-in", "animate-out");
         setTimeout(() => {
             greeting.style.display = "none";
             greeting.classList.remove("animate-out");
-
-            grid.classList.remove("hidden");
-            header.classList.remove("hidden");
-            dashboard.classList.remove("hidden");
-
+            toShow.forEach(el => el.classList.remove("hidden"));
             loadSummaryData();
         }, 400);
+
     }, 2000);
 }
 
@@ -134,17 +131,19 @@ function initGreetingRepeat() {
     setGreetingText(greetingRepeatText, greetsName);
 }
 
+
 /**
  * Fetches task data from Firebase and updates summary metrics in the DOM.
  */
 async function loadSummaryData() {
     try {
-        let response = await fetch(FIREBASE_URL);
-        let tasks = await response.json();
-        let {
-            todo, done, inProgress, awaitingFeedback, urgent, total, upcomingDate
+        const response = await fetch(FIREBASE_URL);
+        const tasks = await response.json();
+        const {
+            todo, done, inProgress, awaitingFeedback,
+            urgent, total, upcomingDate
         } = computeTaskMetrics(tasks);
-        let metrics = {
+        const metrics = {
             summaryTodo: todo, summaryDone: done, summaryProgress: inProgress, summaryFeedback: awaitingFeedback, summaryUrgent: urgent, summaryTotal: total
         };
         for (let id in metrics) {
@@ -168,8 +167,9 @@ function computeTaskMetrics(tasks) {
     let todo = 0, done = 0, inProgress = 0, awaitingFeedback = 0;
     let urgent = 0, total = 0, upcomingDate = null;
     for (let taskId in tasks) {
-        let task = tasks[taskId];
+        const task = tasks[taskId];
         total++;
+
         switch (task.condition) {
             case "ToDo": todo++; break;
             case "done": done++; break;
@@ -177,13 +177,14 @@ function computeTaskMetrics(tasks) {
             case "feedback": awaitingFeedback++; break;
         }
         if (task.priority === "urgent") urgent++;
-        let taskDate = new Date(task.date);
+        const taskDate = new Date(task.date);
         if (taskDate > new Date() &amp;&amp; (!upcomingDate || taskDate &lt; new Date(upcomingDate))) {
             upcomingDate = task.date;
         }
     }
     return { todo, done, inProgress, awaitingFeedback, urgent, total, upcomingDate };
 }
+
 
 /**
  * Formats ISO date string to readable format.
@@ -199,6 +200,7 @@ function formatDate(dateString) {
     });
 }
 
+
 /**
  * Handles metric tile click and visual feedback.
  * @param {string} url
@@ -209,8 +211,7 @@ function navigateTo(url, element) {
     setTimeout(() => {
         window.location.href = url;
     }, 80);
-}
-</code></pre>
+}</code></pre>
         </article>
     </section>
 
@@ -220,13 +221,13 @@ function navigateTo(url, element) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#computeTaskMetrics">computeTaskMetrics</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getGreetingPhrase">getGreetingPhrase</a></li><li><a href="global.html#initGreeting">initGreeting</a></li><li><a href="global.html#initGreetingRepeat">initGreetingRepeat</a></li><li><a href="global.html#loadSummaryData">loadSummaryData</a></li><li><a href="global.html#navigateTo">navigateTo</a></li><li><a href="global.html#setGreetingText">setGreetingText</a></li><li><a href="global.html#showGreetingWithTransition">showGreetingWithTransition</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#computeTaskMetrics">computeTaskMetrics</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getGreetingPhrase">getGreetingPhrase</a></li><li><a href="global.html#initGreeting">initGreeting</a></li><li><a href="global.html#initGreetingRepeat">initGreetingRepeat</a></li><li><a href="global.html#loadSummaryData">loadSummaryData</a></li><li><a href="global.html#navigateTo">navigateTo</a></li><li><a href="global.html#setGreetingHideTimeout">setGreetingHideTimeout</a></li><li><a href="global.html#setGreetingText">setGreetingText</a></li><li><a href="global.html#showGreetingWithTransition">showGreetingWithTransition</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun May 11 2025 09:25:07 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun May 11 2025 09:50:31 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>
