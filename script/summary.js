@@ -8,7 +8,6 @@ let isLogin = urlParams.get("login") === "true";
 let FIREBASE_URL = "https://join-4215a-default-rtdb.europe-west1.firebasedatabase.app/join/tasks.json";
 
 
-
 /**
  * Returns the appropriate greeting phrase based on the current time.
  * @returns {string} - Greeting phrase
@@ -21,7 +20,6 @@ function getGreetingPhrase() {
             (hour < 21.5) ? "Good evening" :
                 "Good night";
 }
-
 
 
 /**
@@ -106,7 +104,6 @@ function initGreetingRepeat() {
 }
 
 
-
 /**
  * Fetches task data from Firebase and updates summary metrics in the DOM.
  */
@@ -145,7 +142,6 @@ function formatDate(dateString) {
         day: "numeric"
     });
 }
-
 
 
 /**

@@ -36,7 +36,6 @@ function isUserLoged() {
 }
 
 
-
 /**
  * Logs the user out by resetting the login and layout information in localStorage.
  * Redirects to the index (login) page afterwards.
@@ -49,7 +48,6 @@ function logOut() {
     localStorage.removeItem("username");
     window.location.href = "../index.html";
 }
-
 
 
 /**
@@ -68,7 +66,6 @@ async function loadHTML(file, elementId) {
 }
 
 
-
 /**
  * Highlights the currently active page by adding an "active-menu" class
  * to the relevant navigation element and removing it from all others.
@@ -85,7 +82,6 @@ function activePageHiglight(page) {
     let current = document.getElementById(page);
     if (current) current.classList.add("active-menu");
 }
-
 
 
 /**
@@ -131,7 +127,6 @@ function setLayoutAndRedirect(layout, url) {
 }
 
 
-
 /**
  * Loads the internal header and navbar for authenticated users.
  * Also highlights the current page for legal/privacy pages.
@@ -151,7 +146,6 @@ async function loadHeaderNavbarIntern() {
 }
 
 
-
 /**
  * Loads the external header and navbar for guest (unauthenticated) users.
  *
@@ -164,7 +158,6 @@ async function loadHeaderNavbarExtern() {
         loadHTML("/html/navbar_extern.html", "navbar-section")
     ]);
 }
-
 
 
 /**
@@ -186,7 +179,6 @@ function markLegalPrivacyActiveLink() {
 }
 
 
-
 /**
  * Accepts cookies, stores the acceptance timestamp in localStorage,
  * hides the cookie banner, and enables the login buttons.
@@ -200,7 +192,6 @@ function acceptCookies() {
     enableLogin();
     enableLoginButtons();
 }
-
 
 
 /**
@@ -220,7 +211,6 @@ function cookiesStillValid() {
 }
 
 
-
 /**
  * Makes the login area visible.
  *
@@ -230,7 +220,6 @@ function enableLogin() {
     let loginArea = document.getElementById("loginArea");
     if (loginArea) loginArea.classList.remove("d-none");
 }
-
 
 
 /**
@@ -246,7 +235,6 @@ function disableLoginButtons() {
 }
 
 
-
 /**
  * Enables both the standard login and guest login buttons.
  *
@@ -258,7 +246,6 @@ function enableLoginButtons() {
     if (logInBtn) logInBtn.disabled = false;
     if (guestBtn) guestBtn.disabled = false;
 }
-
 
 
 /**
@@ -292,7 +279,6 @@ window.addEventListener("DOMContentLoaded", async () => {
 async function loadRotateWarning() {
     await loadHTML("/html/rotate_warning.html", "rotate-warning-placeholder");
 }
-
 
 
 /**
@@ -379,7 +365,6 @@ window.addEventListener("resize", checkOrientation);
 window.addEventListener("orientationchange", checkOrientation);
 
 
-
 /**
  * Displays the full-screen loading spinner overlay.
  *
@@ -389,7 +374,6 @@ function spinningLoaderStart() {
     let spinner = document.getElementById('spinnerOverLay');
     spinner.classList.remove('d-none');
 }
-
 
 
 /**
@@ -444,7 +428,6 @@ function inputValidations() {
 }
 
 
-
 /**
  * Validates the input value based on its ID and updates the label style accordingly.
  * Removes the error class and adds a success class if validation passes.
@@ -467,7 +450,6 @@ function correctedInput(labelID, inputID) {
         }
     }
 }
-
 
 
 /**
@@ -493,7 +475,6 @@ function validationType(inputID) {
 
     return validationType;
 }
-
 
 
 /**
