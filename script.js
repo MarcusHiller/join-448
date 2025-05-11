@@ -253,15 +253,15 @@ function enableLoginButtons() {
  * Initializes rotate warning, layout loading, cookie logic, and back button.
  */
 window.addEventListener("DOMContentLoaded", async () => {
+    try {
         await loadRotateWarning();
     } catch (err) {
         console.warn("⚠️ rotate_warning.html konnte nicht geladen werden:", err);
     }
     const path = window.location.pathname;
     const isLegalPage = path.includes("privacy_policy.html") || path.includes("legal_notice.html");
-
     if (isLegalPage) {
-        await initLayout(); // ✅ Nur auf diesen Seiten ausführen
+        await initLayout();
     }
 
     initCookies();
