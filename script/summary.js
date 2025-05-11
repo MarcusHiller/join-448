@@ -109,12 +109,13 @@ function initGreetingRepeat() {
  */
 async function loadSummaryData() {
     try {
-        let response = await fetch(FIREBASE_URL);
-        let tasks = await response.json();
-        let {
-            todo, done, inProgress, awaitingFeedback, urgent, total, upcomingDate
+        const response = await fetch(FIREBASE_URL);
+        const tasks = await response.json();
+        const {
+            todo, done, inProgress, awaitingFeedback,
+            urgent, total, upcomingDate
         } = computeTaskMetrics(tasks);
-        let metrics = {
+        const metrics = {
             summaryTodo: todo, summaryDone: done, summaryProgress: inProgress, summaryFeedback: awaitingFeedback, summaryUrgent: urgent, summaryTotal: total
         };
         for (let id in metrics) {
@@ -126,6 +127,34 @@ async function loadSummaryData() {
     } catch (err) {
         console.error("Error loading Firebase tasks:", err);
     }
+}
+
+/**
+ * Calculates task summary metrics from the given tasks.
+ * 
+ * @param {Object} tasks - The task data object from Firebase.
+ * @returns {Object} Summary metrics including counts and upcoming date.
+ */
+function computeTaskMetrics(tasks) {
+    let todo = 0, done = 0, inProgress = 0, awaitingFeedback = 0;
+    let urgent = 0, total = 0, upcomingDate = null;
+    for (let taskId in tasks) {
+        const task = tasks[taskId];
+        total++;
+
+        switch (task.condition) {
+            case "ToDo": todo++; break;
+            case "done": done++; break;
+            case "inProgress": inProgress++; break;
+            case "feedback": awaitingFeedback++; break;
+        }
+        if (task.priority === "urgent") urgent++;
+        const taskDate = new Date(task.date);
+        if (taskDate > new Date() && (!upcomingDate || taskDate < new Date(upcomingDate))) {
+            upcomingDate = task.date;
+        }
+    }
+    return { todo, done, inProgress, awaitingFeedback, urgent, total, upcomingDate };
 }
 
 
