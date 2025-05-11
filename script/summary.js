@@ -26,7 +26,7 @@ function getGreetingPhrase() {
  */
 function setGreetingText(element, name) {
     if (!element) return;
-    const greetingPhrase = getGreetingPhrase();
+    let greetingPhrase = getGreetingPhrase();
     element.innerHTML = (name && name !== "Guest")
         ? `${greetingPhrase}, <span class="greeting-name">${name}</span>`
         : `${greetingPhrase}!`;
@@ -107,52 +107,54 @@ function initGreetingRepeat() {
 }
 
 /**
- * Fetches task data from Firebase and updates metrics.
+ * Fetches task data from Firebase and updates summary metrics in the DOM.
  */
 async function loadSummaryData() {
     try {
         let response = await fetch(FIREBASE_URL);
         let tasks = await response.json();
-        let todo = 0;
-        let done = 0;
-        let inProgress = 0;
-        let awaitingFeedback = 0;
-        let urgent = 0;
-        let total = 0;
-        let upcomingDate = null;
-
-        for (let taskId in tasks) {
-            let task = tasks[taskId];
-            total++;
-
-            switch (task.condition) {
-                case "ToDo": todo++; break;
-                case "done": done++; break;
-                case "inProgress": inProgress++; break;
-                case "feedback": awaitingFeedback++; break;
-            }
-
-            if (task.priority === "urgent") urgent++;
-
-            let taskDate = new Date(task.date);
-            if (taskDate > new Date() && (!upcomingDate || taskDate < new Date(upcomingDate))) {
-                upcomingDate = task.date;
-            }
+        let {
+            todo, done, inProgress, awaitingFeedback, urgent, total, upcomingDate
+        } = computeTaskMetrics(tasks);
+        let metrics = {
+            summaryTodo: todo, summaryDone: done, summaryProgress: inProgress, summaryFeedback: awaitingFeedback, summaryUrgent: urgent, summaryTotal: total
+        };
+        for (let id in metrics) {
+            document.getElementById(id).textContent = metrics[id];
         }
-
-        document.getElementById("summaryTodo").textContent = todo;
-        document.getElementById("summaryDone").textContent = done;
-        document.getElementById("summaryProgress").textContent = inProgress;
-        document.getElementById("summaryFeedback").textContent = awaitingFeedback;
-        document.getElementById("summaryUrgent").textContent = urgent;
-        document.getElementById("summaryTotal").textContent = total;
-
         if (upcomingDate) {
             document.getElementById("summaryDeadline").textContent = formatDate(upcomingDate);
         }
     } catch (err) {
         console.error("Error loading Firebase tasks:", err);
     }
+}
+
+/**
+ * Calculates task summary metrics from the given tasks.
+ * 
+ * @param {Object} tasks - The task data object from Firebase.
+ * @returns {Object} Summary metrics including counts and upcoming date.
+ */
+function computeTaskMetrics(tasks) {
+    let todo = 0, done = 0, inProgress = 0, awaitingFeedback = 0;
+    let urgent = 0, total = 0, upcomingDate = null;
+    for (let taskId in tasks) {
+        let task = tasks[taskId];
+        total++;
+        switch (task.condition) {
+            case "ToDo": todo++; break;
+            case "done": done++; break;
+            case "inProgress": inProgress++; break;
+            case "feedback": awaitingFeedback++; break;
+        }
+        if (task.priority === "urgent") urgent++;
+        let taskDate = new Date(task.date);
+        if (taskDate > new Date() && (!upcomingDate || taskDate < new Date(upcomingDate))) {
+            upcomingDate = task.date;
+        }
+    }
+    return { todo, done, inProgress, awaitingFeedback, urgent, total, upcomingDate };
 }
 
 /**
