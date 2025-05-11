@@ -115,6 +115,12 @@ function renderSubtasks(taskIndex) {
 }
 
 
+/**
+ * Checks if a task has a defined maximum number of subtasks and clears the progress container if not.
+ *
+ * @param {number|string} taskIndex - The index or identifier of the task, used to target the container element.
+ * @param {number} subtaskMax - The maximum number of subtasks for the task. If falsy, the progress is cleared.
+ */
 function checkSubtaskLenght(taskIndex, subtaskMax) {
   if (!subtaskMax) {
     document.getElementById("progress_container_" + taskIndex).innerHTML= "";
@@ -157,4 +163,29 @@ function renderDragDropHighlights(columns) {
   columns.inProgColumnRef.innerHTML += "<div id='empty_task_inProg' class='empty-task d_none'></div>";
   columns.feedbackColumnRef.innerHTML += "<div id='empty_task_feedback' class='empty-task d_none'></div>";
   columns.doneColumnRef.innerHTML += "<div id='empty_task_done' class='empty-task d_none'></div>";
+}
+
+
+/**
+ * Renders a single edited task into the correct column in the board view.
+ * 
+ * @param {number} taskIndex - Index of the task to render.
+ */
+function renderSingleTaskInToColumn(taskIndex) {
+    selectConditionForSingleTask(taskIndex);
+    renderAssignedTo(taskIndex);
+    renderSubtasks(taskIndex);
+    renderPrio(taskIndex);
+    renderCategoryColor(taskIndex);
+}
+
+
+/**
+ * Selects the correct column for a task and sets its HTML content.
+ * 
+ * @param {number} taskIndex - Index of the task.
+ */
+function selectConditionForSingleTask(taskIndex) {
+    const taskRef = document.getElementById(`task_index_${taskIndex}`);
+    taskRef.innerHTML = getSingleTaskAfterEdit(taskIndex);
 }
