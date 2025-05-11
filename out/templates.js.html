@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: templates.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: templates.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Generates the full HTML template for a draggable task card.
+ * 
+ * @param {number} taskIndex - Index of the task in the task list.
+ * @returns {string} - HTML string for the task card.
+ */
+function getTaskTemplate(taskIndex) {
+    return `&lt;div draggable="true" id="task_index_${taskIndex}" class="task" ondragstart="startDragging(${taskIndex}); addHighlight()" ondragend="removeHighlight()" onclick="openOverlayTask(${taskIndex})">
+                &lt;div class="task-cat-technical">
+                    &lt;p id="task_category_${taskIndex}">${tasks[taskIndex].category}&lt;/p>
+                    &lt;img class="mobile-button" src="/assets/img/icon/mobile_button.svg" onclick="event.stopPropagation(); mobileNavigator(${taskIndex}, '${tasks[taskIndex].condition}')">
+                &lt;/div>
+                &lt;div class="task-title">&lt;span class="task-title">${tasks[taskIndex].title}&lt;/span>&lt;/div>
+                &lt;div class="task-description">&lt;span>${tasks[taskIndex].descripton}&lt;/span>&lt;/div>
+                &lt;div class="progress" id="progress_container_${taskIndex}">
+                    &lt;progress id="subtasks_user_${taskIndex}" max="" value="0">&lt;/progress>
+                        &lt;span class="subtask" id="subtask_text_user_${taskIndex}">&lt;span id="subtask_value_user_${taskIndex}">0&lt;/span>/&lt;span id="subtask_max_user_${taskIndex}">0&lt;/span>&lt;span class="subtask-text">&amp;nbsp;Subtasks&lt;/span>&lt;/span>
+                &lt;/div>
+                &lt;div class="task-footer">
+                    &lt;div id="task_users_${taskIndex}" onload="renderAssignedTo(${taskIndex})"class="task-users">
+                        
+    
+                    &lt;/div>
+                    &lt;div class="priority">
+                        &lt;img id="task_prio_user_${taskIndex}" src="/assets/img/icon/prio_medium.svg" alt="">
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>`
+}
+
+
+/**
+ * Returns the HTML structure of a task after it has been edited.
+ * 
+ * @param {number} taskIndex - Index of the task to render.
+ * @returns {string} - HTML string for the updated task.
+ */
+function getSingleTaskAfterEdit(taskIndex) {
+    return `&lt;div class="task-cat-technical">
+                    &lt;p id="task_category_${taskIndex}">${tasks[taskIndex].category}&lt;/p>
+                &lt;/div>
+                &lt;div class="task-title">&lt;span class="task-title">${tasks[taskIndex].title}&lt;/span>&lt;/div>
+                &lt;div class="task-description">&lt;span>${tasks[taskIndex].descripton}&lt;/span>&lt;/div>
+                &lt;div class="progress" id="progress_container_${taskIndex}">
+                    &lt;progress id="subtasks_user_${taskIndex}" max="" value="0">&lt;/progress>
+                        &lt;span id="subtask_text_user_${taskIndex}">&lt;span id="subtask_value_user_${taskIndex}">0&lt;/span>/&lt;span id="subtask_max_user_${taskIndex}">0&lt;/span> Subtasks&lt;/span>
+                &lt;/div>
+                &lt;div class="task-footer">
+                    &lt;div id="task_users_${taskIndex}" onload="renderAssignedTo(${taskIndex})"class="task-users">
+                        
+    
+                    &lt;/div>
+                    &lt;div class="priority">
+                        &lt;img id="task_prio_user_${taskIndex}" src="/assets/img/icon/prio_medium.svg" alt="">
+                    &lt;/div>
+                &lt;/div>`
+}
+
+
+/**
+ * Returns the HTML for a user avatar inside a task.
+ * 
+ * @param {number} indexUser - Index of the user in the user list.
+ * @param {Array} userList - List of user objects.
+ * @returns {string} - HTML string for user avatar.
+ */
+function getUserInTaskTemplate(indexUser, userList) {
+    return `&lt;div class="user" style="background-color:${userList[indexUser].color}">${userList[indexUser].avatar}&lt;/div>`
+}
+
+/**
+ * Generates the HTML for an individual subtask inside a task.
+ * 
+ * @param {number} indexSubTask - Index of the subtask.
+ * @param {string} subtaskValue - Text content of the subtask.
+ * @param {number} taskIndex - Index of the parent task.
+ * @returns {string} - HTML string for the subtask.
+ */
+function getSubtaskTemplate(indexSubTask, subtaskValue, taskIndex) {
+    return `&lt;div id="subtask_${indexSubTask}" class="list-element-div" ondblclick="editSubtask(${indexSubTask})" onmouseover="showEditIcons(${indexSubTask})" onmouseout="blindEditIcons(${indexSubTask})">&lt;div class="list-subtask-element list-subtask-element-hover" id="list_subtask_element_${indexSubTask}">&lt;div class="disc-with-input">&lt;span style="margin-right: 8px" id="disc_${indexSubTask}">&amp;#9679;&lt;/span> &lt;input id="editable_input_${indexSubTask}" readonly onkeydown="checkEnterEditSubtask(event, ${indexSubTask})" onchange="emptySubtaskDelete(${indexSubTask})" onblur="editSubmit(${indexSubTask})" value="${subtaskValue}">&lt;/div>&lt;div id="edit_and_delete_icons_${indexSubTask}"  class="delete-and-add-icon opacity-null margin-left">&lt;img src="/assets/img/icon/edit.svg" ondblclick="event.stopPropagation()" id="edit_subtask_icon_${indexSubTask}" onclick="editSubtask(${indexSubTask})">&lt;img id="confirm_edit_icon_${indexSubTask}" src="/assets/img/icon/check_subtask.svg" class="d_none" ondblclick="event.stopPropagation()" onclick="editSubmit(${indexSubTask})">
+    &lt;div class="placholder-for-icons">&lt;/div>&lt;img src="/assets/img/icon/delete.svg" ondblclick="event.stopPropagation()" onclick="removeSubtask(${indexSubTask}, ${taskIndex})" alt="">&lt;/div>&lt;/div>&lt;/div>`
+}
+
+
+/**
+ * Generates the HTML for a user selection item in the user dropdown.
+ * 
+ * @param {number} indexUsers - Index of the user in the contacts list.
+ * @returns {string} - HTML string for the user dropdown item.
+ */
+function getUserListTemplate(indexUsers) {
+    return `&lt;label for="user_${indexUsers}" id="user_${indexUsers}_label" class="user-dropmenu" onclick="checkedStyle(${indexUsers})">
+                &lt;div class="user-logo-container">
+                    &lt;div id="avatar_user_${indexUsers}" class="user-logo-small" style="background-color:${contactsFirebase[indexUsers].color}">${contactsFirebase[indexUsers].avatar}&lt;/div>
+                    &lt;span class="margin-left-24">${contactsFirebase[indexUsers].username}&lt;/span>
+                &lt;/div>
+                &lt;input id="user_${indexUsers}" type="checkbox" class="checkbox" onclick="addCheckedUsers(${indexUsers})">
+                &lt;label for="user_${indexUsers}">&lt;img src="/assets/img/icon/checkbox.svg" alt="">&lt;/label>
+            &lt;/label>`
+}
+
+
+/**
+ * Returns the HTML for a checked avatar in the selected user list.
+ * 
+ * @param {number} indexUsers - Index of the user in the contacts list.
+ * @returns {string} - HTML string for the avatar.
+ */
+function getCheckedAvatar(indexUsers) {
+    return `&lt;div id="user_checked_${indexUsers}" class="user-logo-small no-margin" style="background-color:${contactsFirebase[indexUsers].color}">${contactsFirebase[indexUsers].avatar}&lt;/div>`
+    
+}
+
+
+/**
+ * Generates HTML for a user in the task overlay view.
+ * 
+ * @param {number} taskIndex - Index of the task.
+ * @param {number} indexUser - Index of the assigned user.
+ * @returns {string} - HTML string for the user row.
+ */
+function getTaskUsersOverlayTemplate(taskIndex, indexUser) {
+    return `&lt;tr>
+                &lt;td>
+                    &lt;div class="user overlay-user" style="background-color: ${tasks[taskIndex].assignedTo[indexUser].color}">${tasks[taskIndex].assignedTo[indexUser].avatar}&lt;/div>
+                &lt;/td>
+                &lt;td>${tasks[taskIndex].assignedTo[indexUser].username}&lt;/td>
+            &lt;/tr>`
+}
+
+
+/**
+ * Returns the HTML structure of a subtask shown in the overlay.
+ * 
+ * @param {number} taskIndex - Index of the task.
+ * @param {number} indexSubtask - Index of the subtask.
+ * @returns {string} - HTML string for the subtask with a checkbox.
+ */
+function getTaskSubtaskOverlayTemplate(taskIndex, indexSubtask) {
+    return `&lt;label for="task_${taskIndex}_checkbox_${indexSubtask}" class="subtask-overlay">
+                &lt;input type="checkbox" class="checkbox" id="task_${taskIndex}_checkbox_${indexSubtask}" onclick="addSubtaskChecked(${indexSubtask}, ${taskIndex})" >
+                &lt;div for="task_${taskIndex}_checkbox_${indexSubtask}" class="subtask-img">&lt;img src="/assets/img/icon/checkbox.svg" alt="">&lt;/div>
+            
+                &lt;div class="subtask-label">${tasks[taskIndex].subtask[indexSubtask].subtaskName}&lt;/div>
+            &lt;/label>`  
+}
+
+
+/**
+ * Displays feedback when a task has been cleared successfully.
+ * 
+ * @returns {string} - HTML string for the feedback.
+ */
+function showSuccessfulClear() {
+    return `&lt;p>Task successfully cleared! &lt;/p>&lt;img src="/assets/img/icon/close_white.svg">`;
+}
+
+
+/**
+ * Displays feedback when a task is added successfully.
+ * 
+ * @returns {string} - HTML string for the feedback.
+ */
+function showSuccessfulAddedTask() {
+    return `&lt;p>Task added to board! &lt;/p>&lt;img class="feedback-img" src="/assets/img/icon/board_icon.svg">`;
+}
+
+/**
+ * Displays feedback when there is an error adding a task.
+ * 
+ * @returns {string} - HTML string for the error feedback.
+ */
+function showErrorAddedTask() {
+    return `&lt;p>There was an error saving the data&lt;/p>&lt;img class="feedback-img" src="/assets/img/icon/close_white.svg">`;
+}
+
+
+/**
+ * Displays feedback when a task is deleted.
+ * 
+ * @returns {string} - HTML string for the feedback.
+ */
+
+function showTaskDeleted() {
+    return `&lt;p>Task deleted successfully!&lt;/p>&lt;img class="feedback-img" src="/assets/img/icon/delete.svg">`;
+}
+
+
+/* contact page */
+
+/**
+ * Generates a contact list item shown on the contacts page.
+ * 
+ * @param {Object} contact - The contact object.
+ * @param {string} initials - Initials to show in the avatar.
+ * @returns {string} - HTML string for the contact list entry.
+ */
+function showUserInformation(contact, initials) {
+    return `
+        &lt;div class="contact" id="contact${contact.id}" onclick="chooseContact(${contact.id}); showRespUserInfo()">
+            &lt;div class="avatar flex-box-center-center" style="background-color: ${contact.color}">${initials}&lt;/div>
+            &lt;div class="contact-info">
+                &lt;strong>${contact.username}&lt;/strong>
+                &lt;p class="accessibility">${contact.email}&lt;/p>
+            &lt;/div>
+        &lt;/div>
+        `;
+}
+
+
+/**
+ * Displays the full contact details panel.
+ * 
+ * @param {Object} individualContact - The selected contact object.
+ * @returns {string} - HTML string for the contact detail panel.
+ */
+function showContact(individualContact) {
+    return `
+    &lt;div id="slide" class="user-slide-in">
+        &lt;div class="user-info-header">
+            &lt;div class="info-initial flex-box-center-center" style="background-color: ${individualContact.color}">${individualContact.username.split(" ").map(n => n[0]).join("")}&lt;/div>
+                &lt;div class="info-name">
+                    &lt;h4>${individualContact.username}&lt;/h4>
+                    &lt;div class="container-editing-tools">
+                        &lt;div class="dpl-fl-al-cetr tools" onclick="editContact(${individualContact.id})">&lt;img class="icon tools-edit" src="../assets/img/icon/edit.svg" alt="">&lt;span>Edit&lt;/span>&lt;/div>
+                        &lt;div class="dpl-fl-al-cetr tools" onclick="deleteContact(event, ${individualContact.id})">&lt;img class="icon tools-delete" src="../assets/img/icon/delete.svg" alt="">&lt;span>Delete&lt;/span>&lt;/div>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+            &lt;div >
+                &lt;div>
+                    &lt;p class="user-contact-info">Contact Information&lt;/p>
+                &lt;/div>
+                &lt;div class="contact-box">
+                    &lt;div class="contact-info-box">
+                        &lt;p class="accessibility-description">Email&lt;/p>
+                        &lt;a class="accessibility" href="mailto:${individualContact.email}"> ${individualContact.email}&lt;/a>
+                    &lt;/div>
+                    &lt;div class="contact-info-box">
+                        &lt;p class="accessibility-description">Phone&lt;/p>
+                        &lt;a class="accessibility" href="tel:${individualContact.phone}">${individualContact.phone}&lt;/a>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    &lt;div id="toolsRespContainer" class="tools-overlay-Container d-none" onclick="closeToolsresp()">
+        &lt;div id="toolsResp" class="editing-tools-resp d-none">
+            &lt;div class="dpl-fl-al-cetr tools tools-resp" onclick="editRespContact(${individualContact.id})">&lt;img class="icon tools-edit" src="../assets/img/icon/edit.svg" alt="">&lt;span>Edit&lt;/span>&lt;/div>
+            &lt;div class="dpl-fl-al-cetr tools tools-resp" onclick="deleteContact(event, ${individualContact.id})">&lt;img class="icon tools-delete" src="../assets/img/icon/delete.svg" alt="">&lt;span>Delete&lt;/span>&lt;/div>
+        &lt;/div>
+    &lt;/div>
+    `;
+}
+
+
+/**
+ * Returns the HTML for the overlay used to add a new contact.
+ * 
+ * @returns {string} - HTML string for the add contact overlay.
+ */
+
+function showOverlayAddContact() {
+    return `
+        &lt;div id="overlay" class="overlay-contact flex-box-center-center d-none" onclick="eventBubbling(event)">
+            &lt;div class="close-container" onclick="closeOverlay(event)">&lt;img class="close-btn" src="../assets/img/icon/close.svg" alt="">&lt;/div>
+            &lt;div class="overlay-cover">
+                &lt;img class="logo-img" src="../assets/img/logo/cover_join_white.svg" alt="">
+                &lt;div class="card-title">
+                    &lt;h5>Add contact&lt;/h5>
+                    &lt;p class="motivation-text">Tasks are better with a Team!&lt;/p>
+                &lt;/div>
+            &lt;/div>
+            &lt;div class="overlay-main-container flex-box-center-center">
+                &lt;div class="profil-img-container flex-box-center-center">&lt;img class="profil-img" src="../assets/img/icon/person.svg" alt="">&lt;/div>
+                &lt;form onsubmit="createNewContact(); return false">
+                    &lt;div class="dpl-fl-colu input-container">
+                        &lt;label id="labelContactname" class="input-field">
+                            &lt;div class="input-content">
+                                &lt;input id="contactname" type="text" placeholder="Name" onkeyup="correctedInput('labelContactname', 'contactname')" onblur="finishTheCorrection('labelContactname')">
+                                &lt;img class="input-icon" src="../assets/img/icon/person.svg" alt="">
+                            &lt;/div>
+                        &lt;/label>
+                        &lt;label id="labelEmail" class="input-field">
+                            &lt;div class="input-content">
+                                &lt;input id="email" type="text" placeholder="E-mail" onkeyup="correctedInput('labelEmail', 'email')" onblur="finishTheCorrection('labelEmail')">
+                                &lt;img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
+                            &lt;/div>
+                        &lt;/label>
+                        &lt;label id="labelPhone" class="input-field">
+                            &lt;div class="input-content">
+                                &lt;input id="phone" type="tel" placeholder="Phone" onkeyup="correctedInput('labelPhone', 'phone')" onblur="finishTheCorrection('labelPhone')">
+                                &lt;img class="input-icon" src="../assets/img/icon/call.svg" alt="">
+                            &lt;/div>
+                        &lt;/label>
+                        &lt;p id="poppin" class="poppins opacity">&lt;/p>
+                    &lt;/div>
+                    &lt;div class="submit-container">
+                        &lt;button class="blue-white-btn cancel" onclick="closeOverlay(event)">Cancel&lt;/button>
+                        &lt;button class="white-blue-btn">Create contact&lt;/button>
+                    &lt;/div>
+                &lt;/form>
+            &lt;/div>
+        &lt;/div>`;
+}
+
+
+/**
+ * Generates the overlay HTML template to edit a specific contact.
+ * 
+ * @param {Object} individualUser - The contact object to edit.
+ * @returns {string} - HTML string for the edit contact overlay.
+ */
+function overlayEditContact(individualUser) {
+    return `
+        &lt;div id="overlay" class="overlay-contact flex-box-center-center d-none" onclick="eventBubbling(event)">
+            &lt;div class="close-container" onclick="closeOverlay(event)">&lt;img class="close-btn" src="../assets/img/icon/close.svg" alt="">&lt;/div>
+            &lt;div class="overlay-cover">
+                &lt;img class="logo-img" src="../assets/img/logo/cover_join_white.svg" alt="">
+                &lt;div class="card-title">
+                    &lt;h5>Edit Contact&lt;/h5>
+                    &lt;p class="motivation-text">Tasks are better with a Team!&lt;/p>
+                &lt;/div>
+            &lt;/div>
+            &lt;div class="overlay-main-container flex-box-center-center">
+                &lt;div class="info-initial info-initial-overlay flex-box-center-center" style="background-color: ${individualUser.color}">${individualUser.username.split(" ").map(n => n[0]).join("")}&lt;/div>
+                &lt;form onsubmit="saveContact(${individualUser.id}); return false">
+                    &lt;div class="dpl-fl-colu input-container">
+                        &lt;label id="labelContactname" class="input-field">
+                            &lt;div class="input-content">
+                                &lt;input id="contactname" type="text" value="${individualUser.username}" placeholder="Name" onkeyup="correctedInput('labelContactname', 'contactname')" onblur="finishTheCorrection('labelContactname')">
+                                &lt;img class="input-icon" src="../assets/img/icon/person.svg" alt="">
+                            &lt;/div>
+                        &lt;/label>
+                        &lt;label id="labelEmail" class="input-field">
+                            &lt;div class="input-content">
+                                &lt;input id="email" type="text" value="${individualUser.email}" placeholder="E-mail" onkeyup="correctedInput('labelEmail', 'email')" onblur="finishTheCorrection('labelEmail')">
+                                &lt;img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
+                            &lt;/div>
+                        &lt;/label>
+                        &lt;label id="labelPhone" class="input-field">
+                            &lt;div class="input-content">
+                                &lt;input id="phone" type="tel" value="${individualUser.phone}" placeholder="Phone" onkeyup="correctedInput('labelPhone', 'phone')" onblur="finishTheCorrection('labelPhone')">
+                                &lt;img class="input-icon" src="../assets/img/icon/call.svg" alt="">
+                            &lt;/div>
+                        &lt;/label>
+                        &lt;p id="poppin" class="poppins opacity">&lt;/p>
+                    &lt;/div>
+                    &lt;div class="submit-container">
+                        &lt;button class="blue-white-btn" onclick="deleteContact(event, ${individualUser.id}); closeOverlay()">Delete&lt;/button>
+                        &lt;button class="white-blue-btn">Save&lt;/button>
+                    &lt;/div>
+                &lt;/form>
+            &lt;/div>
+        &lt;/div>`;
+}
+
+
+/**
+ * Displays a message when a contact is successfully created.
+ * 
+ * @returns {string} - HTML feedback message.
+ */
+function showSuccessfulCreated() {
+    return `&lt;p>Contact successfully created &lt;/p>`;
+}
+
+
+/**
+ * Displays a message when a contact is successfully deleted.
+ * 
+ * @returns {string} - HTML feedback message.
+ */
+function showSuccessfulDeleted() {
+    return `&lt;p>Contact successfully deleted &lt;/p>`;
+}
+
+
+/**
+ * Returns a button with a vertical dot icon to open the responsive tools menu.
+ * 
+ * @returns {string} - HTML string for the responsive menu button.
+ */
+function changeBtnMore() {
+    return `
+        &lt;div class="add-btn-resp" onclick="openToolsResp()">
+            &lt;img class="contact-img" src="../assets/img/icon/more_vert.svg" alt="">
+        &lt;/div>`;
+}
+
+
+/**
+ * Returns a button with a person add icon to open the responsive contact form.
+ * 
+ * @returns {string} - HTML string for the add contact button.
+ */
+function changeAddBtnPerson() {
+    return `
+        &lt;div class="add-btn-resp" onclick="addRespContact()">
+            &lt;img class="contact-img" src="../assets/img/icon/person_add.svg" alt="">
+        &lt;/div>`;
+}
+
+
+/**
+ * Returns the overlay HTML for adding a contact in responsive view.
+ * 
+ * @returns {string} - HTML string for the add contact overlay (responsive).
+ */
+function showOverlayAddResp() {
+    return `
+    &lt;div id="overlay" class="overlay-contact overlay-contact-resp d-none" onclick="eventBubbling(event)">
+            &lt;div class="overlay-cover-resp">
+                &lt;div class="close-resp-overlay" onclick="closeOverlay(event)">&lt;img class="close-btn" src="../assets/img/icon/close_white.svg" alt="">&lt;/div>    
+                &lt;div class="card-title">
+                    &lt;h5>Add contact&lt;/h5>
+                    &lt;p class="motivation-text">Tasks are better with a Team!&lt;/p>
+                &lt;/div>
+            &lt;/div>
+            &lt;div class="overlay-main-container-resp">
+                &lt;div class="profil-img-container flex-box-center-center profil-img-resp">&lt;img class="profil-img" src="../assets/img/icon/person.svg" alt="">&lt;/div>
+                &lt;form onsubmit="createNewContact(); return false">
+                    &lt;div class="dpl-fl-colu input-container-resp">
+                        &lt;label id="labelContactname" class="input-field input-field-resp">
+                            &lt;div class="input-content-resp">
+                                &lt;input id="contactname" type="text" placeholder="Name" onkeyup="correctedInput('labelContactname', 'contactname')" onblur="finishTheCorrection('labelContactname')">
+                                &lt;img class="input-icon" src="../assets/img/icon/person.svg" alt="">
+                            &lt;/div>
+                        &lt;/label>
+                        &lt;label id="labelEmail" class="input-field input-field-resp">
+                            &lt;div class="input-content-resp">
+                                &lt;input id="email" type="text" placeholder="E-mail" onkeyup="correctedInput('labelEmail', 'email')" onblur="finishTheCorrection('labelEmail')">
+                                &lt;img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
+                            &lt;/div>
+                        &lt;/label>
+                        &lt;label id="labelPhone" class="input-field input-field-resp">
+                            &lt;div class="input-content-resp">
+                                &lt;input id="phone" type="tel" placeholder="Phone" inputmode="numeric" onkeyup="correctedInput('labelPhone', 'phone')" onblur="finishTheCorrection('labelPhone')">
+                                &lt;img class="input-icon" src="../assets/img/icon/call.svg" alt="">
+                            &lt;/div>
+                        &lt;/label>
+                        &lt;p id="poppin" class="poppins opacity">&lt;/p>
+                    &lt;/div>
+                    &lt;div class="submit-container submit-container-resp">    
+                        &lt;button class="white-blue-btn white-blue-btn-resp">Create contact&lt;/button>
+                    &lt;/div>
+                &lt;/form>
+            &lt;/div>
+        &lt;/div>`;
+}
+
+
+/**
+ * Returns the overlay HTML for editing a contact in responsive view.
+ * 
+ * @param {Object} individualContact - The contact object to edit.
+ * @returns {string} - HTML string for the edit contact overlay (responsive).
+ */
+function showOverlayEditResp(individualContact) {
+    return `
+    &lt;div id="overlay" class="overlay-contact overlay-contact-resp" onclick="eventBubbling(event)">
+            &lt;div class="overlay-cover-resp">
+                &lt;div class="close-resp-overlay" onclick="closeOverlay(event)">&lt;img class="close-btn" src="../assets/img/icon/close_white.svg" alt="">&lt;/div>    
+                &lt;div class="card-title">
+                    &lt;h5>Add contact&lt;/h5>
+                    &lt;p class="motivation-text">Tasks are better with a Team!&lt;/p>
+                &lt;/div>
+            &lt;/div>
+            &lt;div class="overlay-main-container-resp">
+                &lt;div class="profil-img-container flex-box-center-center profil-img-resp" style="background-color: ${individualContact.color}">${individualContact.username.split(" ").map(n => n[0]).join("")}&lt;/div>
+                &lt;form onsubmit="saveContact(${individualContact.id}); return false">
+                    &lt;div class="dpl-fl-colu input-container-resp">
+                        &lt;label id="labelContactname" class="input-field input-field-resp">
+                            &lt;div class="input-content-resp">
+                                &lt;input id="contactname" type="text" value="${individualContact.username}" placeholder="Name" onkeyup="correctedInput('labelContactname', 'contactname')" onblur="finishTheCorrection('labelContactname')">
+                                &lt;img class="input-icon" src="../assets/img/icon/person.svg" alt="">
+                            &lt;/div>
+                        &lt;/label>
+                        &lt;label id="labelEmail" class="input-field input-field-resp">
+                            &lt;div class="input-content-resp">
+                                &lt;input id="email" type="text" value="${individualContact.email}" placeholder="E-mail" onkeyup="correctedInput('labelEmail', 'email')" onblur="finishTheCorrection('labelEmail')">
+                                &lt;img class="input-icon" src="../assets/img/icon/mail.svg" alt="">
+                            &lt;/div>
+                        &lt;/label>
+                        &lt;label id="labelPhone" class="input-field input-field-resp">
+                            &lt;div class="input-content-resp">
+                                &lt;input id="phone" type="tel" value="${individualContact.phone}" placeholder="Phone" inputmode="numeric" onkeyup="correctedInput('labelPhone', 'phone')" onblur="finishTheCorrection('labelPhone')">
+                                &lt;img class="input-icon" src="../assets/img/icon/call.svg" alt="">
+                            &lt;/div>
+                        &lt;/label>
+                        &lt;p id="poppin" class="poppins opacity">&lt;/p>
+                    &lt;/div>
+                    &lt;div class="submit-container submit-container-resp">
+                        &lt;button class="blue-white-btn" onclick="deleteContact(event, ${individualContact.id}); closeOverlay()">Delete&lt;/button>
+                        &lt;button class="white-blue-btn white-blue-btn-resp">Save&lt;/button>
+                    &lt;/div>
+                &lt;/form>
+            &lt;/div>
+        &lt;/div>`;
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#BASE_URL">BASE_URL</a></li><li><a href="global.html#addBorder">addBorder</a></li><li><a href="global.html#addCheckedUsers">addCheckedUsers</a></li><li><a href="global.html#addClearButtonToThePage">addClearButtonToThePage</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addEditedTask">addEditedTask</a></li><li><a href="global.html#addHighlight">addHighlight</a></li><li><a href="global.html#addRespContact">addRespContact</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addSubtaskChecked">addSubtaskChecked</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addTaskButton">addTaskButton</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#addUserToContacts">addUserToContacts</a></li><li><a href="global.html#arrayAssignedTo">arrayAssignedTo</a></li><li><a href="global.html#arraySubtasks">arraySubtasks</a></li><li><a href="global.html#blindEditIcons">blindEditIcons</a></li><li><a href="global.html#changeAddBtnPerson">changeAddBtnPerson</a></li><li><a href="global.html#changeBtnMore">changeBtnMore</a></li><li><a href="global.html#changeOfAddPersoneBtn">changeOfAddPersoneBtn</a></li><li><a href="global.html#changeOfMoreBtn">changeOfMoreBtn</a></li><li><a href="global.html#checkAndRenderEmptyMessage">checkAndRenderEmptyMessage</a></li><li><a href="global.html#checkAssignedTo">checkAssignedTo</a></li><li><a href="global.html#checkAvatarAmount">checkAvatarAmount</a></li><li><a href="global.html#checkCategory">checkCategory</a></li><li><a href="global.html#checkCheckboxInOverlay">checkCheckboxInOverlay</a></li><li><a href="global.html#checkEmptyInput">checkEmptyInput</a></li><li><a href="global.html#checkEnter">checkEnter</a></li><li><a href="global.html#checkEnterAddSubtask">checkEnterAddSubtask</a></li><li><a href="global.html#checkEnterEditSubtask">checkEnterEditSubtask</a></li><li><a href="global.html#checkIfEmailExists">checkIfEmailExists</a></li><li><a href="global.html#checkInputFields">checkInputFields</a></li><li><a href="global.html#checkPrio">checkPrio</a></li><li><a href="global.html#checkRequiredInputsField">checkRequiredInputsField</a></li><li><a href="global.html#checkSamePasswd">checkSamePasswd</a></li><li><a href="global.html#checkSubtasks">checkSubtasks</a></li><li><a href="global.html#checkUserExists">checkUserExists</a></li><li><a href="global.html#checkUserFound">checkUserFound</a></li><li><a href="global.html#checkValueInput">checkValueInput</a></li><li><a href="global.html#checkValues">checkValues</a></li><li><a href="global.html#checkedStyle">checkedStyle</a></li><li><a href="global.html#checkedSubtaskChecked">checkedSubtaskChecked</a></li><li><a href="global.html#chooseContact">chooseContact</a></li><li><a href="global.html#cleanContactsList">cleanContactsList</a></li><li><a href="global.html#cleanContainerBtn">cleanContainerBtn</a></li><li><a href="global.html#clearAddTaskAfterAdd">clearAddTaskAfterAdd</a></li><li><a href="global.html#clearAddTaskField">clearAddTaskField</a></li><li><a href="global.html#clearColumn">clearColumn</a></li><li><a href="global.html#clearMainContact">clearMainContact</a></li><li><a href="global.html#clearOverlay">clearOverlay</a></li><li><a href="global.html#clearSubtaskInput">clearSubtaskInput</a></li><li><a href="global.html#clearSubtaskInputField">clearSubtaskInputField</a></li><li><a href="global.html#clearSuccessfulContainer">clearSuccessfulContainer</a></li><li><a href="global.html#clerOverlay">clerOverlay</a></li><li><a href="global.html#closeAddTask">closeAddTask</a></li><li><a href="global.html#closeCatDropMenu">closeCatDropMenu</a></li><li><a href="global.html#closeMoveToDialog">closeMoveToDialog</a></li><li><a href="global.html#closeOverlay">closeOverlay</a></li><li><a href="global.html#closeOverlayTask">closeOverlayTask</a></li><li><a href="global.html#closeToolsresp">closeToolsresp</a></li><li><a href="global.html#closeUserDropMenu">closeUserDropMenu</a></li><li><a href="global.html#computeTaskMetrics">computeTaskMetrics</a></li><li><a href="global.html#contactsFirebase">contactsFirebase</a></li><li><a href="global.html#container">container</a></li><li><a href="global.html#creatOverlayFromTask">creatOverlayFromTask</a></li><li><a href="global.html#createFeedback">createFeedback</a></li><li><a href="global.html#createHTML">createHTML</a></li><li><a href="global.html#createNewContact">createNewContact</a></li><li><a href="global.html#createUserForContacts">createUserForContacts</a></li><li><a href="global.html#createUserObject">createUserObject</a></li><li><a href="global.html#currentCondition">currentCondition</a></li><li><a href="global.html#currentDraggableTask">currentDraggableTask</a></li><li><a href="global.html#currentInputFieldvalue">currentInputFieldvalue</a></li><li><a href="global.html#currentPage">currentPage</a></li><li><a href="global.html#datepicker">datepicker</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteNotFoundedUserFromTask">deleteNotFoundedUserFromTask</a></li><li><a href="global.html#deleteTaskFromTaskArray">deleteTaskFromTaskArray</a></li><li><a href="global.html#deleteTaskOnOverlay">deleteTaskOnOverlay</a></li><li><a href="global.html#deleteUserData">deleteUserData</a></li><li><a href="global.html#displayErrorLogin">displayErrorLogin</a></li><li><a href="global.html#editContact">editContact</a></li><li><a href="global.html#editRespContact">editRespContact</a></li><li><a href="global.html#editSubmit">editSubmit</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#editSubtaskStyle">editSubtaskStyle</a></li><li><a href="global.html#editTaskOnOverlay">editTaskOnOverlay</a></li><li><a href="global.html#emptySubtaskDelete">emptySubtaskDelete</a></li><li><a href="global.html#errorInputField">errorInputField</a></li><li><a href="global.html#errorMessage">errorMessage</a></li><li><a href="global.html#eventBubbling">eventBubbling</a></li><li><a href="global.html#extractSubtask">extractSubtask</a></li><li><a href="global.html#findContact">findContact</a></li><li><a href="global.html#firbaseObject">firbaseObject</a></li><li><a href="global.html#fitEditTaskToContainer">fitEditTaskToContainer</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#generateID">generateID</a></li><li><a href="global.html#getAddTaskHTML">getAddTaskHTML</a></li><li><a href="global.html#getAssignedTo">getAssignedTo</a></li><li><a href="global.html#getAssignedToArrayAfterEdit">getAssignedToArrayAfterEdit</a></li><li><a href="global.html#getCheckStatus">getCheckStatus</a></li><li><a href="global.html#getCheckedAvatar">getCheckedAvatar</a></li><li><a href="global.html#getContactColorById">getContactColorById</a></li><li><a href="global.html#getDataFromServer">getDataFromServer</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getEditTaskHTML">getEditTaskHTML</a></li><li><a href="global.html#getEditedTask">getEditedTask</a></li><li><a href="global.html#getFormElements">getFormElements</a></li><li><a href="global.html#getGreetingPhrase">getGreetingPhrase</a></li><li><a href="global.html#getIndex">getIndex</a></li><li><a href="global.html#getNewTask">getNewTask</a></li><li><a href="global.html#getPriority">getPriority</a></li><li><a href="global.html#getSingleTaskAfterEdit">getSingleTaskAfterEdit</a></li><li><a href="global.html#getSubtaskTemplate">getSubtaskTemplate</a></li><li><a href="global.html#getSubtasks">getSubtasks</a></li><li><a href="global.html#getSubtasksArrayAfterEdit">getSubtasksArrayAfterEdit</a></li><li><a href="global.html#getTaskOverlayHTML">getTaskOverlayHTML</a></li><li><a href="global.html#getTaskSubtaskOverlayTemplate">getTaskSubtaskOverlayTemplate</a></li><li><a href="global.html#getTaskTemplate">getTaskTemplate</a></li><li><a href="global.html#getTaskUsersOverlayTemplate">getTaskUsersOverlayTemplate</a></li><li><a href="global.html#getUserID">getUserID</a></li><li><a href="global.html#getUserInTaskTemplate">getUserInTaskTemplate</a></li><li><a href="global.html#getUserListTemplate">getUserListTemplate</a></li><li><a href="global.html#getUserObject">getUserObject</a></li><li><a href="global.html#groupInitials">groupInitials</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#hoverImage">hoverImage</a></li><li><a href="global.html#initContactsPage">initContactsPage</a></li><li><a href="global.html#initGreeting">initGreeting</a></li><li><a href="global.html#initGreetingRepeat">initGreetingRepeat</a></li><li><a href="global.html#inputError">inputError</a></li><li><a href="global.html#loadContactsFromFirebase">loadContactsFromFirebase</a></li><li><a href="global.html#loadSummaryData">loadSummaryData</a></li><li><a href="global.html#loadUserData">loadUserData</a></li><li><a href="global.html#loadUsersFromFirebase">loadUsersFromFirebase</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#maxChar">maxChar</a></li><li><a href="global.html#mobileNavigator">mobileNavigator</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#navigateTo">navigateTo</a></li><li><a href="global.html#openAddContact">openAddContact</a></li><li><a href="global.html#openAddRespContact">openAddRespContact</a></li><li><a href="global.html#openAddTask">openAddTask</a></li><li><a href="global.html#openCatDropMenu">openCatDropMenu</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#openEditRespContact">openEditRespContact</a></li><li><a href="global.html#openMoveToDialog">openMoveToDialog</a></li><li><a href="global.html#openOverlay">openOverlay</a></li><li><a href="global.html#openOverlayTask">openOverlayTask</a></li><li><a href="global.html#openToolsResp">openToolsResp</a></li><li><a href="global.html#openUserDropMenu">openUserDropMenu</a></li><li><a href="global.html#overlayEditContact">overlayEditContact</a></li><li><a href="global.html#patchDataToServer">patchDataToServer</a></li><li><a href="global.html#prepareEmailValidationUI">prepareEmailValidationUI</a></li><li><a href="global.html#prepareSubtaskIDs">prepareSubtaskIDs</a></li><li><a href="global.html#pushNewContact">pushNewContact</a></li><li><a href="global.html#putDataToServer">putDataToServer</a></li><li><a href="global.html#reSortUser">reSortUser</a></li><li><a href="global.html#readsTheInputValues">readsTheInputValues</a></li><li><a href="global.html#removeBackBtn">removeBackBtn</a></li><li><a href="global.html#removeBorder">removeBorder</a></li><li><a href="global.html#removeEditSubtaskStyle">removeEditSubtaskStyle</a></li><li><a href="global.html#removeErrorMsg">removeErrorMsg</a></li><li><a href="global.html#removeErrorText">removeErrorText</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#removeSubtask">removeSubtask</a></li><li><a href="global.html#renderAssignedTo">renderAssignedTo</a></li><li><a href="global.html#renderAvatar">renderAvatar</a></li><li><a href="global.html#renderButtons">renderButtons</a></li><li><a href="global.html#renderCategoryColor">renderCategoryColor</a></li><li><a href="global.html#renderCategoryIntoTaskOverlay">renderCategoryIntoTaskOverlay</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderDetails">renderDetails</a></li><li><a href="global.html#renderDragDropHighlights">renderDragDropHighlights</a></li><li><a href="global.html#renderEditButton">renderEditButton</a></li><li><a href="global.html#renderEmptyColumn">renderEmptyColumn</a></li><li><a href="global.html#renderPrio">renderPrio</a></li><li><a href="global.html#renderPrioIntoTaskOverlay">renderPrioIntoTaskOverlay</a></li><li><a href="global.html#renderSingleTaskInToColumn">renderSingleTaskInToColumn</a></li><li><a href="global.html#renderSubtaskIntoTaskOverlay">renderSubtaskIntoTaskOverlay</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#renderTaskInToColumn">renderTaskInToColumn</a></li><li><a href="global.html#renderTextBackFeedback">renderTextBackFeedback</a></li><li><a href="global.html#renderTextDone">renderTextDone</a></li><li><a href="global.html#renderTextFeedback">renderTextFeedback</a></li><li><a href="global.html#renderTextProg">renderTextProg</a></li><li><a href="global.html#renderUserIntoTaskOverlay">renderUserIntoTaskOverlay</a></li><li><a href="global.html#renderUserList">renderUserList</a></li><li><a href="global.html#resetClassChooseContact">resetClassChooseContact</a></li><li><a href="global.html#resetDisplayMovtoDialog">resetDisplayMovtoDialog</a></li><li><a href="global.html#resetUserArray">resetUserArray</a></li><li><a href="global.html#resortUserlist">resortUserlist</a></li><li><a href="global.html#saveCheckboxProcess">saveCheckboxProcess</a></li><li><a href="global.html#saveCondition">saveCondition</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#saveContactsToFirebase">saveContactsToFirebase</a></li><li><a href="global.html#saveUsersToFirebase">saveUsersToFirebase</a></li><li><a href="global.html#searchContactToTask">searchContactToTask</a></li><li><a href="global.html#searchTask">searchTask</a></li><li><a href="global.html#searchedTasks">searchedTasks</a></li><li><a href="global.html#selectCategory">selectCategory</a></li><li><a href="global.html#selectConditionForSingleTask">selectConditionForSingleTask</a></li><li><a href="global.html#setBackBtn">setBackBtn</a></li><li><a href="global.html#setClassChoooseContact">setClassChoooseContact</a></li><li><a href="global.html#setGreetingHideTimeout">setGreetingHideTimeout</a></li><li><a href="global.html#setGreetingText">setGreetingText</a></li><li><a href="global.html#showAddSubtaskButton">showAddSubtaskButton</a></li><li><a href="global.html#showContact">showContact</a></li><li><a href="global.html#showEditIcons">showEditIcons</a></li><li><a href="global.html#showEmailExistsError">showEmailExistsError</a></li><li><a href="global.html#showErrorAddedTask">showErrorAddedTask</a></li><li><a href="global.html#showGreetingWithTransition">showGreetingWithTransition</a></li><li><a href="global.html#showOverlayAddContact">showOverlayAddContact</a></li><li><a href="global.html#showOverlayAddResp">showOverlayAddResp</a></li><li><a href="global.html#showOverlayEditResp">showOverlayEditResp</a></li><li><a href="global.html#showOverlaySuccessful">showOverlaySuccessful</a></li><li><a href="global.html#showRespContactList">showRespContactList</a></li><li><a href="global.html#showRespUserInfo">showRespUserInfo</a></li><li><a href="global.html#showSuccessfulAddedTask">showSuccessfulAddedTask</a></li><li><a href="global.html#showSuccessfulClear">showSuccessfulClear</a></li><li><a href="global.html#showSuccessfulCreated">showSuccessfulCreated</a></li><li><a href="global.html#showSuccessfulDeleted">showSuccessfulDeleted</a></li><li><a href="global.html#showTaskDeleted">showTaskDeleted</a></li><li><a href="global.html#showUserInformation">showUserInformation</a></li><li><a href="global.html#slideIn">slideIn</a></li><li><a href="global.html#sortTask">sortTask</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#subtaskIndex">subtaskIndex</a></li><li><a href="global.html#subtasks">subtasks</a></li><li><a href="global.html#successChange">successChange</a></li><li><a href="global.html#successfulAddContact">successfulAddContact</a></li><li><a href="global.html#successfulAddedTask">successfulAddedTask</a></li><li><a href="global.html#successfulClearTask">successfulClearTask</a></li><li><a href="global.html#successfulDeleteContact">successfulDeleteContact</a></li><li><a href="global.html#successfulTaskDeleted">successfulTaskDeleted</a></li><li><a href="global.html#suppressActionEvent">suppressActionEvent</a></li><li><a href="global.html#tasks">tasks</a></li><li><a href="global.html#textEmailError">textEmailError</a></li><li><a href="global.html#textPasswdError">textPasswdError</a></li><li><a href="global.html#toggleCheckbox">toggleCheckbox</a></li><li><a href="global.html#togglePasswordVisibility">togglePasswordVisibility</a></li><li><a href="global.html#toggleSignupVisibility">toggleSignupVisibility</a></li><li><a href="global.html#unsetCheckbox">unsetCheckbox</a></li><li><a href="global.html#updateDraggableState">updateDraggableState</a></li><li><a href="global.html#updatePasswdIcon">updatePasswdIcon</a></li><li><a href="global.html#updateSignupIcon">updateSignupIcon</a></li><li><a href="global.html#updateUserData">updateUserData</a></li><li><a href="global.html#urlParams">urlParams</a></li><li><a href="global.html#userCounter">userCounter</a></li><li><a href="global.html#userData">userData</a></li><li><a href="global.html#userFeedback">userFeedback</a></li><li><a href="global.html#userFirebase">userFirebase</a></li><li><a href="global.html#userInfo">userInfo</a></li><li><a href="global.html#usersToDeleteFromFirebase">usersToDeleteFromFirebase</a></li><li><a href="global.html#usrerIsLoggedIn">usrerIsLoggedIn</a></li><li><a href="global.html#visiblePasswords">visiblePasswords</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun May 11 2025 09:36:25 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
