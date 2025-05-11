@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: summary.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: summary.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Extract parameters from the URL
+let urlParams = new URLSearchParams(window.location.search);
+let greetsName = urlParams.get("name");
+let isLogin = urlParams.get("login") === "true";
+
+// Firebase endpoint for retrieving task data
+let FIREBASE_URL = "https://join-4215a-default-rtdb.europe-west1.firebasedatabase.app/join/tasks.json";
+
+/**
+ * Returns the appropriate greeting phrase based on the current time.
+ * @returns {string} - Greeting phrase
+ */
+function getGreetingPhrase() {
+    let now = new Date();
+    let hour = now.getHours() + now.getMinutes() / 60;
+    return (hour >= 5.5 &amp;&amp; hour &lt; 10.5) ? "Good morning" :
+        (hour &lt; 17) ? "Good day" :
+            (hour &lt; 21.5) ? "Good evening" :
+                "Good night";
+}
+
+/**
+ * Sets the greeting text dynamically based on login state and user name.
+ * @param {HTMLElement} element - The element to insert the greeting text into
+ * @param {string} name - User's name
+ */
+function setGreetingText(element, name) {
+    if (!element) return;
+    let greetingPhrase = getGreetingPhrase();
+    element.innerHTML = (name &amp;&amp; name !== "Guest")
+        ? `${greetingPhrase}, &lt;span class="greeting-name">${name}&lt;/span>`
+        : `${greetingPhrase}!`;
+}
+
+/**
+ * Initializes the greeting logic on page load.
+ * Shows animated greeting only once after login on mobile.
+ */
+function initGreeting() {
+    let greetingContainer = document.querySelector(".greeting");
+    let greetingText = document.querySelector(".greeting-text");
+    let grid = document.querySelector(".metrics-grid");
+    let header = document.querySelector(".dashboard-header");
+    let dashboard = document.querySelector(".dashboard-container");
+
+
+    if (!greetingContainer || !greetingText || !grid || !header) return;
+
+    setGreetingText(greetingText, greetsName);
+
+    if (isLogin &amp;&amp; window.innerWidth &lt;= 990) {
+        showGreetingWithTransition();
+        urlParams.delete("login");
+        window.history.replaceState({}, document.title, `?${urlParams}`);
+    } else {
+        grid.classList.remove("hidden");
+        header.classList.remove("hidden");
+        dashboard.classList.remove("hidden");
+        loadSummaryData();
+
+    }
+}
+
+
+/**
+ * Shows the greeting with animation and fades it out automatically.
+ */
+function showGreetingWithTransition() {
+    let greeting = document.querySelector(".greeting");
+    let grid = document.querySelector(".metrics-grid");
+    let header = document.querySelector(".dashboard-header");
+    let dashboard = document.querySelector(".dashboard-container");
+
+    if (!greeting || !grid || !header || !dashboard) return;
+
+    greeting.style.display = "flex";
+    greeting.classList.add("animate-in");
+
+    grid.classList.add("hidden");
+    header.classList.add("hidden");
+    dashboard.classList.add("hidden");
+
+    setTimeout(() => {
+        greeting.classList.remove("animate-in");
+        greeting.classList.add("animate-out");
+
+        setTimeout(() => {
+            greeting.style.display = "none";
+            greeting.classList.remove("animate-out");
+
+            grid.classList.remove("hidden");
+            header.classList.remove("hidden");
+            dashboard.classList.remove("hidden");
+
+            loadSummaryData();
+        }, 400);
+    }, 2000);
+}
+
+
+/**
+ * Re-applies the greeting text (e.g. when returning to the page from another view).
+ */
+function initGreetingRepeat() {
+    let greetingRepeatText = document.querySelector(".greeting-text-repeat");
+    setGreetingText(greetingRepeatText, greetsName);
+}
+
+/**
+ * Fetches task data from Firebase and updates summary metrics in the DOM.
+ */
+async function loadSummaryData() {
+    try {
+        let response = await fetch(FIREBASE_URL);
+        let tasks = await response.json();
+        let {
+            todo, done, inProgress, awaitingFeedback, urgent, total, upcomingDate
+        } = computeTaskMetrics(tasks);
+        let metrics = {
+            summaryTodo: todo, summaryDone: done, summaryProgress: inProgress, summaryFeedback: awaitingFeedback, summaryUrgent: urgent, summaryTotal: total
+        };
+        for (let id in metrics) {
+            document.getElementById(id).textContent = metrics[id];
+        }
+        if (upcomingDate) {
+            document.getElementById("summaryDeadline").textContent = formatDate(upcomingDate);
+        }
+    } catch (err) {
+        console.error("Error loading Firebase tasks:", err);
+    }
+}
+
+/**
+ * Calculates task summary metrics from the given tasks.
+ * 
+ * @param {Object} tasks - The task data object from Firebase.
+ * @returns {Object} Summary metrics including counts and upcoming date.
+ */
+function computeTaskMetrics(tasks) {
+    let todo = 0, done = 0, inProgress = 0, awaitingFeedback = 0;
+    let urgent = 0, total = 0, upcomingDate = null;
+    for (let taskId in tasks) {
+        let task = tasks[taskId];
+        total++;
+        switch (task.condition) {
+            case "ToDo": todo++; break;
+            case "done": done++; break;
+            case "inProgress": inProgress++; break;
+            case "feedback": awaitingFeedback++; break;
+        }
+        if (task.priority === "urgent") urgent++;
+        let taskDate = new Date(task.date);
+        if (taskDate > new Date() &amp;&amp; (!upcomingDate || taskDate &lt; new Date(upcomingDate))) {
+            upcomingDate = task.date;
+        }
+    }
+    return { todo, done, inProgress, awaitingFeedback, urgent, total, upcomingDate };
+}
+
+/**
+ * Formats ISO date string to readable format.
+ * @param {string} dateString
+ * @returns {string}
+ */
+function formatDate(dateString) {
+    let date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+}
+
+/**
+ * Handles metric tile click and visual feedback.
+ * @param {string} url
+ * @param {HTMLElement} element
+ */
+function navigateTo(url, element) {
+    element.classList.add("clicked");
+    setTimeout(() => {
+        window.location.href = url;
+    }, 80);
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#computeTaskMetrics">computeTaskMetrics</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getGreetingPhrase">getGreetingPhrase</a></li><li><a href="global.html#initGreeting">initGreeting</a></li><li><a href="global.html#initGreetingRepeat">initGreetingRepeat</a></li><li><a href="global.html#loadSummaryData">loadSummaryData</a></li><li><a href="global.html#navigateTo">navigateTo</a></li><li><a href="global.html#setGreetingText">setGreetingText</a></li><li><a href="global.html#showGreetingWithTransition">showGreetingWithTransition</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun May 11 2025 09:25:07 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
