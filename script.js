@@ -19,6 +19,7 @@ async function init(page) {
     }
 }
 
+
 /**
  * Checks the login status stored in localStorage.
  * If the user is not logged in, redirects them to the index (login) page.
@@ -34,6 +35,7 @@ function isUserLoged() {
 }
 }
 
+
 /**
  * Logs the user out by resetting the login and layout information in localStorage.
  * Redirects to the index (login) page afterwards.
@@ -46,6 +48,7 @@ function logOut() {
     localStorage.removeItem("username");
     window.location.href = "../index.html";
 }
+
 
 /**
  * Loads an external HTML file and injects it into a specified container element on the page.
@@ -61,6 +64,7 @@ async function loadHTML(file, elementId) {
     let container = document.getElementById(elementId);
     if (container) container.innerHTML = html;
 }
+
 
 /**
  * Highlights the currently active page by adding an "active-menu" class
@@ -79,6 +83,7 @@ function activePageHiglight(page) {
     if (current) current.classList.add("active-menu");
 }
 
+
 /**
  * Toggles the burger menu open/close with fade animation.
  */
@@ -86,6 +91,7 @@ function burgerMenuSliding() {
     let menu = document.getElementById("burger_menu");
     menu.classList.toggle("visible");
 }
+
 
 /**
  * Closes the burger menu when clicking outside of it.
@@ -105,6 +111,7 @@ document.addEventListener("click", function (event) {
     }
 });
 
+
 /**
  * Stores the layout type (internal or external) in localStorage
  * and redirects the user to a given URL.
@@ -118,6 +125,7 @@ function setLayoutAndRedirect(layout, url) {
     localStorage.setItem('layout', layout);
     window.location.href = url;
 }
+
 
 /**
  * Loads the internal header and navbar for authenticated users.
@@ -137,6 +145,7 @@ async function loadHeaderNavbarIntern() {
 
 }
 
+
 /**
  * Loads the external header and navbar for guest (unauthenticated) users.
  *
@@ -149,6 +158,7 @@ async function loadHeaderNavbarExtern() {
         loadHTML("/html/navbar_extern.html", "navbar-section")
     ]);
 }
+
 
 /**
  * Adds the 'active-menu' class to the correct navigation item
@@ -168,6 +178,7 @@ function markLegalPrivacyActiveLink() {
     }
 }
 
+
 /**
  * Accepts cookies, stores the acceptance timestamp in localStorage,
  * hides the cookie banner, and enables the login buttons.
@@ -181,6 +192,7 @@ function acceptCookies() {
     enableLogin();
     enableLoginButtons();
 }
+
 
 /**
  * Validates whether the user's cookie acceptance is still valid
@@ -198,6 +210,7 @@ function cookiesStillValid() {
     return now - acceptedAt < oneYear;
 }
 
+
 /**
  * Makes the login area visible.
  *
@@ -207,6 +220,7 @@ function enableLogin() {
     let loginArea = document.getElementById("loginArea");
     if (loginArea) loginArea.classList.remove("d-none");
 }
+
 
 /**
  * Disables both the standard login and guest login buttons.
@@ -220,6 +234,7 @@ function disableLoginButtons() {
     if (guestBtn) guestBtn.disabled = true;
 }
 
+
 /**
  * Enables both the standard login and guest login buttons.
  *
@@ -231,6 +246,7 @@ function enableLoginButtons() {
     if (logInBtn) logInBtn.disabled = false;
     if (guestBtn) guestBtn.disabled = false;
 }
+
 
 /**
  * Runs once the DOM has fully loaded.
@@ -248,6 +264,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         checkOrientation();
     });
 
+
 /**
  * Loads the rotate warning overlay into the DOM.
  *
@@ -257,6 +274,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 async function loadRotateWarning() {
     await loadHTML("/html/rotate_warning.html", "rotate-warning-placeholder");
 }
+
 
 /**
  * Initializes the layout based on login status and current page.
@@ -280,28 +298,19 @@ async function initLayout() {
 
 
 /**
- * Handles cookie banner logic and login button availability.
- *
- * @function initCookies
+ * Handles cookie banner visibility and login button state.
  */
 function initCookies() {
-    let stillValid = cookiesStillValid();
-    let banner = document.getElementById("cookieBanner");
-    let loginArea = document.getElementById("loginArea");
-    if (!stillValid) {
-        if (banner) banner.classList.remove("d-none");
-        if (loginArea) loginArea.classList.remove("d-none");
-        disableLoginButtons();
-    } else {
-        if (banner) banner.classList.add("d-none");
-        if (loginArea) loginArea.classList.remove("d-none");
-        enableLoginButtons();
-    }
-    let acceptBtn = document.getElementById("acceptCookiesBtn");
-    if (acceptBtn) {
-        acceptBtn.addEventListener("click", acceptCookies);
-    }
+    const stillValid = cookiesStillValid();
+    const banner = document.getElementById("cookieBanner");
+    const loginArea = document.getElementById("loginArea");
+    const acceptBtn = document.getElementById("acceptCookiesBtn");
+    banner?.classList.toggle("d-none", stillValid);
+    loginArea?.classList.remove("d-none");
+    stillValid ? enableLoginButtons() : disableLoginButtons();
+    acceptBtn?.addEventListener("click", acceptCookies);
 }
+
 
 /**
  * Attaches functionality to the back arrow to go to previous page.
@@ -337,6 +346,7 @@ window.addEventListener("load", checkOrientation);
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("orientationchange", checkOrientation);
 
+
 /**
  * Displays the full-screen loading spinner overlay.
  *
@@ -346,6 +356,7 @@ function spinningLoaderStart() {
     let spinner = document.getElementById('spinnerOverLay');
     spinner.classList.remove('d-none');
 }
+
 
 /**
  * Hides the full-screen loading spinner overlay.
@@ -398,6 +409,7 @@ function inputValidations() {
     };
 }
 
+
 /**
  * Validates the input value based on its ID and updates the label style accordingly.
  * Removes the error class and adds a success class if validation passes.
@@ -420,6 +432,7 @@ function correctedInput(labelID, inputID) {
         }
     }
 }
+
 
 /**
  * Determines the validation type (e.g., username, email, etc.) based on the input ID.
@@ -444,6 +457,7 @@ function validationType(inputID) {
 
     return validationType;
 }
+
 
 /**
  * Removes the success styling from a label, used to reset the state after input was corrected.

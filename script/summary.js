@@ -6,6 +6,7 @@ let isLogin = urlParams.get("login") === "true";
 // Firebase endpoint for retrieving task data
 let FIREBASE_URL = "https://join-4215a-default-rtdb.europe-west1.firebasedatabase.app/join/tasks.json";
 
+
 /**
  * Returns the appropriate greeting phrase based on the current time.
  * @returns {string} - Greeting phrase
@@ -18,6 +19,7 @@ function getGreetingPhrase() {
             (hour < 21.5) ? "Good evening" :
                 "Good night";
 }
+
 
 /**
  * Sets the greeting text dynamically based on login state and user name.
@@ -33,67 +35,60 @@ function setGreetingText(element, name) {
 }
 
 /**
- * Initializes the greeting logic on page load.
- * Shows animated greeting only once after login on mobile.
+ * Initializes greeting logic on page load.
+ * Triggers animated greeting once after login on mobile view.
  */
 function initGreeting() {
-    let greetingContainer = document.querySelector(".greeting");
+    let greeting = document.querySelector(".greeting");
     let greetingText = document.querySelector(".greeting-text");
     let grid = document.querySelector(".metrics-grid");
     let header = document.querySelector(".dashboard-header");
     let dashboard = document.querySelector(".dashboard-container");
-
-
-    if (!greetingContainer || !greetingText || !grid || !header) return;
-
+    if (!greeting || !greetingText || !grid || !header || !dashboard) return;
     setGreetingText(greetingText, greetsName);
-
     if (isLogin && window.innerWidth <= 990) {
         showGreetingWithTransition();
         urlParams.delete("login");
         window.history.replaceState({}, document.title, `?${urlParams}`);
     } else {
-        grid.classList.remove("hidden");
-        header.classList.remove("hidden");
-        dashboard.classList.remove("hidden");
+        [grid, header, dashboard].forEach(el => el.classList.remove("hidden"));
         loadSummaryData();
-
     }
 }
 
 
 /**
- * Shows the greeting with animation and fades it out automatically.
+ * Displays the greeting with transition and starts hiding logic.
  */
 function showGreetingWithTransition() {
     let greeting = document.querySelector(".greeting");
     let grid = document.querySelector(".metrics-grid");
     let header = document.querySelector(".dashboard-header");
     let dashboard = document.querySelector(".dashboard-container");
-
     if (!greeting || !grid || !header || !dashboard) return;
-
+    [grid, header, dashboard].forEach(el => el.classList.add("hidden"));
     greeting.style.display = "flex";
     greeting.classList.add("animate-in");
+    setGreetingHideTimeout(greeting, [grid, header, dashboard]);
+}
 
-    grid.classList.add("hidden");
-    header.classList.add("hidden");
-    dashboard.classList.add("hidden");
 
+/**
+ * Starts timeout to hide the greeting and show other elements.
+ * 
+ * @param {HTMLElement} greeting - The greeting element.
+ * @param {HTMLElement[]} toShow - Elements to show again after hiding greeting.
+ */
+function setGreetingHideTimeout(greeting, toShow) {
     setTimeout(() => {
-        greeting.classList.remove("animate-in");
-        greeting.classList.add("animate-out");
-
+        greeting.classList.replace("animate-in", "animate-out");
         setTimeout(() => {
             greeting.style.display = "none";
             greeting.classList.remove("animate-out");
-
-            grid.classList.remove("hidden");
-            header.classList.remove("hidden");
-            dashboard.classList.remove("hidden");
-
+            toShow.forEach(el => el.classList.remove("hidden"));
             loadSummaryData();
         }, 400);
+
     }, 2000);
 }
 
@@ -105,6 +100,7 @@ function initGreetingRepeat() {
     let greetingRepeatText = document.querySelector(".greeting-text-repeat");
     setGreetingText(greetingRepeatText, greetsName);
 }
+
 
 /**
  * Fetches task data from Firebase and updates summary metrics in the DOM.
@@ -129,6 +125,7 @@ async function loadSummaryData() {
         console.error("Error loading Firebase tasks:", err);
     }
 }
+
 
 /**
  * Calculates task summary metrics from the given tasks.
@@ -157,6 +154,7 @@ function computeTaskMetrics(tasks) {
     return { todo, done, inProgress, awaitingFeedback, urgent, total, upcomingDate };
 }
 
+
 /**
  * Formats ISO date string to readable format.
  * @param {string} dateString
@@ -170,6 +168,7 @@ function formatDate(dateString) {
         day: "numeric"
     });
 }
+
 
 /**
  * Handles metric tile click and visual feedback.
