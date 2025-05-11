@@ -318,31 +318,6 @@ async function clearOverlay() {
 
 
 /**
- * Renders a single edited task into the correct column in the board view.
- * 
- * @param {number} taskIndex - Index of the task to render.
- */
-function renderSingleTaskInToColumn(taskIndex) {
-    selectConditionForSingleTask(taskIndex);
-    renderAssignedTo(taskIndex);
-    renderSubtasks(taskIndex);
-    renderPrio(taskIndex);
-    renderCategoryColor(taskIndex);
-}
-
-
-/**
- * Selects the correct column for a task and sets its HTML content.
- * 
- * @param {number} taskIndex - Index of the task.
- */
-function selectConditionForSingleTask(taskIndex) {
-    const taskRef = document.getElementById(`task_index_${taskIndex}`);
-    taskRef.innerHTML = getSingleTaskAfterEdit(taskIndex);
-}
-
-
-/**
  * Handles checking or unchecking a subtask and updating the progress bar.
  * 
  * @param {number} indexSubtask - Subtask index.
@@ -417,4 +392,3 @@ function datepicker() {
         }
     });
 }
-
