@@ -129,6 +129,7 @@ async function loadSummaryData() {
     }
 }
 
+
 /**
  * Calculates task summary metrics from the given tasks.
  * 
@@ -141,7 +142,6 @@ function computeTaskMetrics(tasks) {
     for (let taskId in tasks) {
         const task = tasks[taskId];
         total++;
-
         switch (task.condition) {
             case "ToDo": todo++; break;
             case "done": done++; break;
